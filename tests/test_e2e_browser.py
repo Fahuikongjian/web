@@ -232,7 +232,7 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         cover = page.locator(".home-cover")
         artwork = page.locator(".home-cover-artwork")
         header = page.locator(".site-header")
-        content = page.locator(".hero-grid")
+        content = page.locator(".hero-content")
         actions = page.locator(".hero-actions")
         original_bounds = artwork.bounding_box()
         initial_content_y = content.bounding_box()["y"]
@@ -286,7 +286,7 @@ def test_home_cover_wheel_progress_stays_where_paused(browser: Browser, static_s
     page = browser.new_page(viewport={"width": 1440, "height": 900})
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
-        content = page.locator(".hero-grid")
+        content = page.locator(".hero-content")
         original_y = content.bounding_box()["y"]
         travel = page.evaluate(
             """() => document.querySelector('.home-opening').offsetHeight
@@ -318,7 +318,7 @@ def test_home_cover_touch_stops_at_a_partial_reveal(browser: Browser, static_ser
 
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
-        content = page.locator(".hero-grid")
+        content = page.locator(".hero-content")
         original_y = content.bounding_box()["y"]
         dispatch("touchStart", 610)
         for y in (525, 440, 355):
@@ -444,41 +444,31 @@ def test_theme_toggle_and_persistence(browser: Browser, static_server: str) -> N
         context.close()
 
 
-def test_vinyl_stage_toggle_and_astra_assets(browser: Browser, static_server: str) -> None:
+def test_home_cover_loads_and_opens_to_text(browser: Browser, static_server: str) -> None:
     context = browser.new_context(viewport={"width": 1440, "height": 900})
     page = context.new_page()
     records = _attach_error_collectors(page)
     try:
-        page.goto(f"{static_server}/", wait_until="networkidle")
+        with page.expect_response("**/static/images/starloop-cover.jpg") as cover_response:
+            page.goto(f"{static_server}/", wait_until="networkidle")
+        assert cover_response.value.ok
+        artwork = page.locator(".home-cover-artwork")
+        assert "/static/images/starloop-cover.jpg" in artwork.evaluate(
+            "el => getComputedStyle(el).backgroundImage"
+        )
         _open_home_cover(page)
-        hero_img = page.locator('img[src="/static/images/starloop-cover.jpg"]')
-        assert hero_img.count() == 1 and hero_img.is_visible()
-        assert hero_img.evaluate("img => img.complete && img.naturalWidth > 0")
-
-        stage = page.locator("[data-vinyl-stage]")
-        toggle = page.locator("[data-vinyl-toggle]")
-        label = page.locator("[data-vinyl-toggle-label]")
-        assert stage.is_visible() and toggle.is_visible()
-        assert "is-paused" not in (stage.get_attribute("class") or "")
-        assert toggle.get_attribute("aria-pressed") == "false"
-        assert label.inner_text().strip() == "旋转中"
-
-        toggle.click()
-        assert "is-paused" in (stage.get_attribute("class") or "")
-        assert toggle.get_attribute("aria-pressed") == "true"
-        assert label.inner_text().strip() == "已暂停"
-
-        toggle.click()
-        assert "is-paused" not in (stage.get_attribute("class") or "")
-        assert toggle.get_attribute("aria-pressed") == "false"
-        assert label.inner_text().strip() == "旋转中"
+        intro = page.locator("#home-intro")
+        assert intro.get_by_role("heading", level=1).is_visible()
+        assert intro.locator("img, [data-vinyl-stage]").count() == 0
+        article_link = intro.get_by_role("link", name="浏览全部文章")
+        assert article_link.is_visible() and article_link.get_attribute("href") == "/articles/"
 
         page.goto(f"{static_server}/about/", wait_until="networkidle")
         portrait_img = page.locator('.about-portrait-frame img[src="/static/images/astra-portrait.jpg"]')
         assert portrait_img.count() == 1 and portrait_img.is_visible()
         assert portrait_img.evaluate("img => img.complete && img.naturalWidth > 0")
 
-        _assert_clean_page(records, "vinyl-and-astra-assets")
+        _assert_clean_page(records, "home-cover-and-intro")
     finally:
         context.close()
 
@@ -722,16 +712,16 @@ def test_github_pages_subpath_deployment(browser: Browser, tmp_path: Path) -> No
                 direct_opener.open(f"{base_url}{unprefixed}", timeout=5)
             assert exc_info.value.code == 404, f"{unprefixed} expected 404, got {exc_info.value.code}"
 
-        resp_home = page.goto(f"{base_url}/astrayao-blog/", wait_until="networkidle")
+        with page.expect_response("**/astrayao-blog/static/images/starloop-cover.jpg") as cover_response:
+            resp_home = page.goto(f"{base_url}/astrayao-blog/", wait_until="networkidle")
+        assert cover_response.value.ok
         assert resp_home is not None and resp_home.status == 200
         assert (
             page.locator('meta[name="site-base-path"]').get_attribute("content")
             == "/astrayao-blog"
         )
         _open_home_cover(page)
-        hero_img = page.locator('img[src="/astrayao-blog/static/images/starloop-cover.jpg"]')
-        assert hero_img.count() == 1 and hero_img.is_visible()
-        assert hero_img.evaluate("img => img.complete && img.naturalWidth > 0")
+        assert page.locator("#home-intro-title").is_visible()
 
         # Ctrl+K search and click jump into /astrayao-blog/articles/...
         page.keyboard.press("Control+k")

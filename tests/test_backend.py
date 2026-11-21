@@ -392,7 +392,7 @@ def test_github_pages_subpath_and_cname_build(tmp_path: Path) -> None:
     assert '<meta name="site-base-path" content="/astrayao-blog">' in home_html
     assert 'href="/astrayao-blog/static/css/tokens.css"' in home_html
     assert 'src="/astrayao-blog/static/js/search.js"' in home_html
-    assert 'src="/astrayao-blog/static/images/starloop-cover.jpg"' in home_html
+    assert 'rel="preload" as="image" href="/astrayao-blog/static/images/starloop-cover.jpg"' in home_html
     assert 'href="/astrayao-blog/articles/"' in home_html
     assert 'href="https://example.github.io/astrayao-blog/"' in home_html
     assert "/astrayao-blog/astrayao-blog/" not in home_html

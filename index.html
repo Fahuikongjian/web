@@ -24,7 +24,8 @@
   <link rel="stylesheet" href="/static/css/base.css">
   <link rel="stylesheet" href="/static/css/components.css">
   <link rel="stylesheet" href="/static/css/prose.css">
-  <link rel="stylesheet" href="/static/css/home-cover.css?v=5">
+  <link rel="stylesheet" href="/static/css/home-cover.css?v=6">
+  <link rel="preload" as="image" href="/static/images/starloop-cover.jpg" fetchpriority="high">
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳至正文内容</a>
@@ -116,62 +117,23 @@
     </div>
 
     <section class="hero-section" id="home-intro" tabindex="-1" aria-labelledby="home-intro-title">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <div class="hero-eyebrow">STARS OF LYRA · STARLOOP EDITION · ASTRAYAO</div>
-          <h1 class="hero-title" id="home-intro-title">在星环聚光灯下，谱写长久在线的数字唱片。</h1>
-          <p class="hero-subtitle">以《绝区零》天琴座歌姬耀嘉音（Astra Yao）的复古红黑金美学为灵感——记录前端视觉、中文排版、零依赖静态架构与个人服务器上线手记。</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="/articles/">浏览全部文章</a>
-            <a class="btn btn-secondary" href="/about/">关于与建造说明</a>
-          </div>
-          <div class="hero-status-row">
-            <div class="now-badge">
-              <span class="now-dot" aria-hidden="true"></span>
-              <span><strong>Now</strong> · ON AIR · 正在上海打磨 astrayao 个人站，首发托管于 GitHub Pages</span>
-            </div>
-            <div class="hero-stats">
-              <span>5 篇文章</span>
-              <span aria-hidden="true">·</span>
-              <span>20 个主题</span>
-            </div>
-          </div>
+      <div class="container hero-content">
+        <div class="hero-eyebrow">STARS OF LYRA · STARLOOP EDITION · ASTRAYAO</div>
+        <h1 class="hero-title" id="home-intro-title">在星环聚光灯下，谱写长久在线的数字唱片。</h1>
+        <p class="hero-subtitle">以《绝区零》天琴座歌姬耀嘉音（Astra Yao）的复古红黑金美学为灵感——记录前端视觉、中文排版、零依赖静态架构与个人服务器上线手记。</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/articles/">浏览全部文章</a>
+          <a class="btn btn-secondary" href="/about/">关于与建造说明</a>
         </div>
-
-        <div class="hero-visual">
-          <div class="hero-vinyl-stage" data-vinyl-stage>
-            <div class="vinyl-stage-display">
-              <div class="vinyl-disc" aria-hidden="true">
-                <div class="vinyl-disc-label">
-                  <span class="vinyl-label-ring"></span>
-                  <span class="vinyl-label-spindle"></span>
-                </div>
-              </div>
-
-              <figure class="vinyl-sleeve">
-                <span class="sleeve-corner sleeve-corner--tl" aria-hidden="true">✦</span>
-                <span class="sleeve-corner sleeve-corner--tr" aria-hidden="true">✦</span>
-                <span class="sleeve-corner sleeve-corner--bl" aria-hidden="true">✦</span>
-                <span class="sleeve-corner sleeve-corner--br" aria-hidden="true">✦</span>
-                <img class="vinyl-cover-img" src="/static/images/starloop-cover.jpg" alt="绯红舞台光与金色星轨环绕的黑胶唱片" width="1120" height="1400" fetchpriority="high">
-              </figure>
-            </div>
-
-            <div class="vinyl-control-bar">
-              <div class="hero-art-caption">
-                <span class="eq-bars" aria-hidden="true">
-                  <span class="eq-bar"></span>
-                  <span class="eq-bar"></span>
-                  <span class="eq-bar"></span>
-                  <span class="eq-bar"></span>
-                </span>
-                <span>STARS OF LYRA · SIDE A · 33⅓ RPM</span>
-              </div>
-              <button type="button" class="vinyl-toggle" data-vinyl-toggle aria-pressed="false" aria-label="暂停或继续黑胶唱片旋转">
-                <span class="vinyl-toggle-dot" aria-hidden="true"></span>
-                <span data-vinyl-toggle-label>旋转中</span>
-              </button>
-            </div>
+        <div class="hero-status-row">
+          <div class="now-badge">
+            <span class="now-dot" aria-hidden="true"></span>
+            <span><strong>Now</strong> · ON AIR · 正在上海打磨 astrayao 个人站，首发托管于 GitHub Pages</span>
+          </div>
+          <div class="hero-stats">
+            <span>5 篇文章</span>
+            <span aria-hidden="true">·</span>
+            <span>20 个主题</span>
           </div>
         </div>
       </div>
@@ -552,6 +514,6 @@
   <script src="/static/js/theme.js" defer></script>
   <script src="/static/js/search.js" defer></script>
   <script src="/static/js/main.js" defer></script>
-  <script src="/static/js/home-cover.js?v=5" defer></script>
+  <script src="/static/js/home-cover.js?v=6" defer></script>
 </body>
 </html>

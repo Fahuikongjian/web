@@ -11,9 +11,9 @@
 | --- | --- |
 | `static/css/tokens.css` | 默认暗色（Starloop Night）与日间（Ivory Collector's Edition）色彩令牌、离线字体栈与标尺 |
 | `static/css/base.css` | 盒模型复位、无障碍焦点环、Skip Link、容器尺寸与 `prefers-reduced-motion` 保护 |
-| `static/css/components.css` | 粘性顶栏、舞台聚光 Hero、典藏黑胶唱片展台 `.hero-vinyl-stage`、唱片曲目行、搜索弹窗、TOC 与响应式断点 |
+| `static/css/components.css` | 粘性顶栏、首页标题与介绍、唱片曲目行、搜索弹窗、TOC 与响应式断点 |
 | `static/css/prose.css` | `.prose` 长文排版、红金阅读进度条、代码块与丝绒/象牙双主题 Pygments 高亮、表格与脚注 |
-| `static/images/starloop-cover.jpg` | **首页抽象封面（1120×1400, 4:5）**：绯红舞台光、金色星轨与黑胶纹理，复用于全屏开场和黑胶唱片展台 |
+| `static/images/starloop-cover.jpg` | **首页抽象封面（1120×1400, 4:5）**：由绯红舞台光、金色星轨与黑胶纹理组成，用于首页全屏开场 |
 | `static/images/astra-portrait.jpg` | **定制保留资产（640×640, 1:1）**：关于页天琴座黑胶×金色五线谱×话筒徽章图（任何人不得覆盖或删除） |
 | `static/images/favicon.svg` | 黑曜金边黑胶唱片与四角星芒站点图标（64×64） |
 | `static/images/author-mark.svg` | 黑曜石 × 炽红 × 香槟金天琴座黑胶徽章备份矢量图（160×160） |
@@ -59,54 +59,10 @@ CSS 引入顺序严格保持：`tokens.css` → `base.css` → `components.css` 
 - `templates/base.html` 内联脚本与 `static/js/theme.js`：**当 `localStorage.getItem('blog-theme')` 为空时，默认主题设为 `'dark'`**（Starloop Night），支持 `'dark'` ↔ `'light'` 双向切换与持久化。
 - `.theme-toggle[data-theme-toggle]` 内置 `.icon-sun` 与 `.icon-moon`，CSS 根据 `[data-theme="dark"]` 自动显隐，零闪烁。
 
-### 4.2 首页典藏黑胶唱片展台（`templates/home.html`）
+### 4.2 首页全屏封面与站点介绍（`templates/home.html`）
 
-Hero 区右侧 `.hero-visual` 内部使用以下结构：
-
-```html
-<div class="hero-visual">
-  <div class="hero-vinyl-stage" data-vinyl-stage>
-    <div class="vinyl-stage-display">
-      <div class="vinyl-disc" aria-hidden="true">
-        <div class="vinyl-disc-label">
-          <span class="vinyl-label-ring"></span>
-          <span class="vinyl-label-spindle"></span>
-        </div>
-      </div>
-
-      <figure class="vinyl-sleeve">
-        <span class="sleeve-corner sleeve-corner--tl" aria-hidden="true">✦</span>
-        <span class="sleeve-corner sleeve-corner--tr" aria-hidden="true">✦</span>
-        <span class="sleeve-corner sleeve-corner--bl" aria-hidden="true">✦</span>
-        <span class="sleeve-corner sleeve-corner--br" aria-hidden="true">✦</span>
-        <img class="vinyl-cover-img" src="/static/images/starloop-cover.jpg" alt="绯红舞台光与金色星轨环绕的黑胶唱片" width="1120" height="1400">
-      </figure>
-    </div>
-
-    <div class="vinyl-control-bar">
-      <div class="hero-art-caption">
-        <span class="eq-bars" aria-hidden="true">
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-          <span class="eq-bar"></span>
-        </span>
-        <span>STARS OF LYRA · SIDE A · 33⅓ RPM</span>
-      </div>
-      <button type="button" class="vinyl-toggle" data-vinyl-toggle aria-pressed="false" aria-label="暂停或继续黑胶唱片旋转">
-        <span class="vinyl-toggle-dot" aria-hidden="true"></span>
-        <span data-vinyl-toggle-label>旋转中</span>
-      </button>
-    </div>
-  </div>
-</div>
-```
-
-- **交互状态契约**：
-  - 点击 `[data-vinyl-toggle]` 时切换 `[data-vinyl-stage]` 的 `.is-paused` 类。
-  - 运行态（默认）：无 `.is-paused`、按钮 `aria-pressed="false"`、文案 `"旋转中"`（唱片 18s 匀速旋转 + 4 柱 `.eq-bars` 律动）。
-  - 暂停态：添加 `.is-paused`、按钮 `aria-pressed="true"`、文案 `"已暂停"`（动画立即 `paused`）。
-- **防溢出保障**：`.hero-section` 与 `body` 均启用 `overflow-x: clip`，`.vinyl-stage-display` 通过右侧内边距收束露出的 `.vinyl-disc`（`<= 960px` 缩至 `2.5rem`，`<= 640px` 缩至 `1.5rem`），确保 `390×844` 移动端零横向溢出。
+- `.home-cover` 使用抽象黑胶封面与渐变遮罩，随滚动由下往上淡出。
+- `.hero-content` 采用居中的单栏版式，标题、介绍、入口和状态信息随滚动从下方升起。
 
 ### 4.3 关于页天琴座徽章框（`templates/about.html`）
 

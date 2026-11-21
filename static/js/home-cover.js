@@ -6,7 +6,7 @@
 
   var stage = opening.querySelector('.home-opening-stage');
   var intro = opening.querySelector('#home-intro');
-  var content = opening.querySelector('.hero-grid');
+  var content = opening.querySelector('.hero-content');
   var enter = opening.querySelector('.home-cover-enter');
   var header = document.querySelector('.site-header');
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');

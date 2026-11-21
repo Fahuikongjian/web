@@ -41,30 +41,6 @@
     });
   }
 
-  function initVinylStage() {
-    var stage = document.querySelector('[data-vinyl-stage]');
-    var toggleBtn = document.querySelector('[data-vinyl-toggle]');
-    if (!stage || !toggleBtn) return;
-
-    var labelEl = toggleBtn.querySelector('[data-vinyl-toggle-label]');
-
-    function syncState(isPaused) {
-      stage.classList.toggle('is-paused', isPaused);
-      toggleBtn.setAttribute('aria-pressed', isPaused ? 'true' : 'false');
-      toggleBtn.setAttribute('aria-label', isPaused ? '继续黑胶唱片旋转' : '暂停黑胶唱片旋转');
-      if (labelEl) {
-        labelEl.textContent = isPaused ? '已暂停' : '旋转中';
-      }
-    }
-
-    syncState(stage.classList.contains('is-paused'));
-
-    toggleBtn.addEventListener('click', function () {
-      var nextPaused = !stage.classList.contains('is-paused');
-      syncState(nextPaused);
-    });
-  }
-
   function parseTagsCsv(raw) {
     if (!raw) return [];
     return raw
@@ -153,7 +129,6 @@
 
   function initMain() {
     initMobileDrawer();
-    initVinylStage();
     initArticleTagFilter();
   }
 

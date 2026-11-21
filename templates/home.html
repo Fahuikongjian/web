@@ -19,62 +19,23 @@
     </div>
 
     <section class="hero-section" id="home-intro" tabindex="-1" aria-labelledby="home-intro-title">
-      <div class="container hero-grid">
-        <div class="hero-content">
-          <div class="hero-eyebrow">{{hero_eyebrow}}</div>
-          <h1 class="hero-title" id="home-intro-title">{{hero_title}}</h1>
-          <p class="hero-subtitle">{{hero_subtitle}}</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="/articles/">浏览全部文章</a>
-            <a class="btn btn-secondary" href="/about/">关于与建造说明</a>
-          </div>
-          <div class="hero-status-row">
-            <div class="now-badge">
-              <span class="now-dot" aria-hidden="true"></span>
-              <span><strong>Now</strong> · {{now_status}}</span>
-            </div>
-            <div class="hero-stats">
-              <span>{{post_count}} 篇文章</span>
-              <span aria-hidden="true">·</span>
-              <span>{{tag_count}} 个主题</span>
-            </div>
-          </div>
+      <div class="container hero-content">
+        <div class="hero-eyebrow">{{hero_eyebrow}}</div>
+        <h1 class="hero-title" id="home-intro-title">{{hero_title}}</h1>
+        <p class="hero-subtitle">{{hero_subtitle}}</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/articles/">浏览全部文章</a>
+          <a class="btn btn-secondary" href="/about/">关于与建造说明</a>
         </div>
-
-        <div class="hero-visual">
-          <div class="hero-vinyl-stage" data-vinyl-stage>
-            <div class="vinyl-stage-display">
-              <div class="vinyl-disc" aria-hidden="true">
-                <div class="vinyl-disc-label">
-                  <span class="vinyl-label-ring"></span>
-                  <span class="vinyl-label-spindle"></span>
-                </div>
-              </div>
-
-              <figure class="vinyl-sleeve">
-                <span class="sleeve-corner sleeve-corner--tl" aria-hidden="true">✦</span>
-                <span class="sleeve-corner sleeve-corner--tr" aria-hidden="true">✦</span>
-                <span class="sleeve-corner sleeve-corner--bl" aria-hidden="true">✦</span>
-                <span class="sleeve-corner sleeve-corner--br" aria-hidden="true">✦</span>
-                <img class="vinyl-cover-img" src="/static/images/starloop-cover.jpg" alt="绯红舞台光与金色星轨环绕的黑胶唱片" width="1120" height="1400" fetchpriority="high">
-              </figure>
-            </div>
-
-            <div class="vinyl-control-bar">
-              <div class="hero-art-caption">
-                <span class="eq-bars" aria-hidden="true">
-                  <span class="eq-bar"></span>
-                  <span class="eq-bar"></span>
-                  <span class="eq-bar"></span>
-                  <span class="eq-bar"></span>
-                </span>
-                <span>STARS OF LYRA · SIDE A · 33⅓ RPM</span>
-              </div>
-              <button type="button" class="vinyl-toggle" data-vinyl-toggle aria-pressed="false" aria-label="暂停或继续黑胶唱片旋转">
-                <span class="vinyl-toggle-dot" aria-hidden="true"></span>
-                <span data-vinyl-toggle-label>旋转中</span>
-              </button>
-            </div>
+        <div class="hero-status-row">
+          <div class="now-badge">
+            <span class="now-dot" aria-hidden="true"></span>
+            <span><strong>Now</strong> · {{now_status}}</span>
+          </div>
+          <div class="hero-stats">
+            <span>{{post_count}} 篇文章</span>
+            <span aria-hidden="true">·</span>
+            <span>{{tag_count}} 个主题</span>
           </div>
         </div>
       </div>

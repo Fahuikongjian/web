@@ -224,7 +224,7 @@ draft: false
 
 #### `templates/home.html`
 - `{{hero_eyebrow}}`, `{{hero_title}}`, `{{hero_subtitle}}`, `{{now_status}}`, `{{post_count}}`, `{{tag_count}}`, `{{featured_post_html}}`, `{{recent_posts_html}}`, `{{featured_projects_html}}`, `{{top_tags_html}}`
-- `.hero-visual` 内展示 `/static/images/starloop-cover.jpg` 及旋转黑胶舞台 `[data-vinyl-stage]` + `[data-vinyl-toggle]`。
+- `.home-cover-artwork` 展示 `/static/images/starloop-cover.jpg`。`.hero-content` 包含滚动时从下方进入的标题、介绍与文章入口。
 
 #### `templates/articles.html`
 - `{{total_posts}}`, `{{tag_filters_html}}`, `{{articles_list_html}}`
@@ -246,7 +246,7 @@ draft: false
 
 ### 6.3 前端交互属性契约（Hooks）
 - **主题**：`[data-theme-toggle]`、`document.documentElement.dataset.theme` (`"dark"` 默认 | `"light"`)、`localStorage['blog-theme']`
-- **黑胶唱片舞台**：`[data-vinyl-stage]`、`[data-vinyl-toggle]`、暂停状态类 `.is-paused`、`aria-pressed`
+- **首页滚动**：`[data-home-opening]`、`#home-intro` 与 `--cover-progress`，由 `static/js/home-cover.js` 随原生滚动更新。
 - **搜索弹窗**：`[data-search-open]`、`[data-search-modal]`、`[data-search-input]`、`[data-search-results]`、`[data-search-close]`、选中态 `.search-result-item.is-selected`；`static/js/search.js` 读取 `meta[name="site-base-path"]` 构造 `INDEX_URL = basePath + '/api/search-index.json'`，并为结果条目的跳转 `href` 保证正确子路径前缀兜底。
 - **标签筛选**：`[data-filter-tag]`（含 `"all"`）、文章行 `[data-tags]`、URL `?tag=...`
 - **文章阅读**：`[data-reading-progress]`、`.toc-link.is-active`、`.code-copy-btn`

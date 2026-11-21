@@ -11,7 +11,7 @@
 ### 1.2 目标受众与核心价值
 - **目标读者**：软件工程师、前端与排版设计师、关注独立博客视觉辨识度与单机云主机运维的开发者。
 - **核心价值**：
-  1. **唱片期刊级的品牌辨识度**：首页全屏抽象封面由下往上淡出，露出典藏黑胶唱片展台（4:5 `starloop-cover.jpg` 封绘 + 旋转黑胶唱片 + 一键暂停/播放控制），关于页配备 1:1 天琴座黑胶星徽（`astra-portrait.jpg`），全站以黑曜丝绒、绯红聚光与香槟金发丝线统领。
+  1. **唱片期刊级的品牌辨识度**：首页以全屏抽象封面开场，随滚动露出站点介绍和文章入口。关于页配备 1:1 天琴座黑胶星徽（`astra-portrait.jpg`），全站以黑曜丝绒、绯红聚光与香槟金发丝线统领。
   2. **沉浸式中文长文阅读体验**：针对汉字视觉密度专门调校字体栈、行距、720px 栏宽、Pygments 语法高亮与右侧粘性文章目录（TOC）。
   3. **离线与国内极速访问**：100% 本地自包含字体栈、原生 JS 交互与本地插画/SVG 资产，无任何境外 CDN 阻断。
   4. **完全自主的内容与构建主权**：内容以纯文本 Markdown + JSON 存储在本地仓库，通过 Python 3.13 标准库构建为纯静态目录 `dist/`，可直接部署于阿里云华东 2（上海）ECS。
@@ -30,7 +30,7 @@
 
 | 路由路径 | 输出文件 | 页面职责与核心模块 |
 | --- | --- | --- |
-| `/` | `dist/index.html` | **首页**：品牌 Hero 定位、ON AIR 呼吸状态点、站点统计、右侧典藏黑胶唱片展台（`starloop-cover.jpg` + 可控旋转黑胶）、Featured Track 精选长文、Side A 近期文章索引行、Stage Works 精选项目、Liner Notes 热门标签入口 |
+| `/` | `dist/index.html` | **首页**：全屏抽象封面（`starloop-cover.jpg`）、站点介绍与文章入口、ON AIR 状态与站点统计、精选导读、近期文章、精选项目与主题索引 |
 | `/articles/` | `dist/articles/index.html` | **文章归档与筛选页**：全量文章按日期倒序陈列，顶部标签胶囊筛选栏（支持 `all` 与 URL `?tag=` 参数初始化自动筛选），实时显示匹配条数 |
 | `/articles/<slug>/` | `dist/articles/<slug>/index.html` | **文章详情页**：顶部红金渐变阅读进度条、文章元信息头（分类/日期/字数/阅读分钟数/标签）、星环主题 SVG 封面、居中正文排版区、右侧粘性 TOC、Pygments 高亮代码块及复制按钮、上下篇导航与相关文章推荐 |
 | `/projects/` | `dist/projects/index.html` | **精选项目页**：展示 `content/projects.json` 全部舞台作品与开源实验，含状态标识、年份、简介、技术栈标签与直达链接 |
@@ -52,9 +52,9 @@
 - **防闪烁机制（Anti-FOUC）**：`<head>` 内联脚本在首屏渲染前读取 `localStorage.getItem('blog-theme')`，未命中时默认写入 `'dark'` 至 `document.documentElement.dataset.theme`。
 - **交互控件**：点击 `[data-theme-toggle]` 立即切换 `'dark'` ↔ `'light'`、更新 `localStorage` 与按钮无障碍 `aria-label` 及图标态，刷新页面后状态持久化保持。
 
-### 3.2 典藏黑胶唱片展台交互（Vinyl Stage）
-- **视觉构成**：首页全屏展示由绯红舞台光、金色星轨与黑胶纹理组成的抽象封面（`/static/images/starloop-cover.jpg`）。滚动时，封面保持原有尺寸并自下而上淡出，唱片展台与文章入口同步从下方升起。滚动位置决定过渡进度，用户可以停在中途或反向滚动。控制条包含 4 柱律动 `.eq-bars`、`STARS OF LYRA · SIDE A · 33⅓ RPM` 铭文与控制按钮 `[data-vinyl-toggle]`。
-- **可控与无障碍**：点击 `[data-vinyl-toggle]` 为展台容器 `[data-vinyl-stage]` 切换 `.is-paused` 类名，同步停止黑胶旋转与律动柱动画，更新按钮文案（`"旋转中"` ↔ `"已暂停"`）与 `aria-pressed`；同时尊重操作系统 `prefers-reduced-motion: reduce`。
+### 3.2 首页封面与滚动过渡
+- **视觉构成**：全屏封面（`/static/images/starloop-cover.jpg`）由绯红舞台光、金色星轨与黑胶纹理组成。滚动时，封面保持原有尺寸并自下而上淡出，站点标题、介绍和文章入口同步从下方升起。过渡进度随滚动位置变化，支持中途停留和反向滚动。
+- **可控与无障碍**：点击「向下滑动」可直接到达站点介绍。系统开启 `prefers-reduced-motion: reduce` 时，封面与介绍按页面顺序展示。
 
 ### 3.3 Cmd / Ctrl + K 全局搜索弹窗
 - **唤醒方式**：点击导航栏搜索按钮 `[data-search-open]` 或按下键盘快捷键 `Ctrl+K` / `Cmd+K`。
