@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Obsidian Collector Tile -->
+  <rect width="64" height="64" rx="14" fill="#0D0A0C"/>
+  <rect x="4" y="4" width="56" height="56" rx="11" stroke="#DFB86B" stroke-opacity="0.45" stroke-width="1.2"/>
+  <!-- Vinyl Disc Silhouette -->
+  <circle cx="32" cy="32" r="22" fill="#181215" stroke="#DFB86B" stroke-width="1.4"/>
+  <circle cx="32" cy="32" r="17" stroke="#DFB86B" stroke-opacity="0.35" stroke-width="0.9"/>
+  <circle cx="32" cy="32" r="13" stroke="#FBF5EE" stroke-opacity="0.18" stroke-width="0.8"/>
+  <!-- Velvet Crimson Center Label -->
+  <circle cx="32" cy="32" r="9.5" fill="#C41E3A" stroke="#DFB86B" stroke-width="1.2"/>
+  <circle cx="32" cy="32" r="3" fill="#0D0A0C" stroke="#DFB86B" stroke-width="1"/>
+  <!-- Four-Pointed Lyra Star Glints -->
+  <path d="M50 11L51.5 14.5L55 16L51.5 17.5L50 21L48.5 17.5L45 16L48.5 14.5Z" fill="#DFB86B"/>
+  <path d="M14 45L14.9 47.1L17 48L14.9 48.9L14 51L13.1 48.9L11 48L13.1 47.1Z" fill="#E12D4B"/>
+</svg>

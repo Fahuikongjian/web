@@ -1,0 +1,24 @@
+<article class="featured-card">
+  <a class="featured-cover" href="{{url}}" tabindex="-1" aria-hidden="true">
+    <img src="{{cover}}" alt="" width="800" height="480" loading="eager">
+  </a>
+  <div class="featured-body">
+    <div>
+      <div class="featured-meta">
+        <span class="featured-badge">精选推荐 · FEATURED</span>
+        <span aria-hidden="true">·</span>
+        <span>{{category}}</span>
+        <span aria-hidden="true">·</span>
+        <time datetime="{{date}}">{{date}}</time>
+        <span aria-hidden="true">·</span>
+        <span>{{reading_time}} 分钟阅读</span>
+      </div>
+      <h3 class="featured-title"><a href="{{url}}">{{title}}</a></h3>
+      <p class="featured-summary">{{summary}}</p>
+    </div>
+    <div class="featured-footer">
+      <div class="tag-list">{{tags_html}}</div>
+      <a class="read-more-link" href="{{url}}">阅读全文 →</a>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,167 @@
+/* ==========================================================================
+   ASTRA YAO · 星环手记 — Design System Tokens
+   Aesthetic: Starloop Velvet & Vinyl (Dark Primary + Ivory Collector Light)
+   ========================================================================== */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Starloop Night — Surface & Velvet Palette (Primary Theme) */
+  --bg-paper: #0D0A0C;
+  --bg-card: #161114;
+  --bg-warm: #1F171B;
+  --bg-warm-hover: #291F24;
+  --bg-header: rgba(13, 10, 12, 0.86);
+  --bg-overlay: rgba(7, 5, 6, 0.76);
+  --bg-code: #120E10;
+  --bg-code-header: #1B1418;
+
+  /* Ink & Cream Typography Colors */
+  --ink-primary: #FBF5EE;
+  --ink-secondary: #C8B9B2;
+  --ink-muted: #8E7B75;
+  --ink-inverse: #0D0A0C;
+
+  /* Velvet Crimson Accent */
+  --accent: #E12D4B;
+  --accent-hover: #F24865;
+  --accent-soft: rgba(225, 45, 75, 0.16);
+  --accent-ring: rgba(225, 45, 75, 0.38);
+  --accent-ink: #FBF5EE;
+
+  /* Champagne Gold & Art Deco Hairlines */
+  --gold: #DFB86B;
+  --gold-text: #DFB86B;
+  --gold-soft: rgba(223, 184, 107, 0.14);
+  --gold-hairline: rgba(223, 184, 107, 0.24);
+  --border-hairline: rgba(223, 184, 107, 0.14);
+  --border-strong: rgba(223, 184, 107, 0.30);
+
+  /* Stage Spotlight Glows */
+  --glow-crimson: rgba(225, 45, 75, 0.15);
+  --glow-gold: rgba(223, 184, 107, 0.09);
+
+  /* Status Colors */
+  --status-live: #E12D4B;
+  --status-live-soft: rgba(225, 45, 75, 0.26);
+  --status-copied: #68C18B;
+  --status-copied-soft: rgba(104, 193, 139, 0.18);
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 8px 22px -4px rgba(0, 0, 0, 0.50);
+  --shadow-md: 0 16px 38px -8px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(223, 184, 107, 0.12);
+  --shadow-dialog: 0 28px 72px -12px rgba(0, 0, 0, 0.84), 0 0 0 1px rgba(223, 184, 107, 0.24);
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  /* Ivory Collector's Edition — Surface & Paper Palette */
+  --bg-paper: #FAF5F0;
+  --bg-card: #FFFFFF;
+  --bg-warm: #F2E9E1;
+  --bg-warm-hover: #E9DDD3;
+  --bg-header: rgba(250, 245, 240, 0.88);
+  --bg-overlay: rgba(27, 18, 22, 0.48);
+  --bg-code: #F6EFE9;
+  --bg-code-header: #EDE2D9;
+
+  /* Ink & Plum-Black Typography Colors */
+  --ink-primary: #1B1216;
+  --ink-secondary: #5D4B51;
+  --ink-muted: #8E7A80;
+  --ink-inverse: #FAF5F0;
+
+  /* Crimson Seal Accent */
+  --accent: #C41E3A;
+  --accent-hover: #9E162E;
+  --accent-soft: rgba(196, 30, 58, 0.09);
+  --accent-ring: rgba(196, 30, 58, 0.28);
+  --accent-ink: #FAF5F0;
+
+  /* Burnished Champagne Gold */
+  --gold: #A97E2C;
+  --gold-text: #855E16;
+  --gold-soft: rgba(169, 126, 44, 0.12);
+  --gold-hairline: rgba(169, 126, 44, 0.26);
+  --border-hairline: rgba(169, 126, 44, 0.20);
+  --border-strong: rgba(169, 126, 44, 0.38);
+
+  /* Stage Spotlight Glows */
+  --glow-crimson: rgba(196, 30, 58, 0.08);
+  --glow-gold: rgba(169, 126, 44, 0.09);
+
+  /* Status Colors */
+  --status-live: #C41E3A;
+  --status-live-soft: rgba(196, 30, 58, 0.20);
+  --status-copied: #2D7A4F;
+  --status-copied-soft: rgba(45, 122, 79, 0.14);
+
+  /* Shadows */
+  --shadow-xs: 0 1px 2px rgba(27, 18, 22, 0.05);
+  --shadow-sm: 0 6px 18px -4px rgba(27, 18, 22, 0.08), 0 1px 3px rgba(27, 18, 22, 0.04);
+  --shadow-md: 0 14px 32px -8px rgba(27, 18, 22, 0.12), 0 4px 10px -2px rgba(27, 18, 22, 0.05);
+  --shadow-dialog: 0 24px 64px -12px rgba(27, 18, 22, 0.26), 0 0 0 1px rgba(169, 126, 44, 0.24);
+}
+
+:root {
+  /* Offline Zero-CDN System Font Stacks */
+  --font-serif: "Songti SC", "Noto Serif SC", "Source Han Serif SC", "STSong", Georgia, serif;
+  --font-sans: "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: "JetBrains Mono", "Cascadia Code", Consolas, monospace;
+
+  /* Typographic Scale */
+  --text-xs: 0.75rem;      /* 12px */
+  --text-sm: 0.875rem;     /* 14px */
+  --text-base: 1rem;       /* 16px */
+  --text-prose: 1.0625rem; /* 17px */
+  --text-lg: 1.1875rem;    /* 19px */
+  --text-xl: 1.5rem;       /* 24px */
+  --text-2xl: 2rem;        /* 32px */
+  --text-display: clamp(2.125rem, 4.1vw, 3.2rem);
+
+  /* Line Heights */
+  --leading-tight: 1.24;
+  --leading-snug: 1.45;
+  --leading-normal: 1.65;
+  --leading-prose: 1.85;
+
+  /* Spacing Rhythm */
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.25rem;
+  --space-2xl: 3.5rem;
+  --space-3xl: 5rem;
+
+  /* Layout Geometry */
+  --container-max: 1140px;
+  --container-reading: 1120px;
+  --prose-max: 720px;
+  --toc-width: 224px;
+  --gutter: clamp(1.125rem, 4vw, 2.5rem);
+  --header-height: 64px;
+
+  /* Border Radii */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-fast: 150ms var(--ease-out);
+  --transition-base: 220ms var(--ease-out);
+
+  /* Z-index Scale */
+  --z-sticky: 20;
+  --z-header: 40;
+  --z-drawer: 60;
+  --z-progress: 70;
+  --z-modal: 100;
+}

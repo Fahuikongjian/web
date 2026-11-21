@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" fill="none">
+  <!-- Starloop Obsidian Vinyl Seal -->
+  <rect width="160" height="160" rx="8" fill="#0D0A0C"/>
+  <rect x="9" y="9" width="142" height="142" rx="4" stroke="#DFB86B" stroke-opacity="0.35" stroke-width="1"/>
+  <!-- Corner Star Ornaments -->
+  <path d="M20 15L21.3 18.7L25 20L21.3 21.3L20 25L18.7 21.3L15 20L18.7 18.7Z" fill="#DFB86B"/>
+  <path d="M140 135L141.3 138.7L145 140L141.3 141.3L140 145L138.7 141.3L135 140L138.7 138.7Z" fill="#DFB86B"/>
+
+  <!-- Subtle Radial Crimson Spotlight -->
+  <circle cx="80" cy="76" r="56" fill="#E12D4B" fill-opacity="0.12"/>
+  <!-- Vinyl Disc & Grooves -->
+  <circle cx="80" cy="76" r="48" fill="#171114" stroke="#DFB86B" stroke-width="1.5"/>
+  <circle cx="80" cy="76" r="40" stroke="#DFB86B" stroke-opacity="0.28" stroke-width="0.9"/>
+  <circle cx="80" cy="76" r="33" stroke="#FBF5EE" stroke-opacity="0.16" stroke-width="0.8"/>
+  <circle cx="80" cy="76" r="26" stroke="#DFB86B" stroke-opacity="0.28" stroke-width="0.9"/>
+
+  <!-- Lyre Harp & Staff Arcs -->
+  <path d="M62 28C57 42 61 56 69 64M98 28C103 42 99 56 91 64" stroke="#DFB86B" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M40 100C66 84 94 74 126 60" stroke="#DFB86B" stroke-opacity="0.55" stroke-width="1"/>
+  <path d="M43 106C69 90 97 80 128 66" stroke="#DFB86B" stroke-opacity="0.55" stroke-width="1"/>
+
+  <!-- Crimson Center Record Label -->
+  <circle cx="80" cy="76" r="19" fill="#B81D38" stroke="#DFB86B" stroke-width="1.4"/>
+  <circle cx="80" cy="76" r="14" stroke="#DFB86B" stroke-opacity="0.55" stroke-width="0.8"/>
+  <circle cx="80" cy="76" r="4.5" fill="#0D0A0C" stroke="#DFB86B" stroke-width="1.2"/>
+
+  <!-- Caption -->
+  <text x="80" y="141" text-anchor="middle" font-family="monospace" font-size="8.5" letter-spacing="1.8" fill="#DFB86B">ASTRA YAO · LYRA</text>
+</svg>

@@ -1,0 +1,2 @@
+# Production static site build dependencies (ASTRA YAO · 星环手记)
+Pygments>=2.18.0

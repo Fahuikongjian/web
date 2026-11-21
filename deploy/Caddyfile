@@ -1,0 +1,92 @@
+# ==============================================================================
+# Caddy 2 静态站点配置 — ASTRA YAO · 星环手记 (astrayao)
+# （极简零运维自动 HTTPS，强烈推荐个人博客与轻量 ECS）
+#
+# Caddy 2 会自动完成：
+#   - 向 Let's Encrypt / ZeroSSL 申请并自动续期 HTTPS 证书
+#   - HTTP (80) 自动 301 重定向至 HTTPS (443)
+#   - 自动启用 HTTP/2 & HTTP/3 与 Zstd / Gzip 压缩
+#
+# 使用方式：
+#   1. 将下方 astrayao.xyz 替换为你的实际已备案域名及真实后缀（如 astrayao.cn / astrayao.xyz）
+#   2. 确保阿里云安全组已放行 80 和 443 端口，且云解析 DNS A 记录已指向 ECS 公网 IP
+#   3. 复制到 /etc/caddy/Caddyfile 后执行 `sudo systemctl reload caddy`
+# ==============================================================================
+
+# 可选：用于 Let's Encrypt 证书到期或异常告警通知的邮箱（请替换为你的真实邮箱）
+{
+	email admin@astrayao.xyz
+}
+
+# 共用站点配置片段
+(blog_site) {
+	root * /var/www/blog/dist
+
+	# 自动压缩（Zstd + Gzip）
+	encode zstd gzip
+
+	# 隐藏服务器指纹并注入基础安全响应头
+	header {
+		-Server
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+	}
+
+	# 分级缓存策略
+	@static path /static/*
+	header @static Cache-Control "public, max-age=2592000"
+
+	@feeds path /api/* /rss.xml /sitemap.xml /robots.txt
+	header @feeds Cache-Control "public, max-age=600, must-revalidate"
+
+	@html {
+		not path /static/* /api/* /rss.xml /sitemap.xml /robots.txt
+	}
+	header @html Cache-Control "no-cache, must-revalidate"
+
+	# 静态文件服务
+	file_server
+
+	# 自定义 404 页面
+	handle_errors {
+		@not_found expression {err.status_code} == 404
+		handle @not_found {
+			rewrite * /404.html
+			file_server
+		}
+	}
+
+	# 拒绝访问隐藏目录/文件（保留 ACME 证书验证目录）
+	@hidden {
+		path /.* */.*
+		not path /.well-known/*
+	}
+	respond @hidden 403
+}
+
+# www 重定向至主域名（如实际域名后缀为 .cn / .me 等请一并替换）
+www.astrayao.xyz {
+	redir https://astrayao.xyz{uri} permanent
+}
+
+# 主站 HTTPS（Caddy 自动申请并续期证书）
+astrayao.xyz {
+	import blog_site
+	log {
+		output file /var/log/caddy/astrayao.access.log {
+			roll_size 10mb
+			roll_keep 5
+		}
+	}
+}
+
+# ==============================================================================
+# [备选] ICP 备案前 / 仅通过 ECS 公网 IP 进行 HTTP 临时预览时使用：
+# 使用方法：临时注释上方域名块，取消下方 http://:80 块注释，reload caddy 即可。
+# 切记：正式对外开放或完成备案后请改回上方域名块以启用 HTTPS。
+# ==============================================================================
+# http://:80 {
+# 	import blog_site
+# }

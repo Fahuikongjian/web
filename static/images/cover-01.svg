@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" fill="none">
+  <defs>
+    <radialGradient id="spot01" cx="0.68" cy="0.45" r="0.55">
+      <stop offset="0%" stop-color="#E12D4B" stop-opacity="0.28"/>
+      <stop offset="55%" stop-color="#9E162E" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#0D0A0C" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid01" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M40 0H0V40" stroke="#DFB86B" stroke-opacity="0.07" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="480" fill="#0E0A0D"/>
+  <rect width="800" height="480" fill="url(#grid01)"/>
+  <rect width="800" height="480" fill="url(#spot01)"/>
+
+  <!-- Art Deco Frame & Corner Stars -->
+  <rect x="28" y="24" width="744" height="432" stroke="#DFB86B" stroke-opacity="0.26" stroke-width="1"/>
+  <path d="M42 24V38H28M758 24V38H772M42 456V442H28M758 456V442H772" stroke="#DFB86B" stroke-width="1.4"/>
+
+  <!-- Inner Stage Canvas -->
+  <rect x="88" y="88" width="624" height="304" fill="#150F13" stroke="#DFB86B" stroke-opacity="0.22" stroke-width="1.2"/>
+  <line x1="340" y1="88" x2="340" y2="392" stroke="#DFB86B" stroke-opacity="0.16" stroke-width="1"/>
+  <line x1="88" y1="240" x2="712" y2="240" stroke="#DFB86B" stroke-opacity="0.12" stroke-width="1"/>
+
+  <!-- Right Side: Collector Vinyl Disc & Golden Spotlight Rings -->
+  <circle cx="536" cy="240" r="118" fill="#0D0A0C" stroke="#DFB86B" stroke-opacity="0.55" stroke-width="1.5"/>
+  <circle cx="536" cy="240" r="96" stroke="#DFB86B" stroke-opacity="0.25" stroke-width="1"/>
+  <circle cx="536" cy="240" r="76" stroke="#FBF5EE" stroke-opacity="0.16" stroke-width="1"/>
+  <circle cx="536" cy="240" r="56" stroke="#DFB86B" stroke-opacity="0.22" stroke-width="1" stroke-dasharray="5 4"/>
+  <circle cx="536" cy="240" r="40" fill="#C41E3A" stroke="#DFB86B" stroke-width="1.5"/>
+  <circle cx="536" cy="240" r="10" fill="#0E0A0D" stroke="#DFB86B" stroke-width="1.2"/>
+
+  <!-- Left Side: Collector's Record Sleeve Folio -->
+  <rect x="132" y="124" width="186" height="232" rx="4" fill="#1E151A" stroke="#DFB86B" stroke-opacity="0.7" stroke-width="1.5"/>
+  <rect x="142" y="134" width="166" height="212" stroke="#DFB86B" stroke-opacity="0.22" stroke-width="1"/>
+  <rect x="160" y="156" width="66" height="6" fill="#E12D4B"/>
+  <rect x="160" y="176" width="128" height="12" fill="#FBF5EE"/>
+  <rect x="160" y="198" width="94" height="8" fill="#DFB86B"/>
+  <rect x="160" y="224" width="124" height="4" fill="#C8B9B2" fill-opacity="0.65"/>
+  <rect x="160" y="236" width="110" height="4" fill="#C8B9B2" fill-opacity="0.55"/>
+  <rect x="160" y="248" width="120" height="4" fill="#C8B9B2" fill-opacity="0.55"/>
+  <rect x="160" y="276" width="44" height="44" rx="2" fill="#C41E3A" stroke="#DFB86B" stroke-width="1.2"/>
+  <path d="M182 287L185 295L193 298L185 301L182 309L179 301L171 298L179 295Z" fill="#FBF5EE"/>
+
+  <!-- Lyra Four-Pointed Star Sparkles -->
+  <path d="M406 138L409 147L418 150L409 153L406 162L403 153L394 150L403 147Z" fill="#DFB86B"/>
+  <path d="M664 316L666 322L672 324L666 326L664 332L662 326L656 324L662 322Z" fill="#E12D4B"/>
+  <line x1="362" y1="336" x2="656" y2="144" stroke="#DFB86B" stroke-opacity="0.32" stroke-width="1"/>
+
+  <text x="88" y="64" font-family="monospace" font-size="13" letter-spacing="2" fill="#DFB86B">TRACK 01 · STARLOOP AESTHETICS</text>
+  <text x="712" y="64" text-anchor="end" font-family="monospace" font-size="12" letter-spacing="1.5" fill="#E12D4B">SIDE A · 33⅓ RPM</text>
+  <text x="88" y="428" font-family="monospace" font-size="11" letter-spacing="1.6" fill="#C8B9B2">VELVET · GOLD · EDITORIAL STAGE</text>
+</svg>

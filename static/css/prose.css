@@ -1,0 +1,575 @@
+/* ==========================================================================
+   ASTRA YAO · 星环手记 — Long-Form Editorial Prose & Pygments Themes
+   ========================================================================== */
+
+.prose {
+  max-width: var(--prose-max);
+  font-size: var(--text-prose);
+  line-height: var(--leading-prose);
+  color: var(--ink-primary);
+  overflow-wrap: break-word;
+}
+
+.prose > :first-child {
+  margin-top: 0;
+}
+
+.prose > :last-child {
+  margin-bottom: 0;
+}
+
+/* Headings & Anchor Links */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4 {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--ink-primary);
+  scroll-margin-top: calc(var(--header-height) + 1.5rem);
+  position: relative;
+}
+
+.prose h2 {
+  font-size: 1.5rem;
+  margin-top: 2.75rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.prose h3 {
+  font-size: 1.21875rem;
+  margin-top: 2.125rem;
+  margin-bottom: 0.75rem;
+}
+
+.prose h4 {
+  font-family: var(--font-sans);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  margin-top: 1.625rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose .heading-anchor {
+  margin-left: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  font-weight: 400;
+  color: var(--ink-muted);
+  text-decoration: none;
+  opacity: 0;
+  transition: opacity var(--transition-fast), color var(--transition-fast);
+}
+
+.prose h2:hover .heading-anchor,
+.prose h3:hover .heading-anchor,
+.prose h4:hover .heading-anchor,
+.prose .heading-anchor:focus-visible {
+  opacity: 1;
+}
+
+.prose .heading-anchor:hover {
+  color: var(--gold);
+}
+
+/* Paragraphs & Inline Semantics */
+.prose p {
+  margin: 1.25rem 0;
+  color: var(--ink-primary);
+  text-wrap: pretty;
+}
+
+.prose strong {
+  font-weight: 600;
+  color: var(--ink-primary);
+}
+
+.prose em {
+  font-style: italic;
+}
+
+.prose a:not(.heading-anchor) {
+  color: var(--ink-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--gold-hairline);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 4px;
+  transition: color var(--transition-fast), text-decoration-color var(--transition-fast);
+}
+
+.prose a:not(.heading-anchor):hover {
+  color: var(--gold);
+  text-decoration-color: var(--gold);
+}
+
+/* Lists */
+.prose ul,
+.prose ol {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+
+.prose ul {
+  list-style-type: disc;
+}
+
+.prose ol {
+  list-style-type: decimal;
+}
+
+.prose li {
+  margin: 0.45rem 0;
+  padding-left: 0.25rem;
+}
+
+.prose li::marker {
+  color: var(--gold);
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+}
+
+.prose li > ul,
+.prose li > ol {
+  margin: 0.45rem 0;
+}
+
+/* Blockquotes */
+.prose blockquote {
+  margin: 1.75rem 0;
+  padding: 0.95rem 1.25rem;
+  border-left: 3px solid var(--accent);
+  background-color: var(--bg-warm);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  color: var(--ink-secondary);
+}
+
+.prose blockquote p {
+  margin: 0.5rem 0;
+  color: var(--ink-secondary);
+}
+
+.prose blockquote p:first-child {
+  margin-top: 0;
+}
+
+.prose blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* Horizontal Rules */
+.prose hr {
+  margin: 2.75rem auto;
+  border: none;
+  border-top: 1px solid var(--border-hairline);
+}
+
+/* Inline Code */
+.prose :not(pre) > code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  padding: 0.14em 0.42em;
+  border-radius: var(--radius-xs);
+  background-color: var(--bg-warm);
+  border: 1px solid var(--border-hairline);
+  color: var(--gold-text);
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+[data-theme="light"] .prose :not(pre) > code {
+  color: var(--accent-hover);
+}
+
+.prose th code,
+.prose td code {
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Code Blocks & Copy Header
+   Contract: .code-block-wrapper > .code-block-header + .highlight
+   -------------------------------------------------------------------------- */
+.code-block-wrapper {
+  margin: 1.75rem 0;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline);
+  background-color: var(--bg-code);
+  overflow: hidden;
+  box-shadow: var(--shadow-xs);
+}
+
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.48rem 0.9rem;
+  background-color: var(--bg-code-header);
+  border-bottom: 1px solid var(--border-hairline);
+}
+
+.code-lang {
+  font-family: var(--font-mono);
+  font-size: 0.71875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--gold-text);
+}
+
+.code-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.58rem;
+  border-radius: var(--radius-xs);
+  border: 1px solid var(--border-hairline);
+  background-color: var(--bg-card);
+  font-family: var(--font-mono);
+  font-size: 0.71875rem;
+  color: var(--ink-secondary);
+  transition: border-color var(--transition-fast), color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.code-copy-btn:hover {
+  border-color: var(--border-strong);
+  color: var(--gold);
+}
+
+.code-copy-btn.is-copied {
+  border-color: var(--status-copied);
+  background-color: var(--status-copied-soft);
+  color: var(--status-copied);
+}
+
+.code-block-wrapper .highlight,
+.prose .highlight {
+  margin: 0;
+  background-color: transparent;
+  overflow-x: auto;
+}
+
+.code-block-wrapper .highlight pre,
+.prose .highlight pre {
+  margin: 0;
+  padding: 1.05rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: var(--ink-primary);
+  overflow-x: auto;
+  tab-size: 4;
+}
+
+/* Fallback unhighlighted <pre><code> */
+.prose > pre {
+  margin: 1.75rem 0;
+  padding: 1.05rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline);
+  background-color: var(--bg-code);
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  line-height: 1.65;
+  overflow-x: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Pygments Syntax Highlighting — Starloop Night (Dark Primary: Velvet Crimson & Gold)
+   -------------------------------------------------------------------------- */
+:root .highlight .c,
+:root .highlight .ch,
+:root .highlight .cm,
+:root .highlight .cp,
+:root .highlight .cpf,
+:root .highlight .c1,
+:root .highlight .cs,
+[data-theme="dark"] .highlight .c,
+[data-theme="dark"] .highlight .ch,
+[data-theme="dark"] .highlight .cm,
+[data-theme="dark"] .highlight .cp,
+[data-theme="dark"] .highlight .cpf,
+[data-theme="dark"] .highlight .c1,
+[data-theme="dark"] .highlight .cs { color: #8E7B75; font-style: italic; }
+
+:root .highlight .k,
+:root .highlight .kc,
+:root .highlight .kd,
+:root .highlight .kn,
+:root .highlight .kp,
+:root .highlight .kr,
+:root .highlight .kt,
+:root .highlight .ow,
+[data-theme="dark"] .highlight .k,
+[data-theme="dark"] .highlight .kc,
+[data-theme="dark"] .highlight .kd,
+[data-theme="dark"] .highlight .kn,
+[data-theme="dark"] .highlight .kp,
+[data-theme="dark"] .highlight .kr,
+[data-theme="dark"] .highlight .kt,
+[data-theme="dark"] .highlight .ow { color: #F2637C; font-weight: 500; }
+
+:root .highlight .s,
+:root .highlight .sa,
+:root .highlight .sb,
+:root .highlight .sc,
+:root .highlight .dl,
+:root .highlight .sd,
+:root .highlight .s2,
+:root .highlight .se,
+:root .highlight .sh,
+:root .highlight .si,
+:root .highlight .sx,
+:root .highlight .sr,
+:root .highlight .s1,
+:root .highlight .ss,
+[data-theme="dark"] .highlight .s,
+[data-theme="dark"] .highlight .sa,
+[data-theme="dark"] .highlight .sb,
+[data-theme="dark"] .highlight .sc,
+[data-theme="dark"] .highlight .dl,
+[data-theme="dark"] .highlight .sd,
+[data-theme="dark"] .highlight .s2,
+[data-theme="dark"] .highlight .se,
+[data-theme="dark"] .highlight .sh,
+[data-theme="dark"] .highlight .si,
+[data-theme="dark"] .highlight .sx,
+[data-theme="dark"] .highlight .sr,
+[data-theme="dark"] .highlight .s1,
+[data-theme="dark"] .highlight .ss { color: #E4C380; }
+
+:root .highlight .m,
+:root .highlight .mb,
+:root .highlight .mf,
+:root .highlight .mh,
+:root .highlight .mi,
+:root .highlight .il,
+:root .highlight .mo,
+[data-theme="dark"] .highlight .m,
+[data-theme="dark"] .highlight .mb,
+[data-theme="dark"] .highlight .mf,
+[data-theme="dark"] .highlight .mh,
+[data-theme="dark"] .highlight .mi,
+[data-theme="dark"] .highlight .il,
+[data-theme="dark"] .highlight .mo { color: #D99B66; }
+
+:root .highlight .nf,
+:root .highlight .fm,
+:root .highlight .nc,
+:root .highlight .nn,
+[data-theme="dark"] .highlight .nf,
+[data-theme="dark"] .highlight .fm,
+[data-theme="dark"] .highlight .nc,
+[data-theme="dark"] .highlight .nn { color: #FBF5EE; font-weight: 600; }
+
+:root .highlight .na,
+:root .highlight .nb,
+:root .highlight .bp,
+:root .highlight .nt,
+:root .highlight .nd,
+[data-theme="dark"] .highlight .na,
+[data-theme="dark"] .highlight .nb,
+[data-theme="dark"] .highlight .bp,
+[data-theme="dark"] .highlight .nt,
+[data-theme="dark"] .highlight .nd { color: #D6A5B8; }
+
+:root .highlight .nv,
+:root .highlight .vc,
+:root .highlight .vg,
+:root .highlight .vi,
+:root .highlight .vm,
+:root .highlight .no,
+[data-theme="dark"] .highlight .nv,
+[data-theme="dark"] .highlight .vc,
+[data-theme="dark"] .highlight .vg,
+[data-theme="dark"] .highlight .vi,
+[data-theme="dark"] .highlight .vm,
+[data-theme="dark"] .highlight .no { color: #F4EAE0; }
+
+:root .highlight .o,
+:root .highlight .p,
+[data-theme="dark"] .highlight .o,
+[data-theme="dark"] .highlight .p { color: #C8B9B2; }
+
+:root .highlight .gd,
+[data-theme="dark"] .highlight .gd { color: #F2637C; background-color: rgba(242, 99, 124, 0.14); }
+:root .highlight .gi,
+[data-theme="dark"] .highlight .gi { color: #82C49A; background-color: rgba(130, 196, 154, 0.14); }
+:root .highlight .gh,
+:root .highlight .gu,
+[data-theme="dark"] .highlight .gh,
+[data-theme="dark"] .highlight .gu { color: #DFB86B; font-weight: 600; }
+:root .highlight .err,
+[data-theme="dark"] .highlight .err { color: #FB7185; background-color: rgba(251, 113, 133, 0.14); }
+
+/* --------------------------------------------------------------------------
+   Pygments Syntax Highlighting — Ivory Collector's Edition (Light Theme)
+   -------------------------------------------------------------------------- */
+[data-theme="light"] .highlight .c,
+[data-theme="light"] .highlight .ch,
+[data-theme="light"] .highlight .cm,
+[data-theme="light"] .highlight .cp,
+[data-theme="light"] .highlight .cpf,
+[data-theme="light"] .highlight .c1,
+[data-theme="light"] .highlight .cs { color: #8E7A80; font-style: italic; }
+
+[data-theme="light"] .highlight .k,
+[data-theme="light"] .highlight .kc,
+[data-theme="light"] .highlight .kd,
+[data-theme="light"] .highlight .kn,
+[data-theme="light"] .highlight .kp,
+[data-theme="light"] .highlight .kr,
+[data-theme="light"] .highlight .kt,
+[data-theme="light"] .highlight .ow { color: #A81730; font-weight: 500; }
+
+[data-theme="light"] .highlight .s,
+[data-theme="light"] .highlight .sa,
+[data-theme="light"] .highlight .sb,
+[data-theme="light"] .highlight .sc,
+[data-theme="light"] .highlight .dl,
+[data-theme="light"] .highlight .sd,
+[data-theme="light"] .highlight .s2,
+[data-theme="light"] .highlight .se,
+[data-theme="light"] .highlight .sh,
+[data-theme="light"] .highlight .si,
+[data-theme="light"] .highlight .sx,
+[data-theme="light"] .highlight .sr,
+[data-theme="light"] .highlight .s1,
+[data-theme="light"] .highlight .ss { color: #7F5A12; }
+
+[data-theme="light"] .highlight .m,
+[data-theme="light"] .highlight .mb,
+[data-theme="light"] .highlight .mf,
+[data-theme="light"] .highlight .mh,
+[data-theme="light"] .highlight .mi,
+[data-theme="light"] .highlight .il,
+[data-theme="light"] .highlight .mo { color: #9A4D16; }
+
+[data-theme="light"] .highlight .nf,
+[data-theme="light"] .highlight .fm,
+[data-theme="light"] .highlight .nc,
+[data-theme="light"] .highlight .nn { color: #2F2026; font-weight: 600; }
+
+[data-theme="light"] .highlight .na,
+[data-theme="light"] .highlight .nb,
+[data-theme="light"] .highlight .bp,
+[data-theme="light"] .highlight .nt,
+[data-theme="light"] .highlight .nd { color: #6E3349; }
+
+[data-theme="light"] .highlight .nv,
+[data-theme="light"] .highlight .vc,
+[data-theme="light"] .highlight .vg,
+[data-theme="light"] .highlight .vi,
+[data-theme="light"] .highlight .vm,
+[data-theme="light"] .highlight .no { color: #1B1216; }
+
+[data-theme="light"] .highlight .o,
+[data-theme="light"] .highlight .p { color: #5D4B51; }
+
+[data-theme="light"] .highlight .gd { color: #A81730; background-color: rgba(168, 23, 48, 0.09); }
+[data-theme="light"] .highlight .gi { color: #2D6A4F; background-color: rgba(45, 106, 79, 0.09); }
+[data-theme="light"] .highlight .gh,
+[data-theme="light"] .highlight .gu { color: #8A641E; font-weight: 600; }
+[data-theme="light"] .highlight .err { color: #B91C1C; background-color: rgba(185, 28, 28, 0.08); }
+
+/* --------------------------------------------------------------------------
+   Markdown Tables
+   -------------------------------------------------------------------------- */
+.table-wrap {
+  margin: 1.75rem 0;
+  overflow-x: auto;
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-md);
+  background-color: var(--bg-card);
+}
+
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  text-align: left;
+}
+
+.prose thead th {
+  background-color: var(--bg-warm);
+  font-weight: 600;
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--gold-text);
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-strong);
+  white-space: nowrap;
+}
+
+.prose tbody td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-hairline);
+  vertical-align: top;
+  color: var(--ink-primary);
+}
+
+.prose tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.prose tbody tr:hover td {
+  background-color: var(--bg-warm);
+}
+
+/* --------------------------------------------------------------------------
+   Images, Figures & Footnotes
+   -------------------------------------------------------------------------- */
+.prose img {
+  max-width: 100%;
+  height: auto;
+  margin: 1.75rem auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hairline);
+  background-color: var(--bg-warm);
+}
+
+.prose figure {
+  margin: 2rem 0;
+}
+
+.prose figure img {
+  margin: 0 auto;
+}
+
+.prose figcaption {
+  margin-top: 0.6rem;
+  text-align: center;
+  font-size: var(--text-xs);
+  color: var(--ink-muted);
+}
+
+.prose .footnotes {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-hairline);
+  font-size: var(--text-sm);
+  line-height: 1.7;
+  color: var(--ink-secondary);
+}
+
+.prose .footnotes ol {
+  margin: 0.75rem 0 0;
+}
+
+.prose .footnote-ref {
+  font-family: var(--font-mono);
+  font-size: 0.75em;
+  color: var(--gold);
+  text-decoration: none;
+  padding: 0 0.15em;
+}
+
+.prose .footnote-backref {
+  text-decoration: none;
+  color: var(--gold);
+  margin-left: 0.25rem;
+}

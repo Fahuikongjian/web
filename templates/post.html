@@ -1,0 +1,59 @@
+<div class="reading-progress" aria-hidden="true">
+  <div class="reading-progress-bar" data-reading-progress></div>
+</div>
+
+<article class="post-article">
+  <header class="container post-header">
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="/articles/">文章</a>
+      <span aria-hidden="true">/</span>
+      <span>{{post_category}}</span>
+    </nav>
+    <h1 class="post-title">{{post_title}}</h1>
+    <p class="post-subtitle">{{post_subtitle}}</p>
+    <div class="post-meta">
+      <div class="post-meta-items">
+        <time datetime="{{post_date}}">{{post_date}}</time>
+        <span aria-hidden="true">·</span>
+        <span>{{post_category}}</span>
+        <span aria-hidden="true">·</span>
+        <span>{{post_word_count}} 字</span>
+        <span aria-hidden="true">·</span>
+        <span>预计 {{post_reading_time}} 分钟</span>
+      </div>
+      <div class="tag-list">{{post_tags_html}}</div>
+    </div>
+  </header>
+
+  <div class="container post-cover-wrap">
+    {{post_cover_html}}
+  </div>
+
+  <div class="post-layout">
+    <div class="post-prose prose" data-post-content>
+      {{post_body_html}}
+    </div>
+    <aside class="toc-sidebar" aria-label="文章目录">
+      <p class="toc-title">目录 · CONTENTS</p>
+      {{post_toc_html}}
+    </aside>
+  </div>
+
+  <footer class="container post-footer">
+    <nav class="post-nav-grid" aria-label="文章翻页">
+      {{prev_post_html}}
+      {{next_post_html}}
+    </nav>
+
+    <section class="related-section" aria-labelledby="related-heading">
+      <h2 id="related-heading" class="related-title">延伸阅读</h2>
+      <div class="related-grid">
+        {{related_posts_html}}
+      </div>
+    </section>
+  </footer>
+</article>
+
+<script src="/static/js/post.js" defer></script>

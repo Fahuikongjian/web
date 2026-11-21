@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 400" fill="none">
+  <defs>
+    <pattern id="paperDots" width="20" height="20" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="0.85" fill="#18181B" fill-opacity="0.11"/>
+    </pattern>
+  </defs>
+  <!-- Archival Paper Backdrop -->
+  <rect width="520" height="400" fill="#F5F2EB"/>
+  <rect width="520" height="400" fill="url(#paperDots)"/>
+  <!-- Outer Editorial Frame -->
+  <rect x="18" y="18" width="484" height="364" stroke="#18181B" stroke-opacity="0.16" stroke-width="1"/>
+  <!-- Modular Grid Rules -->
+  <line x1="180" y1="18" x2="180" y2="382" stroke="#18181B" stroke-opacity="0.09" stroke-width="1"/>
+  <line x1="340" y1="18" x2="340" y2="382" stroke="#18181B" stroke-opacity="0.09" stroke-width="1"/>
+  <line x1="18" y1="140" x2="502" y2="140" stroke="#18181B" stroke-opacity="0.09" stroke-width="1"/>
+  <line x1="18" y1="276" x2="502" y2="276" stroke="#18181B" stroke-opacity="0.09" stroke-width="1"/>
+
+  <!-- Warm Sand Architectural Semi-Circle -->
+  <path d="M96 276C96 196.471 160.471 132 240 132C319.529 132 384 196.471 384 276H96Z" fill="#E6E0D3"/>
+  <!-- Golden Ratio Circle -->
+  <circle cx="286" cy="196" r="106" stroke="#18181B" stroke-opacity="0.22" stroke-width="1.2"/>
+  <circle cx="286" cy="196" r="68" stroke="#B84A27" stroke-opacity="0.32" stroke-width="1" stroke-dasharray="4 4"/>
+
+  <!-- Back Folio Sheet -->
+  <rect x="116" y="74" width="184" height="232" rx="4" fill="#EAE5DA" stroke="#18181B" stroke-opacity="0.2" stroke-width="1.2"/>
+  <!-- Front Elevated Editorial Folio -->
+  <rect x="148" y="54" width="214" height="258" rx="4" fill="#FFFFFF" stroke="#18181B" stroke-width="1.5"/>
+  <!-- Vermilion Vertical Margin Accent -->
+  <rect x="166" y="76" width="3" height="214" fill="#B84A27"/>
+  <!-- Folio Header & Abstract Typography -->
+  <rect x="182" y="78" width="64" height="5" rx="1" fill="#B84A27"/>
+  <rect x="182" y="96" width="144" height="10" rx="1.5" fill="#18181B"/>
+  <rect x="182" y="114" width="108" height="10" rx="1.5" fill="#18181B"/>
+  <line x1="182" y1="138" x2="340" y2="138" stroke="#18181B" stroke-opacity="0.16" stroke-width="1"/>
+
+  <!-- Body Prose Rhythm Lines -->
+  <rect x="182" y="154" width="154" height="4" rx="1" fill="#57534E" fill-opacity="0.7"/>
+  <rect x="182" y="166" width="142" height="4" rx="1" fill="#8A857E" fill-opacity="0.65"/>
+  <rect x="182" y="178" width="150" height="4" rx="1" fill="#8A857E" fill-opacity="0.65"/>
+  <rect x="182" y="190" width="118" height="4" rx="1" fill="#8A857E" fill-opacity="0.65"/>
+
+  <!-- Embedded Code / Quote Block inside Folio -->
+  <rect x="182" y="210" width="154" height="46" rx="3" fill="#F4F1EA" stroke="#18181B" stroke-opacity="0.14" stroke-width="1"/>
+  <rect x="192" y="222" width="52" height="3.5" rx="1" fill="#B84A27"/>
+  <rect x="192" y="232" width="116" height="3.5" rx="1" fill="#18181B" fill-opacity="0.75"/>
+  <rect x="192" y="242" width="88" height="3.5" rx="1" fill="#57534E" fill-opacity="0.7"/>
+
+  <rect x="182" y="272" width="140" height="4" rx="1" fill="#8A857E" fill-opacity="0.6"/>
+  <rect x="182" y="284" width="96" height="4" rx="1" fill="#8A857E" fill-opacity="0.6"/>
+
+  <!-- Right Floating Ink Circle & Terracotta Seal Stamp -->
+  <circle cx="386" cy="144" r="32" fill="#18181B"/>
+  <circle cx="386" cy="144" r="14" stroke="#FAF9F6" stroke-width="1.5"/>
+  <circle cx="386" cy="144" r="3.5" fill="#B84A27"/>
+
+  <rect x="372" y="232" width="52" height="52" rx="4" fill="#B84A27"/>
+  <rect x="378" y="238" width="40" height="40" rx="2" stroke="#FAF9F6" stroke-width="1.5"/>
+  <path d="M388 249H408M398 245V271M388 261H408" stroke="#FAF9F6" stroke-width="2" stroke-linecap="square"/>
+  <path d="M388 249V269M408 249V269" stroke="#FAF9F6" stroke-width="1.5" stroke-opacity="0.8"/>
+
+  <!-- Crosshairs & Coordinates -->
+  <path d="M52 54H64M58 48V60" stroke="#18181B" stroke-opacity="0.45" stroke-width="1.2"/>
+  <path d="M456 340H468M462 334V346" stroke="#18181B" stroke-opacity="0.45" stroke-width="1.2"/>
+  <text x="36" y="364" font-family="monospace" font-size="10" letter-spacing="1.4" fill="#57534E">FOLIO 01 — PAPER &amp; INK</text>
+  <text x="484" y="364" text-anchor="end" font-family="monospace" font-size="10" letter-spacing="1.2" fill="#8A857E">31.23°N 121.47°E</text>
+</svg>
