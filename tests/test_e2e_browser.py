@@ -223,16 +223,20 @@ def _open_home_cover(page: Page) -> None:
 
 
 @pytest.mark.parametrize("width,height", [(1440, 900), (390, 844), (320, 568)])
-def test_home_cover_shrinks_and_reveals_controls(
+def test_home_cover_fades_upward_without_resizing(
     browser: Browser, static_server: str, width: int, height: int
 ) -> None:
     page = browser.new_page(viewport={"width": width, "height": height})
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
+        cover = page.locator(".home-cover")
         artwork = page.locator(".home-cover-artwork")
         header = page.locator(".site-header")
         actions = page.locator(".hero-actions")
-        assert artwork.bounding_box()["height"] == pytest.approx(height, abs=1)
+        original_bounds = artwork.bounding_box()
+        original_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
+        assert original_bounds["height"] == pytest.approx(height, abs=1)
+        assert original_mask.startswith("linear-gradient(to top,")
         assert header.evaluate("el => Number(getComputedStyle(el).opacity)") == 0
         assert not actions.is_visible()
 
@@ -241,17 +245,20 @@ def test_home_cover_shrinks_and_reveals_controls(
                      - document.querySelector('.home-opening-stage').offsetHeight"""
         )
         page.locator(".home-cover-enter").click()
-        page.wait_for_function("""() => {
-            const opacity = Number(getComputedStyle(document.querySelector('.site-header')).opacity);
-            return opacity > 0 && opacity < 1;
-        }""")
-        middle_height = artwork.bounding_box()["height"]
-        assert middle_height < height
+        middle_mask = page.wait_for_function("""() => {
+            const cover = document.querySelector('.home-cover');
+            const progress = Number(cover.closest('.home-opening').style.getPropertyValue('--cover-progress'));
+            return progress > 0.35 && progress < 0.85 && getComputedStyle(cover).maskImage;
+        }""").json_value()
+        assert middle_mask != original_mask
+        assert artwork.bounding_box() == pytest.approx(original_bounds, abs=1)
 
         page.wait_for_function("y => window.scrollY === y", arg=travel)
-        artwork_height = page.locator(".vinyl-cover-img").bounding_box()["height"]
-        assert artwork.bounding_box()["height"] == pytest.approx(artwork_height, abs=2)
-        assert artwork_height < middle_height
+        final_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
+        assert final_mask not in (middle_mask, original_mask)
+        assert "100%" in final_mask
+        assert artwork.bounding_box() == pytest.approx(original_bounds, abs=1)
+        assert actions.is_visible()
         assert actions.evaluate("el => el.getBoundingClientRect().bottom") <= height
         assert page.evaluate("() => document.activeElement.id") == "home-intro"
     finally:
@@ -262,14 +269,18 @@ def test_home_cover_wheel_settles_at_either_stop(browser: Browser, static_server
     page = browser.new_page(viewport={"width": 1440, "height": 900})
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
+        cover = page.locator(".home-cover")
+        original_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
         travel = page.evaluate(
             """() => document.querySelector('.home-opening').offsetHeight
                      - document.querySelector('.home-opening-stage').offsetHeight"""
         )
         page.mouse.wheel(0, 35)
         page.wait_for_function("y => window.scrollY > 0 && window.scrollY < y", arg=travel)
+        assert cover.evaluate("el => getComputedStyle(el).maskImage") != original_mask
         assert not page.locator(".hero-actions").is_visible()
         page.wait_for_function("() => window.scrollY === 0")
+        assert cover.evaluate("el => getComputedStyle(el).maskImage") == original_mask
         page.wait_for_timeout(120)
 
         # A larger wheel gesture commits, with its trailing events absorbed at the stop.

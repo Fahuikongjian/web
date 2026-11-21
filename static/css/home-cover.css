@@ -116,35 +116,16 @@
 }
 
 .is-scroll-cover .home-cover {
+  /* Move the feathered edge through the frame while the artwork stays fixed. */
+  --cover-fade-start: calc(130% * var(--cover-progress, 0) - 30%);
+  --cover-fade-mask: linear-gradient(to top, transparent var(--cover-fade-start), #000 calc(var(--cover-fade-start) + 30%));
   position: absolute;
   z-index: 2;
   inset: 0 0 auto;
   height: 100svh;
+  -webkit-mask-image: var(--cover-fade-mask);
+  mask-image: var(--cover-fade-mask);
   pointer-events: none;
-}
-
-.is-scroll-cover .home-cover-backdrop,
-.is-scroll-cover .home-cover::after {
-  opacity: clamp(0, 1 - var(--cover-progress, 0) * 1.45, 1);
-}
-
-.is-scroll-cover .home-cover-artwork {
-  right: auto;
-  left: calc((100% - var(--artwork-width)) * (1 - var(--cover-progress, 0)) + var(--artwork-end-x, 0px) * var(--cover-progress, 0));
-  top: calc(var(--artwork-end-y, 0px) * var(--cover-progress, 0));
-  width: calc(var(--artwork-width) * (1 - var(--cover-progress, 0)) + var(--artwork-end-width, 0px) * var(--cover-progress, 0));
-  height: calc(100% * (1 - var(--cover-progress, 0)) + var(--artwork-end-height, 0px) * var(--cover-progress, 0));
-  border-radius: calc(var(--radius-md) * var(--cover-progress, 0));
-  --artwork-mask-end: max(0%, var(--artwork-mask-width, 31%) - var(--cover-progress, 0) * 67%);
-  -webkit-mask-image: linear-gradient(var(--artwork-mask-angle, 90deg), transparent, #000 var(--artwork-mask-end));
-  mask-image: linear-gradient(var(--artwork-mask-angle, 90deg), transparent, #000 var(--artwork-mask-end));
-  opacity: clamp(0, (1 - var(--cover-progress, 0)) * 16, 1);
-}
-
-.is-scroll-cover .home-cover-copy,
-.is-scroll-cover .home-cover-foot {
-  opacity: clamp(0, 1 - var(--cover-progress, 0) * 2.4, 1);
-  transform: translateY(calc(var(--cover-progress, 0) * -2rem));
 }
 
 .is-scroll-cover .home-cover-enter {
@@ -191,8 +172,6 @@
 @media (max-width: 760px) {
   .home-cover {
     --artwork-width: 100%;
-    --artwork-mask-angle: 0deg;
-    --artwork-mask-width: 53%;
     gap: 1.6rem;
   }
 

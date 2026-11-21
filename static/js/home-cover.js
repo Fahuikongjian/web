@@ -7,7 +7,6 @@
 
     var stage = opening.querySelector('.home-opening-stage');
     var intro = opening.querySelector('#home-intro');
-    var image = opening.querySelector('.vinyl-cover-img');
     var enter = opening.querySelector('.home-cover-enter');
     var header = document.querySelector('.site-header');
     var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -28,7 +27,7 @@
 
     function renderProgress() {
       var progress = clamp((window.scrollY - coverTop) / travel, 0, 1);
-      var navOpacity = clamp((progress - 0.29) / 0.46, 0, 1);
+      var navOpacity = clamp((progress - 0.70) / 0.30, 0, 1);
       opening.style.setProperty('--cover-progress', progress);
       header.style.setProperty('--cover-nav-opacity', navOpacity);
       opening.classList.toggle('is-content-visible', progress >= 0.42);
@@ -65,15 +64,9 @@
       if (reducedMotion.matches) return;
 
       var atExpandedStop = rest === 1 && Math.abs(window.scrollY - coverTop - travel) <= 1;
-      var stageRect = stage.getBoundingClientRect();
-      var imageRect = image.getBoundingClientRect();
       coverTop = Math.round(window.scrollY + opening.getBoundingClientRect().top);
       travel = Math.max(1, opening.offsetHeight - stage.offsetHeight);
       threshold = clamp(travel * 0.14, 68, 106);
-      opening.style.setProperty('--artwork-end-x', (imageRect.left - stageRect.left) + 'px');
-      opening.style.setProperty('--artwork-end-y', (imageRect.top - stageRect.top) + 'px');
-      opening.style.setProperty('--artwork-end-width', imageRect.width + 'px');
-      opening.style.setProperty('--artwork-end-height', imageRect.height + 'px');
       if (atExpandedStop && !springFrame && !wheel && !(touch && touch.gesture)) {
         moveTo(coverTop + travel);
       } else {
@@ -234,7 +227,6 @@
     if (window.ResizeObserver) {
       var observer = new ResizeObserver(measureStage);
       observer.observe(stage);
-      observer.observe(image);
     }
     syncMotionPreference();
   }
