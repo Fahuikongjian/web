@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>文章归档 · ASTRA YAO · 星环手记</title>
+  <meta name="description" content="ASTRA YAO · 星环手记 全部专栏文章与工程随笔归档。">
+  <meta name="site-base-path" content="">
+  <link rel="canonical" href="https://astrayao.xyz/articles/">
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="ASTRA YAO · 星环手记" href="/rss.xml">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('blog-theme');
+        var theme = (saved === 'dark' || saved === 'light') ? saved : 'dark';
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/prose.css">
+  
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至正文内容</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-brand" href="/">
+        <img class="brand-mark" src="/static/images/favicon.svg" alt="" width="26" height="26">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link " href="/">首页</a>
+        <a class="nav-link is-active" href="/articles/">文章</a>
+        <a class="nav-link " href="/projects/">项目</a>
+        <a class="nav-link " href="/about/">关于</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="search-trigger" data-search-open aria-label="打开站内搜索 (快捷键 Ctrl+K 或 Cmd+K)">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+          <span class="search-trigger-label">搜索</span>
+          <kbd class="kbd-hint">⌘K</kbd>
+        </button>
+
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换到浅色模式" aria-pressed="true">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" data-mobile-menu-toggle aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="mobile-drawer" id="mobile-drawer" data-mobile-drawer aria-hidden="true">
+    <div class="mobile-drawer-backdrop" data-mobile-drawer-close></div>
+    <div class="mobile-drawer-panel" role="dialog" aria-modal="true" aria-label="移动端导航菜单">
+      <div class="mobile-drawer-header">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+        <button type="button" class="icon-btn" data-mobile-drawer-close aria-label="关闭导航菜单">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav aria-label="移动端主导航">
+        <ul class="mobile-nav-list">
+          <li><a class="mobile-nav-link " href="/">首页</a></li>
+          <li><a class="mobile-nav-link is-active" href="/articles/">文章</a></li>
+          <li><a class="mobile-nav-link " href="/projects/">项目</a></li>
+          <li><a class="mobile-nav-link " href="/about/">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <main id="main-content" tabindex="-1">
+    <section class="page-header">
+  <div class="container">
+    <span class="page-kicker">ARCHIVE · ALL ESSAYS</span>
+    <h1 class="page-title">文章归档</h1>
+    <p class="page-subtitle">全部专栏随笔与工程手记按时间倒序排列，支持按主题标签就地筛选。</p>
+  </div>
+</section>
+
+<section class="container" aria-label="文章列表与标签筛选">
+  <div class="filter-bar">
+    <div class="filter-pills" role="group" aria-label="按标签筛选文章">
+      <button type="button" class="filter-pill is-active" data-filter-tag="all" aria-pressed="true">全部 <span class="filter-pill-count">5</span></button>
+<button type="button" class="filter-pill" data-filter-tag="独立博客" aria-pressed="false">独立博客 <span class="filter-pill-count">2</span></button>
+<button type="button" class="filter-pill" data-filter-tag="CSS" aria-pressed="false">CSS <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="ICP备案" aria-pressed="false">ICP备案 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="Nginx" aria-pressed="false">Nginx <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="Pygments" aria-pressed="false">Pygments <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="Python" aria-pressed="false">Python <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="中文排版" aria-pressed="false">中文排版 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="前端审美" aria-pressed="false">前端审美 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="可读性" aria-pressed="false">可读性 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="字体设计" aria-pressed="false">字体设计 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="工程哲学" aria-pressed="false">工程哲学 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="慢软件" aria-pressed="false">慢软件 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="排版" aria-pressed="false">排版 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="服务器" aria-pressed="false">服务器 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="架构设计" aria-pressed="false">架构设计 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="纯文本" aria-pressed="false">纯文本 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="设计系统" aria-pressed="false">设计系统 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="部署" aria-pressed="false">部署 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="阿里云ECS" aria-pressed="false">阿里云ECS <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="静态站点" aria-pressed="false">静态站点 <span class="filter-pill-count">1</span></button>
+    </div>
+    <p class="articles-count" data-articles-count aria-live="polite">共 5 篇</p>
+  </div>
+
+  <div class="posts-list" data-articles-list>
+    <article class="post-row" data-tags="前端审美,排版,独立博客,设计系统">
+  <div class="post-row-date">
+    <time datetime="2026-11-20">2026 · 11-20</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/editorial-web-aesthetics/">编辑部美学：如何在网页中重建纸质出版物的克制与秩序</a></h3>
+    <p class="post-row-summary">告别千篇一律的 SaaS 卡片堆砌与赛博霓虹渐变，探讨如何将黑胶唱片期刊的红黑金秩序与纸墨排版网格融入个人网站设计。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=%E5%89%8D%E7%AB%AF%E5%AE%A1%E7%BE%8E" data-filter-tag="前端审美">前端审美</a>
+<a class="tag-pill" href="/articles/?tag=%E6%8E%92%E7%89%88" data-filter-tag="排版">排版</a>
+<a class="tag-pill" href="/articles/?tag=%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2" data-filter-tag="独立博客">独立博客</a>
+<a class="tag-pill" href="/articles/?tag=%E8%AE%BE%E8%AE%A1%E7%B3%BB%E7%BB%9F" data-filter-tag="设计系统">设计系统</a></div>
+  </div>
+  <div class="post-row-aside">
+    <span class="post-row-category">设计与审美</span>
+    <span>5 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-tags="服务器,阿里云ECS,Nginx,ICP备案,部署">
+  <div class="post-row-date">
+    <time datetime="2026-11-16">2026 · 11-16</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/from-domain-to-live-site/">从域名到独立服务器上线：阿里云 ECS、Nginx 与 ICP 备案实战手记</a></h3>
+    <p class="post-row-summary">一份面向个人独立站长的完整上线路径记录：涵盖域名实名与 DNS 解析、上海地域 ECS 安全组、Nginx 静态缓存策略以及备案期联调细节。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=%E6%9C%8D%E5%8A%A1%E5%99%A8" data-filter-tag="服务器">服务器</a>
+<a class="tag-pill" href="/articles/?tag=%E9%98%BF%E9%87%8C%E4%BA%91ECS" data-filter-tag="阿里云ECS">阿里云ECS</a>
+<a class="tag-pill" href="/articles/?tag=Nginx" data-filter-tag="Nginx">Nginx</a>
+<a class="tag-pill" href="/articles/?tag=ICP%E5%A4%87%E6%A1%88" data-filter-tag="ICP备案">ICP备案</a>
+<a class="tag-pill" href="/articles/?tag=%E9%83%A8%E7%BD%B2" data-filter-tag="部署">部署</a></div>
+  </div>
+  <div class="post-row-aside">
+    <span class="post-row-category">运维与上线</span>
+    <span>5 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-tags="Python,静态站点,架构设计,Pygments">
+  <div class="post-row-date">
+    <time datetime="2026-11-11">2026 · 11-11</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/python-static-architecture/">零重型依赖的静态站引擎：用 Python 3.13 标准库写透内容构建管线</a></h3>
+    <p class="post-row-summary">在无需 Node 构建链与第三方模板引擎的前提下，如何仅凭 Python 标准库与 Pygments 实现 Frontmatter 解析、目录锚点生成、语法高亮与全站链接门禁。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=Python" data-filter-tag="Python">Python</a>
+<a class="tag-pill" href="/articles/?tag=%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9" data-filter-tag="静态站点">静态站点</a>
+<a class="tag-pill" href="/articles/?tag=%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1" data-filter-tag="架构设计">架构设计</a>
+<a class="tag-pill" href="/articles/?tag=Pygments" data-filter-tag="Pygments">Pygments</a></div>
+  </div>
+  <div class="post-row-aside">
+    <span class="post-row-category">系统架构</span>
+    <span>4 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-tags="中文排版,CSS,字体设计,可读性">
+  <div class="post-row-date">
+    <time datetime="2026-11-05">2026 · 11-05</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/typography-in-chinese-web/">中文网页排版细节：行距、标点挤压、字族栈与混排节奏</a></h3>
+    <p class="post-row-summary">中文方块字的高视觉密度要求截然不同的网页排版尺度。本文拆解零外链离线字体栈设计、68ch 黄金栏宽、表格数字对齐与明暗双主题对比度工程。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=%E4%B8%AD%E6%96%87%E6%8E%92%E7%89%88" data-filter-tag="中文排版">中文排版</a>
+<a class="tag-pill" href="/articles/?tag=CSS" data-filter-tag="CSS">CSS</a>
+<a class="tag-pill" href="/articles/?tag=%E5%AD%97%E4%BD%93%E8%AE%BE%E8%AE%A1" data-filter-tag="字体设计">字体设计</a>
+<a class="tag-pill" href="/articles/?tag=%E5%8F%AF%E8%AF%BB%E6%80%A7" data-filter-tag="可读性">可读性</a></div>
+  </div>
+  <div class="post-row-aside">
+    <span class="post-row-category">设计与审美</span>
+    <span>4 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-tags="慢软件,工程哲学,纯文本,独立博客">
+  <div class="post-row-date">
+    <time datetime="2026-10-28">2026 · 10-28</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/notes-on-slow-software/">慢软件随笔：在算力过剩的时代写一组十年后依然能跑的代码</a></h3>
+    <p class="post-row-summary">当一个个人博客的构建工具链动辄依赖数百个第三方包时，真正的维护成本便早已背离了写作初衷。一次关于减法工程、纯文本归属与长期主义的笔记。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=%E6%85%A2%E8%BD%AF%E4%BB%B6" data-filter-tag="慢软件">慢软件</a>
+<a class="tag-pill" href="/articles/?tag=%E5%B7%A5%E7%A8%8B%E5%93%B2%E5%AD%A6" data-filter-tag="工程哲学">工程哲学</a>
+<a class="tag-pill" href="/articles/?tag=%E7%BA%AF%E6%96%87%E6%9C%AC" data-filter-tag="纯文本">纯文本</a>
+<a class="tag-pill" href="/articles/?tag=%E7%8B%AC%E7%AB%8B%E5%8D%9A%E5%AE%A2" data-filter-tag="独立博客">独立博客</a></div>
+  </div>
+  <div class="post-row-aside">
+    <span class="post-row-category">技术随笔</span>
+    <span>3 分钟</span>
+  </div>
+</article>
+
+  </div>
+
+  <p class="search-empty is-hidden" data-articles-empty>该标签下暂无已发布文章。</p>
+</section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="brand-title">ASTRA YAO · 星环手记</div>
+          <p class="footer-tagline">以星光与黑胶的节拍，记录网页美学、简洁架构与慢技术日常</p>
+        </div>
+        <nav class="footer-links" aria-label="页脚导航">
+          <a href="/">首页</a>
+          <a href="/articles/">文章归档</a>
+          <a href="/projects/">精选项目</a>
+          <a href="/about/">关于与建造说明</a>
+          <a href="/rss.xml">RSS 订阅</a>
+          <a href="/sitemap.xml">站点地图</a>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Astra Yao · ASTRA YAO · 星环手记</span>
+        <div class="footer-icp"></div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="search-modal" data-search-modal role="dialog" aria-modal="true" aria-label="站内文章搜索" hidden>
+    <div class="search-dialog">
+      <div class="search-header">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <input class="search-input" type="search" data-search-input placeholder="搜索文章标题、标签、分类或正文摘录..." autocomplete="off" spellcheck="false" aria-label="搜索文章">
+        <button type="button" class="search-close-btn" data-search-close aria-label="关闭搜索弹窗">ESC</button>
+      </div>
+      <div class="search-results" data-search-results role="listbox" aria-label="搜索结果列表"></div>
+      <div class="search-footer">
+        <span>↑ ↓ 选择 · Enter 跳转 · Esc 关闭</span>
+        <span data-search-count></span>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/js/theme.js" defer></script>
+  <script src="/static/js/search.js" defer></script>
+  <script src="/static/js/main.js" defer></script>
+  
+</body>
+</html>

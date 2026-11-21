@@ -39,7 +39,7 @@ jobs:
           python scripts/check.py \
             --base-path "${{ steps.pages.outputs.base_path }}" \
             --site-url "${{ steps.pages.outputs.origin }}${{ steps.pages.outputs.base_path }}" \
-            --cname "${{ vars.PAGES_CNAME }}"
+            --cname "${{ vars.PAGES_CNAME || 'astrayao.xyz' }}"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

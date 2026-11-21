@@ -1,0 +1,197 @@
+{
+  "generated_at": "2026-11-21T15:13:03Z",
+  "total": 5,
+  "posts": [
+    {
+      "title": "编辑部美学：如何在网页中重建纸质出版物的克制与秩序",
+      "slug": "editorial-web-aesthetics",
+      "url": "/articles/editorial-web-aesthetics/",
+      "date": "2026-11-20",
+      "category": "设计与审美",
+      "tags": [
+        "前端审美",
+        "排版",
+        "独立博客",
+        "设计系统"
+      ],
+      "summary": "告别千篇一律的 SaaS 卡片堆砌与赛博霓虹渐变，探讨如何将黑胶唱片期刊的红黑金秩序与纸墨排版网格融入个人网站设计。",
+      "cover": "/static/images/cover-01.svg",
+      "featured": true,
+      "word_count": 1683,
+      "reading_time": 5
+    },
+    {
+      "title": "从域名到独立服务器上线：阿里云 ECS、Nginx 与 ICP 备案实战手记",
+      "slug": "from-domain-to-live-site",
+      "url": "/articles/from-domain-to-live-site/",
+      "date": "2026-11-16",
+      "category": "运维与上线",
+      "tags": [
+        "服务器",
+        "阿里云ECS",
+        "Nginx",
+        "ICP备案",
+        "部署"
+      ],
+      "summary": "一份面向个人独立站长的完整上线路径记录：涵盖域名实名与 DNS 解析、上海地域 ECS 安全组、Nginx 静态缓存策略以及备案期联调细节。",
+      "cover": "/static/images/cover-02.svg",
+      "featured": false,
+      "word_count": 1453,
+      "reading_time": 5
+    },
+    {
+      "title": "零重型依赖的静态站引擎：用 Python 3.13 标准库写透内容构建管线",
+      "slug": "python-static-architecture",
+      "url": "/articles/python-static-architecture/",
+      "date": "2026-11-11",
+      "category": "系统架构",
+      "tags": [
+        "Python",
+        "静态站点",
+        "架构设计",
+        "Pygments"
+      ],
+      "summary": "在无需 Node 构建链与第三方模板引擎的前提下，如何仅凭 Python 标准库与 Pygments 实现 Frontmatter 解析、目录锚点生成、语法高亮与全站链接门禁。",
+      "cover": "/static/images/cover-03.svg",
+      "featured": false,
+      "word_count": 1387,
+      "reading_time": 4
+    },
+    {
+      "title": "中文网页排版细节：行距、标点挤压、字族栈与混排节奏",
+      "slug": "typography-in-chinese-web",
+      "url": "/articles/typography-in-chinese-web/",
+      "date": "2026-11-05",
+      "category": "设计与审美",
+      "tags": [
+        "中文排版",
+        "CSS",
+        "字体设计",
+        "可读性"
+      ],
+      "summary": "中文方块字的高视觉密度要求截然不同的网页排版尺度。本文拆解零外链离线字体栈设计、68ch 黄金栏宽、表格数字对齐与明暗双主题对比度工程。",
+      "cover": "/static/images/cover-04.svg",
+      "featured": false,
+      "word_count": 1231,
+      "reading_time": 4
+    },
+    {
+      "title": "慢软件随笔：在算力过剩的时代写一组十年后依然能跑的代码",
+      "slug": "notes-on-slow-software",
+      "url": "/articles/notes-on-slow-software/",
+      "date": "2026-10-28",
+      "category": "技术随笔",
+      "tags": [
+        "慢软件",
+        "工程哲学",
+        "纯文本",
+        "独立博客"
+      ],
+      "summary": "当一个个人博客的构建工具链动辄依赖数百个第三方包时，真正的维护成本便早已背离了写作初衷。一次关于减法工程、纯文本归属与长期主义的笔记。",
+      "cover": "/static/images/cover-05.svg",
+      "featured": false,
+      "word_count": 1009,
+      "reading_time": 3
+    }
+  ],
+  "tags": [
+    {
+      "name": "独立博客",
+      "count": 2
+    },
+    {
+      "name": "CSS",
+      "count": 1
+    },
+    {
+      "name": "ICP备案",
+      "count": 1
+    },
+    {
+      "name": "Nginx",
+      "count": 1
+    },
+    {
+      "name": "Pygments",
+      "count": 1
+    },
+    {
+      "name": "Python",
+      "count": 1
+    },
+    {
+      "name": "中文排版",
+      "count": 1
+    },
+    {
+      "name": "前端审美",
+      "count": 1
+    },
+    {
+      "name": "可读性",
+      "count": 1
+    },
+    {
+      "name": "字体设计",
+      "count": 1
+    },
+    {
+      "name": "工程哲学",
+      "count": 1
+    },
+    {
+      "name": "慢软件",
+      "count": 1
+    },
+    {
+      "name": "排版",
+      "count": 1
+    },
+    {
+      "name": "服务器",
+      "count": 1
+    },
+    {
+      "name": "架构设计",
+      "count": 1
+    },
+    {
+      "name": "纯文本",
+      "count": 1
+    },
+    {
+      "name": "设计系统",
+      "count": 1
+    },
+    {
+      "name": "部署",
+      "count": 1
+    },
+    {
+      "name": "阿里云ECS",
+      "count": 1
+    },
+    {
+      "name": "静态站点",
+      "count": 1
+    }
+  ],
+  "categories": [
+    {
+      "name": "设计与审美",
+      "count": 2
+    },
+    {
+      "name": "技术随笔",
+      "count": 1
+    },
+    {
+      "name": "系统架构",
+      "count": 1
+    },
+    {
+      "name": "运维与上线",
+      "count": 1
+    }
+  ]
+}
