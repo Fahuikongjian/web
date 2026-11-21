@@ -19,20 +19,30 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
 
       - name: Setup Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v7.1.0
         with:
           python-version: "3.13"
           cache: "pip"
 
-      - name: Install build dependencies
-        run: pip install -r requirements.txt
+      - name: Install build and test dependencies
+        run: python -m pip install -r requirements.txt pytest playwright
+
+      - name: Install Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run site and browser tests
+        run: |
+          python scripts/build.py
+          python -m pytest -q
 
       - name: Configure GitHub Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6.0.0
 
       - name: Build and verify static site
         run: |
@@ -42,9 +52,10 @@ jobs:
             --cname "${{ vars.PAGES_CNAME || 'astrayao.xyz' }}"
 
       - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: dist
+          include-hidden-files: true
 
   deploy:
     environment:
@@ -55,4 +66,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5.0.1
