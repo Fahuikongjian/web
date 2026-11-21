@@ -38,7 +38,7 @@ jobs:
         run: |
           python scripts/check.py \
             --base-path "${{ steps.pages.outputs.base_path }}" \
-            --site-url "${{ steps.pages.outputs.origin }}${{ steps.pages.outputs.base_path }}" \
+            --site-url "https://${{ steps.pages.outputs.host }}${{ steps.pages.outputs.base_path }}" \
             --cname "${{ vars.PAGES_CNAME || 'astrayao.xyz' }}"
 
       - name: Upload Pages artifact
