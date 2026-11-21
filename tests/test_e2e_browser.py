@@ -310,7 +310,7 @@ def test_vinyl_stage_toggle_and_astra_assets(browser: Browser, static_server: st
     records = _attach_error_collectors(page)
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
-        hero_img = page.locator('img[src="/static/images/astra-hero.jpg"]')
+        hero_img = page.locator('img[src="/static/images/astra-hero-cover.jpg"]')
         assert hero_img.count() == 1 and hero_img.is_visible()
         assert hero_img.evaluate("img => img.complete && img.naturalWidth > 0")
 
@@ -586,7 +586,7 @@ def test_github_pages_subpath_deployment(browser: Browser, tmp_path: Path) -> No
             page.locator('meta[name="site-base-path"]').get_attribute("content")
             == "/astrayao-blog"
         )
-        hero_img = page.locator('img[src="/astrayao-blog/static/images/astra-hero.jpg"]')
+        hero_img = page.locator('img[src="/astrayao-blog/static/images/astra-hero-cover.jpg"]')
         assert hero_img.count() == 1 and hero_img.is_visible()
         assert hero_img.evaluate("img => img.complete && img.naturalWidth > 0")
 

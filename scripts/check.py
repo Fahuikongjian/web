@@ -47,6 +47,7 @@ REQUIRED_ALLOW_EMPTY_FILES = (".nojekyll",)
 
 REQUIRED_IMAGE_ASSETS = (
     "static/images/astra-hero.jpg",
+    "static/images/astra-hero-cover.jpg",
     "static/images/astra-portrait.jpg",
     "static/images/favicon.svg",
     "static/images/author-mark.svg",
