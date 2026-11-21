@@ -425,7 +425,7 @@ def render_site(
             page_content=home_body,
             base_path=normalized_base_path,
             extra_head='<link rel="stylesheet" href="/static/css/home-cover.css?v=2">',
-            extra_scripts='<script src="/static/js/home-cover.js?v=2" defer></script>',
+            extra_scripts='<script src="/static/js/home-cover.js?v=3" defer></script>',
         ),
     )
     html_pages_count += 1

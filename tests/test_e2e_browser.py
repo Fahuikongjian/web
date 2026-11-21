@@ -240,25 +240,90 @@ def test_home_cover_shrinks_and_reveals_controls(
             """() => document.querySelector('.home-opening').offsetHeight
                      - document.querySelector('.home-opening-stage').offsetHeight"""
         )
-        page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", travel * 0.57)
-        page.wait_for_function("() => document.querySelector('.home-opening').classList.contains('is-content-visible')")
+        page.locator(".home-cover-enter").click()
+        page.wait_for_function("""() => {
+            const opacity = Number(getComputedStyle(document.querySelector('.site-header')).opacity);
+            return opacity > 0 && opacity < 1;
+        }""")
         middle_height = artwork.bounding_box()["height"]
         assert middle_height < height
-        assert 0 < header.evaluate("el => Number(getComputedStyle(el).opacity)") < 1
-        assert actions.is_visible()
 
-        page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", travel)
-        page.wait_for_function("() => Number(getComputedStyle(document.querySelector('.site-header')).opacity) == 1")
+        page.wait_for_function("y => window.scrollY === y", arg=travel)
         artwork_height = page.locator(".vinyl-cover-img").bounding_box()["height"]
         assert artwork.bounding_box()["height"] == pytest.approx(artwork_height, abs=2)
         assert artwork_height < middle_height
         assert actions.evaluate("el => el.getBoundingClientRect().bottom") <= height
-
-        page.evaluate("() => window.scrollTo({ top: 0, behavior: 'instant' })")
-        page.locator(".home-cover-enter").wait_for(state="visible")
-        assert not actions.is_visible()
-        _open_home_cover(page)
         assert page.evaluate("() => document.activeElement.id") == "home-intro"
+    finally:
+        page.close()
+
+
+def test_home_cover_wheel_settles_at_either_stop(browser: Browser, static_server: str) -> None:
+    page = browser.new_page(viewport={"width": 1440, "height": 900})
+    try:
+        page.goto(f"{static_server}/", wait_until="networkidle")
+        travel = page.evaluate(
+            """() => document.querySelector('.home-opening').offsetHeight
+                     - document.querySelector('.home-opening-stage').offsetHeight"""
+        )
+        page.mouse.wheel(0, 35)
+        page.wait_for_function("y => window.scrollY > 0 && window.scrollY < y", arg=travel)
+        assert not page.locator(".hero-actions").is_visible()
+        page.wait_for_function("() => window.scrollY === 0")
+        page.wait_for_timeout(120)
+
+        # A larger wheel gesture commits, with its trailing events absorbed at the stop.
+        page.mouse.wheel(0, 190)
+        for _ in range(4):
+            page.mouse.wheel(0, 80)
+        page.wait_for_function("y => window.scrollY === y", arg=travel)
+        page.wait_for_timeout(160)
+        assert page.evaluate("() => window.scrollY") == travel
+        assert page.locator(".hero-actions").is_visible()
+
+        page.mouse.wheel(0, -35)
+        page.wait_for_function("y => window.scrollY < y", arg=travel)
+        page.wait_for_function("y => window.scrollY === y", arg=travel)
+        page.wait_for_timeout(120)
+
+        page.mouse.wheel(0, 320)
+        page.wait_for_function("y => window.scrollY > y", arg=travel)
+        page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", travel)
+        page.mouse.wheel(0, -175)
+        page.wait_for_function("() => window.scrollY === 0")
+        assert not page.locator(".hero-actions").is_visible()
+    finally:
+        page.close()
+
+
+def test_home_cover_touch_springs_back_or_opens(browser: Browser, static_server: str) -> None:
+    page = browser.new_page(viewport={"width": 390, "height": 844}, has_touch=True, is_mobile=True)
+    touch = page.context.new_cdp_session(page)
+
+    def dispatch(event_type: str, y: int | None = None) -> None:
+        points = [{"x": 200, "y": y}] if y is not None else []
+        touch.send("Input.dispatchTouchEvent", {"type": event_type, "touchPoints": points})
+
+    try:
+        page.goto(f"{static_server}/", wait_until="networkidle")
+        dispatch("touchStart", 610)
+        page.wait_for_timeout(110)
+        dispatch("touchMove", 585)
+        page.wait_for_function("() => window.scrollY > 0")
+        page.wait_for_timeout(170)
+        assert 0 < page.evaluate("() => window.scrollY") < 30
+        dispatch("touchEnd")
+        page.wait_for_function("() => window.scrollY === 0")
+        page.wait_for_timeout(120)
+
+        dispatch("touchStart", 610)
+        dispatch("touchMove", 480)
+        dispatch("touchEnd")
+        page.wait_for_function("""() => {
+            const opening = document.querySelector('.home-opening');
+            return Number(opening.style.getPropertyValue('--cover-progress')) === 1;
+        }""")
+        assert page.locator(".hero-actions").is_visible()
     finally:
         page.close()
 
