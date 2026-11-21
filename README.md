@@ -118,7 +118,7 @@ draft: false
 
 ### 2. 修改站点信息、项目与关于页
 - **站点、域名与托管信息**：编辑 `content/site.json`：
-  - `site_url`：当前默认为 `https://astrayao.com`（若部署在 GitHub Pages 子路径，CI 会自动按页面地址覆盖；绑定自定义域名时请按实际后缀替换）。
+  - `site_url` 是生成 canonical、RSS 和站点地图所用的地址，当前值为 `https://astrayao.xyz`。GitHub Pages 的构建流程会按实际发布地址传入此值。
   - `custom_domain`：可选自定义域名（如 `"astrayao.com"`），设置后自动生成 `dist/CNAME`。
   - `icp_number`：GitHub Pages 托管期间保留为 `""` 不展示占位备案号；若迁回国内服务器，再填入真实备案号。
 - **项目展示**：编辑 `content/projects.json`。
@@ -150,6 +150,7 @@ python scripts/serve.py --host 127.0.0.1 --port 8080
 pytest tests/test_backend.py
 
 # 5. 运行浏览器端到端验收测试
+python -m pip install pytest playwright
 python -m playwright install chromium
 pytest tests/test_e2e_browser.py
 ```

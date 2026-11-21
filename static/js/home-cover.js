@@ -11,7 +11,8 @@
   var header = document.querySelector('.site-header');
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   var coverTop = 0;
-  var travel = 1;
+  var travel = 0;
+  var renderedOffset = 0;
   var scrollFrame = 0;
 
   function unitInterval(value) {
@@ -19,7 +20,8 @@
   }
 
   function renderProgress() {
-    var progress = unitInterval((window.scrollY - coverTop) / travel);
+    renderedOffset = window.scrollY - coverTop;
+    var progress = unitInterval(renderedOffset / travel);
     var navOpacity = unitInterval((progress - 0.70) / 0.30);
     var contentAccessible = progress >= 0.42;
     opening.style.setProperty('--cover-progress', progress);
@@ -40,8 +42,15 @@
   function measureStage() {
     if (reducedMotion.matches) return;
 
+    var previousTravel = travel;
     coverTop = Math.round(window.scrollY + opening.getBoundingClientRect().top);
     travel = Math.max(1, opening.offsetHeight - stage.offsetHeight);
+    if (travel !== previousTravel && renderedOffset > 0 && renderedOffset <= previousTravel) {
+      window.scrollTo({
+        top: coverTop + Math.round(renderedOffset * travel / previousTravel),
+        behavior: 'instant'
+      });
+    }
     renderProgress();
   }
 
@@ -57,6 +66,7 @@
     if (!animated) {
       window.cancelAnimationFrame(scrollFrame);
       scrollFrame = 0;
+      travel = 0;
       content.inert = false;
       return;
     }

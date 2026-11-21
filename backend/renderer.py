@@ -428,7 +428,7 @@ def render_site(
                 '<link rel="stylesheet" href="/static/css/home-cover.css?v=7">\n'
                 '  <link rel="preload" as="image" href="/static/images/starloop-cover.jpg" fetchpriority="high">'
             ),
-            extra_scripts='<script src="/static/js/home-cover.js?v=6" defer></script>',
+            extra_scripts='<script src="/static/js/home-cover.js?v=7" defer></script>',
         ),
     )
     html_pages_count += 1

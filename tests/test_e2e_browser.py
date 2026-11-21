@@ -341,6 +341,32 @@ def test_home_cover_respects_reduced_motion(browser: Browser, static_server: str
         page.close()
 
 
+def test_home_cover_keeps_progress_when_phone_rotates(browser: Browser, static_server: str) -> None:
+    page = browser.new_page(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True)
+    half_revealed = """() => {
+        const value = Number(document.querySelector('.home-opening').style.getPropertyValue('--cover-progress'));
+        return Math.abs(value - 0.5) < 0.01;
+    }"""
+    try:
+        page.goto(f"{static_server}/", wait_until="networkidle")
+        page.evaluate("""() => {
+            const opening = document.querySelector('.home-opening');
+            const travel = opening.offsetHeight - opening.querySelector('.home-opening-stage').offsetHeight;
+            window.scrollTo({ top: Math.round(travel / 2), behavior: 'instant' });
+        }""")
+        page.wait_for_function(half_revealed)
+        for width, height in [(844, 390), (390, 844)]:
+            page.set_viewport_size({"width": width, "height": height})
+            page.wait_for_function("""() => {
+                const opening = document.querySelector('.home-opening');
+                const travel = opening.offsetHeight - opening.querySelector('.home-opening-stage').offsetHeight;
+                return Math.abs(window.scrollY - travel / 2) <= 2;
+            }""")
+            assert page.evaluate(half_revealed)
+    finally:
+        page.close()
+
+
 @pytest.mark.parametrize("width,height", [(280, 653), (320, 568), (568, 280), (700, 360)])
 def test_compact_navigation_and_search_fit_viewport(
     browser: Browser, static_server: str, width: int, height: int

@@ -89,7 +89,7 @@ d:\网页运营\
    - 当部署至 `https://<user>.github.io/<repo>/` 等子路径时，通过 `--base-path "/<repo>"` 触发构建期重写，源码内容与模板自身仍保持干净的根相对路径。
    - `normalize_base_path(raw)` 规范化输入（空或 `"/"` 返回 `""`，否则返回 `"/<trimmed>"`）。
    - `apply_base_path_to_html(html_text, base_path)` 将 HTML 属性中的根相对 `href="/..."` 与 `src="/..."`（排除协议相对 `//...` 及已带 `base_path` 前缀的路径；`href="/"` 转为 `href="{base_path}/"`）统一加上 `base_path` 前缀，**同时跳过 `<pre>...</pre>` 与 `<code>...</code>` 内部正文以免破坏代码展示**。
-3. **绝对 URL 使用场景**：仅限 `rss.xml`、`sitemap.xml`、`robots.txt` 以及 `<link rel="canonical">`（由覆写后的 `site_url`（默认 `https://astrayao.com`，CI 下由 `steps.pages.outputs.origin + base_path` 传入）拼接路径生成；当 `site_url` 已含 `base_path` 时不得出现 `https://user.github.io/repo/repo/...` 双重拼接）。
+3. **绝对 URL 使用场景**。`rss.xml`、`sitemap.xml`、`robots.txt` 和 `<link rel="canonical">` 使用 `site_url` 与页面路径生成绝对 URL。当前配置为 `https://astrayao.xyz`，GitHub Pages 工作流使用部署域名和 `base_path` 覆盖此值。构建时会统一处理子路径前缀。
 4. **零死链约束**：任何写入模板、Markdown 正文或 JSON 配置中以 `/` 开头的站内路径（排除 `//` 协议相对外链），在剥离可选 `base_path` 后于 `dist/` 下必须能解析为对应的文件或 `<dir>/index.html`。
 
 ---
@@ -103,7 +103,7 @@ d:\网页运营\
 | --- | --- | --- |
 | `site_title` | `string` | 站点全称：`"ASTRA YAO · 星环手记"` |
 | `site_tagline` | `string` | 站点副标题：`"以星光与黑胶的节拍，记录网页美学、简洁架构与慢技术日常"` |
-| `site_url` | `string` | 生产根域名（不含末尾 `/`）：`"https://astrayao.com"`（按实际域名后缀替换） |
+| `site_url` | `string` | 生产站点地址为 `"https://astrayao.xyz"`，末尾省略 `/` |
 | `author_name` | `string` | 作者署名：`"Astra Yao"` |
 | `author_role` | `string` | 作者身份头衔 |
 | `author_location` | `string` | 所在地：`"中国 · 上海"` |
