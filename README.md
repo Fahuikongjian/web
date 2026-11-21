@@ -7,7 +7,7 @@
 ## 核心特性
 
 - **Starloop Velvet & Vinyl 视觉系统**：默认呈现深邃温暖的 Starloop Night 暗色主视觉（黑曜石底、炽红点缀、香槟金边框），并支持一键切换 Ivory Collector's Edition 日间模式与防闪烁预加载。
-- **典藏黑胶唱片舞台交互**：首页内置黑胶唱片展台（`astra-hero.jpg` + 匀速旋转唱片 + 四柱律动 EQ 与 `[data-vinyl-toggle]` 启停控制），关于页展示天琴座星环徽章（`astra-portrait.jpg`）。
+- **典藏黑胶唱片舞台交互**：首页全屏抽象封面 `starloop-cover.jpg` 随滚动缩入黑胶唱片展台（匀速旋转唱片 + 四柱律动 EQ 与 `[data-vinyl-toggle]` 启停控制），关于页展示天琴座星环徽章（`astra-portrait.jpg`）。
 - **零重型外部构建依赖**：手写 YAML Frontmatter 解析器、Markdown 渲染引擎（标题锚点 & 目录 TOC、表格、引用、列表、Pygments 语法高亮与一键复制）及轻量模板引擎。
 - **全功能静态交互**：`Ctrl+K` / `Cmd+K` 站内实时搜索（基于 `/api/search-index.json`）、文章归档页多标签筛选、文章页顶部红金阅读进度条与右侧粘性目录滚动高亮。
 - **完整站点产物**：自动输出首页、文章归档、文章详情、项目页、关于页、自定义 `404.html`、`/api/posts.json`、`/api/search-index.json`、`/rss.xml`、`/sitemap.xml`、`/robots.txt`、`dist/.nojekyll` 与可选 `dist/CNAME`。
@@ -49,7 +49,7 @@
 ├── static/                   # 静态资源（构建时原样复制至 dist/static/）
 │   ├── css/                  # tokens.css / base.css / components.css / prose.css
 │   ├── js/                   # theme.js / search.js / post.js / main.js
-│   └── images/               # astra-hero.jpg、astra-portrait.jpg 及自包含原创 SVG 封面与图标
+│   └── images/               # starloop-cover.jpg、astra-portrait.jpg 及自包含原创 SVG 封面与图标
 ├── scripts/                  # 构建、预览与质量检查脚本
 │   ├── build.py              # 清理并重新构建 dist/（支持 --base-path / --site-url / --cname）
 │   ├── serve.py              # 本地静态预览服务器（支持自定义 404.html 与 404 状态码）

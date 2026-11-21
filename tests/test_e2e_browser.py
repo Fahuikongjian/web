@@ -229,10 +229,10 @@ def test_home_cover_shrinks_and_reveals_controls(
     page = browser.new_page(viewport={"width": width, "height": height})
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
-        portrait = page.locator(".home-cover-portrait")
+        artwork = page.locator(".home-cover-artwork")
         header = page.locator(".site-header")
         actions = page.locator(".hero-actions")
-        assert portrait.bounding_box()["height"] == pytest.approx(height, abs=1)
+        assert artwork.bounding_box()["height"] == pytest.approx(height, abs=1)
         assert header.evaluate("el => Number(getComputedStyle(el).opacity)") == 0
         assert not actions.is_visible()
 
@@ -242,16 +242,16 @@ def test_home_cover_shrinks_and_reveals_controls(
         )
         page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", travel * 0.57)
         page.wait_for_function("() => document.querySelector('.home-opening').classList.contains('is-content-visible')")
-        middle_height = portrait.bounding_box()["height"]
+        middle_height = artwork.bounding_box()["height"]
         assert middle_height < height
         assert 0 < header.evaluate("el => Number(getComputedStyle(el).opacity)") < 1
         assert actions.is_visible()
 
         page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", travel)
         page.wait_for_function("() => Number(getComputedStyle(document.querySelector('.site-header')).opacity) == 1")
-        portrait_height = page.locator(".vinyl-cover-img").bounding_box()["height"]
-        assert portrait.bounding_box()["height"] == pytest.approx(portrait_height, abs=2)
-        assert portrait_height < middle_height
+        artwork_height = page.locator(".vinyl-cover-img").bounding_box()["height"]
+        assert artwork.bounding_box()["height"] == pytest.approx(artwork_height, abs=2)
+        assert artwork_height < middle_height
         assert actions.evaluate("el => el.getBoundingClientRect().bottom") <= height
 
         page.evaluate("() => window.scrollTo({ top: 0, behavior: 'instant' })")
@@ -377,7 +377,7 @@ def test_vinyl_stage_toggle_and_astra_assets(browser: Browser, static_server: st
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
         _open_home_cover(page)
-        hero_img = page.locator('img[src="/static/images/astra-hero-cover.jpg"]')
+        hero_img = page.locator('img[src="/static/images/starloop-cover.jpg"]')
         assert hero_img.count() == 1 and hero_img.is_visible()
         assert hero_img.evaluate("img => img.complete && img.naturalWidth > 0")
 
@@ -655,7 +655,7 @@ def test_github_pages_subpath_deployment(browser: Browser, tmp_path: Path) -> No
             == "/astrayao-blog"
         )
         _open_home_cover(page)
-        hero_img = page.locator('img[src="/astrayao-blog/static/images/astra-hero-cover.jpg"]')
+        hero_img = page.locator('img[src="/astrayao-blog/static/images/starloop-cover.jpg"]')
         assert hero_img.count() == 1 and hero_img.is_visible()
         assert hero_img.evaluate("img => img.complete && img.naturalWidth > 0")
 

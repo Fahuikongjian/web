@@ -13,7 +13,7 @@
 | `static/css/base.css` | 盒模型复位、无障碍焦点环、Skip Link、容器尺寸与 `prefers-reduced-motion` 保护 |
 | `static/css/components.css` | 粘性顶栏、舞台聚光 Hero、典藏黑胶唱片展台 `.hero-vinyl-stage`、唱片曲目行、搜索弹窗、TOC 与响应式断点 |
 | `static/css/prose.css` | `.prose` 长文排版、红金阅读进度条、代码块与丝绒/象牙双主题 Pygments 高亮、表格与脚注 |
-| `static/images/astra-hero.jpg` | **定制保留资产（880×1100, 4:5）**：首页黑胶封套主插画（任何人不得覆盖或删除） |
+| `static/images/starloop-cover.jpg` | **首页抽象封面（1120×1400, 4:5）**：绯红舞台光、金色星轨与黑胶纹理，复用于全屏开场和黑胶唱片展台 |
 | `static/images/astra-portrait.jpg` | **定制保留资产（640×640, 1:1）**：关于页天琴座黑胶×金色五线谱×话筒徽章图（任何人不得覆盖或删除） |
 | `static/images/favicon.svg` | 黑曜金边黑胶唱片与四角星芒站点图标（64×64） |
 | `static/images/author-mark.svg` | 黑曜石 × 炽红 × 香槟金天琴座黑胶徽章备份矢量图（160×160） |
@@ -79,7 +79,7 @@ Hero 区右侧 `.hero-visual` 内部使用以下结构：
         <span class="sleeve-corner sleeve-corner--tr" aria-hidden="true">✦</span>
         <span class="sleeve-corner sleeve-corner--bl" aria-hidden="true">✦</span>
         <span class="sleeve-corner sleeve-corner--br" aria-hidden="true">✦</span>
-        <img class="vinyl-cover-img" src="/static/images/astra-hero.jpg" alt="耀嘉音（Astra Yao）星环典藏黑胶封绘" width="880" height="1100">
+        <img class="vinyl-cover-img" src="/static/images/starloop-cover.jpg" alt="绯红舞台光与金色星轨环绕的黑胶唱片" width="1120" height="1400">
       </figure>
     </div>
 

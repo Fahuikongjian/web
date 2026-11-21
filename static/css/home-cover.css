@@ -5,7 +5,7 @@
 }
 
 .home-cover {
-  --portrait-width: min(100%, max(57%, 72svh));
+  --artwork-width: min(100%, max(57%, 72svh));
   position: relative;
   display: flex;
   flex-direction: column;
@@ -19,7 +19,7 @@
 }
 
 .home-cover-backdrop,
-.home-cover-portrait {
+.home-cover-artwork {
   position: absolute;
   z-index: -1;
   pointer-events: none;
@@ -30,12 +30,12 @@
   background: radial-gradient(ellipse at 30% 18%, #5a2027 0%, #281318 42%, #100c0e 80%);
 }
 
-.home-cover-portrait {
+.home-cover-artwork {
   top: 0;
   right: 0;
-  width: var(--portrait-width);
+  width: var(--artwork-width);
   height: 100%;
-  background: url('../images/astra-hero-cover.jpg') center top / cover no-repeat;
+  background: url('../images/starloop-cover.jpg') center top / cover no-repeat;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 31%);
   mask-image: linear-gradient(90deg, transparent, #000 31%);
 }
@@ -128,16 +128,16 @@
   opacity: clamp(0, 1 - var(--cover-progress, 0) * 1.45, 1);
 }
 
-.is-scroll-cover .home-cover-portrait {
+.is-scroll-cover .home-cover-artwork {
   right: auto;
-  left: calc((100% - var(--portrait-width)) * (1 - var(--cover-progress, 0)) + var(--portrait-end-x, 0px) * var(--cover-progress, 0));
-  top: calc(var(--portrait-end-y, 0px) * var(--cover-progress, 0));
-  width: calc(var(--portrait-width) * (1 - var(--cover-progress, 0)) + var(--portrait-end-width, 0px) * var(--cover-progress, 0));
-  height: calc(100% * (1 - var(--cover-progress, 0)) + var(--portrait-end-height, 0px) * var(--cover-progress, 0));
+  left: calc((100% - var(--artwork-width)) * (1 - var(--cover-progress, 0)) + var(--artwork-end-x, 0px) * var(--cover-progress, 0));
+  top: calc(var(--artwork-end-y, 0px) * var(--cover-progress, 0));
+  width: calc(var(--artwork-width) * (1 - var(--cover-progress, 0)) + var(--artwork-end-width, 0px) * var(--cover-progress, 0));
+  height: calc(100% * (1 - var(--cover-progress, 0)) + var(--artwork-end-height, 0px) * var(--cover-progress, 0));
   border-radius: calc(var(--radius-md) * var(--cover-progress, 0));
-  --portrait-mask-end: max(0%, var(--portrait-mask-width, 31%) - var(--cover-progress, 0) * 67%);
-  -webkit-mask-image: linear-gradient(var(--portrait-mask-angle, 90deg), transparent, #000 var(--portrait-mask-end));
-  mask-image: linear-gradient(var(--portrait-mask-angle, 90deg), transparent, #000 var(--portrait-mask-end));
+  --artwork-mask-end: max(0%, var(--artwork-mask-width, 31%) - var(--cover-progress, 0) * 67%);
+  -webkit-mask-image: linear-gradient(var(--artwork-mask-angle, 90deg), transparent, #000 var(--artwork-mask-end));
+  mask-image: linear-gradient(var(--artwork-mask-angle, 90deg), transparent, #000 var(--artwork-mask-end));
   opacity: clamp(0, (1 - var(--cover-progress, 0)) * 16, 1);
 }
 
@@ -190,9 +190,9 @@
 
 @media (max-width: 760px) {
   .home-cover {
-    --portrait-width: 100%;
-    --portrait-mask-angle: 0deg;
-    --portrait-mask-width: 53%;
+    --artwork-width: 100%;
+    --artwork-mask-angle: 0deg;
+    --artwork-mask-width: 53%;
     gap: 1.6rem;
   }
 
@@ -200,7 +200,7 @@
     background: #160c10;
   }
 
-  .home-cover-portrait {
+  .home-cover-artwork {
     -webkit-mask-image: linear-gradient(0deg, transparent, #000 53%);
     mask-image: linear-gradient(0deg, transparent, #000 53%);
   }

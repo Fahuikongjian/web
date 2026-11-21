@@ -36,10 +36,10 @@
       var stageRect = stage.getBoundingClientRect();
       var imageRect = image.getBoundingClientRect();
       travel = Math.max(1, opening.offsetHeight - stage.offsetHeight);
-      opening.style.setProperty('--portrait-end-x', (imageRect.left - stageRect.left) + 'px');
-      opening.style.setProperty('--portrait-end-y', (imageRect.top - stageRect.top) + 'px');
-      opening.style.setProperty('--portrait-end-width', imageRect.width + 'px');
-      opening.style.setProperty('--portrait-end-height', imageRect.height + 'px');
+      opening.style.setProperty('--artwork-end-x', (imageRect.left - stageRect.left) + 'px');
+      opening.style.setProperty('--artwork-end-y', (imageRect.top - stageRect.top) + 'px');
+      opening.style.setProperty('--artwork-end-width', imageRect.width + 'px');
+      opening.style.setProperty('--artwork-end-height', imageRect.height + 'px');
       requestUpdate();
     }
 

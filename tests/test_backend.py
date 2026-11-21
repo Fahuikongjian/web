@@ -288,8 +288,7 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path) -> None:
         "robots.txt",
         "static/css/tokens.css",
         "static/js/search.js",
-        "static/images/astra-hero.jpg",
-        "static/images/astra-hero-cover.jpg",
+        "static/images/starloop-cover.jpg",
         "static/images/astra-portrait.jpg",
         "static/images/author-mark.svg",
         "static/images/favicon.svg",
@@ -301,6 +300,8 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path) -> None:
     ]
     for rel in expected_paths:
         assert (dist_dir / rel).is_file(), f"Missing built file: {rel}"
+    assert not (dist_dir / "static/images/astra-hero.jpg").exists()
+    assert not (dist_dir / "static/images/astra-hero-cover.jpg").exists()
 
     posts_api = json.loads((dist_dir / "api" / "posts.json").read_text(encoding="utf-8"))
     assert posts_api["total"] == 5
@@ -391,7 +392,7 @@ def test_github_pages_subpath_and_cname_build(tmp_path: Path) -> None:
     assert '<meta name="site-base-path" content="/astrayao-blog">' in home_html
     assert 'href="/astrayao-blog/static/css/tokens.css"' in home_html
     assert 'src="/astrayao-blog/static/js/search.js"' in home_html
-    assert 'src="/astrayao-blog/static/images/astra-hero-cover.jpg"' in home_html
+    assert 'src="/astrayao-blog/static/images/starloop-cover.jpg"' in home_html
     assert 'href="/astrayao-blog/articles/"' in home_html
     assert 'href="https://example.github.io/astrayao-blog/"' in home_html
     assert "/astrayao-blog/astrayao-blog/" not in home_html
@@ -463,7 +464,7 @@ def test_preview_server_serves_pages_and_custom_404(tmp_path: Path) -> None:
             assert "text/html" in resp.headers.get("Content-Type", "")
             home_html = resp.read().decode("utf-8")
             assert "ASTRA YAO · 星环手记" in home_html
-            assert "/static/images/astra-hero-cover.jpg" in home_html
+            assert "/static/images/starloop-cover.jpg" in home_html
 
         with opener.open(f"{base}/articles/editorial-web-aesthetics/") as resp:
             assert resp.status == 200
@@ -473,7 +474,7 @@ def test_preview_server_serves_pages_and_custom_404(tmp_path: Path) -> None:
             assert resp.status == 200
             assert "text/css" in resp.headers.get("Content-Type", "")
 
-        with opener.open(f"{base}/static/images/astra-hero-cover.jpg") as resp:
+        with opener.open(f"{base}/static/images/starloop-cover.jpg") as resp:
             assert resp.status == 200
             assert "image/jpeg" in resp.headers.get("Content-Type", "")
 

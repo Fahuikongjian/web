@@ -48,7 +48,7 @@ d:\网页运营\
 ├── static/                     # 静态资产（构建时完整拷贝至 dist/static/）
 │   ├── css/                    # tokens.css, base.css, components.css, prose.css
 │   ├── js/                     # theme.js, search.js, post.js, main.js
-│   └── images/                 # astra-hero.jpg, astra-portrait.jpg, favicon.svg, author-mark.svg, cover-01..05.svg
+│   └── images/                 # starloop-cover.jpg, astra-portrait.jpg, favicon.svg, author-mark.svg, cover-01..05.svg
 ├── backend/                    # Python 静态构建引擎
 │   ├── __init__.py
 │   ├── content_loader.py
@@ -74,7 +74,7 @@ d:\网页运营\
 └── dist/                       # 构建输出产物目录（由 build.py 全量清理重建，含 .nojekyll 与可选 CNAME）
 ```
 
-> **静态图像资产保留规则**：`static/images/astra-hero.jpg`（880×1100，4:5 首页典藏封绘）与 `static/images/astra-portrait.jpg`（640×640，1:1 关于页天琴座星徽）为定制交付成品，构建脚本必须完整复制至 `dist/static/images/`，任何角色不得删除或覆盖。
+> **静态图像资产**：构建脚本将 `static/images/starloop-cover.jpg`（1120×1400，首页抽象封面）与 `static/images/astra-portrait.jpg`（640×640，关于页天琴座星徽）复制到 `dist/static/images/`。
 
 ---
 
@@ -82,7 +82,7 @@ d:\网页运营\
 
 1. **源码与内容层统一使用根相对路径**（以 `/` 开头，不带域名、不使用 `../`）：
    - 样式与脚本：`/static/css/tokens.css`、`/static/js/theme.js`
-   - 本地图像与矢量资源：`/static/images/astra-hero.jpg`、`/static/images/astra-portrait.jpg`、`/static/images/favicon.svg`、`/static/images/cover-01.svg`
+   - 本地图像与矢量资源：`/static/images/starloop-cover.jpg`、`/static/images/astra-portrait.jpg`、`/static/images/favicon.svg`、`/static/images/cover-01.svg`
    - 页面路由：`/`、`/articles/`、`/articles/<slug>/`、`/projects/`、`/about/`
    - 数据与订阅：`/api/posts.json`、`/api/search-index.json`、`/rss.xml`、`/sitemap.xml`
 2. **GitHub Pages 子路径自动重写（`base_path`）**：
@@ -224,7 +224,7 @@ draft: false
 
 #### `templates/home.html`
 - `{{hero_eyebrow}}`, `{{hero_title}}`, `{{hero_subtitle}}`, `{{now_status}}`, `{{post_count}}`, `{{tag_count}}`, `{{featured_post_html}}`, `{{recent_posts_html}}`, `{{featured_projects_html}}`, `{{top_tags_html}}`
-- `.hero-visual` 内展示 `/static/images/astra-hero.jpg` 及旋转黑胶舞台 `[data-vinyl-stage]` + `[data-vinyl-toggle]`。
+- `.hero-visual` 内展示 `/static/images/starloop-cover.jpg` 及旋转黑胶舞台 `[data-vinyl-stage]` + `[data-vinyl-toggle]`。
 
 #### `templates/articles.html`
 - `{{total_posts}}`, `{{tag_filters_html}}`, `{{articles_list_html}}`
