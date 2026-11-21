@@ -1,0 +1,274 @@
+/* Homepage cover and scroll transition */
+
+.home-opening {
+  --cover-travel: clamp(19rem, 73svh, 46rem);
+}
+
+.home-cover {
+  --portrait-width: min(100%, max(57%, 72svh));
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: clamp(2rem, 9svh, 6rem);
+  min-height: calc(100svh - var(--header-height));
+  padding-block: 2rem clamp(1.5rem, 5svh, 3.5rem);
+  overflow: clip;
+  isolation: isolate;
+  color: #fff3e4;
+}
+
+.home-cover-backdrop,
+.home-cover-portrait {
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.home-cover-backdrop {
+  inset: 0;
+  background: radial-gradient(ellipse at 30% 18%, #5a2027 0%, #281318 42%, #100c0e 80%);
+}
+
+.home-cover-portrait {
+  top: 0;
+  right: 0;
+  width: var(--portrait-width);
+  height: 100%;
+  background: url('../images/astra-hero-cover.jpg') center top / cover no-repeat;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 31%);
+  mask-image: linear-gradient(90deg, transparent, #000 31%);
+}
+
+.home-cover::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(0deg, #100a0ce6 0%, #160c0e38 34%, transparent 68%);
+}
+
+.home-cover-copy,
+.home-cover-foot {
+  padding-inline: calc(var(--gutter) + clamp(0rem, 1.5vw, 1.5rem));
+}
+
+.home-cover-mark {
+  width: clamp(2rem, 3.3vw, 2.625rem);
+  height: auto;
+  margin-bottom: clamp(0.85rem, 2svh, 1.35rem);
+}
+
+.home-cover-name {
+  color: #f1c98d;
+  font: 500 var(--text-sm)/1.2 var(--font-mono);
+  letter-spacing: 0.32em;
+}
+
+.home-cover-title {
+  margin-top: 0.6rem;
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 7.4vw, 7.5rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: 0.06em;
+  text-shadow: 0 3px 30px #100a0c7a;
+}
+
+.home-cover-enter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 44px;
+  border-top: 1px solid #f1c98d70;
+  color: #fff3e4;
+  font-size: var(--text-sm);
+  letter-spacing: 0.14em;
+}
+
+.home-cover-enter svg,
+.home-cover-enter:hover {
+  color: #f1c98d;
+}
+
+#home-intro {
+  scroll-margin-top: var(--header-height);
+}
+
+.home-opening.is-scroll-cover::after {
+  content: "";
+  display: block;
+  height: var(--cover-travel);
+}
+
+.is-scroll-cover .home-opening-stage {
+  position: sticky;
+  top: 0;
+  isolation: isolate;
+}
+
+.is-scroll-cover .hero-section {
+  display: grid;
+  align-items: center;
+  min-height: 100svh;
+  padding-top: calc(var(--header-height) + clamp(1rem, 3.5svh, 2.5rem));
+}
+
+.is-scroll-cover .home-cover {
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto;
+  height: 100svh;
+  pointer-events: none;
+}
+
+.is-scroll-cover .home-cover-backdrop,
+.is-scroll-cover .home-cover::after {
+  opacity: clamp(0, 1 - var(--cover-progress, 0) * 1.45, 1);
+}
+
+.is-scroll-cover .home-cover-portrait {
+  right: auto;
+  left: calc((100% - var(--portrait-width)) * (1 - var(--cover-progress, 0)) + var(--portrait-end-x, 0px) * var(--cover-progress, 0));
+  top: calc(var(--portrait-end-y, 0px) * var(--cover-progress, 0));
+  width: calc(var(--portrait-width) * (1 - var(--cover-progress, 0)) + var(--portrait-end-width, 0px) * var(--cover-progress, 0));
+  height: calc(100% * (1 - var(--cover-progress, 0)) + var(--portrait-end-height, 0px) * var(--cover-progress, 0));
+  border-radius: calc(var(--radius-md) * var(--cover-progress, 0));
+  --portrait-mask-end: max(0%, var(--portrait-mask-width, 31%) - var(--cover-progress, 0) * 67%);
+  -webkit-mask-image: linear-gradient(var(--portrait-mask-angle, 90deg), transparent, #000 var(--portrait-mask-end));
+  mask-image: linear-gradient(var(--portrait-mask-angle, 90deg), transparent, #000 var(--portrait-mask-end));
+  opacity: clamp(0, (1 - var(--cover-progress, 0)) * 16, 1);
+}
+
+.is-scroll-cover .home-cover-copy,
+.is-scroll-cover .home-cover-foot {
+  opacity: clamp(0, 1 - var(--cover-progress, 0) * 2.4, 1);
+  transform: translateY(calc(var(--cover-progress, 0) * -2rem));
+}
+
+.is-scroll-cover .home-cover-enter {
+  pointer-events: auto;
+}
+
+.is-scroll-cover.is-content-visible .home-cover-enter {
+  visibility: hidden;
+}
+
+.is-scroll-cover .hero-grid {
+  visibility: hidden;
+  opacity: clamp(0, (var(--cover-progress, 0) - 0.34) * 1.82, 1);
+}
+
+.is-scroll-cover.is-content-visible .hero-grid {
+  visibility: visible;
+}
+
+.site-header.is-cover-header {
+  position: fixed;
+  inset: 0 0 auto;
+  opacity: var(--cover-nav-opacity, 0);
+  transform: translateY(calc((var(--cover-nav-opacity, 0) - 1) * 0.75rem));
+  pointer-events: none;
+}
+
+.site-header.is-cover-header.is-cover-nav-visible {
+  pointer-events: auto;
+}
+
+.site-header.is-cover-header:focus-within {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+@media (min-width: 761px) and (max-width: 1024px) {
+  .is-scroll-cover .hero-grid {
+    grid-template-columns: minmax(0, 1.12fr) minmax(260px, 0.88fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .home-cover {
+    --portrait-width: 100%;
+    --portrait-mask-angle: 0deg;
+    --portrait-mask-width: 53%;
+    gap: 1.6rem;
+  }
+
+  .home-cover-backdrop {
+    background: #160c10;
+  }
+
+  .home-cover-portrait {
+    -webkit-mask-image: linear-gradient(0deg, transparent, #000 53%);
+    mask-image: linear-gradient(0deg, transparent, #000 53%);
+  }
+
+  .home-cover-copy,
+  .home-cover-foot {
+    padding-inline: max(var(--gutter), 6vw);
+  }
+
+  .is-scroll-cover .hero-grid {
+    gap: clamp(1rem, 2.75svh, 1.65rem);
+  }
+
+  .is-scroll-cover .hero-visual {
+    grid-row: 1;
+  }
+
+  .is-scroll-cover .hero-vinyl-stage {
+    max-width: min(100%, clamp(8.75rem, 31svh, 17rem));
+  }
+
+  .is-scroll-cover .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .is-scroll-cover .hero-title {
+    font-size: clamp(1.65rem, 6.7vw, 2.25rem);
+  }
+
+  .is-scroll-cover .hero-actions {
+    margin-bottom: 1rem;
+  }
+
+  .is-scroll-cover .hero-subtitle {
+    order: 1;
+    margin-bottom: 1rem;
+  }
+
+  .is-scroll-cover .hero-status-row {
+    order: 2;
+    width: 100%;
+  }
+}
+
+@media (max-width: 370px), (max-height: 660px) and (max-width: 760px) {
+  .is-scroll-cover .hero-art-caption > span:last-child {
+    display: none;
+  }
+
+  .is-scroll-cover .hero-eyebrow {
+    margin-bottom: 0.5rem;
+  }
+
+  .is-scroll-cover .hero-title {
+    margin-bottom: 0.75rem;
+  }
+}
+
+@media (max-width: 370px) {
+  .is-cover-header .header-inner,
+  .is-cover-header .site-brand,
+  .is-cover-header .header-actions {
+    gap: 0.4rem;
+  }
+
+  .is-cover-header .brand-title {
+    font-size: 0.875rem;
+  }
+}

@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/static/css/base.css">
   <link rel="stylesheet" href="/static/css/components.css">
   <link rel="stylesheet" href="/static/css/prose.css">
-  
+  <link rel="stylesheet" href="/static/css/home-cover.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">跳至正文内容</a>
@@ -95,67 +95,89 @@
   </div>
 
   <main id="main-content" tabindex="-1">
-    <section class="hero-section">
-  <div class="container hero-grid">
-    <div class="hero-content">
-      <div class="hero-eyebrow">STARS OF LYRA · STARLOOP EDITION · ASTRAYAO</div>
-      <h1 class="hero-title">在星环聚光灯下，谱写长久在线的数字唱片。</h1>
-      <p class="hero-subtitle">以《绝区零》天琴座歌姬耀嘉音（Astra Yao）的复古红黑金美学为灵感——记录前端视觉、中文排版、零依赖静态架构与个人服务器上线手记。</p>
-      <div class="hero-actions">
-        <a class="btn btn-primary" href="/articles/">浏览全部文章</a>
-        <a class="btn btn-secondary" href="/about/">关于与建造说明</a>
+    <div class="home-opening" data-home-opening>
+  <div class="home-opening-stage">
+    <div class="home-cover">
+      <div class="home-cover-backdrop" aria-hidden="true"></div>
+      <div class="home-cover-portrait" aria-hidden="true"></div>
+      <div class="container home-cover-copy">
+        <img class="home-cover-mark" src="/static/images/favicon.svg" alt="" width="42" height="42">
+        <p class="home-cover-name">ASTRA YAO</p>
+        <p class="home-cover-title">星环手记</p>
       </div>
-      <div class="hero-status-row">
-        <div class="now-badge">
-          <span class="now-dot" aria-hidden="true"></span>
-          <span><strong>Now</strong> · ON AIR · 正在上海打磨 astrayao 个人站，首发托管于 GitHub Pages</span>
-        </div>
-        <div class="hero-stats">
-          <span>5 篇文章</span>
-          <span aria-hidden="true">·</span>
-          <span>20 个主题</span>
-        </div>
+      <div class="container home-cover-foot">
+        <a class="home-cover-enter" href="#home-intro">
+          <span>向下滑动</span>
+          <svg viewBox="0 0 16 25" width="16" height="25" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true">
+            <path d="M8 1v22m-5-5 5 5 5-5"/>
+          </svg>
+        </a>
       </div>
     </div>
 
-    <div class="hero-visual">
-      <div class="hero-vinyl-stage" data-vinyl-stage>
-        <div class="vinyl-stage-display">
-          <div class="vinyl-disc" aria-hidden="true">
-            <div class="vinyl-disc-label">
-              <span class="vinyl-label-ring"></span>
-              <span class="vinyl-label-spindle"></span>
+    <section class="hero-section" id="home-intro" tabindex="-1" aria-labelledby="home-intro-title">
+      <div class="container hero-grid">
+        <div class="hero-content">
+          <div class="hero-eyebrow">STARS OF LYRA · STARLOOP EDITION · ASTRAYAO</div>
+          <h1 class="hero-title" id="home-intro-title">在星环聚光灯下，谱写长久在线的数字唱片。</h1>
+          <p class="hero-subtitle">以《绝区零》天琴座歌姬耀嘉音（Astra Yao）的复古红黑金美学为灵感——记录前端视觉、中文排版、零依赖静态架构与个人服务器上线手记。</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="/articles/">浏览全部文章</a>
+            <a class="btn btn-secondary" href="/about/">关于与建造说明</a>
+          </div>
+          <div class="hero-status-row">
+            <div class="now-badge">
+              <span class="now-dot" aria-hidden="true"></span>
+              <span><strong>Now</strong> · ON AIR · 正在上海打磨 astrayao 个人站，首发托管于 GitHub Pages</span>
+            </div>
+            <div class="hero-stats">
+              <span>5 篇文章</span>
+              <span aria-hidden="true">·</span>
+              <span>20 个主题</span>
             </div>
           </div>
-
-          <figure class="vinyl-sleeve">
-            <span class="sleeve-corner sleeve-corner--tl" aria-hidden="true">✦</span>
-            <span class="sleeve-corner sleeve-corner--tr" aria-hidden="true">✦</span>
-            <span class="sleeve-corner sleeve-corner--bl" aria-hidden="true">✦</span>
-            <span class="sleeve-corner sleeve-corner--br" aria-hidden="true">✦</span>
-            <img class="vinyl-cover-img" src="/static/images/astra-hero-cover.jpg" alt="耀嘉音（Astra Yao）星环典藏黑胶封绘" width="1092" height="1441">
-          </figure>
         </div>
 
-        <div class="vinyl-control-bar">
-          <div class="hero-art-caption">
-            <span class="eq-bars" aria-hidden="true">
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-              <span class="eq-bar"></span>
-            </span>
-            <span>STARS OF LYRA · SIDE A · 33⅓ RPM</span>
+        <div class="hero-visual">
+          <div class="hero-vinyl-stage" data-vinyl-stage>
+            <div class="vinyl-stage-display">
+              <div class="vinyl-disc" aria-hidden="true">
+                <div class="vinyl-disc-label">
+                  <span class="vinyl-label-ring"></span>
+                  <span class="vinyl-label-spindle"></span>
+                </div>
+              </div>
+
+              <figure class="vinyl-sleeve">
+                <span class="sleeve-corner sleeve-corner--tl" aria-hidden="true">✦</span>
+                <span class="sleeve-corner sleeve-corner--tr" aria-hidden="true">✦</span>
+                <span class="sleeve-corner sleeve-corner--bl" aria-hidden="true">✦</span>
+                <span class="sleeve-corner sleeve-corner--br" aria-hidden="true">✦</span>
+                <img class="vinyl-cover-img" src="/static/images/astra-hero-cover.jpg" alt="耀嘉音（Astra Yao）星环典藏黑胶封绘" width="1092" height="1441" fetchpriority="high">
+              </figure>
+            </div>
+
+            <div class="vinyl-control-bar">
+              <div class="hero-art-caption">
+                <span class="eq-bars" aria-hidden="true">
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                </span>
+                <span>STARS OF LYRA · SIDE A · 33⅓ RPM</span>
+              </div>
+              <button type="button" class="vinyl-toggle" data-vinyl-toggle aria-pressed="false" aria-label="暂停或继续黑胶唱片旋转">
+                <span class="vinyl-toggle-dot" aria-hidden="true"></span>
+                <span data-vinyl-toggle-label>旋转中</span>
+              </button>
+            </div>
           </div>
-          <button type="button" class="vinyl-toggle" data-vinyl-toggle aria-pressed="false" aria-label="暂停或继续黑胶唱片旋转">
-            <span class="vinyl-toggle-dot" aria-hidden="true"></span>
-            <span data-vinyl-toggle-label>旋转中</span>
-          </button>
         </div>
       </div>
-    </div>
+    </section>
   </div>
-</section>
+</div>
 
 <section class="section-block" aria-labelledby="section-featured">
   <div class="container">
@@ -530,6 +552,6 @@
   <script src="/static/js/theme.js" defer></script>
   <script src="/static/js/search.js" defer></script>
   <script src="/static/js/main.js" defer></script>
-  
+  <script src="/static/js/home-cover.js" defer></script>
 </body>
 </html>

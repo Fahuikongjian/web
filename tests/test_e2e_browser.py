@@ -213,6 +213,69 @@ def _assert_images_loaded(page: Page, route: str) -> None:
     assert broken == [], f"Broken images on {route}: {broken}"
 
 
+def _open_home_cover(page: Page) -> None:
+    enter = page.locator(".home-cover-enter")
+    if enter.is_visible():
+        enter.click()
+    page.wait_for_function(
+        "() => Number(document.querySelector('.home-opening').style.getPropertyValue('--cover-progress')) >= 0.99"
+    )
+
+
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844), (320, 568)])
+def test_home_cover_shrinks_and_reveals_controls(
+    browser: Browser, static_server: str, width: int, height: int
+) -> None:
+    page = browser.new_page(viewport={"width": width, "height": height})
+    try:
+        page.goto(f"{static_server}/", wait_until="networkidle")
+        portrait = page.locator(".home-cover-portrait")
+        header = page.locator(".site-header")
+        actions = page.locator(".hero-actions")
+        assert portrait.bounding_box()["height"] == pytest.approx(height, abs=1)
+        assert header.evaluate("el => Number(getComputedStyle(el).opacity)") == 0
+        assert not actions.is_visible()
+
+        travel = page.evaluate(
+            """() => document.querySelector('.home-opening').offsetHeight
+                     - document.querySelector('.home-opening-stage').offsetHeight"""
+        )
+        page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", travel * 0.57)
+        page.wait_for_function("() => document.querySelector('.home-opening').classList.contains('is-content-visible')")
+        middle_height = portrait.bounding_box()["height"]
+        assert middle_height < height
+        assert 0 < header.evaluate("el => Number(getComputedStyle(el).opacity)") < 1
+        assert actions.is_visible()
+
+        page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", travel)
+        page.wait_for_function("() => Number(getComputedStyle(document.querySelector('.site-header')).opacity) == 1")
+        portrait_height = page.locator(".vinyl-cover-img").bounding_box()["height"]
+        assert portrait.bounding_box()["height"] == pytest.approx(portrait_height, abs=2)
+        assert portrait_height < middle_height
+        assert actions.evaluate("el => el.getBoundingClientRect().bottom") <= height
+
+        page.evaluate("() => window.scrollTo({ top: 0, behavior: 'instant' })")
+        page.locator(".home-cover-enter").wait_for(state="visible")
+        assert not actions.is_visible()
+        _open_home_cover(page)
+        assert page.evaluate("() => document.activeElement.id") == "home-intro"
+    finally:
+        page.close()
+
+
+def test_home_cover_respects_reduced_motion(browser: Browser, static_server: str) -> None:
+    page = browser.new_page(reduced_motion="reduce")
+    try:
+        page.goto(f"{static_server}/", wait_until="networkidle")
+        assert not page.locator(".home-opening.is-scroll-cover").count()
+        assert page.locator(".site-header").evaluate("el => getComputedStyle(el).position") == "sticky"
+        page.locator(".home-cover-enter").click()
+        page.wait_for_url("**/#home-intro")
+        assert page.locator(".hero-actions").is_visible()
+    finally:
+        page.close()
+
+
 def test_routes_zero_errors_and_responsive_viewports(browser: Browser, static_server: str) -> None:
     post_routes = _load_post_routes()
     routes = ["/", "/articles/", "/projects/", "/about/", *post_routes]
@@ -235,6 +298,7 @@ def test_routes_zero_errors_and_responsive_viewports(browser: Browser, static_se
 
             if viewport_name == "mobile-390x844":
                 page.goto(f"{static_server}/", wait_until="networkidle")
+                _open_home_cover(page)
                 drawer = page.locator("[data-mobile-drawer]")
                 toggle = page.locator("[data-mobile-menu-toggle]")
                 assert toggle.is_visible()
@@ -287,6 +351,7 @@ def test_theme_toggle_and_persistence(browser: Browser, static_server: str) -> N
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
         assert page.evaluate("() => document.documentElement.dataset.theme") == "dark"
+        _open_home_cover(page)
 
         page.locator("[data-theme-toggle]").click()
         assert page.evaluate("() => document.documentElement.dataset.theme") == "light"
@@ -294,6 +359,7 @@ def test_theme_toggle_and_persistence(browser: Browser, static_server: str) -> N
 
         page.reload(wait_until="networkidle")
         assert page.evaluate("() => document.documentElement.dataset.theme") == "light"
+        _open_home_cover(page)
 
         page.locator("[data-theme-toggle]").click()
         assert page.evaluate("() => document.documentElement.dataset.theme") == "dark"
@@ -310,6 +376,7 @@ def test_vinyl_stage_toggle_and_astra_assets(browser: Browser, static_server: st
     records = _attach_error_collectors(page)
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
+        _open_home_cover(page)
         hero_img = page.locator('img[src="/static/images/astra-hero-cover.jpg"]')
         assert hero_img.count() == 1 and hero_img.is_visible()
         assert hero_img.evaluate("img => img.complete && img.naturalWidth > 0")
@@ -469,6 +536,7 @@ def test_capture_visual_acceptance_screenshots(browser: Browser, static_server: 
         captured.append(home_dark)
 
         # 2. Home Light — Ivory Collector's Edition (1440x900)
+        _open_home_cover(page)
         page.locator("[data-theme-toggle]").click()
         assert page.evaluate("() => document.documentElement.dataset.theme") == "light"
         page.wait_for_timeout(200)
@@ -586,6 +654,7 @@ def test_github_pages_subpath_deployment(browser: Browser, tmp_path: Path) -> No
             page.locator('meta[name="site-base-path"]').get_attribute("content")
             == "/astrayao-blog"
         )
+        _open_home_cover(page)
         hero_img = page.locator('img[src="/astrayao-blog/static/images/astra-hero-cover.jpg"]')
         assert hero_img.count() == 1 and hero_img.is_visible()
         assert hero_img.evaluate("img => img.complete && img.naturalWidth > 0")
