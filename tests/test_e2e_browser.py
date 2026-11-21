@@ -223,7 +223,7 @@ def _open_home_cover(page: Page) -> None:
 
 
 @pytest.mark.parametrize("width,height", [(1440, 900), (390, 844), (320, 568)])
-def test_home_cover_fades_upward_without_resizing(
+def test_home_cover_fades_as_content_rises_with_scroll(
     browser: Browser, static_server: str, width: int, height: int
 ) -> None:
     page = browser.new_page(viewport={"width": width, "height": height})
@@ -232,82 +232,83 @@ def test_home_cover_fades_upward_without_resizing(
         cover = page.locator(".home-cover")
         artwork = page.locator(".home-cover-artwork")
         header = page.locator(".site-header")
+        content = page.locator(".hero-grid")
         actions = page.locator(".hero-actions")
         original_bounds = artwork.bounding_box()
+        initial_content_y = content.bounding_box()["y"]
         original_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
         assert original_bounds["height"] == pytest.approx(height, abs=1)
         assert original_mask.startswith("linear-gradient(to top,")
         assert header.evaluate("el => Number(getComputedStyle(el).opacity)") == 0
-        assert not actions.is_visible()
+        assert content.evaluate("el => el.inert")
 
         travel = page.evaluate(
             """() => document.querySelector('.home-opening').offsetHeight
                      - document.querySelector('.home-opening-stage').offsetHeight"""
         )
-        page.locator(".home-cover-enter").click()
-        middle_mask = page.wait_for_function("""() => {
-            const cover = document.querySelector('.home-cover');
-            const progress = Number(cover.closest('.home-opening').style.getPropertyValue('--cover-progress'));
-            return progress > 0.35 && progress < 0.85 && getComputedStyle(cover).maskImage;
-        }""").json_value()
+        def scroll_to(position: int) -> None:
+            page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", position)
+            page.wait_for_function(
+                """expected => Number(document.querySelector('.home-opening')
+                    .style.getPropertyValue('--cover-progress')) === expected""",
+                arg=min(1, position / travel),
+            )
+
+        middle = round(travel * 0.52)
+        scroll_to(middle)
+        middle_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
         assert middle_mask != original_mask
         assert artwork.bounding_box() == pytest.approx(original_bounds, abs=1)
+        assert content.bounding_box()["y"] == pytest.approx(initial_content_y - middle, abs=2)
 
-        page.wait_for_function("y => window.scrollY === y", arg=travel)
+        scroll_to(travel)
         final_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
         assert final_mask not in (middle_mask, original_mask)
         assert "100%" in final_mask
         assert artwork.bounding_box() == pytest.approx(original_bounds, abs=1)
+        content_y = content.bounding_box()["y"]
+        assert content_y == pytest.approx(initial_content_y - travel, abs=2)
+        assert not content.evaluate("el => el.inert")
         assert actions.is_visible()
         assert actions.evaluate("el => el.getBoundingClientRect().bottom") <= height
+
+        scroll_to(middle)
+        assert cover.evaluate("el => getComputedStyle(el).maskImage") == middle_mask
+        assert content.bounding_box()["y"] == pytest.approx(initial_content_y - middle, abs=2)
+        scroll_to(0)
+        _open_home_cover(page)
         assert page.evaluate("() => document.activeElement.id") == "home-intro"
     finally:
         page.close()
 
 
-def test_home_cover_wheel_settles_at_either_stop(browser: Browser, static_server: str) -> None:
+def test_home_cover_wheel_progress_stays_where_paused(browser: Browser, static_server: str) -> None:
     page = browser.new_page(viewport={"width": 1440, "height": 900})
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
-        cover = page.locator(".home-cover")
-        original_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
+        content = page.locator(".hero-grid")
+        original_y = content.bounding_box()["y"]
         travel = page.evaluate(
             """() => document.querySelector('.home-opening').offsetHeight
                      - document.querySelector('.home-opening-stage').offsetHeight"""
         )
-        page.mouse.wheel(0, 35)
-        page.wait_for_function("y => window.scrollY > 0 && window.scrollY < y", arg=travel)
-        assert cover.evaluate("el => getComputedStyle(el).maskImage") != original_mask
-        assert not page.locator(".hero-actions").is_visible()
-        page.wait_for_function("() => window.scrollY === 0")
-        assert cover.evaluate("el => getComputedStyle(el).maskImage") == original_mask
-        page.wait_for_timeout(120)
+        position = 0
+        for delta in (40, 205, -115):
+            position += delta
+            page.mouse.wheel(0, delta)
+            page.wait_for_function("y => window.scrollY === y", arg=position)
+            page.wait_for_timeout(320)
+            assert page.evaluate("() => window.scrollY") == position
+            assert content.bounding_box()["y"] == pytest.approx(original_y - position, abs=2)
 
-        # A larger wheel gesture commits, with its trailing events absorbed at the stop.
-        page.mouse.wheel(0, 190)
-        for _ in range(4):
-            page.mouse.wheel(0, 80)
-        page.wait_for_function("y => window.scrollY === y", arg=travel)
-        page.wait_for_timeout(160)
-        assert page.evaluate("() => window.scrollY") == travel
-        assert page.locator(".hero-actions").is_visible()
-
-        page.mouse.wheel(0, -35)
-        page.wait_for_function("y => window.scrollY < y", arg=travel)
-        page.wait_for_function("y => window.scrollY === y", arg=travel)
-        page.wait_for_timeout(120)
-
-        page.mouse.wheel(0, 320)
+        page.mouse.wheel(0, travel)
         page.wait_for_function("y => window.scrollY > y", arg=travel)
-        page.evaluate("y => window.scrollTo({ top: y, behavior: 'instant' })", travel)
-        page.mouse.wheel(0, -175)
-        page.wait_for_function("() => window.scrollY === 0")
-        assert not page.locator(".hero-actions").is_visible()
+        assert page.locator(".section-block").first.is_visible()
     finally:
         page.close()
 
 
-def test_home_cover_touch_springs_back_or_opens(browser: Browser, static_server: str) -> None:
+def test_home_cover_touch_stops_at_a_partial_reveal(browser: Browser, static_server: str) -> None:
     page = browser.new_page(viewport={"width": 390, "height": 844}, has_touch=True, is_mobile=True)
     touch = page.context.new_cdp_session(page)
 
@@ -317,24 +318,21 @@ def test_home_cover_touch_springs_back_or_opens(browser: Browser, static_server:
 
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
+        content = page.locator(".hero-grid")
+        original_y = content.bounding_box()["y"]
         dispatch("touchStart", 610)
-        page.wait_for_timeout(110)
-        dispatch("touchMove", 585)
-        page.wait_for_function("() => window.scrollY > 0")
-        page.wait_for_timeout(170)
-        assert 0 < page.evaluate("() => window.scrollY") < 30
+        for y in (525, 440, 355):
+            page.wait_for_timeout(120)
+            dispatch("touchMove", y)
+        page.wait_for_timeout(180)
         dispatch("touchEnd")
-        page.wait_for_function("() => window.scrollY === 0")
-        page.wait_for_timeout(120)
-
-        dispatch("touchStart", 610)
-        dispatch("touchMove", 480)
-        dispatch("touchEnd")
-        page.wait_for_function("""() => {
-            const opening = document.querySelector('.home-opening');
-            return Number(opening.style.getPropertyValue('--cover-progress')) === 1;
-        }""")
-        assert page.locator(".hero-actions").is_visible()
+        page.wait_for_timeout(320)
+        position = page.evaluate("() => window.scrollY")
+        progress = page.locator(".home-opening").evaluate(
+            "el => Number(el.style.getPropertyValue('--cover-progress'))"
+        )
+        assert 0.25 < progress < 0.75
+        assert content.bounding_box()["y"] == pytest.approx(original_y - position, abs=2)
     finally:
         page.close()
 

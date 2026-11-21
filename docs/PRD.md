@@ -53,7 +53,7 @@
 - **交互控件**：点击 `[data-theme-toggle]` 立即切换 `'dark'` ↔ `'light'`、更新 `localStorage` 与按钮无障碍 `aria-label` 及图标态，刷新页面后状态持久化保持。
 
 ### 3.2 典藏黑胶唱片展台交互（Vinyl Stage）
-- **视觉构成**：首页全屏展示由绯红舞台光、金色星轨与黑胶纹理组成的抽象封面（`/static/images/starloop-cover.jpg`）。封面保持原有尺寸，自下而上淡出。滑动达到阈值后，过渡自动完成，露出旋转黑胶唱片 `.vinyl-disc` 与底部控制条。轻滑松手后，全屏封面恢复完整显示。控制条包含 4 柱律动 `.eq-bars`、`STARS OF LYRA · SIDE A · 33⅓ RPM` 铭文与控制按钮 `[data-vinyl-toggle]`。
+- **视觉构成**：首页全屏展示由绯红舞台光、金色星轨与黑胶纹理组成的抽象封面（`/static/images/starloop-cover.jpg`）。滚动时，封面保持原有尺寸并自下而上淡出，唱片展台与文章入口同步从下方升起。滚动位置决定过渡进度，用户可以停在中途或反向滚动。控制条包含 4 柱律动 `.eq-bars`、`STARS OF LYRA · SIDE A · 33⅓ RPM` 铭文与控制按钮 `[data-vinyl-toggle]`。
 - **可控与无障碍**：点击 `[data-vinyl-toggle]` 为展台容器 `[data-vinyl-stage]` 切换 `.is-paused` 类名，同步停止黑胶旋转与律动柱动画，更新按钮文案（`"旋转中"` ↔ `"已暂停"`）与 `aria-pressed`；同时尊重操作系统 `prefers-reduced-motion: reduce`。
 
 ### 3.3 Cmd / Ctrl + K 全局搜索弹窗
