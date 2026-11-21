@@ -5,39 +5,29 @@
     var drawer = document.querySelector('[data-mobile-drawer]');
     var toggleBtn = document.querySelector('[data-mobile-menu-toggle]');
     if (!drawer || !toggleBtn) return;
-
-    function setOpen(open) {
-      drawer.classList.toggle('is-open', open);
-      drawer.setAttribute('aria-hidden', open ? 'false' : 'true');
-      toggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
-      toggleBtn.setAttribute('aria-label', open ? '关闭导航菜单' : '打开导航菜单');
-      document.body.style.overflow = open ? 'hidden' : '';
-
-      if (open) {
-        var firstLink = drawer.querySelector('.mobile-nav-link');
-        if (firstLink) {
-          firstLink.focus();
-        }
-      } else {
-        toggleBtn.focus();
-      }
-    }
+    var mobile = window.matchMedia('(max-width: 720px)');
+    var siteBrand = document.querySelector('.site-brand');
 
     toggleBtn.addEventListener('click', function () {
-      var isOpen = drawer.classList.contains('is-open');
-      setOpen(!isOpen);
+      drawer.showModal();
+      toggleBtn.setAttribute('aria-expanded', 'true');
     });
 
     drawer.addEventListener('click', function (event) {
-      if (event.target.closest('[data-mobile-drawer-close]') || event.target.closest('.mobile-nav-link')) {
-        setOpen(false);
+      if (event.target === drawer || event.target.closest('[data-mobile-drawer-close], .mobile-nav-link')) {
+        drawer.close();
       }
     });
 
-    document.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape' && drawer.classList.contains('is-open')) {
-        setOpen(false);
+    drawer.addEventListener('close', function () {
+      toggleBtn.setAttribute('aria-expanded', 'false');
+      if (!mobile.matches && !document.querySelector('[data-search-modal][open]')) {
+        siteBrand.focus({ preventScroll: true });
       }
+    });
+
+    mobile.addEventListener('change', function () {
+      if (!mobile.matches && drawer.open) drawer.close();
     });
   }
 

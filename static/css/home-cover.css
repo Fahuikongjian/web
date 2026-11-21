@@ -212,14 +212,58 @@
   }
 }
 
-@media (max-width: 370px) {
-  .is-cover-header .header-inner,
-  .is-cover-header .site-brand,
-  .is-cover-header .header-actions {
-    gap: 0.4rem;
+@media (max-height: 480px) and (orientation: landscape) {
+  .home-opening {
+    --cover-travel: clamp(12rem, 74svh, 22rem);
   }
 
-  .is-cover-header .brand-title {
-    font-size: 0.875rem;
+  .home-cover {
+    --artwork-width: 65%;
+    gap: clamp(0.5rem, 4svh, 1.25rem);
+    padding-block: clamp(0.5rem, 4svh, 1.25rem);
+  }
+
+  .home-cover-artwork {
+    background-position: center 35%;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 38%);
+    mask-image: linear-gradient(90deg, transparent, #000 38%);
+  }
+
+  .home-cover-mark {
+    width: 1.75rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .home-cover-title {
+    font-size: clamp(2rem, 12svh, 3.5rem);
+  }
+
+  .is-scroll-cover .hero-section {
+    padding-block: calc(var(--header-height) + 0.6rem) 0.9rem;
+  }
+
+  .is-scroll-cover .hero-eyebrow {
+    margin-bottom: 0.4rem;
+  }
+
+  .is-scroll-cover .hero-title {
+    margin-bottom: 0.6rem;
+    font-size: clamp(1.5rem, 4.3vw, 2.125rem);
+    line-height: 1.18;
+  }
+
+  .is-scroll-cover .hero-subtitle {
+    max-width: 68ch;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    line-height: 1.57;
+  }
+
+  .is-scroll-cover .hero-actions {
+    margin-bottom: 0.85rem;
+  }
+
+  .is-scroll-cover .hero-status-row {
+    padding-top: 0.7rem;
   }
 }

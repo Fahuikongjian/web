@@ -36,8 +36,10 @@
       {{post_body_html}}
     </div>
     <aside class="toc-sidebar" aria-label="文章目录">
-      <p class="toc-title">目录 · CONTENTS</p>
-      {{post_toc_html}}
+      <details class="toc-details" data-post-toc open>
+        <summary class="toc-title">文章目录</summary>
+        {{post_toc_html}}
+      </details>
     </aside>
   </div>
 
@@ -56,4 +58,4 @@
   </footer>
 </article>
 
-<script src="/static/js/post.js" defer></script>
+<script src="/static/js/post.js?v=2" defer></script>

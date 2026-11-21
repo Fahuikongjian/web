@@ -35,7 +35,6 @@
   var cachedIndex = null;
   var fetchPromise = null;
   var selectedIndex = -1;
-  var lastFocusedElement = null;
 
   function getElements() {
     return {
@@ -217,6 +216,7 @@
     var items = els.results.querySelectorAll('.search-result-item');
     if (!items.length) {
       selectedIndex = -1;
+      els.input.removeAttribute('aria-activedescendant');
       return;
     }
 
@@ -233,7 +233,8 @@
       el.classList.toggle('is-selected', active);
       el.setAttribute('aria-selected', active ? 'true' : 'false');
       if (active) {
-        el.scrollIntoView({ block: 'nearest' });
+        els.input.setAttribute('aria-activedescendant', el.id);
+        el.scrollIntoView({ block: 'nearest', behavior: 'instant' });
       }
     });
   }
@@ -261,6 +262,7 @@
 
     var visible = scored.slice(0, 10);
     els.results.innerHTML = '';
+    els.input.removeAttribute('aria-activedescendant');
 
     if (els.count) {
       els.count.textContent = rawQuery
@@ -279,10 +281,11 @@
       return;
     }
 
-    visible.forEach(function (entry) {
+    visible.forEach(function (entry, index) {
       var post = entry.item;
       var link = document.createElement('a');
       link.className = 'search-result-item';
+      link.id = 'site-search-result-' + index;
       link.href = resolveResultUrl(post.url || '/', basePath);
       link.setAttribute('role', 'option');
       link.setAttribute('aria-selected', 'false');
@@ -325,19 +328,32 @@
     updateSelection(0);
   }
 
+  function fitModalToViewport(modal) {
+    var viewport = window.visualViewport;
+    if (!modal.open || !viewport) return;
+    if (viewport.scale === 1) {
+      modal.style.setProperty('--search-viewport-height', viewport.height + 'px');
+      modal.style.setProperty('--search-viewport-top', viewport.offsetTop + 'px');
+    } else {
+      modal.style.removeProperty('--search-viewport-height');
+      modal.style.removeProperty('--search-viewport-top');
+    }
+  }
+
   function openModal() {
     var els = getElements();
     if (!els.modal || !els.input) return;
 
-    if (!els.modal.hidden) {
+    if (els.modal.open) {
       els.input.focus();
       return;
     }
 
-    lastFocusedElement = document.activeElement;
-    els.modal.hidden = false;
-    document.body.style.overflow = 'hidden';
-    els.input.focus();
+    var drawer = document.querySelector('[data-mobile-drawer][open]');
+    if (drawer) drawer.close();
+    els.modal.showModal();
+    els.input.setAttribute('aria-expanded', 'true');
+    fitModalToViewport(els.modal);
 
     if (cachedIndex === null && els.results) {
       els.results.innerHTML = '<div class="search-empty">正在载入文章索引…</div>';
@@ -345,7 +361,7 @@
 
     loadSearchIndex()
       .then(function () {
-        if (!els.modal.hidden) {
+        if (els.modal.open) {
           renderResults(els.input.value);
         }
       })
@@ -354,20 +370,6 @@
           els.results.innerHTML = '<div class="search-empty">索引加载失败，请稍后重试。</div>';
         }
       });
-  }
-
-  function closeModal() {
-    var els = getElements();
-    if (!els.modal || els.modal.hidden) return;
-
-    els.modal.hidden = true;
-    document.body.style.overflow = '';
-    selectedIndex = -1;
-
-    if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
-      lastFocusedElement.focus();
-    }
-    lastFocusedElement = null;
   }
 
   function initSearch() {
@@ -385,9 +387,28 @@
 
       if (event.target.closest('[data-search-close]') || event.target === els.modal) {
         event.preventDefault();
-        closeModal();
+        els.modal.close();
       }
     });
+
+    els.modal.addEventListener('close', function () {
+      selectedIndex = -1;
+      els.input.setAttribute('aria-expanded', 'false');
+      els.input.removeAttribute('aria-activedescendant');
+    });
+
+    els.modal.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !event.isComposing) {
+        event.preventDefault();
+        els.modal.close();
+      }
+    });
+
+    if (window.visualViewport) {
+      var fitViewport = function () { fitModalToViewport(els.modal); };
+      window.visualViewport.addEventListener('resize', fitViewport);
+      window.visualViewport.addEventListener('scroll', fitViewport);
+    }
 
     els.input.addEventListener('input', function () {
       if (cachedIndex !== null) {
@@ -395,12 +416,8 @@
       }
     });
 
-    els.modal.addEventListener('keydown', function (event) {
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        closeModal();
-        return;
-      }
+    els.input.addEventListener('keydown', function (event) {
+      if (event.isComposing || event.keyCode === 229) return;
 
       if (event.key === 'ArrowDown') {
         event.preventDefault();
@@ -427,17 +444,8 @@
     document.addEventListener('keydown', function (event) {
       if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault();
-        if (els.modal.hidden) {
-          openModal();
-        } else {
-          closeModal();
-        }
-        return;
-      }
-
-      if (event.key === 'Escape' && !els.modal.hidden) {
-        event.preventDefault();
-        closeModal();
+        if (els.modal.open) els.modal.close();
+        else openModal();
       }
     });
   }

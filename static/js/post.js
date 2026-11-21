@@ -35,6 +35,8 @@
 
     window.addEventListener('scroll', onScrollOrResize, { passive: true });
     window.addEventListener('resize', onScrollOrResize, { passive: true });
+    var toc = document.querySelector('[data-post-toc]');
+    if (toc) toc.addEventListener('toggle', onScrollOrResize);
     updateProgress();
   }
 
@@ -49,6 +51,13 @@
   }
 
   function initTableOfContents() {
+    var toc = document.querySelector('[data-post-toc]');
+    if (!toc) return;
+    var compact = window.matchMedia('(max-width: 1024px)');
+    function setDefaultTocState() { toc.open = !compact.matches; }
+    setDefaultTocState();
+    compact.addEventListener('change', setDefaultTocState);
+
     var tocLinks = Array.prototype.slice.call(document.querySelectorAll('.toc-nav .toc-link[href^="#"]'));
     if (!tocLinks.length) return;
 
@@ -134,10 +143,18 @@
     }
 
     tocLinks.forEach(function (link) {
-      link.addEventListener('click', function () {
+      link.addEventListener('click', function (event) {
         var id = decodeHashId(link.getAttribute('href'));
         if (id) {
           setActiveLink(id);
+          if (compact.matches && !event.metaKey && !event.ctrlKey && !event.shiftKey && !event.altKey) {
+            toc.open = false;
+            var heading = document.getElementById(id);
+            if (heading) {
+              heading.setAttribute('tabindex', '-1');
+              heading.focus({ preventScroll: true });
+            }
+          }
         }
       });
     });
@@ -147,6 +164,7 @@
   }
 
   function fallbackCopyText(text) {
+    var previousFocus = document.activeElement;
     var textarea = document.createElement('textarea');
     textarea.value = text;
     textarea.setAttribute('readonly', '');
@@ -163,17 +181,19 @@
       ok = false;
     }
     document.body.removeChild(textarea);
+    previousFocus.focus({ preventScroll: true });
     return ok;
   }
 
   function copyCodeText(text) {
     if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-      return navigator.clipboard.writeText(text).catch(function () {
-        fallbackCopyText(text);
+      return navigator.clipboard.writeText(text).then(function () {
+        return true;
+      }, function () {
+        return fallbackCopyText(text);
       });
     }
-    fallbackCopyText(text);
-    return Promise.resolve();
+    return Promise.resolve(fallbackCopyText(text));
   }
 
   function initCodeCopyButtons() {
@@ -196,15 +216,15 @@
         btn.dataset.originalLabel = btn.textContent.trim() || '复制';
       }
 
-      copyCodeText(codeText).then(function () {
+      copyCodeText(codeText).then(function (copied) {
         var prevTimer = resetTimers.get(btn);
         if (prevTimer) {
           window.clearTimeout(prevTimer);
         }
 
-        btn.classList.add('is-copied');
-        btn.textContent = '已复制';
-        btn.setAttribute('aria-label', '已复制代码');
+        btn.classList.toggle('is-copied', copied);
+        btn.textContent = copied ? '已复制' : '复制失败';
+        btn.setAttribute('aria-label', copied ? '已复制代码' : '复制失败，可重试');
 
         var timer = window.setTimeout(function () {
           btn.classList.remove('is-copied');

@@ -149,7 +149,8 @@ python scripts/serve.py --host 127.0.0.1 --port 8080
 # 4. 运行后端单元测试
 pytest tests/test_backend.py
 
-# 5. 运行浏览器端到端验收测试（需本机 Chrome 与 playwright）
+# 5. 运行浏览器端到端验收测试
+python -m playwright install chromium
 pytest tests/test_e2e_browser.py
 ```
 

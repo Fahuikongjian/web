@@ -4,6 +4,7 @@ import functools
 import http.server
 import json
 import os
+import shutil
 import sys
 import tempfile
 import threading
@@ -14,26 +15,10 @@ from pathlib import Path
 from urllib.parse import quote, unquote, urlsplit
 
 import pytest
-from playwright.sync_api import Browser, Page, sync_playwright
+from playwright.sync_api import Browser, Page, Request, expect, sync_playwright
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 DIST_DIR = PROJECT_ROOT / "dist"
-CHROME_EXECUTABLE = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
-DEFAULT_BRAIN_DIR = Path(
-    r"C:\Users\Administrator\.gemini\antigravity\brain\0163651c-5527-4adf-88f0-50d778637e7e"
-)
-
-
-def _try_ensure_writable_dir(path: Path) -> bool:
-    """Create directory if needed and verify write/delete permission."""
-    try:
-        path.mkdir(parents=True, exist_ok=True)
-        probe = path / f".qa-write-probe-{os.getpid()}"
-        probe.write_text("ok", encoding="utf-8")
-        probe.unlink()
-        return True
-    except OSError:
-        return False
 
 
 def get_screenshot_dir() -> Path:
@@ -43,8 +28,6 @@ def get_screenshot_dir() -> Path:
         path = Path(env_dir)
         path.mkdir(parents=True, exist_ok=True)
         return path
-    if _try_ensure_writable_dir(DEFAULT_BRAIN_DIR):
-        return DEFAULT_BRAIN_DIR
     return Path(tempfile.mkdtemp(prefix="qa-screenshots-"))
 
 
@@ -138,12 +121,17 @@ def static_server() -> str:
 
 @pytest.fixture(scope="module")
 def browser() -> Browser:
-    """Launch local Google Chrome via Playwright."""
-    if not Path(CHROME_EXECUTABLE).is_file():
-        pytest.fail(f"Local Chrome executable not found at {CHROME_EXECUTABLE}")
-
+    """Use an explicit override, Playwright Chromium, or an installed browser."""
     with sync_playwright() as p:
-        launched = p.chromium.launch(executable_path=CHROME_EXECUTABLE, headless=True)
+        override = os.environ.get("PLAYWRIGHT_CHROMIUM_EXECUTABLE")
+        if override and not Path(override).is_file():
+            pytest.fail(f"PLAYWRIGHT_CHROMIUM_EXECUTABLE does not exist: {override}")
+        if not override and not Path(p.chromium.executable_path).is_file():
+            override = shutil.which("chromium") or shutil.which("google-chrome")
+            windows_chrome = Path(r"C:\Program Files\Google\Chrome\Application\chrome.exe")
+            if not override and windows_chrome.is_file():
+                override = str(windows_chrome)
+        launched = p.chromium.launch(executable_path=override, headless=True)
         try:
             yield launched
         finally:
@@ -168,10 +156,13 @@ def _attach_error_collectors(page: Page) -> dict[str, list]:
         if resp.status >= 400
         else None,
     )
-    page.on(
-        "requestfailed",
-        lambda req: records["request_failures"].append((req.url, str(req.failure))),
-    )
+    def record_request_failure(req: Request) -> None:
+        # Chromium may cancel a previous page's favicon request during navigation.
+        if req.failure == "net::ERR_ABORTED" and urlsplit(req.url).path.endswith("/favicon.svg"):
+            return
+        records["request_failures"].append((req.url, str(req.failure)))
+
+    page.on("requestfailed", record_request_failure)
     return records
 
 
@@ -222,7 +213,7 @@ def _open_home_cover(page: Page) -> None:
     )
 
 
-@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844), (320, 568)])
+@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844), (320, 568), (568, 280)])
 def test_home_cover_fades_as_content_rises_with_scroll(
     browser: Browser, static_server: str, width: int, height: int
 ) -> None:
@@ -350,6 +341,65 @@ def test_home_cover_respects_reduced_motion(browser: Browser, static_server: str
         page.close()
 
 
+@pytest.mark.parametrize("width,height", [(280, 653), (320, 568), (568, 280), (700, 360)])
+def test_compact_navigation_and_search_fit_viewport(
+    browser: Browser, static_server: str, width: int, height: int
+) -> None:
+    page = browser.new_page(viewport={"width": width, "height": height}, has_touch=True)
+    try:
+        page.goto(f"{static_server}/articles/", wait_until="networkidle")
+        _assert_no_horizontal_overflow(page, "/articles/", f"{width}×{height}")
+        actions = page.locator(".header-actions button:visible")
+        assert actions.count() == 3
+        for button in actions.all():
+            bounds = button.bounding_box()
+            assert 0 <= bounds["x"] <= width - 44
+            assert bounds["width"] >= 44 and bounds["height"] >= 44
+
+        toggle = page.locator("[data-mobile-menu-toggle]")
+        drawer = page.locator("[data-mobile-drawer]")
+        about_link = drawer.get_by_role("link", name="关于")
+        toggle.click()
+        expect(drawer).to_be_visible()
+        assert drawer.locator(".mobile-drawer-panel").bounding_box()["height"] <= height
+        about_link.scroll_into_view_if_needed()
+        assert about_link.bounding_box()["y"] + about_link.bounding_box()["height"] <= height
+        page.locator(".site-brand").evaluate("el => el.focus()")
+        assert drawer.evaluate("el => el.contains(document.activeElement)")
+
+        # Opening search via its shortcut replaces the drawer.
+        page.keyboard.press("Control+k")
+        expect(drawer).to_be_hidden()
+        search = page.locator("[data-search-modal]")
+        expect(search).to_be_visible()
+        field = page.locator("[data-search-input]")
+        expect(field).to_be_focused()
+        field.fill("设计")
+        expect(search.get_by_role("option").first).to_be_visible()
+        page.keyboard.press("ArrowDown")
+        selected_id = field.get_attribute("aria-activedescendant")
+        assert selected_id
+        expect(page.locator(f"#{selected_id}")).to_have_attribute("aria-selected", "true")
+
+        page.set_viewport_size({"width": width, "height": 220})
+        page.wait_for_function("document.querySelector('.search-dialog').getBoundingClientRect().bottom <= innerHeight")
+        assert search.locator(".search-results").evaluate("el => el.scrollWidth === el.clientWidth")
+        close = search.get_by_role("button", name="关闭搜索弹窗")
+        close.focus()
+        page.keyboard.press("Enter")
+        expect(search).to_be_hidden()
+        assert page.url.endswith("/articles/")
+
+        toggle.click()
+        page.set_viewport_size({"width": 1024, "height": 768})
+        expect(drawer).to_be_hidden()
+        expect(toggle).to_have_attribute("aria-expanded", "false")
+        expect(page.locator(".site-brand")).to_be_focused()
+        assert page.evaluate("getComputedStyle(document.documentElement).overflowY") != "hidden"
+    finally:
+        page.close()
+
+
 def test_routes_zero_errors_and_responsive_viewports(browser: Browser, static_server: str) -> None:
     post_routes = _load_post_routes()
     routes = ["/", "/articles/", "/projects/", "/about/", *post_routes]
@@ -377,9 +427,9 @@ def test_routes_zero_errors_and_responsive_viewports(browser: Browser, static_se
                 toggle = page.locator("[data-mobile-menu-toggle]")
                 assert toggle.is_visible()
                 toggle.click()
-                assert "is-open" in (drawer.get_attribute("class") or "")
+                expect(drawer).to_be_visible()
                 page.keyboard.press("Escape")
-                assert "is-open" not in (drawer.get_attribute("class") or "")
+                expect(drawer).to_be_hidden()
 
             _assert_clean_page(records, viewport_name)
         finally:
@@ -548,7 +598,9 @@ def test_articles_tag_filtering(browser: Browser, static_server: str) -> None:
 
 
 def test_post_reading_experience(browser: Browser, static_server: str) -> None:
-    context = browser.new_context(viewport={"width": 1440, "height": 900})
+    context = browser.new_context(
+        viewport={"width": 1440, "height": 900}, permissions=["clipboard-read", "clipboard-write"]
+    )
     page = context.new_page()
     records = _attach_error_collectors(page)
     try:
@@ -580,6 +632,35 @@ def test_post_reading_experience(browser: Browser, static_server: str) -> None:
         _assert_clean_page(records, "post-reading")
     finally:
         context.close()
+
+
+def test_mobile_toc_and_clipboard_unavailable(browser: Browser, static_server: str) -> None:
+    page = browser.new_page(viewport={"width": 360, "height": 640}, has_touch=True)
+    page.add_init_script("""(() => {
+        Object.defineProperty(navigator, 'clipboard', {
+            value: { writeText: () => Promise.reject(new Error('Clipboard unavailable')) },
+        });
+        document.execCommand = () => false;
+    })()""")
+    try:
+        page.goto(f"{static_server}/articles/python-static-architecture/", wait_until="networkidle")
+        toc = page.locator("[data-post-toc]")
+        assert toc.evaluate("el => !el.open")
+        toc.locator("summary").click()
+        link = toc.locator(".toc-link").nth(1)
+        target = unquote(link.get_attribute("href"))[1:]
+        link.click()
+        page.wait_for_function("id => document.activeElement.id === id", arg=target)
+        assert toc.evaluate("el => !el.open")
+        assert unquote(page.url).endswith(f"#{target}")
+
+        copy = page.locator(".code-copy-btn").first
+        copy.click()
+        expect(copy).to_have_text("复制失败")
+        expect(copy).to_be_focused()
+        assert "is-copied" not in (copy.get_attribute("class") or "")
+    finally:
+        page.close()
 
 
 def test_capture_visual_acceptance_screenshots(browser: Browser, static_server: str) -> None:
