@@ -1,4 +1,4 @@
-<article class="post-row" data-tags="{{tags_csv}}">
+<article class="post-row" data-category="{{category}}" data-tags="{{tags_csv}}">
   <div class="post-row-date">
     <time datetime="{{date}}">{{year}} · {{date_short}}</time>
   </div>
@@ -8,7 +8,7 @@
     <div class="tag-list">{{tags_html}}</div>
   </div>
   <div class="post-row-aside">
-    <span class="post-row-category">{{category}}</span>
+    <button type="button" class="post-row-category" data-filter-category="{{category}}">{{category}}</button>
     <span>{{reading_time}} 分钟</span>
   </div>
 </article>

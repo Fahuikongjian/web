@@ -17,11 +17,11 @@
       <div class="post-meta-items">
         <time datetime="{{post_date}}">{{post_date}}</time>
         <span aria-hidden="true">·</span>
-        <span>{{post_category}}</span>
+        <a class="post-meta-category" href="/articles/?category={{post_category_url}}">{{post_category}}</a>
         <span aria-hidden="true">·</span>
         <span>{{post_word_count}} 字</span>
         <span aria-hidden="true">·</span>
-        <span>预计 {{post_reading_time}} 分钟</span>
+        <span>{{post_reading_time}} 分钟</span>
       </div>
       <div class="tag-list">{{post_tags_html}}</div>
     </div>

@@ -31,8 +31,8 @@
 | 路由路径 | 输出文件 | 页面职责与核心模块 |
 | --- | --- | --- |
 | `/` | `dist/index.html` | **首页**采用全屏抽象封面（`starloop-cover.jpg`），滚动后展示文章、项目和关于三个入口 |
-| `/articles/` | `dist/articles/index.html` | **文章归档与筛选页**：全量文章按日期倒序陈列，顶部标签胶囊筛选栏（支持 `all` 与 URL `?tag=` 参数初始化自动筛选），实时显示匹配条数 |
-| `/articles/<slug>/` | `dist/articles/<slug>/index.html` | **文章详情页**：顶部红金渐变阅读进度条、文章元信息头（分类/日期/字数/阅读分钟数/标签）、星环主题 SVG 封面、居中正文排版区、右侧粘性 TOC、Pygments 高亮代码块及复制按钮、上下篇导航与相关文章推荐 |
+| `/articles/` | `dist/articles/index.html` | **文章归档与双层筛选页**：顶部始终展示可扩展大分类栏（`全部` + `categories.json` 及 Frontmatter 自动合并分类）；有文章时按日期倒序陈列并展示 Tag 细筛选胶囊，支持分类 × Tag 二级联动、实时条数更新与 URL `?category=...&tag=...` 同步 |
+| `/articles/<slug>/` | `dist/articles/<slug>/index.html` | **文章详情页**：顶部红金渐变阅读进度条、极简元信息头（日期、可点击分类链接、字数、阅读时长及标签胶囊）、封面、居中正文区、右侧粘性 TOC、Pygments 高亮代码块与复制按钮、上下篇导航与延伸阅读 |
 | `/projects/` | `dist/projects/index.html` | **项目页**读取 `content/projects.json`，提供状态、年份、简介、技术栈与链接，空列表显示提示 |
 | `/about/` | `dist/about/index.html` | **关于与建造说明页**：天琴座黑胶星徽（`astra-portrait.jpg`）、主理人介绍、写作理念、站内 Colophon（建造说明）与 RSS/GitHub/Email 联系渠道 |
 | `/404.html` | `dist/404.html` | **自定义 404 页面**：温和优雅的唱片跳针/离轨迷路提示，提供返回首页、浏览归档与唤醒搜索弹窗的快捷入口 |
@@ -61,15 +61,21 @@
 - **加载策略**：仅在首次打开搜索弹窗时请求 `/api/search-index.json` 并缓存于内存，避免影响常规页面首屏加载。
 - **检索与键盘体验**：对 `title`、`summary`、`category`、`tags` 与正文 `excerpt` 进行中英文大小写不敏感匹配并对命中词高亮；支持 `↑` / `↓` 选中切换（`.is-selected`）、`Enter` 跳转、`Escape` 或点击遮罩关闭。
 
-### 3.4 文章归档页实时标签筛选与阅读页辅助
-- `/articles/` 点击 `[data-filter-tag]`（含 `"all"`）过滤 `[data-tags]` 文章行、更新计数提示并同步 URL `?tag=...`。
-- `/articles/<slug>/` 顶部红金渐变阅读进度条 `[data-reading-progress]`、右侧目录基于 `IntersectionObserver` 滚动高亮 `.toc-link.is-active`、代码块 `.code-copy-btn` 点击复制并显示 `"已复制"` 状态反馈。
+### 3.4 文章归档页双层分类×标签筛选与阅读页辅助
+- **可扩展大分类栏（`/articles/`，始终可见）**：
+  - 顶部 `.category-bar` 即使在 0 篇文章时也常驻展示 `全部` 与 `content/categories.json` 预设分类（`代码`、`图像生成`、`工程`），并自动并入文章 Frontmatter 中出现的新分类。
+  - 点击分类 Tab（`[data-filter-category]`）时，激活指示条（`.category-indicator`）通过 GPU 合成变换丝滑滑动定位、`aria-selected` 同步切换、URL 更新 `?category=...`；窄屏（`<=640px` / `320px` / `280px`）支持平滑横向滚动且严禁页面级横向溢出；空归档切换分类时 `.empty-stage` 呈现轻柔星环交叉淡入反馈。
+- **细小 Tag 标签二级联动（仅存在文章时渲染）**：
+  - 点击 `[data-filter-tag]`（含 `"all"`）在当前选中大分类范围内进一步过滤文章行（`[data-category][data-tags]`），并动态刷新当前分类下各 Tag 胶囊的可用性与计数（切换分类导致原 Tag 不可用时自动回退 `tag = 'all'`）。
+  - 筛选命中文章行以错峰交错动效（`.is-entering`）呈现，更新 `[data-articles-count]` 与空态 `[data-articles-empty]`，并双向同步 `?category=...&tag=...`（支持行内分类/标签按钮及文章详情页分类链接带参跳入）。所有动效完整响应 `prefers-reduced-motion: reduce`。
+- **文章阅读页辅助**：`/articles/<slug>/` 头部提供可点击跳回分类筛选页的分类链接、极简时长展示（`{{post_reading_time}} 分钟`）、顶部阅读进度条 `[data-reading-progress]`、右侧目录 `IntersectionObserver` 滚动高亮 `.toc-link.is-active` 与 `.code-copy-btn` 复制反馈。
 
 ---
 
-## 4. 内容状态
+## 4. 内容状态与扩展方式
 
-文章归档和项目页目前均为空。发布新内容时，文章进入 `/articles/`，项目进入 `/projects/`。
+- **大分类预设与零配置扩展**：`content/categories.json` 定义默认大分类顺序与抽象图标映射（`代码`、`图像生成`、`工程`）。后续可通过向 `content/categories.json` 追加条目，或在任意新文章 Frontmatter 中直接填写 `category: 新分类` 自动合并扩展。
+- **当前文章与项目状态**：默认空仓库状态下文章归档与项目页为空态展示（文章页大分类栏仍保持可交互）；发布新文章至 `content/posts/*.md` 后自动纳入大分类、Tag 统计与搜索索引，项目追加至 `content/projects.json` 后进入 `/projects/`。
 
 ---
 
@@ -77,5 +83,5 @@
 
 1. **后端单元测试全绿**：`pytest tests/test_backend.py` 100% 通过。
 2. **全站门禁校验通过**：`python scripts/check.py` 退出码为 `0`（构建成功、核心页面/API/XML 与静态图片资产齐全、零未替换 `{{...}}` 占位符、站内链接 0 死链、JSON/XML 语法合法）。
-3. **浏览器端到端验收全绿**：`pytest tests/test_e2e_browser.py` 通过（全路由 200 / 404 状态码、`console.error == []`、`pageerror == []`、静态 `.jpg`/`.svg`/`.css`/`.js` 资源零失败、Desktop/Mobile 零横向溢出、默认 dark 主题与切换持久化、黑胶开关、搜索、标签筛选、TOC/代码复制全功能验证通过）。
-4. **视觉审美最终签字**：由 UI/UX 设计师逐一审阅默认暗夜首页、日间首页、搜索弹窗、文章阅读、项目、关于与 Mobile 首页渲染截图并签字通过。
+3. **浏览器端到端验收全绿**：`pytest tests/test_e2e_browser.py` 通过（全路由 200 / 404 状态码、`console.error == []`、`pageerror == []`、静态 `.jpg`/`.svg`/`.css`/`.js` 资源零失败、`1440×900` / `390×844` / `320×568` / `280×653` 全视口零横向溢出、大分类空态与多分类×Tag 联动、URL 参数还原、主题切换持久化、搜索、TOC/代码复制全功能验证通过）。
+4. **视觉审美最终签字**：由 UI/UX 设计师逐一审阅最新归档大分类×Tag（Dark/Light/空态/移动端）与详情页分类标签截图并签字通过。

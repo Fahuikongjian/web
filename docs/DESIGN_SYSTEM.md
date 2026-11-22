@@ -74,9 +74,44 @@ CSS 引入顺序严格保持：`tokens.css` → `base.css` → `components.css` 
 ```
 放置于 `.about-hero` 左侧（原 `.about-mark` 位置；旧 `.about-mark` 样式继续保留兼容）。
 
-### 4.4 其余全站既有契约保持 100% 兼容
+### 4.4 文章页「Starloop Frequency」双层分类轨道、Tag 筛选与动效契约
 
-- **顶栏/抽屉**：`.site-header`、`.nav-link.is-active`、`.mobile-drawer.is-open`
-- **搜索弹窗**：`.search-modal[data-search-modal][hidden]` > `.search-dialog` > `.search-header`（已清除浏览器原生蓝叉 `::-webkit-search-cancel-button`）+ `.search-results`（`.search-result-item.is-selected`）+ `.search-footer`
-- **列表与筛选**：`.posts-list` > `.post-row[data-tags]`、`.filter-bar` > `.filter-pill.is-active`、`.projects-grid.projects-grid--catalog`
-- **文章阅读页**：`.reading-progress` > `.reading-progress-bar[data-reading-progress]`、`.post-layout` > `.post-prose.prose` + `.toc-sidebar`（`.toc-nav` > `.toc-list` > `.toc-item.toc-level-2/3` > `.toc-link.is-active`）、`.code-block-wrapper > .code-block-header + .highlight`、`.table-wrap > table`、`.post-nav-grid` > `.nav-post-card`
+面向 `/articles/` 与 `/articles/<slug>/` 保持极简少字（不新增小字副标题），采用「大分类频率轨道（Tier 1）+ 细标签微胶囊（Tier 2）」视觉层级：
+
+#### 1) 大分类轨道 DOM 与类名（常驻于 `.page-body` 顶部）
+```html
+<div class="category-bar" data-category-bar>
+  <div class="category-tabs" data-category-tabs role="tablist" aria-label="文章分类">
+    <span class="category-indicator" data-category-indicator aria-hidden="true"></span>
+    <button type="button" class="category-tab is-active" role="tab" aria-selected="true" data-filter-category="all">
+      <span class="category-tab-icon" aria-hidden="true"><!-- all SVG --></span>
+      <span class="category-tab-label">全部</span>
+      <span class="category-tab-count">0</span>
+    </button>
+    <!-- 其余大类 Tab：role="tab" aria-selected="false" data-filter-category="{{name}}" -->
+  </div>
+</div>
+```
+- **滑动指示条协议**：`main.js` 首次定位时先为 `.category-tabs` 添加 `.is-initializing` 禁止过渡，计算当前激活 Tab 的 `offsetLeft`/`offsetWidth` 后写入 `transform: translate3d(<left>px, 0, 0)` 与 `width: <w>px`，为 `.category-indicator` 添加 `.is-ready` 并为 `.category-tabs` 添加 `.has-indicator`（无 JS 时自动回退为 Tab 自身激活底色），下一帧移除 `.is-initializing`。此后切换以 `320ms cubic-bezier(0.22, 1, 0.36, 1)` 60fps 丝滑滑动。
+- **移动端防溢出**：`.category-tabs` 启用 `max-width: 100%; overflow-x: auto;` 并隐藏滚动条，在 `390px` / `320px` / `280px` 视口下仅在轨道内部平滑横滑，零页面横向溢出。
+
+#### 2) 5 枚抽象分类 SVG 图标（`16×16`, `viewBox="0 0 18 18"`, `currentColor` 随主题/激活态变色）
+- `all`（天琴星环）：`<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><ellipse cx="9" cy="9" rx="7.2" ry="3.2" transform="rotate(-22 9 9)" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.72"/><path d="M9 3.6L10.15 7.85L14.4 9L10.15 10.15L9 14.4L7.85 10.15L3.6 9L7.85 7.85Z" fill="currentColor"/></svg>`
+- `code`（括号星点）：`<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><path d="M6.2 5.2L2.5 9L6.2 12.8M11.8 5.2L15.5 9L11.8 12.8" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 6.6L10.3 9L9 11.4L7.7 9Z" fill="currentColor" fill-opacity="0.85"/></svg>`
+- `image`（星光画框）：`<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><rect x="2.6" y="3.2" width="12.8" height="11.6" rx="2.2" stroke="currentColor" stroke-width="1.25"/><path d="M3.4 12.6L6.9 9.2L9.6 11.6L11.7 9.8L14.6 12.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8"/><path d="M12.2 5.2L12.7 6.5L14 7L12.7 7.5L12.2 8.8L11.7 7.5L10.4 7L11.7 6.5Z" fill="currentColor"/></svg>`
+- `engineering`（星环节点）：`<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="5.6" stroke="currentColor" stroke-width="1.25"/><circle cx="9" cy="9" r="2" fill="currentColor"/><path d="M9 1.8V3.4M9 14.6V16.2M1.8 9H3.4M14.6 9H16.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>`
+- `default`（天琴星芒，Frontmatter 扩展新分类默认）：`<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="6.2" stroke="currentColor" stroke-width="1.15" stroke-opacity="0.65"/><path d="M9 4.5L9.9 8.1L13.5 9L9.9 9.9L9 13.5L8.1 9.9L4.5 9L8.1 8.1Z" fill="currentColor"/></svg>`
+
+#### 3) Tag 胶囊、行内交互、详情页分类与 60fps 动效类
+- **Tag 胶囊**：`.filter-bar` > `.filter-pills` > `.filter-pill[data-filter-tag]`（激活 `.is-active` / `aria-pressed="true"`；不可用标签 `.is-hidden`；按压回弹 `scale(0.97)`）+ `.articles-count`。
+- **文章行**：`article.post-row[data-category][data-tags]`，悬停左侧绯金竖线 `::before` 竖向光扫展开；命中进场附加 `.is-entering` 与行内变量 `--stagger-index`（`0..8` 每行错峰 `42ms` 上浮淡入）；行内分类按钮 `button.post-row-category[data-filter-category]` 与 `.tag-pill[data-filter-tag]` 具备香槟金悬停与按压回弹。
+- **空态切换**：`.empty-stage` 切换空分类时触发 `.is-transitioning`（容器轻柔淡入 + `.empty-stage-mark` 星环微旋呼应）。
+- **详情页分类**：`<a class="post-meta-category" href="/articles/?category={{post_category_url}}">{{post_category}}</a>` 内置绯红四角星芒 `::before` 与淡金边框。
+- **减少动态偏好**：`@media (prefers-reduced-motion: reduce)` 全面禁用滑动过渡、入场动画、星环脉冲与按压缩放。
+
+### 4.5 其余全站既有契约保持 100% 兼容
+
+- **顶栏/抽屉**：`.site-header`、`.nav-link.is-active`、`.mobile-drawer`
+- **搜索弹窗**：`.search-modal[data-search-modal]` > `.search-dialog` > `.search-header`（已清除浏览器原生蓝叉 `::-webkit-search-cancel-button`）+ `.search-results`（`.search-result-item.is-selected`）+ `.search-footer`
+- **项目网格**：`.projects-grid.projects-grid--catalog`
+- **文章阅读页**：`.reading-progress` > `.reading-progress-bar[data-reading-progress]`、`.post-layout` > `.post-prose.prose` + `.toc-sidebar`（`.toc-details` / `.toc-nav` > `.toc-list` > `.toc-item.toc-level-2/3` > `.toc-link.is-active`）、`.code-block-wrapper > .code-block-header + .highlight`、`.table-wrap > table`、`.post-nav-grid` > `.nav-post-card`

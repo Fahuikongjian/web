@@ -23,14 +23,10 @@ d:\网页运营\
 │   └── QA_REPORT.md
 ├── content/                    # 纯文本站点配置与内容源（Single Source of Truth）
 │   ├── site.json
+│   ├── categories.json         # 可扩展大分类注册表（默认：代码、图像生成、工程）
 │   ├── projects.json
 │   ├── about.md
-│   └── posts/
-│       ├── 01-editorial-web-aesthetics.md
-│       ├── 02-from-domain-to-live-site.md
-│       ├── 03-python-static-architecture.md
-│       ├── 04-typography-in-chinese-web.md
-│       └── 05-notes-on-slow-software.md
+│   └── posts/                  # 文章 Markdown 目录（空置时呈现空态与常驻大分类栏）
 ├── templates/                  # 原生 {{key}} 占位符 HTML 模板（无 Jinja2 语法）
 │   ├── base.html
 │   ├── home.html
@@ -40,13 +36,14 @@ d:\网页运营\
 │   ├── about.html
 │   ├── 404.html
 │   └── partials/
+│       ├── articles_list.html
 │       ├── post_row.html
 │       ├── project_card.html
 │       └── nav_post_card.html
 ├── static/                     # 静态资产（构建时完整拷贝至 dist/static/）
-│   ├── css/                    # tokens.css, base.css, components.css, prose.css
-│   ├── js/                     # theme.js, search.js, post.js, main.js
-│   └── images/                 # starloop-cover.jpg, astra-portrait.jpg, favicon.svg, author-mark.svg, cover-01..05.svg
+│   ├── css/                    # tokens.css, base.css, components.css, home-cover.css, prose.css
+│   ├── js/                     # theme.js, search.js, post.js, home-cover.js, main.js
+│   └── images/                 # starloop-cover.jpg, astra-portrait.jpg, favicon.svg, author-mark.svg, hero-art.svg, cover-01..05.svg
 ├── backend/                    # Python 静态构建引擎
 │   ├── __init__.py
 │   ├── content_loader.py
@@ -67,6 +64,7 @@ d:\网页运营\
 │   └── deploy-pages.yml        # GitHub Actions 自动校验并发布 dist/ 到 GitHub Pages
 ├── requirements.txt            # CI 最小依赖声明（Pygments>=2.18.0）
 ├── tests/                      # 自动化测试套件
+│   ├── conftest.py
 │   ├── test_backend.py
 │   └── test_e2e_browser.py
 └── dist/                       # 构建输出产物目录（由 build.py 全量清理重建，含 .nojekyll 与可选 CNAME）
@@ -111,7 +109,28 @@ d:\网页运营\
 | `custom_domain` | `string` | 可选自定义域名（如 `""` 或 `"astrayao.com"`），非空或传入 `--cname` 时自动写入 `dist/CNAME` |
 | `social_links` | `list[object]` | 每项包含 `name`、`label`、`url` |
 
-### 4.2 `content/projects.json` 契约
+### 4.2 `content/categories.json` 可扩展大分类注册表与合并契约
+用于定义 `/articles/` 顶部大分类栏的默认顺序与抽象 SVG 图标标识，即使站内尚无文章也常驻显示：
+
+```json
+[
+  { "id": "code", "name": "代码", "icon": "code" },
+  { "id": "image-gen", "name": "图像生成", "icon": "image" },
+  { "id": "engineering", "name": "工程", "icon": "engineering" }
+]
+```
+
+**后端加载与合并规则（`backend/content_loader.py`）**：
+1. **`load_categories(content_dir)`**：读取并规范化 `content/categories.json`；若文件不存在则平稳返回 `[]`。每项提取 `id`、`name`、`icon`。
+2. **`compute_category_stats(posts, configured_categories=None)`**：
+   - 先按 `configured_categories` 顺序输出全部预设大类，统计每个分类下的已发布文章数（无文章时保留 `count: 0`）。
+   - 再遍历 `posts` 的 `category` 字段：若某篇文章 Frontmatter 中出现了 `categories.json` 未注册的新分类名，则**自动追加**至结果末尾，默认赋予 `icon: "default"`，实现“零配置自动扩展”。
+3. **`load_all_content()`**：将 `configured_categories` 传入 `compute_category_stats()`，返回合并后的 `category_stats`（同时写入 `api/posts.json` 并供 `renderer.py` 渲染大分类栏）。
+4. **如何扩展新分类**：
+   - **预设顺序 + 图标**：向 `content/categories.json` 追加 `{ "id": "...", "name": "...", "icon": "code|image|engineering|default" }`；
+   - **随文章即时新增**：直接在任意 `content/posts/*.md` Frontmatter 写入 `category: 新分类`。
+
+### 4.3 `content/projects.json` 契约
 必须为 JSON 数组。`/projects/` 渲染全部项目，数组为空时显示「暂无已发布项目」。每项包含以下字段。
 - `name` (`string`): 项目名称
 - `status` (`string`): 状态标签（`"进行中"` / `"已开源"` / `"实验中"`）
@@ -120,11 +139,11 @@ d:\网页运营\
 - `stack` (`list[string]`): 技术栈标签列表
 - `url` (`string`): 站内文章路由（如 `"/articles/python-static-architecture/"`）或外部 `https://` 仓库链接
 
-### 4.3 `content/about.md` 契约
+### 4.4 `content/about.md` 契约
 - 纯 Markdown 文本文件（无需 Frontmatter，标题层级从 `##` 开始，避免与页面 `<h1>` 冲突）。
 - 如文件中以 `---\n` 开头存在可选 Frontmatter，加载器应容错剥离；否则整篇作为 Markdown 正文渲染注入 `{{about_body_html}}`。
 
-### 4.4 `content/posts/*.md` Frontmatter 与文章计算契约
+### 4.5 `content/posts/*.md` Frontmatter 与文章计算契约
 所有博客文章均以 `---` 包裹纯 YAML 简单键值对开头：
 
 ```yaml
@@ -214,16 +233,18 @@ draft: false
 #### `templates/base.html`
 - `{{base_path}}`, `{{page_title}}`, `{{page_description}}`, `{{canonical_url}}`, `{{site_title}}`, `{{site_tagline}}`, `{{author_name}}`, `{{icp_html}}`, `{{nav_home_active}}`, `{{nav_articles_active}}`, `{{nav_projects_active}}`, `{{nav_about_active}}`, `{{extra_head}}`, `{{page_content}}`, `{{extra_scripts}}`, `{{current_year}}`
 - `<head>` 内必须包含 `<meta name="site-base-path" content="{{base_path}}">`（由后端 `_wrap_base()` 注入规范化后的 `base_path`，根挂载时为空字符串 `""`，子路径挂载时为 `"/<repo>"`），供 `static/js/search.js` 动态拼装索引请求地址。
-- `<head>` 内联防闪烁主题脚本在无 `localStorage('blog-theme')` 保存值时默认设置 `document.documentElement.dataset.theme = 'dark'`。
+- `<head>` 内联防闪烁主题脚本在无 `localStorage('blog-theme')` 保存值时默认设置 `document.documentElement.dataset.theme = 'dark'`；全局脚本引入 `/static/js/main.js?v=3`。
 
 #### `templates/home.html`
 - `.home-cover-artwork` 展示 `/static/images/starloop-cover.jpg`。`.home-entries` 包含滚动时从下方进入的文章、项目和关于入口。
 
 #### `templates/articles.html`
-- `{{total_posts}}`, `{{tag_filters_html}}`, `{{articles_list_html}}`
+- `{{category_tabs_html}}`：置于 `.page-body` 顶部，始终渲染 `.category-bar[data-category-bar] > .category-tabs[data-category-tabs][role="tablist"]`（内含 `.category-indicator[data-category-indicator]`、`全部` Tab 及 `categories.json` 与 Frontmatter 合并后的全部大类 Tab，携带 `data-filter-category` 与抽象 SVG 图标）。
+- `{{archive_html}}`：当有文章时渲染 `partials/articles_list.html`；当站内 0 篇文章时渲染 `.empty-stage`（内含星环 SVG 与 `<p class="search-empty" data-articles-empty>暂无已发布文章。</p>`，确保空归档 `[data-filter-tag]` 数为 0 且切换分类仍有反馈）。
 
 #### `templates/post.html`
-- `{{post_title}}`, `{{post_subtitle}}`, `{{post_date}}`, `{{post_reading_time}}`, `{{post_word_count}}`, `{{post_category}}`, `{{post_tags_html}}`, `{{post_cover_html}}`, `{{post_body_html}}`, `{{post_toc_html}}`, `{{prev_post_html}}`, `{{next_post_html}}`, `{{related_posts_html}}`
+- `{{post_title}}`, `{{post_subtitle}}`, `{{post_date}}`, `{{post_reading_time}}`, `{{post_word_count}}`, `{{post_category}}`, `{{post_category_url}}`（URL 编码后的分类名，用于 `<a class="post-meta-category" href="/articles/?category={{post_category_url}}">{{post_category}}</a>`）, `{{post_tags_html}}`, `{{post_cover_html}}`, `{{post_body_html}}`, `{{post_toc_html}}`, `{{prev_post_html}}`, `{{next_post_html}}`, `{{related_posts_html}}`
+- 元信息时长保持极简，直接展示 `{{post_reading_time}} 分钟`（去掉 `"预计"` 等冗余词）。
 
 #### `templates/projects.html` & `templates/about.html` & `templates/404.html`
 - `templates/projects.html` 使用 `{{projects_list_html}}`。
@@ -231,16 +252,20 @@ draft: false
 - `templates/404.html`: 静态片段嵌入 `base.html` 的 `{{page_content}}`（不含未替换占位符）
 
 #### `templates/partials/*.html`
-- `post_row.html`: `{{url}}`, `{{date}}`, `{{date_short}}`, `{{year}}`, `{{category}}`, `{{tags_csv}}`, `{{title}}`, `{{summary}}`, `{{reading_time}}`, `{{tags_html}}`（根元素带 `data-tags="{{tags_csv}}"`）
-- `project_card.html`: `{{name}}`, `{{status}}`, `{{year}}`, `{{summary}}`, `{{stack_html}}`, `{{url}}`
+- `articles_list.html`: `{{total_posts}}`, `{{tag_filters_html}}`, `{{articles_list_html}}`（含筛选空态 `.empty-stage.is-hidden[data-articles-empty]`）
+- `post_row.html`: `{{url}}`, `{{date}}`, `{{date_short}}`, `{{year}}`, `{{category}}`, `{{tags_csv}}`, `{{title}}`, `{{summary}}`, `{{reading_time}}`, `{{tags_html}}`（根元素 `article.post-row` 同时携带 `data-category="{{category}}"` 与 `data-tags="{{tags_csv}}"`；分类按钮为 `<button type="button" class="post-row-category" data-filter-category="{{category}}">{{category}}</button>`）
+- `project_card.html`: `{{name_html}}`, `{{status}}`, `{{year}}`, `{{summary}}`, `{{stack_html}}`, `{{link_html}}`
 - `nav_post_card.html`: `{{direction_label}}`, `{{direction_class}}`, `{{url}}`, `{{title}}`, `{{date}}`
 
 ### 6.3 前端交互属性契约（Hooks）
 - **主题**：`[data-theme-toggle]`、`document.documentElement.dataset.theme` (`"dark"` 默认 | `"light"`)、`localStorage['blog-theme']`
 - **首页滚动**：`[data-home-opening]`、`#home-intro` 与 `--cover-progress`，由 `static/js/home-cover.js` 随原生滚动更新。
 - **搜索弹窗**：`[data-search-open]`、`[data-search-modal]`、`[data-search-input]`、`[data-search-results]`、`[data-search-close]`、选中态 `.search-result-item.is-selected`；`static/js/search.js` 读取 `meta[name="site-base-path"]` 构造 `INDEX_URL = basePath + '/api/search-index.json'`，并为结果条目的跳转 `href` 保证正确子路径前缀兜底。
-- **标签筛选**：`[data-filter-tag]`（含 `"all"`）、文章行 `[data-tags]`、URL `?tag=...`
-- **文章阅读**：`[data-reading-progress]`、`.toc-link.is-active`、`.code-copy-btn`
+- **双层分类 × 标签筛选与动效（`static/js/main.js?v=3`）**：
+  - 大分类：`[data-category-bar]`、`[data-category-tabs]`、`[data-category-indicator]`（`.category-indicator` 基于 `offsetLeft`/`offsetWidth` + `ResizeObserver` 丝滑定位）、`[data-filter-category]`（`role="tab"`、`aria-selected`、`.is-active`）及行内 `.post-row-category[data-filter-category]`。
+  - 细标签：`[data-filter-tag]`（含 `"all"`）、`.filter-pill-count`、不可用状态 `.is-hidden`（切换分类若导致当前 Tag 无文章则自动回退 `tag = 'all'`）。
+  - 列表与空态：文章行 `article.post-row[data-category][data-tags]`（命中行错峰附加 `.is-entering` 与 `--stagger-index`）、`[data-articles-count]`、`[data-articles-empty]`（空态切换分类触发 `.empty-stage.is-transitioning`），并双向同步 URL `?category=...` / `?tag=...` / `?category=...&tag=...`。
+- **文章阅读**：`[data-reading-progress]`、`.toc-link.is-active`、`.code-copy-btn`、`.post-meta-category`（跳回 `/articles/?category=...`）
 
 ---
 

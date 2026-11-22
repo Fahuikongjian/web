@@ -1,7 +1,26 @@
 {
-  "generated_at": "2026-11-22T01:58:49Z",
+  "generated_at": "2026-11-22T03:13:06Z",
   "total": 0,
   "posts": [],
   "tags": [],
-  "categories": []
+  "categories": [
+    {
+      "id": "code",
+      "name": "代码",
+      "icon": "code",
+      "count": 0
+    },
+    {
+      "id": "image-gen",
+      "name": "图像生成",
+      "icon": "image",
+      "count": 0
+    },
+    {
+      "id": "engineering",
+      "name": "工程",
+      "icon": "engineering",
+      "count": 0
+    }
+  ]
 }

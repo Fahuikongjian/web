@@ -129,6 +129,93 @@ class TemplateEngine:
         return self.render(f"partials/{partial_name}", context)
 
 
+CATEGORY_ICONS: dict[str, str] = {
+    "all": (
+        '<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true">'
+        '<ellipse cx="9" cy="9" rx="7.2" ry="3.2" transform="rotate(-22 9 9)" '
+        'stroke="currentColor" stroke-width="1.2" stroke-opacity="0.72"/>'
+        '<path d="M9 3.6L10.15 7.85L14.4 9L10.15 10.15L9 14.4L7.85 10.15L3.6 9L7.85 7.85Z" '
+        'fill="currentColor"/>'
+        "</svg>"
+    ),
+    "code": (
+        '<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true">'
+        '<path d="M6.2 5.2L2.5 9L6.2 12.8M11.8 5.2L15.5 9L11.8 12.8" '
+        'stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<path d="M9 6.6L10.3 9L9 11.4L7.7 9Z" fill="currentColor" fill-opacity="0.85"/>'
+        "</svg>"
+    ),
+    "image": (
+        '<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true">'
+        '<rect x="2.6" y="3.2" width="12.8" height="11.6" rx="2.2" '
+        'stroke="currentColor" stroke-width="1.25"/>'
+        '<path d="M3.4 12.6L6.9 9.2L9.6 11.6L11.7 9.8L14.6 12.6" '
+        'stroke="currentColor" stroke-width="1.2" stroke-linecap="round" '
+        'stroke-linejoin="round" stroke-opacity="0.8"/>'
+        '<path d="M12.2 5.2L12.7 6.5L14 7L12.7 7.5L12.2 8.8L11.7 7.5L10.4 7L11.7 6.5Z" '
+        'fill="currentColor"/>'
+        "</svg>"
+    ),
+    "engineering": (
+        '<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true">'
+        '<circle cx="9" cy="9" r="5.6" stroke="currentColor" stroke-width="1.25"/>'
+        '<circle cx="9" cy="9" r="2" fill="currentColor"/>'
+        '<path d="M9 1.8V3.4M9 14.6V16.2M1.8 9H3.4M14.6 9H16.2" '
+        'stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>'
+        "</svg>"
+    ),
+    "default": (
+        '<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true">'
+        '<circle cx="9" cy="9" r="6.2" stroke="currentColor" stroke-width="1.15" '
+        'stroke-opacity="0.65"/>'
+        '<path d="M9 4.5L9.9 8.1L13.5 9L9.9 9.9L9 13.5L8.1 9.9L4.5 9L8.1 8.1Z" '
+        'fill="currentColor"/>'
+        "</svg>"
+    ),
+}
+
+
+def _render_category_tabs(
+    posts: list[Post],
+    category_stats: list[dict[str, Any]],
+) -> str:
+    """Render top-level extensible category rail with sliding indicator."""
+    tabs: list[str] = [
+        '<button type="button" class="category-tab is-active" role="tab" '
+        'aria-selected="true" data-filter-category="all">'
+        f'<span class="category-tab-icon" aria-hidden="true">{CATEGORY_ICONS["all"]}</span>'
+        '<span class="category-tab-label">全部</span>'
+        f'<span class="category-tab-count">{len(posts)}</span>'
+        "</button>"
+    ]
+    for cat in category_stats:
+        cat_name = str(cat.get("name", "")).strip()
+        if not cat_name:
+            continue
+        icon_key = str(cat.get("icon") or "default").strip()
+        icon_svg = CATEGORY_ICONS.get(icon_key, CATEGORY_ICONS["default"])
+        count = int(cat.get("count", 0))
+        esc_name = _neutralize_braces(html.escape(cat_name, quote=True))
+        tabs.append(
+            f'<button type="button" class="category-tab" role="tab" '
+            f'aria-selected="false" data-filter-category="{esc_name}">'
+            f'<span class="category-tab-icon" aria-hidden="true">{icon_svg}</span>'
+            f'<span class="category-tab-label">{esc_name}</span>'
+            f'<span class="category-tab-count">{count}</span>'
+            "</button>"
+        )
+
+    tabs_inner = "\n      ".join(tabs)
+    return (
+        '<div class="category-bar" data-category-bar>\n'
+        '  <div class="category-tabs" data-category-tabs role="tablist" aria-label="文章分类">\n'
+        '    <span class="category-indicator" data-category-indicator aria-hidden="true"></span>\n'
+        f"    {tabs_inner}\n"
+        "  </div>\n"
+        "</div>"
+    )
+
+
 def _render_inline_tag_pills(tags: list[str]) -> str:
     """Render clickable tag pills (without counts) for cards and post headers."""
     pills: list[str] = []
@@ -412,11 +499,16 @@ def render_site(
             },
         )
         if posts
-        else f'<div class="empty-stage">{empty_stage_svg}<p class="search-empty">暂无已发布文章。</p></div>'
+        else (
+            '<div class="empty-stage" aria-live="polite">'
+            f'{empty_stage_svg}<p class="search-empty" data-articles-empty>暂无已发布文章。</p>'
+            "</div>"
+        )
     )
     articles_body = engine.render(
         "articles.html",
         {
+            "category_tabs_html": _render_category_tabs(posts, category_stats),
             "archive_html": archive_html,
         },
     )
@@ -481,6 +573,7 @@ def render_site(
                 "post_reading_time": str(post.reading_time),
                 "post_word_count": str(post.word_count),
                 "post_category": post.category,
+                "post_category_url": urllib.parse.quote(post.category, safe=""),
                 "post_tags_html": _render_inline_tag_pills(post.tags),
                 "post_cover_html": post_cover_html,
                 "post_body_html": post.body_html,
@@ -593,6 +686,7 @@ def render_site(
         "has_cname": has_cname,
         "posts_count": len(posts),
         "projects_count": len(projects),
+        "categories_count": len(category_stats),
         "tags_count": len(tag_stats),
         "html_pages_count": html_pages_count,
         "static_files_count": static_files_count,

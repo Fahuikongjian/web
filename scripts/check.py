@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass
+import html
 from html.parser import HTMLParser
 import json
 import os
@@ -269,6 +270,16 @@ def check_json_and_posts(
                             f"dist/api/posts.json 'total' ({posts_data['total']}) "
                             f"does not match len(posts) ({posts_count})."
                         )
+                if isinstance(posts_data, dict) and "categories" in posts_data:
+                    cats_val = posts_data["categories"]
+                    if not isinstance(cats_val, list):
+                        errors.append("dist/api/posts.json field 'categories' must be a list.")
+                    else:
+                        for cidx, cat in enumerate(cats_val):
+                            if not isinstance(cat, dict) or not cat.get("name"):
+                                errors.append(
+                                    f"dist/api/posts.json categories[{cidx}] missing 'name'."
+                                )
                 for idx, entry in enumerate(posts_list):
                     if not isinstance(entry, dict) or not entry.get("slug"):
                         errors.append(f"dist/api/posts.json entry #{idx} missing 'slug'.")
@@ -361,6 +372,31 @@ def check_json_and_posts(
         slug = detail_html.parent.relative_to(articles_dir).as_posix()
         if slug != "." and slug not in source_slugs:
             errors.append(f"Stale article detail page: {detail_html.relative_to(dist_dir)}")
+
+    categories_path = content_dir / "categories.json"
+    if categories_path.is_file():
+        try:
+            categories_data = json.loads(categories_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"Invalid JSON in content/categories.json: {exc}")
+        else:
+            if not isinstance(categories_data, list):
+                errors.append("content/categories.json must be a JSON array.")
+            else:
+                articles_index = dist_dir / "articles" / "index.html"
+                articles_html = (
+                    articles_index.read_text(encoding="utf-8") if articles_index.is_file() else ""
+                )
+                for idx, cat in enumerate(categories_data):
+                    if not isinstance(cat, dict) or not str(cat.get("name", "")).strip():
+                        errors.append(f"content/categories.json entry #{idx} missing 'name'.")
+                        continue
+                    cat_name = str(cat["name"]).strip()
+                    esc_cat_name = html.escape(cat_name, quote=True)
+                    if articles_html and f'data-filter-category="{esc_cat_name}"' not in articles_html:
+                        errors.append(
+                            f"Category '{cat_name}' missing from dist/articles/index.html"
+                        )
 
     return errors, posts_count, search_count
 

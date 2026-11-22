@@ -433,6 +433,29 @@ def load_posts(content_dir: Path, include_drafts: bool = False) -> list[Post]:
     return posts
 
 
+def load_categories(content_dir: Path) -> list[dict[str, str]]:
+    """Load extensible top-level category definitions from ``content/categories.json``."""
+    categories_path = content_dir / "categories.json"
+    if not categories_path.is_file():
+        return []
+    data = json.loads(categories_path.read_text(encoding="utf-8"))
+    if not isinstance(data, list):
+        raise ValueError("content/categories.json must be a JSON array.")
+    normalized: list[dict[str, str]] = []
+    seen_names: set[str] = set()
+    for idx, item in enumerate(data):
+        if not isinstance(item, dict):
+            raise ValueError(f"content/categories.json item #{idx} must be an object.")
+        name = str(item.get("name", "")).strip()
+        if not name or name in seen_names:
+            continue
+        seen_names.add(name)
+        cat_id = str(item.get("id") or name).strip()
+        icon = str(item.get("icon") or "default").strip() or "default"
+        normalized.append({"id": cat_id, "name": name, "icon": icon})
+    return normalized
+
+
 def compute_tag_stats(posts: list[Post]) -> list[dict[str, Any]]:
     """Aggregate tag counts sorted by frequency descending, then tag name."""
     counts: Counter[str] = Counter()
@@ -443,27 +466,61 @@ def compute_tag_stats(posts: list[Post]) -> list[dict[str, Any]]:
     return [{"name": name, "count": count} for name, count in ordered]
 
 
-def compute_category_stats(posts: list[Post]) -> list[dict[str, Any]]:
-    """Aggregate category counts sorted by frequency descending, then name."""
+def compute_category_stats(
+    posts: list[Post],
+    configured_categories: list[dict[str, str]] | None = None,
+) -> list[dict[str, Any]]:
+    """Merge configured ``categories.json`` order with Frontmatter categories and counts."""
     counts: Counter[str] = Counter()
     for post in posts:
         if post.category:
             counts[post.category] += 1
-    ordered = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
-    return [{"name": name, "count": count} for name, count in ordered]
+
+    result: list[dict[str, Any]] = []
+    seen: set[str] = set()
+
+    if configured_categories:
+        for cat in configured_categories:
+            name = str(cat.get("name", "")).strip()
+            if not name or name in seen:
+                continue
+            seen.add(name)
+            result.append(
+                {
+                    "id": str(cat.get("id") or name).strip(),
+                    "name": name,
+                    "icon": str(cat.get("icon") or "default").strip() or "default",
+                    "count": counts.get(name, 0),
+                }
+            )
+
+    extras = [(name, count) for name, count in counts.items() if name not in seen]
+    extras.sort(key=lambda item: (-item[1], item[0]))
+    for name, count in extras:
+        result.append(
+            {
+                "id": name,
+                "name": name,
+                "icon": "default",
+                "count": count,
+            }
+        )
+    return result
 
 
 def load_all_content(content_dir: Path) -> dict[str, Any]:
-    """Load site config, projects, about body, published posts, and tag stats."""
+    """Load site config, projects, categories, about body, published posts, and tag stats."""
     site = load_site_config(content_dir)
     projects = load_projects(content_dir)
+    categories = load_categories(content_dir)
     about_md = load_about_markdown(content_dir)
     posts = load_posts(content_dir)
     tag_stats = compute_tag_stats(posts)
-    category_stats = compute_category_stats(posts)
+    category_stats = compute_category_stats(posts, configured_categories=categories)
     return {
         "site": site,
         "projects": projects,
+        "categories": categories,
         "about_md": about_md,
         "posts": posts,
         "tag_stats": tag_stats,

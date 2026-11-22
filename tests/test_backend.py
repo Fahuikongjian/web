@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 import re
+import shutil
 import sys
 import threading
 import urllib.error
@@ -19,9 +20,11 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from backend.content_loader import (  # noqa: E402
+    compute_category_stats,
     count_words,
     estimate_reading_time,
     load_all_content,
+    load_categories,
     load_posts,
     parse_frontmatter,
 )
@@ -130,8 +133,53 @@ def test_load_real_content_repository() -> None:
     loaded = load_all_content(PROJECT_ROOT / "content")
     assert loaded["site"]["site_title"] == "ASTRA YAO · 星环手记"
     assert loaded["site"]["site_url"] == "https://astrayao.xyz"
+    assert [cat["name"] for cat in loaded["categories"]] == ["代码", "图像生成", "工程"]
+    assert [cat["name"] for cat in loaded["category_stats"]] == ["代码", "图像生成", "工程"]
     dates = [p.date for p in loaded["posts"]]
     assert dates == sorted(dates, reverse=True)
+
+
+def test_load_categories_and_merge_frontmatter_custom_categories(tmp_path: Path) -> None:
+    missing_dir = tmp_path / "no-categories"
+    missing_dir.mkdir()
+    assert load_categories(missing_dir) == []
+
+    content_dir = tmp_path / "content"
+    posts_dir = content_dir / "posts"
+    posts_dir.mkdir(parents=True)
+    (content_dir / "categories.json").write_text(
+        json.dumps(
+            [
+                {"id": "code", "name": "代码", "icon": "code"},
+                {"id": "image-gen", "name": "图像生成", "icon": "image"},
+                {"id": "engineering", "name": "工程", "icon": "engineering"},
+            ],
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    (posts_dir / "p1.md").write_text(
+        "---\ntitle: P1\nslug: p1\ndate: 2026-11-03\ncategory: 代码\ntags: [Python]\n---\n\n内容。\n",
+        encoding="utf-8",
+    )
+    (posts_dir / "p2.md").write_text(
+        "---\ntitle: P2\nslug: p2\ndate: 2026-11-02\ncategory: 随笔\ntags: [记录]\n---\n\n内容。\n",
+        encoding="utf-8",
+    )
+    (posts_dir / "p3.md").write_text(
+        "---\ntitle: P3\nslug: p3\ndate: 2026-11-01\ncategory: 工程\ntags: [Nginx]\n---\n\n内容。\n",
+        encoding="utf-8",
+    )
+
+    configured = load_categories(content_dir)
+    posts = load_posts(content_dir)
+    merged = compute_category_stats(posts, configured_categories=configured)
+    assert [(c["name"], c["icon"], c["count"]) for c in merged] == [
+        ("代码", "code", 1),
+        ("图像生成", "image", 0),
+        ("工程", "engineering", 1),
+        ("随笔", "default", 1),
+    ]
 
 
 # ---------------------------------------------------------------------------
@@ -362,6 +410,67 @@ def test_clean_build_removes_published_articles_and_feeds(
     assert check_xml_files(dist_dir, posts_count=0) == []
     assert "build-fixture" not in (dist_dir / "sitemap.xml").read_text(encoding="utf-8")
     assert "暂无已发布文章。" in (dist_dir / "articles" / "index.html").read_text(encoding="utf-8")
+    empty_articles = (dist_dir / "articles" / "index.html").read_text(encoding="utf-8")
+    assert "data-category-bar" in empty_articles
+    assert "data-category-indicator" in empty_articles
+    for cat in ("all", "代码", "图像生成", "工程"):
+        assert f'data-filter-category="{cat}"' in empty_articles
+    assert "data-filter-tag" not in empty_articles
+    assert 'data-articles-empty' in empty_articles
+    empty_posts_api = json.loads((dist_dir / "api" / "posts.json").read_text(encoding="utf-8"))
+    assert [(c["name"], c["count"]) for c in empty_posts_api["categories"]] == [
+        ("代码", 0),
+        ("图像生成", 0),
+        ("工程", 0),
+    ]
+
+
+def test_categorized_articles_post_links_and_api_stats(
+    tmp_path: Path, empty_site_root: Path
+) -> None:
+    site_root = tmp_path / "categorized-site"
+    shutil.copytree(empty_site_root, site_root)
+    posts_dir = site_root / "content" / "posts"
+    posts_dir.mkdir()
+    (posts_dir / "code-post.md").write_text(
+        "---\ntitle: 代码样例\nslug: code-post\ndate: 2026-11-02\n"
+        "category: 代码\ntags: [Python, 架构]\nsummary: 代码摘要\n---\n\n## 小节\n\n内容。\n",
+        encoding="utf-8",
+    )
+    (posts_dir / "custom-post.md").write_text(
+        "---\ntitle: 自定义分类样例\nslug: custom-post\ndate: 2026-11-01\n"
+        "category: 乐理\ntags: [声学]\nsummary: 自定义分类摘要\n---\n\n内容。\n",
+        encoding="utf-8",
+    )
+
+    dist_dir = tmp_path / "dist"
+    stats = render_site(
+        site_root,
+        dist_dir=dist_dir,
+        clean=True,
+        base_path="/astrayao-blog",
+        site_url="https://example.github.io/astrayao-blog",
+    )
+    assert stats["categories_count"] == 4
+
+    articles_html = (dist_dir / "articles" / "index.html").read_text(encoding="utf-8")
+    for cat in ("all", "代码", "图像生成", "工程", "乐理"):
+        assert f'data-filter-category="{cat}"' in articles_html
+    assert 'article class="post-row" data-category="代码"' in articles_html
+    assert '<button type="button" class="post-row-category" data-filter-category="乐理">乐理</button>' in articles_html
+    assert 'class="empty-stage is-hidden" data-articles-empty' in articles_html
+
+    post_html = (dist_dir / "articles" / "code-post" / "index.html").read_text(encoding="utf-8")
+    assert 'class="post-meta-category" href="/astrayao-blog/articles/?category=%E4%BB%A3%E7%A0%81"' in post_html
+    assert "预计 " not in post_html
+
+    posts_api = json.loads((dist_dir / "api" / "posts.json").read_text(encoding="utf-8"))
+    assert [(c["name"], c["icon"], c["count"]) for c in posts_api["categories"]] == [
+        ("代码", "code", 1),
+        ("图像生成", "image", 0),
+        ("工程", "engineering", 0),
+        ("乐理", "default", 1),
+    ]
     home = (dist_dir / "index.html").read_text(encoding="utf-8")
     assert home.count('class="home-entry home-entry--') == 3
     projects_page = (dist_dir / "projects" / "index.html").read_text(encoding="utf-8")

@@ -9,7 +9,7 @@
 - **Starloop Velvet & Vinyl 视觉系统**：默认呈现深邃温暖的 Starloop Night 暗色主视觉（黑曜石底、炽红点缀、香槟金边框），并支持一键切换 Ivory Collector's Edition 日间模式与防闪烁预加载。
 - **首页滚动过渡**：全屏抽象封面 `starloop-cover.jpg` 由下往上淡出，文章、项目、关于三个入口随滚动从下方升起。文章和项目各有独立页面。关于页展示天琴座星环徽章（`astra-portrait.jpg`）。
 - **零重型外部构建依赖**：手写 YAML Frontmatter 解析器、Markdown 渲染引擎（标题锚点 & 目录 TOC、表格、引用、列表、Pygments 语法高亮与一键复制）及轻量模板引擎。
-- **全功能静态交互**：`Ctrl+K` / `Cmd+K` 站内实时搜索（基于 `/api/search-index.json`）、文章归档页多标签筛选、文章页顶部红金阅读进度条与右侧粘性目录滚动高亮。
+- **全功能静态交互**：`Ctrl+K` / `Cmd+K` 站内实时搜索（基于 `/api/search-index.json`）、文章页**可扩展大分类（`content/categories.json` + Frontmatter 自动发现）× 细小 Tag 标签**二级联动筛选、文章页顶部红金阅读进度条与右侧粘性目录滚动高亮。
 - **完整站点产物**：自动输出首页、文章归档、文章详情、项目页、关于页、自定义 `404.html`、`/api/posts.json`、`/api/search-index.json`、`/rss.xml`、`/sitemap.xml`、`/robots.txt`、`dist/.nojekyll` 与可选 `dist/CNAME`。
 - **质量门禁与双路径自动部署**：内置 `scripts/check.py` 支持根路径与子路径（`--base-path`）构建校验；提供 `.github/workflows/deploy-pages.yml` 一键托管至 GitHub Pages，以及阿里云上海 ECS `Caddyfile` / `nginx.conf` / `deploy.sh` 迁移套件。
 
@@ -38,6 +38,7 @@
 │   ├── renderer.py           # {{key}} 模板渲染器、子路径重写、.nojekyll/CNAME 与页面生成
 │   └── feeds.py              # 生成 posts.json、search-index.json、rss.xml、sitemap.xml、robots.txt
 ├── content/                  # 所有站点文本与配置数据源
+│   ├── categories.json       # 可扩展文章大分类注册表（代码 / 图像生成 / 工程，支持追加）
 │   ├── site.json             # 站点标题、作者信息、自定义域名、可选备案号与社交链接
 │   ├── projects.json         # 项目作品集列表
 │   ├── about.md              # 关于页面正文
@@ -45,10 +46,10 @@
 ├── templates/                # HTML5 页面模板与局部组件片段
 │   ├── base.html             # 全站骨架（site-base-path 元标签、防闪烁脚本、搜索弹窗、页脚）
 │   ├── home.html / articles.html / post.html / projects.html / about.html / 404.html
-│   └── partials/             # post_row.html / project_card.html / nav_post_card.html
+│   └── partials/             # articles_list.html / post_row.html / project_card.html / nav_post_card.html
 ├── static/                   # 静态资源（构建时原样复制至 dist/static/）
-│   ├── css/                  # tokens.css / base.css / components.css / prose.css
-│   ├── js/                   # theme.js / search.js / post.js / main.js
+│   ├── css/                  # tokens.css / base.css / components.css / home-cover.css / prose.css
+│   ├── js/                   # theme.js / search.js / post.js / home-cover.js / main.js
 │   └── images/               # starloop-cover.jpg、astra-portrait.jpg 及自包含原创 SVG 封面与图标
 ├── scripts/                  # 构建、预览与质量检查脚本
 │   ├── build.py              # 清理并重新构建 dist/（支持 --base-path / --site-url / --cname）
@@ -85,9 +86,9 @@
 title: 文章标题
 slug: my-new-article
 date: 2026-11-21
-category: 工程实践
+category: 工程
 tags: [Python, 架构设计, 独立博客]
-summary: 一两句精炼的导语摘要，将展示在文章列表、卡片与站内搜索结果中。
+summary: 一两句精炼的导语摘要，将展示在文章列表与站内搜索结果中。
 cover: /static/images/cover-01.svg
 featured: false
 draft: false
@@ -109,14 +110,20 @@ draft: false
 | `title` | 是 | 文章标题 |
 | `slug` | 是 | URL 路径标识，最终生成 `/articles/<slug>/` |
 | `date` | 是 | 发布日期（`YYYY-MM-DD`），文章列表按此字段倒序排列 |
-| `category` | 是 | 文章分类 |
-| `tags` | 是 | 标签列表，支持行内列表 `[标签1, 标签2]` 或 YAML 多行 `- 标签1` |
+| `category` | 是 | 所属大分类（优先匹配 `content/categories.json`，未注册的新分类名也会自动发现并加入分类栏） |
+| `tags` | 是 | 细粒度标签列表，支持行内列表 `[标签1, 标签2]` 或 YAML 多行 `- 标签1`，驱动二级联动筛选 |
 | `summary` | 是 | 文章摘要，用于文章列表与 SEO 描述 |
 | `cover` | 否 | 封面图片根相对路径（如 `/static/images/cover-01.svg`） |
 | `featured` | 否 | 推荐标记，保留在文章元数据 API 中 |
 | `draft` | 否 | `true` 表示草稿，构建时不会发布到 `dist/` 与订阅源中 |
 
-### 2. 修改站点信息、项目与关于页
+### 2. 文章大分类与 Tag 标签体系
+- **大分类注册表（`content/categories.json`）**：默认注册了 `代码`、`图像生成`、`工程` 三个主分类，即使暂无文章也会常驻展示在 `/articles/` 顶部。按以下两种方式均可零门槛扩展新大分类：
+  1. **预设排序与专属图标**：向 `content/categories.json` 追加条目（如 `{ "id": "notes", "name": "随笔", "icon": "default" }`，`icon` 可选 `code` / `image` / `engineering` / `default`）。
+  2. **Frontmatter 自动发现**：直接在任意文章头部写入 `category: 新分类`，构建时会自动识别并追加到分类栏末尾。
+- **细小 Tag 标签筛选**：通过每篇文章 Frontmatter 的 `tags` 字段维护细粒度主题关键词。`/articles/` 页面支持「大分类 × Tag」二级联动筛选与 `?category=...&tag=...` URL 直达，点击文章行内分类/标签或详情页元信息分类链接均可直接筛选定位。
+
+### 3. 修改站点信息、项目与关于页
 - **站点、域名与托管信息**：编辑 `content/site.json`：
   - `site_url` 是生成 canonical、RSS 和站点地图所用的地址，当前值为 `https://astrayao.xyz`。GitHub Pages 的构建流程会按实际发布地址传入此值。
   - `custom_domain`：可选自定义域名（如 `"astrayao.com"`），设置后自动生成 `dist/CNAME`。

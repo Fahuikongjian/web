@@ -157,6 +157,7 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --transition-fast: 150ms var(--ease-out);
   --transition-base: 220ms var(--ease-out);
+  --transition-slow: 320ms var(--ease-out);
 
   /* Z-index Scale */
   --z-sticky: 20;

@@ -1,0 +1,5 @@
+[
+  { "id": "code", "name": "代码", "icon": "code" },
+  { "id": "image-gen", "name": "图像生成", "icon": "image" },
+  { "id": "engineering", "name": "工程", "icon": "engineering" }
+]

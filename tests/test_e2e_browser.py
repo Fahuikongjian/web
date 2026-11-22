@@ -23,6 +23,22 @@ if str(PROJECT_ROOT) not in sys.path:
 
 from backend.renderer import render_site  # noqa: E402
 
+DEFAULT_BRAIN_DIR = Path(
+    r"C:\Users\Administrator\.gemini\antigravity\brain\0163651c-5527-4adf-88f0-50d778637e7e"
+)
+
+
+def _try_ensure_writable_dir(path: Path) -> bool:
+    """Create directory if needed and verify write/delete permission."""
+    try:
+        path.mkdir(parents=True, exist_ok=True)
+        probe = path / f".qa-write-probe-{os.getpid()}"
+        probe.write_text("ok", encoding="utf-8")
+        probe.unlink()
+        return True
+    except OSError:
+        return False
+
 
 def get_screenshot_dir() -> Path:
     """Resolve a writable output directory for visual QA screenshots."""
@@ -31,6 +47,8 @@ def get_screenshot_dir() -> Path:
         path = Path(env_dir)
         path.mkdir(parents=True, exist_ok=True)
         return path
+    if _try_ensure_writable_dir(DEFAULT_BRAIN_DIR):
+        return DEFAULT_BRAIN_DIR
     return Path(tempfile.mkdtemp(prefix="qa-screenshots-"))
 
 
@@ -134,6 +152,13 @@ def static_server(populated_dist: Path):
 def empty_server(empty_site_root: Path, tmp_path_factory: pytest.TempPathFactory):
     directory = tmp_path_factory.mktemp("browser-empty")
     render_site(empty_site_root, dist_dir=directory)
+    yield from _serve_directory(directory)
+
+
+@pytest.fixture(scope="module")
+def categorized_server(categorized_site_root: Path, tmp_path_factory: pytest.TempPathFactory):
+    directory = tmp_path_factory.mktemp("browser-categorized")
+    render_site(categorized_site_root, dist_dir=directory)
     yield from _serve_directory(directory)
 
 
@@ -675,6 +700,49 @@ def test_empty_archive_and_search(browser: Browser, empty_server: str) -> None:
         expect(page.locator("main").get_by_text("暂无已发布文章。")).to_be_visible()
         assert page.locator("[data-filter-tag]").count() == 0
 
+        # Empty archive still displays the 4 category tabs with sliding indicator
+        tabs = page.locator("[data-category-tabs] [data-filter-category]")
+        assert tabs.count() == 4
+        assert [t.get_attribute("data-filter-category") for t in tabs.all()] == [
+            "all",
+            "代码",
+            "图像生成",
+            "工程",
+        ]
+        assert [t.locator(".category-tab-label").inner_text().strip() for t in tabs.all()] == [
+            "全部",
+            "代码",
+            "图像生成",
+            "工程",
+        ]
+        assert [t.locator(".category-tab-count").inner_text().strip() for t in tabs.all()] == [
+            "0",
+            "0",
+            "0",
+            "0",
+        ]
+
+        indicator = page.locator("[data-category-indicator]")
+        initial_transform = indicator.evaluate("el => el.style.transform")
+        assert "translate3d(" in initial_transform
+        expect(page.locator('[data-category-tabs] [data-filter-category="all"]')).to_have_attribute(
+            "aria-selected", "true"
+        )
+
+        code_tab = page.locator('[data-category-tabs] [data-filter-category="代码"]')
+        code_tab.click()
+        expect(code_tab).to_have_attribute("aria-selected", "true")
+        expect(
+            page.locator('[data-category-tabs] [data-filter-category="all"]')
+        ).to_have_attribute("aria-selected", "false")
+        assert indicator.evaluate("el => el.style.transform") != initial_transform
+        assert "category=代码" in unquote(page.url)
+        assert page.locator("[data-filter-tag]").count() == 0
+        expect(page.locator("main").get_by_text("暂无已发布文章。")).to_be_visible()
+
+        page.locator('[data-category-tabs] [data-filter-category="all"]').click()
+        assert "category=" not in unquote(page.url)
+
         page.locator("[data-search-open]").click()
         dialog = page.locator("[data-search-modal]")
         expect(dialog.get_by_text("暂无已发布文章。")).to_be_visible()
@@ -684,6 +752,139 @@ def test_empty_archive_and_search(browser: Browser, empty_server: str) -> None:
         _assert_clean_page(records, "empty-archive")
     finally:
         page.close()
+
+
+def test_categorized_articles_dual_filtering_and_navigation(
+    browser: Browser, categorized_server: str, empty_server: str
+) -> None:
+    context = browser.new_context(viewport={"width": 1440, "height": 900})
+    page = context.new_page()
+    records = _attach_error_collectors(page)
+    try:
+        page.goto(f"{categorized_server}/articles/", wait_until="networkidle")
+        tabs = page.locator("[data-category-tabs] [data-filter-category]")
+        assert [t.get_attribute("data-filter-category") for t in tabs.all()] == [
+            "all",
+            "代码",
+            "图像生成",
+            "工程",
+        ]
+        assert [t.locator(".category-tab-count").inner_text().strip() for t in tabs.all()] == [
+            "4",
+            "2",
+            "1",
+            "1",
+        ]
+        visible_rows = page.locator("[data-articles-list] article.post-row:visible")
+        assert visible_rows.count() == 4
+        expect(page.locator("[data-articles-count]")).to_have_text("共 4 篇")
+
+        indicator = page.locator("[data-category-indicator]")
+        all_transform = indicator.evaluate("el => el.style.transform")
+
+        # 1. Category filtering ('代码') & dynamic tag pill count / availability
+        code_tab = page.locator('[data-category-tabs] [data-filter-category="代码"]')
+        code_tab.click()
+        expect(code_tab).to_have_attribute("aria-selected", "true")
+        assert indicator.evaluate("el => el.style.transform") != all_transform
+        assert visible_rows.count() == 2
+        expect(page.locator("[data-articles-count]")).to_have_text("代码 · 共 2 篇")
+        assert "category=代码" in unquote(page.url)
+        # '部署' only exists in '工程', so it must be hidden under '代码'
+        expect(page.locator('.filter-pills [data-filter-tag="部署"]')).to_be_hidden()
+        expect(
+            page.locator('.filter-pills [data-filter-tag="设计"] .filter-pill-count')
+        ).to_have_text("2")
+        expect(
+            page.locator('.filter-pills [data-filter-tag="架构"] .filter-pill-count')
+        ).to_have_text("1")
+
+        # 2. Second-level Category x Tag filtering ('代码' + '架构')
+        arch_tag_btn = page.locator('.filter-pills [data-filter-tag="架构"]')
+        arch_tag_btn.click()
+        expect(arch_tag_btn).to_have_attribute("aria-pressed", "true")
+        assert visible_rows.count() == 1
+        expect(page.locator("[data-articles-count]")).to_have_text("代码 · 「架构」· 共 1 篇")
+        decoded_url = unquote(page.url)
+        assert "category=代码" in decoded_url and "tag=架构" in decoded_url
+
+        # 3. Switching to a category where current tag ('Python') has 0 articles resets tag to 'all'
+        page.locator('.filter-pills [data-filter-tag="Python"]').click()
+        assert visible_rows.count() == 2
+        eng_tab = page.locator('[data-category-tabs] [data-filter-category="工程"]')
+        eng_tab.click()
+        expect(eng_tab).to_have_attribute("aria-selected", "true")
+        expect(page.locator('.filter-pills [data-filter-tag="all"]')).to_have_attribute(
+            "aria-pressed", "true"
+        )
+        assert visible_rows.count() == 1
+        expect(page.locator("[data-articles-count]")).to_have_text("工程 · 共 1 篇")
+        assert "tag=" not in unquote(page.url)
+
+        # 4. Inline row category button & inline row tag pill click filtering
+        page.locator('[data-category-tabs] [data-filter-category="all"]').click()
+        assert visible_rows.count() == 4
+        page.locator(
+            'article.post-row button.post-row-category[data-filter-category="图像生成"]'
+        ).first.click()
+        expect(
+            page.locator('[data-category-tabs] [data-filter-category="图像生成"]')
+        ).to_have_attribute("aria-selected", "true")
+        assert visible_rows.count() == 1
+        assert "category=图像生成" in unquote(page.url)
+
+        page.locator('[data-category-tabs] [data-filter-category="all"]').click()
+        assert visible_rows.count() == 4
+        page.locator('article.post-row .tag-pill[data-filter-tag="设计"]').first.click()
+        expect(page.locator('.filter-pills [data-filter-tag="设计"]')).to_have_attribute(
+            "aria-pressed", "true"
+        )
+        assert visible_rows.count() == 3
+
+        # 5. Direct URL query parameter restoration (?category=代码&tag=CSS)
+        page.goto(
+            f"{categorized_server}/articles/?category={quote('代码')}&tag={quote('CSS')}",
+            wait_until="networkidle",
+        )
+        expect(code_tab).to_have_attribute("aria-selected", "true")
+        expect(page.locator('.filter-pills [data-filter-tag="CSS"]')).to_have_attribute(
+            "aria-pressed", "true"
+        )
+        assert visible_rows.count() == 1
+        expect(page.locator("[data-articles-count]")).to_have_text("代码 · 「CSS」· 共 1 篇")
+
+        # 6. Post detail page category link jump & minimal reading time metadata
+        page.goto(
+            f"{categorized_server}/articles/python-static-pipeline/",
+            wait_until="networkidle",
+        )
+        meta_items_text = page.locator(".post-meta-items").inner_text()
+        assert "预计" not in meta_items_text
+        meta_cat_link = page.locator("a.post-meta-category")
+        expect(meta_cat_link).to_have_text("代码")
+        meta_cat_link.click()
+        page.wait_for_url("**/articles/?category=*")
+        page.wait_for_load_state("networkidle")
+        expect(code_tab).to_have_attribute("aria-selected", "true")
+        assert visible_rows.count() == 2
+
+        # 7. Zero horizontal overflow across 1440x900, 390x844, 320x568, 280x653
+        for width, height in [(1440, 900), (390, 844), (320, 568), (280, 653)]:
+            page.set_viewport_size({"width": width, "height": height})
+            for target_url, label in [
+                (f"{categorized_server}/articles/", f"categorized-articles-{width}x{height}"),
+                (
+                    f"{categorized_server}/articles/python-static-pipeline/",
+                    f"categorized-post-{width}x{height}",
+                ),
+                (f"{empty_server}/articles/", f"empty-articles-{width}x{height}"),
+            ]:
+                page.goto(target_url, wait_until="networkidle")
+                _assert_no_horizontal_overflow(page, target_url, label)
+
+        _assert_clean_page(records, "categorized-dual-filter")
+    finally:
+        context.close()
 
 
 def test_post_reading_experience(browser: Browser, static_server: str) -> None:
@@ -752,7 +953,12 @@ def test_mobile_toc_and_clipboard_unavailable(browser: Browser, static_server: s
         page.close()
 
 
-def test_capture_visual_acceptance_screenshots(browser: Browser, static_server: str) -> None:
+def test_capture_visual_acceptance_screenshots(
+    browser: Browser,
+    static_server: str,
+    categorized_server: str,
+    empty_server: str,
+) -> None:
     screenshot_dir = get_screenshot_dir()
     desktop_viewport = {"width": 1440, "height": 900}
     mobile_viewport = {"width": 390, "height": 844}
@@ -824,11 +1030,49 @@ def test_capture_visual_acceptance_screenshots(browser: Browser, static_server: 
         page.screenshot(path=str(about_shot), full_page=False)
         captured.append(about_shot)
 
+        # 7. Categorized Articles List — Dark (1440x900)
+        page.goto(f"{categorized_server}/articles/", wait_until="networkidle")
+        assert page.evaluate("() => document.documentElement.dataset.theme") == "dark"
+        page.wait_for_timeout(200)
+        articles_cat_dark = screenshot_dir / "articles-categories-dark.png"
+        page.screenshot(path=str(articles_cat_dark), full_page=False)
+        captured.append(articles_cat_dark)
+
+        # 8. Categorized Articles List — Light (1440x900)
+        page.locator("[data-theme-toggle]").click()
+        assert page.evaluate("() => document.documentElement.dataset.theme") == "light"
+        page.wait_for_timeout(200)
+        articles_cat_light = screenshot_dir / "articles-categories-light.png"
+        page.screenshot(path=str(articles_cat_light), full_page=False)
+        captured.append(articles_cat_light)
+
+        # Switch back to dark mode
+        page.locator("[data-theme-toggle]").click()
+        assert page.evaluate("() => document.documentElement.dataset.theme") == "dark"
+        page.wait_for_timeout(150)
+
+        # 9. Empty Articles Archive with Category Bar — Dark (1440x900)
+        page.goto(f"{empty_server}/articles/", wait_until="networkidle")
+        page.wait_for_timeout(150)
+        articles_empty_dark = screenshot_dir / "articles-empty-dark.png"
+        page.screenshot(path=str(articles_empty_dark), full_page=False)
+        captured.append(articles_empty_dark)
+
+        # 10. Post Detail with Clickable Category & Tags — Dark (1440x900)
+        page.goto(
+            f"{categorized_server}/articles/python-static-pipeline/",
+            wait_until="networkidle",
+        )
+        page.wait_for_timeout(150)
+        post_detail_tags = screenshot_dir / "post-detail-tags.png"
+        page.screenshot(path=str(post_detail_tags), full_page=False)
+        captured.append(post_detail_tags)
+
         _assert_clean_page(records, "screenshots-desktop")
     finally:
         context.close()
 
-    # 7. Mobile Home in default dark mode (390x844)
+    # 11. Mobile Home & Mobile Categorized Articles in default dark mode (390x844)
     mobile_ctx = browser.new_context(viewport=mobile_viewport)
     mobile_page = mobile_ctx.new_page()
     mobile_records = _attach_error_collectors(mobile_page)
@@ -838,6 +1082,13 @@ def test_capture_visual_acceptance_screenshots(browser: Browser, static_server: 
         home_mobile = screenshot_dir / "home-mobile.png"
         mobile_page.screenshot(path=str(home_mobile), full_page=False)
         captured.append(home_mobile)
+
+        mobile_page.goto(f"{categorized_server}/articles/", wait_until="networkidle")
+        mobile_page.wait_for_timeout(150)
+        articles_mobile_dark = screenshot_dir / "articles-mobile-dark.png"
+        mobile_page.screenshot(path=str(articles_mobile_dark), full_page=False)
+        captured.append(articles_mobile_dark)
+
         _assert_clean_page(mobile_records, "screenshots-mobile")
     finally:
         mobile_ctx.close()
