@@ -63,7 +63,7 @@ CSS 引入顺序严格保持：`tokens.css` → `base.css` → `components.css` 
 ### 4.2 首页全屏封面与导航入口（`templates/home.html`）
 
 - `.home-cover` 使用抽象黑胶封面与渐变遮罩，随滚动由下往上淡出。
-- `.home-entries` 随滚动从下方升起。文章、项目、关于入口各有金线图形，宽屏横排，窄屏竖排时单列展示。
+- `.home-entries` 随滚动从下方升起。金色星轨和星芒围绕三个入口延展，入口边角有独立的金线装饰。桌面宽屏错落横排，手机竖屏单列。
 
 ### 4.3 关于页天琴座徽章框（`templates/about.html`）
 

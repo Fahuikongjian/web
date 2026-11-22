@@ -231,9 +231,12 @@ def _open_home_cover(page: Page) -> None:
     )
 
 
-@pytest.mark.parametrize("width,height", [(1440, 900), (390, 844), (320, 568), (568, 280)])
+@pytest.mark.parametrize(
+    "width,height,flow_axis,min_gap",
+    [(1440, 900, "x", 64), (390, 844, "y", 36), (320, 568, "y", 24), (568, 280, "x", 20)],
+)
 def test_home_cover_fades_as_content_rises_with_scroll(
-    browser: Browser, static_server: str, width: int, height: int
+    browser: Browser, static_server: str, width: int, height: int, flow_axis: str, min_gap: int
 ) -> None:
     page = browser.new_page(viewport={"width": width, "height": height})
     try:
@@ -279,6 +282,15 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         assert not content.evaluate("el => el.inert")
         assert content.is_visible()
         assert content.evaluate("el => el.getBoundingClientRect().bottom") <= height
+        _assert_no_horizontal_overflow(page, "/", f"{width}×{height}")
+        card_bounds = [card.bounding_box() for card in content.get_by_role("link").all()]
+        extent = "width" if flow_axis == "x" else "height"
+        gaps = [
+            following[flow_axis] - current[flow_axis] - current[extent]
+            for current, following in zip(card_bounds, card_bounds[1:])
+        ]
+        assert len(gaps) == 2
+        assert min(gaps) >= min_gap
 
         scroll_to(middle)
         assert cover.evaluate("el => getComputedStyle(el).maskImage") == middle_mask
