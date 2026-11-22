@@ -21,6 +21,11 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://astrayao.xyz/games/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://astrayao.xyz/about/</loc>
     <lastmod>2026-11-22</lastmod>
     <priority>0.7</priority>

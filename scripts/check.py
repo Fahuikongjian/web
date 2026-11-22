@@ -41,6 +41,7 @@ REQUIRED_FILES = (
     "articles/index.html",
     "projects/index.html",
     "gallery/index.html",
+    "games/index.html",
     "about/index.html",
     "404.html",
     "api/posts.json",
@@ -517,11 +518,11 @@ def check_xml_files(dist_dir: Path, base_path: str = "", *, posts_count: int) ->
                     f"dist/sitemap.xml root element must be <urlset>, got <{sm_root.tag}>"
                 )
             urls = [el for el in sm_root if el.tag.rsplit("}", 1)[-1] == "url"]
-            expected_min_urls = 5 + posts_count
+            expected_min_urls = 6 + posts_count
             if len(urls) < expected_min_urls:
                 errors.append(
                     f"dist/sitemap.xml has {len(urls)} <url> entries, expected at least "
-                    f"{expected_min_urls} (5 core pages + {posts_count} posts)."
+                    f"{expected_min_urls} (6 core pages + {posts_count} posts)."
                 )
             else:
                 locs: list[str] = []
@@ -536,6 +537,8 @@ def check_xml_files(dist_dir: Path, base_path: str = "", *, posts_count: int) ->
                             )
                 if not any(loc.endswith("/gallery/") for loc in locs):
                     errors.append("dist/sitemap.xml missing '/gallery/' entry.")
+                if not any(loc.endswith("/games/") for loc in locs):
+                    errors.append("dist/sitemap.xml missing '/games/' entry.")
 
     return errors
 

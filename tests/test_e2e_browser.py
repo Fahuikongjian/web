@@ -260,7 +260,7 @@ def _open_home_cover(page: Page) -> None:
 
 @pytest.mark.parametrize(
     "width,height,flow_axis,min_gap",
-    [(1440, 900, "x", 40), (390, 844, "y", 20), (320, 568, "y", 14), (568, 280, "x", 14)],
+    [(1440, 900, "x", 24), (390, 844, "y", 14), (320, 568, "y", 10), (568, 280, "x", 8)],
 )
 def test_home_cover_fades_as_content_rises_with_scroll(
     browser: Browser, static_server: str, width: int, height: int, flow_axis: str, min_gap: int
@@ -338,7 +338,7 @@ def test_home_cover_fades_as_content_rises_with_scroll(
             for current, following in zip(card_bounds, card_bounds[1:])
         ]
         print(f"[home-entries {width}x{height}] gaps={gaps}, bottom={content.evaluate('el => el.getBoundingClientRect().bottom')}")
-        assert len(gaps) == 3
+        assert len(gaps) == 4
         assert min(gaps) >= min_gap
 
         scroll_to(middle)
@@ -375,7 +375,7 @@ def test_home_cover_wheel_progress_stays_where_paused(browser: Browser, static_s
 
         page.mouse.wheel(0, travel)
         page.wait_for_function("y => window.scrollY === y", arg=travel)
-        assert content.locator("a").count() == 4
+        assert content.locator("a").count() == 5
     finally:
         page.close()
 
@@ -514,7 +514,7 @@ def test_routes_zero_errors_and_responsive_viewports(
     browser: Browser, static_server: str, populated_dist: Path
 ) -> None:
     post_routes = _load_post_routes(populated_dist)
-    routes = ["/", "/articles/", "/projects/", "/gallery/", "/about/", *post_routes]
+    routes = ["/", "/articles/", "/projects/", "/gallery/", "/games/", "/about/", *post_routes]
 
     for viewport_name, viewport in [
         ("desktop-1440x900", {"width": 1440, "height": 900}),
@@ -624,11 +624,12 @@ def test_home_cover_loads_and_opens_to_navigation(browser: Browser, static_serve
         )
         _open_home_cover(page)
         links = page.locator(".home-entries a")
-        expect(links).to_have_text(["文章", "项目", "图像", "关于"])
+        expect(links).to_have_text(["文章", "项目", "图像", "游戏", "关于"])
         assert [link.get_attribute("href") for link in links.all()] == [
             "/articles/",
             "/projects/",
             "/gallery/",
+            "/games/",
             "/about/",
         ]
         assert page.locator(".post-row, .project-card, .featured-card, .gallery-card").count() == 0
@@ -1185,6 +1186,101 @@ def test_gallery_filtering_copy_prompt_and_lightbox(
         _assert_clean_page(reduced_records, "gallery-reduced-motion-clipboard-fallback")
     finally:
         reduced_page.close()
+
+
+def test_games_arcade_switching_and_playability(browser: Browser, static_server: str) -> None:
+    context = browser.new_context(viewport={"width": 1440, "height": 900})
+    page = context.new_page()
+    records = _attach_error_collectors(page)
+    try:
+        page.goto(f"{static_server}/games/", wait_until="networkidle")
+        tabs = page.locator("[data-game-tabs] [data-game-id]")
+        assert [t.get_attribute("data-game-id") for t in tabs.all()] == [
+            "2048",
+            "snake",
+            "minesweeper",
+            "breakout",
+        ]
+
+        indicator = page.locator("[data-game-indicator]")
+        initial_transform = indicator.evaluate("el => el.style.transform")
+        assert "translate3d(" in initial_transform
+
+        # 1. 2048 gameplay & restart + D-pad move
+        board_2048 = page.locator('[data-game-board="2048"]')
+        expect(board_2048).to_be_visible()
+        assert board_2048.locator(".g2048-cell").count() == 16
+        assert board_2048.locator(".g2048-tile").count() >= 2
+        for direction in ("left", "down", "right", "up"):
+            page.locator(f'.game-dpad-btn[data-dir="{direction}"]').click()
+        page.locator("[data-game-restart]").click()
+        expect(page.locator("[data-game-score]")).to_have_text("0")
+
+        # 2. Switch to Snake & verify canvas sizing + start/restart
+        snake_tab = page.locator('[data-game-tabs] [data-game-id="snake"]')
+        snake_tab.click()
+        expect(snake_tab).to_have_attribute("aria-selected", "true")
+        assert "game=snake" in unquote(page.url)
+        assert indicator.evaluate("el => el.style.transform") != initial_transform
+        snake_canvas = page.locator('[data-game-canvas="snake"]')
+        expect(snake_canvas).to_be_visible()
+        assert snake_canvas.evaluate("c => c.width > 0 && c.height > 0")
+        page.locator("[data-game-toggle]").click()
+        page.wait_for_timeout(160)
+        page.locator("[data-game-restart]").click()
+
+        # 3. Switch to Minesweeper & verify first-click safety, flag toggle, mode toggle
+        mine_tab = page.locator('[data-game-tabs] [data-game-id="minesweeper"]')
+        mine_tab.click()
+        expect(mine_tab).to_have_attribute("aria-selected", "true")
+        assert "game=minesweeper" in unquote(page.url)
+        mine_board = page.locator('[data-game-board="minesweeper"]')
+        expect(mine_board).to_be_visible()
+        assert mine_board.locator(".mine-cell").count() == 81
+        expect(page.locator("[data-mine-remaining]")).to_have_text("10")
+        center_cell = mine_board.locator('.mine-cell[data-row="4"][data-col="4"]')
+        center_cell.click()
+        assert "is-revealed" in (center_cell.get_attribute("class") or "")
+        assert "is-exploded" not in (center_cell.get_attribute("class") or "")
+
+        flag_btn = page.locator("[data-mine-flag-toggle]")
+        flag_btn.click()
+        expect(flag_btn).to_have_attribute("aria-pressed", "true")
+        unrevealed = mine_board.locator(".mine-cell:not(.is-revealed)").first
+        unrevealed.click()
+        expect(page.locator("[data-mine-remaining]")).to_have_text("9")
+
+        page.locator("[data-mine-mode]").click()
+        assert mine_board.locator(".mine-cell").count() == 144
+
+        # 4. Keyboard ArrowRight switches tablist to Breakout & theme toggle works
+        mine_tab.focus()
+        page.keyboard.press("ArrowRight")
+        breakout_tab = page.locator('[data-game-tabs] [data-game-id="breakout"]')
+        expect(breakout_tab).to_have_attribute("aria-selected", "true")
+        assert "game=breakout" in unquote(page.url)
+        breakout_canvas = page.locator('[data-game-canvas="breakout"]')
+        expect(breakout_canvas).to_be_visible()
+        assert breakout_canvas.evaluate("c => c.width > 0 && c.height > 0")
+        expect(page.locator("[data-game-lives]")).to_have_text("3")
+
+        page.locator("[data-theme-toggle]").click()
+        assert page.evaluate("() => document.documentElement.dataset.theme") == "light"
+        page.locator("[data-theme-toggle]").click()
+
+        # 5. Direct query reload & responsive zero overflow
+        page.goto(f"{static_server}/games/?game=minesweeper", wait_until="networkidle")
+        expect(page.locator('[data-game-board="minesweeper"]')).to_be_visible()
+
+        for width, height in [(1440, 900), (390, 844), (320, 568), (280, 653)]:
+            page.set_viewport_size({"width": width, "height": height})
+            for game_id in ("2048", "snake", "minesweeper", "breakout"):
+                page.goto(f"{static_server}/games/?game={game_id}", wait_until="networkidle")
+                _assert_no_horizontal_overflow(page, f"/games/?game={game_id}", f"{width}x{height}")
+
+        _assert_clean_page(records, "games-arcade")
+    finally:
+        context.close()
 
 
 def test_post_reading_experience(browser: Browser, static_server: str) -> None:

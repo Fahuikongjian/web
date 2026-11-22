@@ -457,6 +457,7 @@ def _wrap_base(
             "nav_articles_active": "is-active" if active_nav == "articles" else "",
             "nav_projects_active": "is-active" if active_nav == "projects" else "",
             "nav_gallery_active": "is-active" if active_nav == "gallery" else "",
+            "nav_games_active": "is-active" if active_nav == "games" else "",
             "nav_about_active": "is-active" if active_nav == "about" else "",
             "extra_head": extra_head,
             "page_content": page_content,
@@ -561,7 +562,7 @@ def render_site(
             page_content=home_body,
             base_path=normalized_base_path,
             extra_head=(
-                '<link rel="stylesheet" href="/static/css/home-cover.css?v=14">\n'
+                '<link rel="stylesheet" href="/static/css/home-cover.css?v=15">\n'
                 '  <link rel="preload" as="image" href="/static/images/starloop-cover.jpg" fetchpriority="high">'
             ),
             extra_scripts='<script src="/static/js/home-cover.js?v=10" defer></script>',
@@ -769,6 +770,30 @@ def render_site(
             active_nav="gallery",
             page_content=gallery_body,
             base_path=normalized_base_path,
+        ),
+    )
+    html_pages_count += 1
+
+    # 8. Render Games Arcade Page: dist/games/index.html
+    games_body = engine.render("games.html", {})
+    _write_html(
+        out_dir / "games" / "index.html",
+        _wrap_base(
+            engine,
+            site,
+            page_title=f"游戏 · {site['site_title']}",
+            page_description=f"{site['author_name']} 的 Starloop 经典网页小游戏游乐廊。",
+            route_path="/games/",
+            active_nav="games",
+            page_content=games_body,
+            base_path=normalized_base_path,
+            extra_scripts=(
+                '<script src="/static/js/games/game_2048.js?v=1" defer></script>\n'
+                '  <script src="/static/js/games/game_snake.js?v=1" defer></script>\n'
+                '  <script src="/static/js/games/game_minesweeper.js?v=1" defer></script>\n'
+                '  <script src="/static/js/games/game_breakout.js?v=1" defer></script>\n'
+                '  <script src="/static/js/games.js?v=1" defer></script>'
+            ),
         ),
     )
     html_pages_count += 1
