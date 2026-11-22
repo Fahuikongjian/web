@@ -4,11 +4,10 @@
       <span class="project-year">{{year}}</span>
       <span class="project-status">{{status}}</span>
     </div>
-    <h3 class="project-name"><a href="{{url}}">{{name}}</a></h3>
+    <h3 class="project-name">{{name_html}}</h3>
     <p class="project-summary">{{summary}}</p>
   </div>
   <div class="project-footer">
-    <div class="project-stack">{{stack_html}}</div>
-    <a class="project-link" href="{{url}}">查看详情 →</a>
+    <div class="project-stack">{{stack_html}}</div>{{link_html}}
   </div>
 </article>

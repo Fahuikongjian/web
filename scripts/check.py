@@ -24,8 +24,13 @@ import xml.etree.ElementTree as ET
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from backend.content_loader import load_posts  # noqa: E402
+
 BUILD_SCRIPT = PROJECT_ROOT / "scripts" / "build.py"
-CONTENT_POSTS_DIR = PROJECT_ROOT / "content" / "posts"
+CONTENT_DIR = PROJECT_ROOT / "content"
 SITE_JSON_PATH = PROJECT_ROOT / "content" / "site.json"
 STATIC_SRC_DIR = PROJECT_ROOT / "static"
 DIST_DIR = PROJECT_ROOT / "dist"
@@ -222,38 +227,6 @@ def check_required_files(dist_dir: Path, expected_cname: str = "") -> list[str]:
     return errors
 
 
-def _extract_non_draft_source_slugs(posts_dir: Path) -> list[str]:
-    """Read expected non-draft slugs directly from ``content/posts/*.md``."""
-    if not posts_dir.is_dir():
-        return []
-    slugs: list[str] = []
-    for md_file in sorted(posts_dir.glob("*.md")):
-        text = md_file.read_text(encoding="utf-8")
-        lines = text.splitlines()
-        if not lines or lines[0].strip() != "---":
-            continue
-        fm_lines: list[str] = []
-        for line in lines[1:]:
-            if line.strip() == "---":
-                break
-            fm_lines.append(line)
-        slug_val = ""
-        is_draft = False
-        for line in fm_lines:
-            if ":" not in line:
-                continue
-            key, raw = line.split(":", 1)
-            key = key.strip()
-            raw = raw.strip().strip("'\"")
-            if key == "slug":
-                slug_val = raw
-            elif key == "draft" and raw.lower() == "true":
-                is_draft = True
-        if not is_draft:
-            slugs.append(slug_val or md_file.stem)
-    return slugs
-
-
 def _extract_list_payload(data: object, candidate_keys: tuple[str, ...]) -> list[object] | None:
     """Return a list payload directly or from one of ``candidate_keys``."""
     if isinstance(data, list):
@@ -266,7 +239,9 @@ def _extract_list_payload(data: object, candidate_keys: tuple[str, ...]) -> list
     return None
 
 
-def check_json_and_posts(dist_dir: Path, base_path: str = "") -> tuple[list[str], int, int]:
+def check_json_and_posts(
+    dist_dir: Path, base_path: str = "", *, content_dir: Path = CONTENT_DIR
+) -> tuple[list[str], int, int]:
     """Validate JSON outputs and verify every published post detail page exists."""
     errors: list[str] = []
     posts_count = 0
@@ -276,6 +251,7 @@ def check_json_and_posts(dist_dir: Path, base_path: str = "") -> tuple[list[str]
     search_json_path = dist_dir / "api" / "search-index.json"
 
     post_slugs_from_api: set[str] = set()
+    search_slugs: set[str] = set()
     if posts_json_path.is_file():
         try:
             posts_data = json.loads(posts_json_path.read_text(encoding="utf-8"))
@@ -283,8 +259,8 @@ def check_json_and_posts(dist_dir: Path, base_path: str = "") -> tuple[list[str]
             errors.append(f"Invalid JSON in dist/api/posts.json: {exc}")
         else:
             posts_list = _extract_list_payload(posts_data, ("posts", "items", "articles"))
-            if posts_list is None or len(posts_list) == 0:
-                errors.append("dist/api/posts.json must contain a non-empty list of posts.")
+            if posts_list is None:
+                errors.append("dist/api/posts.json must contain a list of posts.")
             else:
                 posts_count = len(posts_list)
                 if isinstance(posts_data, dict) and "total" in posts_data:
@@ -328,9 +304,9 @@ def check_json_and_posts(dist_dir: Path, base_path: str = "") -> tuple[list[str]
             search_list = _extract_list_payload(
                 search_data, ("items", "posts", "documents", "index")
             )
-            if search_list is None or len(search_list) == 0:
+            if search_list is None:
                 errors.append(
-                    "dist/api/search-index.json must contain a non-empty list of entries."
+                    "dist/api/search-index.json must contain a list of entries."
                 )
             else:
                 search_count = len(search_list)
@@ -362,6 +338,8 @@ def check_json_and_posts(dist_dir: Path, base_path: str = "") -> tuple[list[str]
                         errors.append(
                             f"dist/api/search-index.json entry #{idx} field 'tags' must be a list."
                         )
+                    if entry.get("slug"):
+                        search_slugs.add(str(entry["slug"]))
                     if base_path and entry.get("slug"):
                         expected_url = f"{base_path}/articles/{entry['slug']}/"
                         if entry.get("url") != expected_url:
@@ -370,19 +348,24 @@ def check_json_and_posts(dist_dir: Path, base_path: str = "") -> tuple[list[str]
                                 f"'{entry.get('url')}' expected '{expected_url}'."
                             )
 
-    for slug in _extract_non_draft_source_slugs(CONTENT_POSTS_DIR):
-        detail_html = dist_dir / "articles" / slug / "index.html"
-        if not detail_html.is_file():
-            errors.append(
-                f"Source post slug '{slug}' was not built to dist/articles/{slug}/index.html"
-            )
-        if post_slugs_from_api and slug not in post_slugs_from_api:
-            errors.append(f"Source post slug '{slug}' missing from dist/api/posts.json")
+    source_slugs = {post.slug for post in load_posts(content_dir)}
+    for label, slugs, count in (
+        ("posts.json", post_slugs_from_api, posts_count),
+        ("search-index.json", search_slugs, search_count),
+    ):
+        if slugs != source_slugs or count != len(source_slugs):
+            errors.append(f"dist/api/{label} does not match the published article sources.")
+
+    articles_dir = dist_dir / "articles"
+    for detail_html in sorted(articles_dir.rglob("index.html")):
+        slug = detail_html.parent.relative_to(articles_dir).as_posix()
+        if slug != "." and slug not in source_slugs:
+            errors.append(f"Stale article detail page: {detail_html.relative_to(dist_dir)}")
 
     return errors, posts_count, search_count
 
 
-def check_xml_files(dist_dir: Path, base_path: str = "") -> list[str]:
+def check_xml_files(dist_dir: Path, base_path: str = "", *, posts_count: int) -> list[str]:
     """Parse ``rss.xml`` and ``sitemap.xml`` via ElementTree to verify validity."""
     errors: list[str] = []
     double_prefix = f"{base_path}{base_path}/" if base_path else ""
@@ -401,8 +384,8 @@ def check_xml_files(dist_dir: Path, base_path: str = "") -> list[str]:
                 errors.append("dist/rss.xml missing <channel> element.")
             else:
                 items = channel.findall("item")
-                if len(items) == 0:
-                    errors.append("dist/rss.xml <channel> contains zero <item> entries.")
+                if len(items) != posts_count:
+                    errors.append(f"dist/rss.xml has {len(items)} items, expected {posts_count}.")
                 if double_prefix:
                     for el in channel.iter():
                         if el.text and double_prefix in el.text:
@@ -635,7 +618,7 @@ def main(argv: list[str] | None = None) -> int:
     errors.extend(asset_errors)
     json_errors, posts_count, search_count = check_json_and_posts(DIST_DIR, base_path=base_path)
     errors.extend(json_errors)
-    errors.extend(check_xml_files(DIST_DIR, base_path=base_path))
+    errors.extend(check_xml_files(DIST_DIR, base_path=base_path, posts_count=posts_count))
     html_errors, html_count, link_count = check_html_files(DIST_DIR, base_path=base_path)
     errors.extend(html_errors)
 

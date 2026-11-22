@@ -2,21 +2,10 @@
   <div class="container">
     <span class="page-kicker">ARCHIVE · ALL ESSAYS</span>
     <h1 class="page-title">文章归档</h1>
-    <p class="page-subtitle">全部专栏随笔与工程手记按时间倒序排列，支持按主题标签就地筛选。</p>
+    <p class="page-subtitle">{{archive_subtitle}}</p>
   </div>
 </section>
 
-<section class="container" aria-label="文章列表与标签筛选">
-  <div class="filter-bar">
-    <div class="filter-pills" role="group" aria-label="按标签筛选文章">
-      {{tag_filters_html}}
-    </div>
-    <p class="articles-count" data-articles-count aria-live="polite">共 {{total_posts}} 篇</p>
-  </div>
-
-  <div class="posts-list" data-articles-list>
-    {{articles_list_html}}
-  </div>
-
-  <p class="search-empty is-hidden" data-articles-empty>该标签下暂无已发布文章。</p>
+<section class="container" aria-label="文章列表">
+  {{archive_html}}
 </section>

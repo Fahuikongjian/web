@@ -198,15 +198,20 @@ def _render_project_card(engine: TemplateEngine, project: dict[str, Any]) -> str
         f'<span class="stack-tag">{_neutralize_braces(html.escape(tech, quote=True))}</span>'
         for tech in project.get("stack", [])
     )
+    name_html = render_template("{{name}}", project)
+    link_html = ""
+    if project["url"]:
+        name_html = render_template('<a href="{{url}}">{{name}}</a>', project)
+        link_html = render_template('\n    <a class="project-link" href="{{url}}">查看详情 →</a>', project)
     return engine.render_partial(
         "project_card.html",
         {
-            "name": project["name"],
+            "name_html": name_html,
             "status": project["status"],
             "year": project["year"],
             "summary": project["summary"],
             "stack_html": stack_html,
-            "url": project["url"],
+            "link_html": link_html,
         },
     )
 
@@ -387,6 +392,17 @@ def render_site(
         featured_post_html = ""
 
     recent_posts_html = "\n".join(_render_post_row(engine, post) for post in posts[:5])
+    home_articles_html = (
+        engine.render_partial(
+            "home_articles.html",
+            {
+                "featured_post_html": featured_post_html,
+                "recent_posts_html": recent_posts_html,
+                "post_count": str(len(posts)),
+            },
+        )
+        if posts else ""
+    )
     featured_projects_html = "\n".join(
         _render_project_card(engine, proj) for proj in projects[:3]
     )
@@ -407,10 +423,12 @@ def render_site(
             "now_status": site["now_status"],
             "post_count": str(len(posts)),
             "tag_count": str(len(tag_stats)),
-            "featured_post_html": featured_post_html,
-            "recent_posts_html": recent_posts_html,
+            "home_articles_html": home_articles_html,
             "featured_projects_html": featured_projects_html,
-            "top_tags_html": top_tags_html,
+            "home_topics_html": (
+                engine.render_partial("home_topics.html", {"top_tags_html": top_tags_html})
+                if top_tags_html else ""
+            ),
         },
     )
     _write_html(
@@ -434,12 +452,25 @@ def render_site(
     html_pages_count += 1
 
     # 4. Render Articles Archive: dist/articles/index.html
+    archive_html = (
+        engine.render_partial(
+            "articles_list.html",
+            {
+                "total_posts": str(len(posts)),
+                "tag_filters_html": _render_filter_buttons(posts, tag_stats),
+                "articles_list_html": "\n".join(_render_post_row(engine, post) for post in posts),
+            },
+        )
+        if posts else '<p class="search-empty">暂无已发布文章。</p>'
+    )
     articles_body = engine.render(
         "articles.html",
         {
-            "total_posts": str(len(posts)),
-            "tag_filters_html": _render_filter_buttons(posts, tag_stats),
-            "articles_list_html": "\n".join(_render_post_row(engine, post) for post in posts),
+            "archive_subtitle": (
+                "全部专栏随笔与工程手记按时间倒序排列，支持按主题标签就地筛选。"
+                if posts else "专栏随笔与工程手记。"
+            ),
+            "archive_html": archive_html,
         },
     )
     _write_html(

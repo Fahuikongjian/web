@@ -52,7 +52,7 @@
     if (fetchPromise) {
       return fetchPromise;
     }
-    fetchPromise = fetch(INDEX_URL, { headers: { Accept: 'application/json' } })
+    fetchPromise = fetch(INDEX_URL, { cache: 'no-cache', headers: { Accept: 'application/json' } })
       .then(function (resp) {
         if (!resp.ok) {
           throw new Error('Failed to load search index: ' + resp.status);
@@ -273,9 +273,9 @@
     if (!visible.length) {
       var empty = document.createElement('div');
       empty.className = 'search-empty';
-      empty.textContent = rawQuery
+      empty.textContent = items.length
         ? '未找到与「' + rawQuery + '」相关的文章，试试其他关键词。'
-        : '暂无可检索文章。';
+        : '暂无已发布文章。';
       els.results.appendChild(empty);
       selectedIndex = -1;
       return;

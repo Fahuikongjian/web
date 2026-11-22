@@ -1,0 +1,27 @@
+<section class="section-block" aria-labelledby="section-featured">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-kicker">FEATURED TRACK</span>
+        <h2 id="section-featured" class="section-title">精选导读</h2>
+      </div>
+      <a class="section-more" href="/articles/">查看归档 →</a>
+    </div>
+    {{featured_post_html}}
+  </div>
+</section>
+
+<section class="section-block" aria-labelledby="section-recent">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <span class="section-kicker">SIDE A · RECENT WRITING</span>
+        <h2 id="section-recent" class="section-title">近期文章</h2>
+      </div>
+      <a class="section-more" href="/articles/">全部 {{post_count}} 篇 →</a>
+    </div>
+    <div class="posts-list">
+      {{recent_posts_html}}
+    </div>
+  </div>
+</section>

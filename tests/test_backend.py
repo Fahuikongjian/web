@@ -35,6 +35,7 @@ from backend.renderer import (  # noqa: E402
     render_template,
 )
 from scripts.build import main as build_cli_main  # noqa: E402
+from scripts.check import check_json_and_posts, check_xml_files  # noqa: E402
 from scripts.serve import create_server  # noqa: E402
 
 
@@ -130,10 +131,8 @@ def test_load_real_content_repository() -> None:
     assert loaded["site"]["site_title"] == "ASTRA YAO · 星环手记"
     assert loaded["site"]["site_url"] == "https://astrayao.xyz"
     assert len(loaded["projects"]) >= 4
-    assert len(loaded["posts"]) == 5
     dates = [p.date for p in loaded["posts"]]
     assert dates == sorted(dates, reverse=True)
-    assert loaded["posts"][0].featured is True
 
 
 # ---------------------------------------------------------------------------
@@ -244,13 +243,13 @@ def test_template_renderer_single_pass_and_escaping() -> None:
         render_template("{{missing_key}}", {})
 
 
-def test_feeds_xml_escaping_and_validity() -> None:
+def test_feeds_xml_escaping_and_validity(populated_site_root: Path) -> None:
     site = {
         "site_title": "测试 & 站点 <1>",
         "site_tagline": "副标题 & 描述",
         "site_url": "https://example.com",
     }
-    posts = load_posts(PROJECT_ROOT / "content")
+    posts = load_posts(populated_site_root / "content")
     rss_xml = build_rss_xml(site, posts)
     rss_root = ET.fromstring(rss_xml)
     assert rss_root.tag == "rss"
@@ -268,11 +267,11 @@ def test_feeds_xml_escaping_and_validity() -> None:
     assert "Sitemap: https://example.com/sitemap.xml" in robots
 
 
-def test_full_build_completeness_and_valid_artifacts(tmp_path: Path) -> None:
+def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_site_root: Path) -> None:
     dist_dir = tmp_path / "dist"
-    stats = render_site(PROJECT_ROOT, dist_dir=dist_dir, clean=True)
-    assert stats["posts_count"] == 5
-    assert stats["html_pages_count"] == 10
+    stats = render_site(populated_site_root, dist_dir=dist_dir, clean=True)
+    assert stats["posts_count"] == 2
+    assert stats["html_pages_count"] == 7
 
     expected_paths = [
         ".nojekyll",
@@ -304,12 +303,12 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path) -> None:
     assert not (dist_dir / "static/images/astra-hero-cover.jpg").exists()
 
     posts_api = json.loads((dist_dir / "api" / "posts.json").read_text(encoding="utf-8"))
-    assert posts_api["total"] == 5
-    assert len(posts_api["posts"]) == 5
+    assert posts_api["total"] == 2
+    assert len(posts_api["posts"]) == 2
     assert len(posts_api["tags"]) > 0
 
     search_index = json.loads((dist_dir / "api" / "search-index.json").read_text(encoding="utf-8"))
-    assert len(search_index) == 5
+    assert len(search_index) == 2
     for item in search_index:
         for field in (
             "title",
@@ -336,10 +335,36 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path) -> None:
     home_html = (dist_dir / "index.html").read_text(encoding="utf-8")
     assert '<meta name="site-base-path" content="">' in home_html
     assert "沪ICP备" not in home_html
+    assert 'id="section-featured"' in home_html
+    assert 'id="section-recent"' in home_html
+    assert 'id="section-topics"' in home_html
+    assert '<a class="project-link" href="/articles/build-fixture/">' in home_html
 
     for html_file in dist_dir.rglob("*.html"):
         text = html_file.read_text(encoding="utf-8")
         assert not PLACEHOLDER_RE.findall(text), f"Unreplaced placeholder in {html_file}"
+
+
+def test_clean_build_removes_published_articles_and_feeds(
+    tmp_path: Path, populated_site_root: Path, empty_site_root: Path
+) -> None:
+    dist_dir = tmp_path / "dist"
+    render_site(populated_site_root, dist_dir=dist_dir, clean=True)
+    assert (dist_dir / "articles" / "build-fixture" / "index.html").is_file()
+
+    stats = render_site(empty_site_root, dist_dir=dist_dir, clean=True)
+    assert stats["posts_count"] == 0
+    assert stats["html_pages_count"] == 5
+    assert list((dist_dir / "articles").glob("*/index.html")) == []
+    assert check_json_and_posts(dist_dir, content_dir=empty_site_root / "content") == ([], 0, 0)
+    assert check_xml_files(dist_dir, posts_count=0) == []
+    assert "build-fixture" not in (dist_dir / "sitemap.xml").read_text(encoding="utf-8")
+    assert "暂无已发布文章。" in (dist_dir / "articles" / "index.html").read_text(encoding="utf-8")
+    home = (dist_dir / "index.html").read_text(encoding="utf-8")
+    assert 'id="section-featured"' not in home
+    assert 'id="section-recent"' not in home
+    assert 'id="section-topics"' not in home
+    assert 'id="section-projects"' in home
 
 
 def test_normalize_base_path_and_html_rewriting() -> None:
@@ -374,10 +399,10 @@ def test_normalize_base_path_and_html_rewriting() -> None:
     assert 'src="/raw-in-pre.png"' in out
 
 
-def test_github_pages_subpath_and_cname_build(tmp_path: Path) -> None:
+def test_github_pages_subpath_and_cname_build(tmp_path: Path, populated_site_root: Path) -> None:
     subpath_dist = tmp_path / "dist-subpath"
     stats = render_site(
-        PROJECT_ROOT,
+        populated_site_root,
         dist_dir=subpath_dist,
         clean=True,
         base_path="/astrayao-blog",
@@ -391,17 +416,17 @@ def test_github_pages_subpath_and_cname_build(tmp_path: Path) -> None:
     home_html = (subpath_dist / "index.html").read_text(encoding="utf-8")
     assert '<meta name="site-base-path" content="/astrayao-blog">' in home_html
     assert 'href="/astrayao-blog/static/css/tokens.css"' in home_html
-    assert 'src="/astrayao-blog/static/js/search.js?v=2"' in home_html
+    assert 'src="/astrayao-blog/static/js/search.js?v=3"' in home_html
     assert 'rel="preload" as="image" href="/astrayao-blog/static/images/starloop-cover.jpg"' in home_html
     assert 'href="/astrayao-blog/articles/"' in home_html
     assert 'href="https://example.github.io/astrayao-blog/"' in home_html
     assert "/astrayao-blog/astrayao-blog/" not in home_html
 
     post_html = (
-        subpath_dist / "articles" / "from-domain-to-live-site" / "index.html"
+        subpath_dist / "articles" / "deployment-fixture" / "index.html"
     ).read_text(encoding="utf-8")
     # Ensure code snippets inside <pre> are not corrupted by subpath rewriting
-    assert "/var/www/margin-notes/dist" in post_html
+    assert "/var/www/test-site/dist" in post_html
     assert "/astrayao-blog/var/www" not in post_html
 
     search_index = json.loads(
@@ -447,9 +472,9 @@ def test_github_pages_subpath_and_cname_build(tmp_path: Path) -> None:
     assert (cname_dist / "CNAME").read_text(encoding="utf-8") == "astrayao.com\n"
 
 
-def test_preview_server_serves_pages_and_custom_404(tmp_path: Path) -> None:
+def test_preview_server_serves_pages_and_custom_404(tmp_path: Path, populated_site_root: Path) -> None:
     dist_dir = tmp_path / "dist"
-    render_site(PROJECT_ROOT, dist_dir=dist_dir, clean=True)
+    render_site(populated_site_root, dist_dir=dist_dir, clean=True)
 
     server = create_server(host="127.0.0.1", port=0, directory=dist_dir)
     port = server.server_address[1]
@@ -466,9 +491,9 @@ def test_preview_server_serves_pages_and_custom_404(tmp_path: Path) -> None:
             assert "ASTRA YAO · 星环手记" in home_html
             assert "/static/images/starloop-cover.jpg" in home_html
 
-        with opener.open(f"{base}/articles/editorial-web-aesthetics/") as resp:
+        with opener.open(f"{base}/articles/build-fixture/") as resp:
             assert resp.status == 200
-            assert "编辑部美学" in resp.read().decode("utf-8")
+            assert "测试样例（设计）" in resp.read().decode("utf-8")
 
         with opener.open(f"{base}/static/css/tokens.css") as resp:
             assert resp.status == 200
@@ -481,7 +506,7 @@ def test_preview_server_serves_pages_and_custom_404(tmp_path: Path) -> None:
         with opener.open(f"{base}/api/search-index.json") as resp:
             assert resp.status == 200
             assert "application/json" in resp.headers.get("Content-Type", "")
-            assert len(json.loads(resp.read().decode("utf-8"))) == 5
+            assert len(json.loads(resp.read().decode("utf-8"))) == 2
 
         with pytest.raises(urllib.error.HTTPError) as exc_info:
             opener.open(f"{base}/non-existent-page-404/")

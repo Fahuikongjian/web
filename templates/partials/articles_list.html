@@ -1,0 +1,12 @@
+  <div class="filter-bar">
+    <div class="filter-pills" role="group" aria-label="按标签筛选文章">
+      {{tag_filters_html}}
+    </div>
+    <p class="articles-count" data-articles-count aria-live="polite">共 {{total_posts}} 篇</p>
+  </div>
+
+  <div class="posts-list" data-articles-list>
+    {{articles_list_html}}
+  </div>
+
+  <p class="search-empty is-hidden" data-articles-empty>该标签下暂无已发布文章。</p>

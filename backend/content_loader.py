@@ -301,7 +301,7 @@ def load_projects(content_dir: Path) -> list[dict[str, Any]]:
                 "year": str(item.get("year", "")),
                 "summary": str(item.get("summary", "")),
                 "stack": [str(s) for s in item.get("stack", [])],
-                "url": str(item.get("url", "#")),
+                "url": str(item.get("url") or "").strip(),
             }
         )
     return normalized

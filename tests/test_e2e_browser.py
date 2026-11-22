@@ -18,7 +18,10 @@ import pytest
 from playwright.sync_api import Browser, Page, Request, expect, sync_playwright
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-DIST_DIR = PROJECT_ROOT / "dist"
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
+from backend.renderer import render_site  # noqa: E402
 
 
 def get_screenshot_dir() -> Path:
@@ -100,13 +103,8 @@ class SubpathDistHandler(DistStaticHandler):
         return None
 
 
-@pytest.fixture(scope="module")
-def static_server() -> str:
-    """Start an in-process static HTTP server for dist/ and shut it down cleanly."""
-    if not DIST_DIR.is_dir() or not (DIST_DIR / "index.html").is_file():
-        pytest.fail(f"dist/ build output not found at {DIST_DIR}. Run scripts/build.py first.")
-
-    handler = functools.partial(DistStaticHandler, directory=str(DIST_DIR))
+def _serve_directory(directory: Path):
+    handler = functools.partial(DistStaticHandler, directory=str(directory))
     server = QuietThreadingHTTPServer(("127.0.0.1", 0), handler)
     port = server.server_address[1]
     thread = threading.Thread(target=server.serve_forever, daemon=True)
@@ -117,6 +115,26 @@ def static_server() -> str:
         server.shutdown()
         server.server_close()
         thread.join(timeout=5)
+
+
+@pytest.fixture(scope="module")
+def populated_dist(populated_site_root: Path, tmp_path_factory: pytest.TempPathFactory) -> Path:
+    directory = tmp_path_factory.mktemp("browser-populated")
+    render_site(populated_site_root, dist_dir=directory)
+    return directory
+
+
+@pytest.fixture(scope="module")
+def static_server(populated_dist: Path):
+    """Serve the temporary site containing article fixtures."""
+    yield from _serve_directory(populated_dist)
+
+
+@pytest.fixture(scope="module")
+def empty_server(empty_site_root: Path, tmp_path_factory: pytest.TempPathFactory):
+    directory = tmp_path_factory.mktemp("browser-empty")
+    render_site(empty_site_root, dist_dir=directory)
+    yield from _serve_directory(directory)
 
 
 @pytest.fixture(scope="module")
@@ -173,12 +191,12 @@ def _assert_clean_page(records: dict[str, list], context_label: str) -> None:
     assert records["request_failures"] == [], f"{context_label} requestfailed: {records['request_failures']}"
 
 
-def _load_post_routes() -> list[str]:
-    posts_json = DIST_DIR / "api" / "posts.json"
+def _load_post_routes(dist_dir: Path) -> list[str]:
+    posts_json = dist_dir / "api" / "posts.json"
     assert posts_json.is_file(), f"Missing {posts_json}"
     payload = json.loads(posts_json.read_text(encoding="utf-8"))
     posts = payload.get("posts", [])
-    assert len(posts) >= 5, f"Expected at least 5 posts in posts.json, got {len(posts)}"
+    assert len(posts) == 2, f"Expected two posts in the test fixture, got {len(posts)}"
     return [post["url"] for post in posts]
 
 
@@ -426,8 +444,10 @@ def test_compact_navigation_and_search_fit_viewport(
         page.close()
 
 
-def test_routes_zero_errors_and_responsive_viewports(browser: Browser, static_server: str) -> None:
-    post_routes = _load_post_routes()
+def test_routes_zero_errors_and_responsive_viewports(
+    browser: Browser, static_server: str, populated_dist: Path
+) -> None:
+    post_routes = _load_post_routes(populated_dist)
     routes = ["/", "/articles/", "/projects/", "/about/", *post_routes]
 
     for viewport_name, viewport in [
@@ -588,7 +608,7 @@ def test_articles_tag_filtering(browser: Browser, static_server: str) -> None:
         page.goto(f"{static_server}/articles/", wait_until="networkidle")
         all_rows = page.locator("[data-articles-list] [data-tags]")
         total_count = all_rows.count()
-        assert total_count >= 5
+        assert total_count == 2
 
         tag_buttons = page.locator('.filter-pills [data-filter-tag]:not([data-filter-tag="all"])')
         assert tag_buttons.count() >= 1
@@ -623,6 +643,30 @@ def test_articles_tag_filtering(browser: Browser, static_server: str) -> None:
         context.close()
 
 
+def test_empty_archive_and_search(browser: Browser, empty_server: str) -> None:
+    page = browser.new_page(viewport={"width": 390, "height": 844})
+    records = _attach_error_collectors(page)
+    try:
+        page.goto(f"{empty_server}/", wait_until="networkidle")
+        _open_home_cover(page)
+        assert page.locator("#section-featured, #section-recent, #section-topics").count() == 0
+        expect(page.locator(".project-card").first).to_be_visible()
+        page.locator(".hero-actions").get_by_role("link", name="浏览全部文章").click()
+        page.wait_for_url("**/articles/")
+        expect(page.locator("main").get_by_text("暂无已发布文章。")).to_be_visible()
+        assert page.locator("[data-filter-tag]").count() == 0
+
+        page.locator("[data-search-open]").click()
+        dialog = page.locator("[data-search-modal]")
+        expect(dialog.get_by_text("暂无已发布文章。")).to_be_visible()
+        dialog.get_by_role("combobox").fill("设计")
+        expect(dialog.get_by_text("暂无已发布文章。")).to_be_visible()
+        assert dialog.get_by_role("option").count() == 0
+        _assert_clean_page(records, "empty-archive")
+    finally:
+        page.close()
+
+
 def test_post_reading_experience(browser: Browser, static_server: str) -> None:
     context = browser.new_context(
         viewport={"width": 1440, "height": 900}, permissions=["clipboard-read", "clipboard-write"]
@@ -630,7 +674,7 @@ def test_post_reading_experience(browser: Browser, static_server: str) -> None:
     page = context.new_page()
     records = _attach_error_collectors(page)
     try:
-        page.goto(f"{static_server}/articles/python-static-architecture/", wait_until="networkidle")
+        page.goto(f"{static_server}/articles/build-fixture/", wait_until="networkidle")
 
         toc_links = page.locator(".toc-nav .toc-list .toc-link[href^='#']")
         assert toc_links.count() >= 2, "Expected TOC anchor links on post page"
@@ -669,7 +713,7 @@ def test_mobile_toc_and_clipboard_unavailable(browser: Browser, static_server: s
         document.execCommand = () => false;
     })()""")
     try:
-        page.goto(f"{static_server}/articles/python-static-architecture/", wait_until="networkidle")
+        page.goto(f"{static_server}/articles/build-fixture/", wait_until="networkidle")
         toc = page.locator("[data-post-toc]")
         assert toc.evaluate("el => !el.open")
         toc.locator("summary").click()
@@ -733,7 +777,7 @@ def test_capture_visual_acceptance_screenshots(browser: Browser, static_server: 
         page.keyboard.press("Escape")
 
         # 4. Post detail showing prose, code block, and sticky TOC in dark mode (1440x900)
-        page.goto(f"{static_server}/articles/python-static-architecture/", wait_until="networkidle")
+        page.goto(f"{static_server}/articles/build-fixture/", wait_until="networkidle")
         page.evaluate(
             """() => {
                 const code = document.querySelector('.code-block-wrapper');
@@ -784,14 +828,12 @@ def test_capture_visual_acceptance_screenshots(browser: Browser, static_server: 
         assert path.stat().st_size > 5000, f"Screenshot too small: {path}"
 
 
-def test_github_pages_subpath_deployment(browser: Browser, tmp_path: Path) -> None:
-    if str(PROJECT_ROOT) not in sys.path:
-        sys.path.insert(0, str(PROJECT_ROOT))
-    from backend.renderer import render_site
-
+def test_github_pages_subpath_deployment(
+    browser: Browser, tmp_path: Path, populated_site_root: Path
+) -> None:
     subpath_dist = tmp_path / "dist"
     stats = render_site(
-        PROJECT_ROOT,
+        populated_site_root,
         dist_dir=subpath_dist,
         clean=True,
         base_path="/astrayao-blog",
