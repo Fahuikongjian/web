@@ -303,8 +303,8 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         assert middle_mask != original_mask
         assert artwork.bounding_box() == pytest.approx(original_bounds, abs=1)
         assert content.bounding_box()["y"] == pytest.approx(initial_content_y - middle, abs=2)
-        assert middle_copy_y < initial_copy_y - 20
-        assert 0.15 < middle_copy_opacity < 0.40
+        assert middle_copy_y == pytest.approx(initial_copy_y - middle, abs=2)
+        assert 0.35 < middle_copy_opacity < 0.55
 
         scroll_to(travel)
         final_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
@@ -313,7 +313,7 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         assert final_mask not in (middle_mask, original_mask)
         assert "100%" in final_mask
         assert artwork.bounding_box() == pytest.approx(original_bounds, abs=1)
-        assert final_copy_y < middle_copy_y
+        assert final_copy_y == pytest.approx(initial_copy_y - travel, abs=2)
         assert final_copy_opacity == pytest.approx(0.0, abs=0.01)
         content_y = content.bounding_box()["y"]
         assert content_y == pytest.approx(initial_content_y - travel, abs=2)

@@ -183,8 +183,8 @@
 }
 
 .is-scroll-cover .home-cover-copy {
-  transform: translate3d(0, calc(var(--cover-travel) * -0.58 * var(--cover-progress, 0)), 0);
-  opacity: clamp(0, 1 - var(--cover-progress, 0) * 1.45, 1);
+  transform: translate3d(0, calc(var(--cover-travel) * -1 * var(--cover-progress, 0)), 0);
+  opacity: clamp(0, 1.12 - var(--cover-progress, 0) * 1.28, 1);
   will-change: transform, opacity;
 }
 
