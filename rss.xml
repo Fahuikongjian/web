@@ -5,6 +5,54 @@
     <link>https://astrayao.xyz/</link>
     <description>星光与黑胶之间</description>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 22 Nov 2026 07:06:42 GMT</lastBuildDate>
+    <lastBuildDate>Sun, 22 Nov 2026 09:00:00 GMT</lastBuildDate>
+    <item>
+      <title>用 Python 标准库搭一座静态博客</title>
+      <link>https://astrayao.xyz/articles/python-zero-dep-ssg/</link>
+      <guid isPermaLink="true">https://astrayao.xyz/articles/python-zero-dep-ssg/</guid>
+      <pubDate>Sun, 22 Nov 2026 09:00:00 GMT</pubDate>
+      <category>代码</category>
+      <description>从内容加载到静态输出，把小站的构建拆成几个能单独核对的步骤。</description>
+    </item>
+    <item>
+      <title>让封面沿着滚动收进页眉</title>
+      <link>https://astrayao.xyz/articles/css-scroll-flip-morph/</link>
+      <guid isPermaLink="true">https://astrayao.xyz/articles/css-scroll-flip-morph/</guid>
+      <pubDate>Fri, 20 Nov 2026 09:00:00 GMT</pubDate>
+      <category>代码</category>
+      <description>用 FLIP 测量封面和页眉之间的几何差，再把位移交给原生滚动进度。</description>
+    </item>
+    <item>
+      <title>星环封面的提示词从一束光开始</title>
+      <link>https://astrayao.xyz/articles/starloop-prompt-craft/</link>
+      <guid isPermaLink="true">https://astrayao.xyz/articles/starloop-prompt-craft/</guid>
+      <pubDate>Wed, 18 Nov 2026 09:00:00 GMT</pubDate>
+      <category>图像生成</category>
+      <description>把黑胶、星环和午夜蓝写成可观察的摆位、材质和光源。</description>
+    </item>
+    <item>
+      <title>用 FLUX 做封面，先定光位再调色</title>
+      <link>https://astrayao.xyz/articles/flux-lighting-color-grading/</link>
+      <guid isPermaLink="true">https://astrayao.xyz/articles/flux-lighting-color-grading/</guid>
+      <pubDate>Sun, 15 Nov 2026 09:00:00 GMT</pubDate>
+      <category>图像生成</category>
+      <description>用一组单变量对照定下光位，再用灰度与缩略图检查午夜蓝和暖色反光。</description>
+    </item>
+    <item>
+      <title>让 GitHub Pages 子路径通过构建检查</title>
+      <link>https://astrayao.xyz/articles/github-pages-subpath-ci/</link>
+      <guid isPermaLink="true">https://astrayao.xyz/articles/github-pages-subpath-ci/</guid>
+      <pubDate>Thu, 12 Nov 2026 09:00:00 GMT</pubDate>
+      <category>工程</category>
+      <description>用真实挂载前缀校验页面、搜索索引和订阅链接，再发布同一份静态产物。</description>
+    </item>
+    <item>
+      <title>Codex Bridge 的隔离工作区怎么交稿</title>
+      <link>https://astrayao.xyz/articles/codex-bridge-isolation/</link>
+      <guid isPermaLink="true">https://astrayao.xyz/articles/codex-bridge-isolation/</guid>
+      <pubDate>Tue, 10 Nov 2026 09:00:00 GMT</pubDate>
+      <category>工程</category>
+      <description>用明确的输入、输出和合入目标，把生成草稿交给可核对的审阅流程。</description>
+    </item>
   </channel>
 </rss>

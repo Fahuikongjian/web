@@ -1,1 +1,62 @@
-[]
+[
+  {
+    "name": "星环手记 Starloop",
+    "status": "已开源",
+    "year": "2026",
+    "category": "应用",
+    "tags": ["个人站", "静态生成", "内容归档"],
+    "stack": ["Python 3.13", "HTML5", "CSS", "Vanilla JS"],
+    "summary": "收录网页实验、工程笔记与图像作品的个人站。由 Python 将 Markdown 与 JSON 构建为静态页面。",
+    "url": "/articles/python-zero-dep-ssg/"
+  },
+  {
+    "name": "星环提示词簿",
+    "status": "持续维护",
+    "year": "2026",
+    "category": "应用",
+    "tags": ["提示词", "图像图鉴", "标签筛选"],
+    "stack": ["HTML5", "CSS", "Vanilla JS", "JSON"],
+    "summary": "按角色、场景与视觉归档图像生成练习。点开作品即可对照效果图、模型参数与可复制的提示词。",
+    "url": "/gallery/"
+  },
+  {
+    "name": "子路径发布检查器",
+    "status": "已开源",
+    "year": "2026",
+    "category": "工具",
+    "tags": ["子路径", "死链校验", "自动发布"],
+    "stack": ["Python 3.13", "GitHub Actions", "GitHub Pages"],
+    "summary": "检查根目录与仓库子路径两种部署方式下的站内链接和静态资源路径，在发布前定位死链。",
+    "url": "/articles/github-pages-subpath-ci/"
+  },
+  {
+    "name": "桥接草稿工作区",
+    "status": "已开源",
+    "year": "2026",
+    "category": "工具",
+    "tags": ["工作区隔离", "代码审阅", "变更管理"],
+    "stack": ["Codex CLI", "Git", "PowerShell"],
+    "summary": "将生成的代码草稿与测试候选落在独立目录，便于逐项审阅后再合入站点源码。",
+    "url": "/articles/codex-bridge-isolation/"
+  },
+  {
+    "name": "唱片翻页动效",
+    "status": "实验中",
+    "year": "2026",
+    "category": "视觉",
+    "tags": ["滚动动效", "封面变形", "黑胶"],
+    "stack": ["CSS Transforms", "Vanilla JS", "requestAnimationFrame"],
+    "summary": "以滚动进度驱动封面缩放和位移，让首屏黑胶唱片随页面展开逐步收拢。",
+    "url": "/articles/css-scroll-flip-morph/"
+  },
+  {
+    "name": "绯绒与浅金光谱",
+    "status": "实验中",
+    "year": "2026",
+    "category": "视觉",
+    "tags": ["材质研究", "布光", "色彩分级"],
+    "stack": ["FLUX.1 dev", "ComfyUI"],
+    "summary": "用同一构图比较侧光与轮廓光，记录绯红天鹅绒、黑曜石和香槟金在低照度下的质感。",
+    "url": "/articles/flux-lighting-color-grading/"
+  }
+]

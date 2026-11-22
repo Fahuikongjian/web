@@ -108,13 +108,148 @@
   <div class="category-bar" data-category-bar>
   <div class="category-tabs" data-category-tabs role="tablist" aria-label="文章分类">
     <span class="category-indicator" data-category-indicator aria-hidden="true"></span>
-    <button type="button" class="category-tab is-active" role="tab" aria-selected="true" data-filter-category="all"><span class="category-tab-icon" aria-hidden="true"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><ellipse cx="9" cy="9" rx="7.2" ry="3.2" transform="rotate(-22 9 9)" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.72"/><path d="M9 3.6L10.15 7.85L14.4 9L10.15 10.15L9 14.4L7.85 10.15L3.6 9L7.85 7.85Z" fill="currentColor"/></svg></span><span class="category-tab-label">全部</span><span class="category-tab-count">0</span></button>
-      <button type="button" class="category-tab" role="tab" aria-selected="false" data-filter-category="代码"><span class="category-tab-icon" aria-hidden="true"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><path d="M6.2 5.2L2.5 9L6.2 12.8M11.8 5.2L15.5 9L11.8 12.8" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 6.6L10.3 9L9 11.4L7.7 9Z" fill="currentColor" fill-opacity="0.85"/></svg></span><span class="category-tab-label">代码</span><span class="category-tab-count">0</span></button>
-      <button type="button" class="category-tab" role="tab" aria-selected="false" data-filter-category="图像生成"><span class="category-tab-icon" aria-hidden="true"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><rect x="2.6" y="3.2" width="12.8" height="11.6" rx="2.2" stroke="currentColor" stroke-width="1.25"/><path d="M3.4 12.6L6.9 9.2L9.6 11.6L11.7 9.8L14.6 12.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8"/><path d="M12.2 5.2L12.7 6.5L14 7L12.7 7.5L12.2 8.8L11.7 7.5L10.4 7L11.7 6.5Z" fill="currentColor"/></svg></span><span class="category-tab-label">图像生成</span><span class="category-tab-count">0</span></button>
-      <button type="button" class="category-tab" role="tab" aria-selected="false" data-filter-category="工程"><span class="category-tab-icon" aria-hidden="true"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="5.6" stroke="currentColor" stroke-width="1.25"/><circle cx="9" cy="9" r="2" fill="currentColor"/><path d="M9 1.8V3.4M9 14.6V16.2M1.8 9H3.4M14.6 9H16.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="category-tab-label">工程</span><span class="category-tab-count">0</span></button>
+    <button type="button" class="category-tab is-active" role="tab" aria-selected="true" data-filter-category="all"><span class="category-tab-icon" aria-hidden="true"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><ellipse cx="9" cy="9" rx="7.2" ry="3.2" transform="rotate(-22 9 9)" stroke="currentColor" stroke-width="1.2" stroke-opacity="0.72"/><path d="M9 3.6L10.15 7.85L14.4 9L10.15 10.15L9 14.4L7.85 10.15L3.6 9L7.85 7.85Z" fill="currentColor"/></svg></span><span class="category-tab-label">全部</span><span class="category-tab-count">6</span></button>
+      <button type="button" class="category-tab" role="tab" aria-selected="false" data-filter-category="代码"><span class="category-tab-icon" aria-hidden="true"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><path d="M6.2 5.2L2.5 9L6.2 12.8M11.8 5.2L15.5 9L11.8 12.8" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 6.6L10.3 9L9 11.4L7.7 9Z" fill="currentColor" fill-opacity="0.85"/></svg></span><span class="category-tab-label">代码</span><span class="category-tab-count">2</span></button>
+      <button type="button" class="category-tab" role="tab" aria-selected="false" data-filter-category="图像生成"><span class="category-tab-icon" aria-hidden="true"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><rect x="2.6" y="3.2" width="12.8" height="11.6" rx="2.2" stroke="currentColor" stroke-width="1.25"/><path d="M3.4 12.6L6.9 9.2L9.6 11.6L11.7 9.8L14.6 12.6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8"/><path d="M12.2 5.2L12.7 6.5L14 7L12.7 7.5L12.2 8.8L11.7 7.5L10.4 7L11.7 6.5Z" fill="currentColor"/></svg></span><span class="category-tab-label">图像生成</span><span class="category-tab-count">2</span></button>
+      <button type="button" class="category-tab" role="tab" aria-selected="false" data-filter-category="工程"><span class="category-tab-icon" aria-hidden="true"><svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true"><circle cx="9" cy="9" r="5.6" stroke="currentColor" stroke-width="1.25"/><circle cx="9" cy="9" r="2" fill="currentColor"/><path d="M9 1.8V3.4M9 14.6V16.2M1.8 9H3.4M14.6 9H16.2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span><span class="category-tab-label">工程</span><span class="category-tab-count">2</span></button>
   </div>
 </div>
-  <div class="empty-stage" aria-live="polite"><svg class="empty-stage-mark" viewBox="0 0 88 56" width="88" height="56" fill="none" aria-hidden="true"><circle cx="44" cy="28" r="21" stroke="var(--gold)" stroke-opacity="0.34" stroke-width="1"/><ellipse cx="44" cy="28" rx="38" ry="11" transform="rotate(-14 44 28)" stroke="var(--gold)" stroke-opacity="0.52" stroke-width="1"/><path d="M44 19l1.7 4.3 4.3 1.7-4.3 1.7L44 31l-1.7-4.3L38 25l4.3-1.7Z" fill="var(--accent)"/></svg><p class="search-empty" data-articles-empty>暂无已发布文章。</p></div>
+    <div class="filter-bar">
+    <div class="filter-pills" role="group" aria-label="按标签筛选文章">
+      <button type="button" class="filter-pill is-active" data-filter-tag="all" aria-pressed="true">全部 <span class="filter-pill-count">6</span></button>
+<button type="button" class="filter-pill" data-filter-tag="架构" aria-pressed="false">架构 <span class="filter-pill-count">2</span></button>
+<button type="button" class="filter-pill" data-filter-tag="自动化" aria-pressed="false">自动化 <span class="filter-pill-count">2</span></button>
+<button type="button" class="filter-pill" data-filter-tag="色彩" aria-pressed="false">色彩 <span class="filter-pill-count">2</span></button>
+<button type="button" class="filter-pill" data-filter-tag="CSS" aria-pressed="false">CSS <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="Codex" aria-pressed="false">Codex <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="Flux" aria-pressed="false">Flux <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="GitHub Pages" aria-pressed="false">GitHub Pages <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="Prompt" aria-pressed="false">Prompt <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="Python" aria-pressed="false">Python <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="光影" aria-pressed="false">光影 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="前端审美" aria-pressed="false">前端审美 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="动效" aria-pressed="false">动效 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="视觉" aria-pressed="false">视觉 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="部署" aria-pressed="false">部署 <span class="filter-pill-count">1</span></button>
+<button type="button" class="filter-pill" data-filter-tag="静态站点" aria-pressed="false">静态站点 <span class="filter-pill-count">1</span></button>
+    </div>
+    <p class="articles-count" data-articles-count aria-live="polite">共 6 篇</p>
+  </div>
+
+  <div class="posts-list" data-articles-list>
+    <article class="post-row" data-category="代码" data-tags="Python,静态站点,架构">
+  <div class="post-row-date">
+    <time datetime="2026-11-22">2026 · 11-22</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/python-zero-dep-ssg/">用 Python 标准库搭一座静态博客</a></h3>
+    <p class="post-row-summary">从内容加载到静态输出，把小站的构建拆成几个能单独核对的步骤。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=Python" data-filter-tag="Python">Python</a>
+<a class="tag-pill" href="/articles/?tag=%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9" data-filter-tag="静态站点">静态站点</a>
+<a class="tag-pill" href="/articles/?tag=%E6%9E%B6%E6%9E%84" data-filter-tag="架构">架构</a></div>
+  </div>
+  <div class="post-row-aside">
+    <button type="button" class="post-row-category" data-filter-category="代码">代码</button>
+    <span>2 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-category="代码" data-tags="CSS,动效,前端审美">
+  <div class="post-row-date">
+    <time datetime="2026-11-20">2026 · 11-20</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/css-scroll-flip-morph/">让封面沿着滚动收进页眉</a></h3>
+    <p class="post-row-summary">用 FLIP 测量封面和页眉之间的几何差，再把位移交给原生滚动进度。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=CSS" data-filter-tag="CSS">CSS</a>
+<a class="tag-pill" href="/articles/?tag=%E5%8A%A8%E6%95%88" data-filter-tag="动效">动效</a>
+<a class="tag-pill" href="/articles/?tag=%E5%89%8D%E7%AB%AF%E5%AE%A1%E7%BE%8E" data-filter-tag="前端审美">前端审美</a></div>
+  </div>
+  <div class="post-row-aside">
+    <button type="button" class="post-row-category" data-filter-category="代码">代码</button>
+    <span>2 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-category="图像生成" data-tags="Prompt,视觉,色彩">
+  <div class="post-row-date">
+    <time datetime="2026-11-18">2026 · 11-18</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/starloop-prompt-craft/">星环封面的提示词从一束光开始</a></h3>
+    <p class="post-row-summary">把黑胶、星环和午夜蓝写成可观察的摆位、材质和光源。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=Prompt" data-filter-tag="Prompt">Prompt</a>
+<a class="tag-pill" href="/articles/?tag=%E8%A7%86%E8%A7%89" data-filter-tag="视觉">视觉</a>
+<a class="tag-pill" href="/articles/?tag=%E8%89%B2%E5%BD%A9" data-filter-tag="色彩">色彩</a></div>
+  </div>
+  <div class="post-row-aside">
+    <button type="button" class="post-row-category" data-filter-category="图像生成">图像生成</button>
+    <span>2 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-category="图像生成" data-tags="Flux,光影,色彩">
+  <div class="post-row-date">
+    <time datetime="2026-11-15">2026 · 11-15</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/flux-lighting-color-grading/">用 FLUX 做封面，先定光位再调色</a></h3>
+    <p class="post-row-summary">用一组单变量对照定下光位，再用灰度与缩略图检查午夜蓝和暖色反光。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=Flux" data-filter-tag="Flux">Flux</a>
+<a class="tag-pill" href="/articles/?tag=%E5%85%89%E5%BD%B1" data-filter-tag="光影">光影</a>
+<a class="tag-pill" href="/articles/?tag=%E8%89%B2%E5%BD%A9" data-filter-tag="色彩">色彩</a></div>
+  </div>
+  <div class="post-row-aside">
+    <button type="button" class="post-row-category" data-filter-category="图像生成">图像生成</button>
+    <span>2 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-category="工程" data-tags="部署,GitHub Pages,自动化">
+  <div class="post-row-date">
+    <time datetime="2026-11-12">2026 · 11-12</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/github-pages-subpath-ci/">让 GitHub Pages 子路径通过构建检查</a></h3>
+    <p class="post-row-summary">用真实挂载前缀校验页面、搜索索引和订阅链接，再发布同一份静态产物。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=%E9%83%A8%E7%BD%B2" data-filter-tag="部署">部署</a>
+<a class="tag-pill" href="/articles/?tag=GitHub%20Pages" data-filter-tag="GitHub Pages">GitHub Pages</a>
+<a class="tag-pill" href="/articles/?tag=%E8%87%AA%E5%8A%A8%E5%8C%96" data-filter-tag="自动化">自动化</a></div>
+  </div>
+  <div class="post-row-aside">
+    <button type="button" class="post-row-category" data-filter-category="工程">工程</button>
+    <span>2 分钟</span>
+  </div>
+</article>
+
+<article class="post-row" data-category="工程" data-tags="Codex,架构,自动化">
+  <div class="post-row-date">
+    <time datetime="2026-11-10">2026 · 11-10</time>
+  </div>
+  <div class="post-row-main">
+    <h3 class="post-row-title"><a href="/articles/codex-bridge-isolation/">Codex Bridge 的隔离工作区怎么交稿</a></h3>
+    <p class="post-row-summary">用明确的输入、输出和合入目标，把生成草稿交给可核对的审阅流程。</p>
+    <div class="tag-list"><a class="tag-pill" href="/articles/?tag=Codex" data-filter-tag="Codex">Codex</a>
+<a class="tag-pill" href="/articles/?tag=%E6%9E%B6%E6%9E%84" data-filter-tag="架构">架构</a>
+<a class="tag-pill" href="/articles/?tag=%E8%87%AA%E5%8A%A8%E5%8C%96" data-filter-tag="自动化">自动化</a></div>
+  </div>
+  <div class="post-row-aside">
+    <button type="button" class="post-row-category" data-filter-category="工程">工程</button>
+    <span>2 分钟</span>
+  </div>
+</article>
+
+  </div>
+
+  <div class="empty-stage is-hidden" data-articles-empty aria-live="polite">
+    <svg class="empty-stage-mark" viewBox="0 0 88 56" width="88" height="56" fill="none" aria-hidden="true">
+      <circle cx="44" cy="28" r="21" stroke="var(--gold)" stroke-opacity="0.34" stroke-width="1"/>
+      <ellipse cx="44" cy="28" rx="38" ry="11" transform="rotate(-14 44 28)" stroke="var(--gold)" stroke-opacity="0.52" stroke-width="1"/>
+      <path d="M44 19l1.7 4.3 4.3 1.7-4.3 1.7L44 31l-1.7-4.3L38 25l4.3-1.7Z" fill="var(--accent)"/>
+    </svg>
+    <p class="search-empty">暂无已发布文章。</p>
+  </div>
+
 </section>
 
   </main>

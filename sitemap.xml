@@ -25,4 +25,34 @@
     <lastmod>2026-11-22</lastmod>
     <priority>0.7</priority>
   </url>
+  <url>
+    <loc>https://astrayao.xyz/articles/python-zero-dep-ssg/</loc>
+    <lastmod>2026-11-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://astrayao.xyz/articles/css-scroll-flip-morph/</loc>
+    <lastmod>2026-11-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://astrayao.xyz/articles/starloop-prompt-craft/</loc>
+    <lastmod>2026-11-18</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://astrayao.xyz/articles/flux-lighting-color-grading/</loc>
+    <lastmod>2026-11-15</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://astrayao.xyz/articles/github-pages-subpath-ci/</loc>
+    <lastmod>2026-11-12</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://astrayao.xyz/articles/codex-bridge-isolation/</loc>
+    <lastmod>2026-11-10</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>

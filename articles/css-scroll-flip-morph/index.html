@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>让封面沿着滚动收进页眉 · ASTRA YAO · 星环手记</title>
+  <meta name="description" content="用 FLIP 测量封面和页眉之间的几何差，再把位移交给原生滚动进度。">
+  <meta name="site-base-path" content="">
+  <link rel="canonical" href="https://astrayao.xyz/articles/css-scroll-flip-morph/">
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="ASTRA YAO · 星环手记" href="/rss.xml">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('blog-theme');
+        var theme = (saved === 'dark' || saved === 'light') ? saved : 'dark';
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/prose.css">
+  
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至正文</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-brand" href="/">
+        <img class="brand-mark" src="/static/images/favicon.svg" alt="" width="26" height="26">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link " href="/">首页</a>
+        <a class="nav-link is-active" href="/articles/">文章</a>
+        <a class="nav-link " href="/projects/">项目</a>
+        <a class="nav-link " href="/gallery/">图像</a>
+        <a class="nav-link " href="/about/">关于</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="search-trigger" data-search-open aria-label="搜索">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换明暗主题" aria-pressed="true">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" data-mobile-menu-toggle aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <dialog class="mobile-drawer" id="mobile-drawer" data-mobile-drawer aria-label="移动端导航菜单">
+    <div class="mobile-drawer-panel">
+      <div class="mobile-drawer-header">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+        <button type="button" class="icon-btn" data-mobile-drawer-close aria-label="关闭导航菜单">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav aria-label="移动端主导航">
+        <ul class="mobile-nav-list">
+          <li><a class="mobile-nav-link " href="/">首页</a></li>
+          <li><a class="mobile-nav-link is-active" href="/articles/">文章</a></li>
+          <li><a class="mobile-nav-link " href="/projects/">项目</a></li>
+          <li><a class="mobile-nav-link " href="/gallery/">图像</a></li>
+          <li><a class="mobile-nav-link " href="/about/">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </dialog>
+
+  <main id="main-content" tabindex="-1">
+    <div class="reading-progress" aria-hidden="true">
+  <div class="reading-progress-bar" data-reading-progress></div>
+</div>
+
+<article class="post-article">
+  <header class="container post-header">
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="/articles/">文章</a>
+      <span aria-hidden="true">/</span>
+      <span>代码</span>
+    </nav>
+    <h1 class="post-title">让封面沿着滚动收进页眉</h1>
+    <p class="post-subtitle">用 FLIP 测量封面和页眉之间的几何差，再把位移交给原生滚动进度。</p>
+    <div class="post-meta">
+      <div class="post-meta-items">
+        <time datetime="2026-11-20">2026-11-20</time>
+        <span aria-hidden="true">·</span>
+        <a class="post-meta-category" href="/articles/?category=%E4%BB%A3%E7%A0%81">代码</a>
+        <span aria-hidden="true">·</span>
+        <span>538 字</span>
+        <span aria-hidden="true">·</span>
+        <span>2 分钟</span>
+      </div>
+      <div class="tag-list"><a class="tag-pill" href="/articles/?tag=CSS" data-filter-tag="CSS">CSS</a>
+<a class="tag-pill" href="/articles/?tag=%E5%8A%A8%E6%95%88" data-filter-tag="动效">动效</a>
+<a class="tag-pill" href="/articles/?tag=%E5%89%8D%E7%AB%AF%E5%AE%A1%E7%BE%8E" data-filter-tag="前端审美">前端审美</a></div>
+    </div>
+  </header>
+
+  <div class="container post-cover-wrap">
+    <img class="post-cover" src="/static/images/cover-03.svg" alt="让封面沿着滚动收进页眉" width="800" height="480">
+  </div>
+
+  <div class="post-layout">
+    <div class="post-prose prose" data-post-content>
+      <p>我希望读者滑过星环手记的封面时，还能认出刚才那枚环。它从首屏的大图里缩进页眉，边缘的一点暖光跟着移动，标题在原处安静地让开。这段动效经得起正着滚，也经得起往回拖。滚到一半停手，构图也该站得住，像一张可以单独拿出来看的唱片封套。</p>
+<h2 id="先量两张静止的画面">先量两张静止的画面<a class="heading-anchor" href="#先量两张静止的画面" aria-label="段落锚点">#</a></h2>
+<p>FLIP 从起止两个矩形着手。把装饰图层放到页眉槽位，左上角作为缩放原点。读出首屏封面和槽位在同一坐标系里的位置，取两者左上角的差作为位移，再用宽高之比算出两个缩放值。图层先施加这组逆变换，看起来仍在首屏原位。两处画幅尽量一致，星环在途中就能保持圆润，图像裁剪则放到内层处理。</p>
+<h2 id="用滚动进度消去差值">用滚动进度消去差值<a class="heading-anchor" href="#用滚动进度消去差值" aria-label="段落锚点">#</a></h2>
+<p>滚动时只更新钳制在零到一之间的 <code>--cover-progress</code>。下面的横纵位移与缩放差由测量阶段写入，布局仍由原来的容器占位。进度增加时，逆变换逐渐归零，图层便回到页眉里的自然尺寸。</p>
+<div class="code-block-wrapper"><div class="code-block-header"><span class="code-lang">css</span><button type="button" class="code-copy-btn" aria-label="复制代码">复制</button></div><div class="highlight"><pre><span></span><span class="p">.</span><span class="nc">cover-art</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nv">--leftover</span><span class="p">:</span><span class="w"> </span><span class="nb">calc</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--cover-progress</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">));</span>
+<span class="w">  </span><span class="k">transform-origin</span><span class="p">:</span><span class="w"> </span><span class="kc">top</span><span class="w"> </span><span class="kc">left</span><span class="p">;</span>
+<span class="w">  </span><span class="k">transform</span><span class="p">:</span>
+<span class="w">    </span><span class="nb">translate</span><span class="p">(</span><span class="nb">calc</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="nv">--dx</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="kt">px</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--leftover</span><span class="p">)),</span>
+<span class="w">              </span><span class="nb">calc</span><span class="p">(</span><span class="nf">var</span><span class="p">(</span><span class="nv">--dy</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="kt">px</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--leftover</span><span class="p">)))</span>
+<span class="w">    </span><span class="nb">scale</span><span class="p">(</span><span class="nb">calc</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--scale-x-offset</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--leftover</span><span class="p">)),</span>
+<span class="w">          </span><span class="nb">calc</span><span class="p">(</span><span class="mi">1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--scale-y-offset</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nf">var</span><span class="p">(</span><span class="nv">--leftover</span><span class="p">)));</span>
+<span class="p">}</span>
+
+<span class="p">@</span><span class="k">media</span><span class="w"> </span><span class="o">(</span><span class="nt">prefers-reduced-motion</span><span class="o">:</span><span class="w"> </span><span class="nt">reduce</span><span class="o">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">.</span><span class="nc">cover-art</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">transform</span><span class="p">:</span><span class="w"> </span><span class="kc">none</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div></div>
+<blockquote>
+<p>调节奏时，我会先关掉光晕，单看星环在中途有没有挤进标题的阅读区。</p>
+</blockquote>
+<h2 id="在窄屏上重测">在窄屏上重测<a class="heading-anchor" href="#在窄屏上重测" aria-label="段落锚点">#</a></h2>
+<p>等字体就绪、窗口尺寸改变或横竖屏切换后，都重新测量起点和终点。普通滚动帧只写进度。为了排查跳动，我会从中段刷新，确认首帧就能还原当前滚动位置，再在窄屏上慢慢反向滚动。如果页眉标题换行，就再看一遍星环的落点与文字间距。开启减少动态效果时，装饰停在页眉槽位，首屏仍由静态构图撑住，读者照常抵达正文。</p>
+    </div>
+    <aside class="toc-sidebar" aria-label="文章目录">
+      <details class="toc-details" data-post-toc open>
+        <summary class="toc-title">文章目录</summary>
+        <nav class="toc-nav" aria-label="文章目录">
+  <ul class="toc-list">
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#先量两张静止的画面">先量两张静止的画面</a></li>
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#用滚动进度消去差值">用滚动进度消去差值</a></li>
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#在窄屏上重测">在窄屏上重测</a></li>
+  </ul>
+</nav>
+      </details>
+    </aside>
+  </div>
+
+  <footer class="container post-footer">
+    <nav class="post-nav-grid" aria-label="文章翻页">
+      <a class="nav-post-card nav-post-card--prev" href="/articles/python-zero-dep-ssg/">
+  <span class="nav-post-label">← 上一篇</span>
+  <span class="nav-post-title">用 Python 标准库搭一座静态博客</span>
+  <span class="nav-post-date">2026-11-22</span>
+</a>
+
+      <a class="nav-post-card nav-post-card--next" href="/articles/starloop-prompt-craft/">
+  <span class="nav-post-label">下一篇 →</span>
+  <span class="nav-post-title">星环封面的提示词从一束光开始</span>
+  <span class="nav-post-date">2026-11-18</span>
+</a>
+
+    </nav>
+
+    <section class="related-section" aria-labelledby="related-heading">
+      <h2 id="related-heading" class="related-title">延伸阅读</h2>
+      <div class="related-grid">
+        <a class="related-card" href="/articles/python-zero-dep-ssg/"><span class="nav-post-label related-card-meta">代码 · 2026-11-22 · 2 分钟</span><span class="nav-post-title related-card-title">用 Python 标准库搭一座静态博客</span></a>
+<a class="related-card" href="/articles/starloop-prompt-craft/"><span class="nav-post-label related-card-meta">图像生成 · 2026-11-18 · 2 分钟</span><span class="nav-post-title related-card-title">星环封面的提示词从一束光开始</span></a>
+      </div>
+    </section>
+  </footer>
+</article>
+
+<script src="/static/js/post.js?v=2" defer></script>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-minimal">
+      <span class="footer-copy">© 2026 Astra Yao</span>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/articles/">文章</a>
+        <a href="/projects/">项目</a>
+        <a href="/gallery/">图像</a>
+        <a href="/about/">关于</a>
+        <a href="/rss.xml">RSS</a>
+      </nav>
+      
+    </div>
+  </footer>
+
+  <dialog class="search-modal" data-search-modal aria-label="站内文章搜索">
+    <div class="search-dialog">
+      <div class="search-header">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <input class="search-input" type="search" data-search-input placeholder="搜索…" autocomplete="off" spellcheck="false" aria-label="搜索文章" role="combobox" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false" autofocus>
+        <button type="button" class="search-close-btn" data-search-close aria-label="关闭搜索弹窗">×</button>
+      </div>
+      <div class="search-results" id="site-search-results" data-search-results role="listbox" aria-label="搜索结果列表"></div>
+    </div>
+  </dialog>
+
+  <script src="/static/js/theme.js" defer></script>
+  <script src="/static/js/search.js?v=3" defer></script>
+  <script src="/static/js/main.js?v=4" defer></script>
+  
+</body>
+</html>

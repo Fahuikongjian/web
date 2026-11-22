@@ -1,26 +1,209 @@
 {
-  "generated_at": "2026-11-22T07:06:42Z",
-  "total": 0,
-  "projects": [],
-  "tags": [],
+  "generated_at": "2026-11-22T07:54:09Z",
+  "total": 6,
+  "projects": [
+    {
+      "name": "星环手记 Starloop",
+      "status": "已开源",
+      "year": "2026",
+      "summary": "收录网页实验、工程笔记与图像作品的个人站。由 Python 将 Markdown 与 JSON 构建为静态页面。",
+      "stack": [
+        "Python 3.13",
+        "HTML5",
+        "CSS",
+        "Vanilla JS"
+      ],
+      "category": "应用",
+      "tags": [
+        "个人站",
+        "静态生成",
+        "内容归档"
+      ],
+      "url": "/articles/python-zero-dep-ssg/"
+    },
+    {
+      "name": "星环提示词簿",
+      "status": "持续维护",
+      "year": "2026",
+      "summary": "按角色、场景与视觉归档图像生成练习。点开作品即可对照效果图、模型参数与可复制的提示词。",
+      "stack": [
+        "HTML5",
+        "CSS",
+        "Vanilla JS",
+        "JSON"
+      ],
+      "category": "应用",
+      "tags": [
+        "提示词",
+        "图像图鉴",
+        "标签筛选"
+      ],
+      "url": "/gallery/"
+    },
+    {
+      "name": "子路径发布检查器",
+      "status": "已开源",
+      "year": "2026",
+      "summary": "检查根目录与仓库子路径两种部署方式下的站内链接和静态资源路径，在发布前定位死链。",
+      "stack": [
+        "Python 3.13",
+        "GitHub Actions",
+        "GitHub Pages"
+      ],
+      "category": "工具",
+      "tags": [
+        "子路径",
+        "死链校验",
+        "自动发布"
+      ],
+      "url": "/articles/github-pages-subpath-ci/"
+    },
+    {
+      "name": "桥接草稿工作区",
+      "status": "已开源",
+      "year": "2026",
+      "summary": "将生成的代码草稿与测试候选落在独立目录，便于逐项审阅后再合入站点源码。",
+      "stack": [
+        "Codex CLI",
+        "Git",
+        "PowerShell"
+      ],
+      "category": "工具",
+      "tags": [
+        "工作区隔离",
+        "代码审阅",
+        "变更管理"
+      ],
+      "url": "/articles/codex-bridge-isolation/"
+    },
+    {
+      "name": "唱片翻页动效",
+      "status": "实验中",
+      "year": "2026",
+      "summary": "以滚动进度驱动封面缩放和位移，让首屏黑胶唱片随页面展开逐步收拢。",
+      "stack": [
+        "CSS Transforms",
+        "Vanilla JS",
+        "requestAnimationFrame"
+      ],
+      "category": "视觉",
+      "tags": [
+        "滚动动效",
+        "封面变形",
+        "黑胶"
+      ],
+      "url": "/articles/css-scroll-flip-morph/"
+    },
+    {
+      "name": "绯绒与浅金光谱",
+      "status": "实验中",
+      "year": "2026",
+      "summary": "用同一构图比较侧光与轮廓光，记录绯红天鹅绒、黑曜石和香槟金在低照度下的质感。",
+      "stack": [
+        "FLUX.1 dev",
+        "ComfyUI"
+      ],
+      "category": "视觉",
+      "tags": [
+        "材质研究",
+        "布光",
+        "色彩分级"
+      ],
+      "url": "/articles/flux-lighting-color-grading/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "个人站",
+      "count": 1
+    },
+    {
+      "name": "代码审阅",
+      "count": 1
+    },
+    {
+      "name": "内容归档",
+      "count": 1
+    },
+    {
+      "name": "变更管理",
+      "count": 1
+    },
+    {
+      "name": "图像图鉴",
+      "count": 1
+    },
+    {
+      "name": "子路径",
+      "count": 1
+    },
+    {
+      "name": "封面变形",
+      "count": 1
+    },
+    {
+      "name": "工作区隔离",
+      "count": 1
+    },
+    {
+      "name": "布光",
+      "count": 1
+    },
+    {
+      "name": "提示词",
+      "count": 1
+    },
+    {
+      "name": "材质研究",
+      "count": 1
+    },
+    {
+      "name": "标签筛选",
+      "count": 1
+    },
+    {
+      "name": "死链校验",
+      "count": 1
+    },
+    {
+      "name": "滚动动效",
+      "count": 1
+    },
+    {
+      "name": "自动发布",
+      "count": 1
+    },
+    {
+      "name": "色彩分级",
+      "count": 1
+    },
+    {
+      "name": "静态生成",
+      "count": 1
+    },
+    {
+      "name": "黑胶",
+      "count": 1
+    }
+  ],
   "categories": [
     {
       "id": "web",
       "name": "应用",
       "icon": "code",
-      "count": 0
+      "count": 2
     },
     {
       "id": "tool",
       "name": "工具",
       "icon": "engineering",
-      "count": 0
+      "count": 2
     },
     {
       "id": "visual",
       "name": "视觉",
       "icon": "image",
-      "count": 0
+      "count": 2
     }
   ]
 }

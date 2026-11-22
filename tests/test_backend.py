@@ -144,11 +144,26 @@ def test_load_real_content_repository() -> None:
     assert loaded["site"]["site_title"] == "ASTRA YAO · 星环手记"
     assert loaded["site"]["site_url"] == "https://astrayao.xyz"
     assert [cat["name"] for cat in loaded["categories"]] == ["代码", "图像生成", "工程"]
-    assert [cat["name"] for cat in loaded["category_stats"]] == ["代码", "图像生成", "工程"]
+    assert {cat["name"]: cat["count"] for cat in loaded["category_stats"]} == {
+        "代码": 2,
+        "图像生成": 2,
+        "工程": 2,
+    }
     assert [cat["name"] for cat in loaded["project_categories"]] == ["应用", "工具", "视觉"]
+    assert {cat["name"]: cat["count"] for cat in loaded["project_category_stats"]} == {
+        "应用": 2,
+        "工具": 2,
+        "视觉": 2,
+    }
     assert [cat["name"] for cat in loaded["gallery_categories"]] == ["角色", "场景", "视觉"]
-    assert loaded["projects"] == []
-    assert loaded["gallery"] == []
+    assert {cat["name"]: cat["count"] for cat in loaded["gallery_category_stats"]} == {
+        "角色": 2,
+        "场景": 2,
+        "视觉": 2,
+    }
+    assert len(loaded["posts"]) == 6
+    assert len(loaded["projects"]) == 6
+    assert len(loaded["gallery"]) == 6
     dates = [p.date for p in loaded["posts"]]
     assert dates == sorted(dates, reverse=True)
 

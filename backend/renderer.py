@@ -561,10 +561,10 @@ def render_site(
             page_content=home_body,
             base_path=normalized_base_path,
             extra_head=(
-                '<link rel="stylesheet" href="/static/css/home-cover.css?v=13">\n'
+                '<link rel="stylesheet" href="/static/css/home-cover.css?v=14">\n'
                 '  <link rel="preload" as="image" href="/static/images/starloop-cover.jpg" fetchpriority="high">'
             ),
-            extra_scripts='<script src="/static/js/home-cover.js?v=9" defer></script>',
+            extra_scripts='<script src="/static/js/home-cover.js?v=10" defer></script>',
         ),
     )
     html_pages_count += 1

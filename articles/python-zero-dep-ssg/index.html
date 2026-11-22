@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>用 Python 标准库搭一座静态博客 · ASTRA YAO · 星环手记</title>
+  <meta name="description" content="从内容加载到静态输出，把小站的构建拆成几个能单独核对的步骤。">
+  <meta name="site-base-path" content="">
+  <link rel="canonical" href="https://astrayao.xyz/articles/python-zero-dep-ssg/">
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="ASTRA YAO · 星环手记" href="/rss.xml">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('blog-theme');
+        var theme = (saved === 'dark' || saved === 'light') ? saved : 'dark';
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/prose.css">
+  
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至正文</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-brand" href="/">
+        <img class="brand-mark" src="/static/images/favicon.svg" alt="" width="26" height="26">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link " href="/">首页</a>
+        <a class="nav-link is-active" href="/articles/">文章</a>
+        <a class="nav-link " href="/projects/">项目</a>
+        <a class="nav-link " href="/gallery/">图像</a>
+        <a class="nav-link " href="/about/">关于</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="search-trigger" data-search-open aria-label="搜索">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换明暗主题" aria-pressed="true">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" data-mobile-menu-toggle aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <dialog class="mobile-drawer" id="mobile-drawer" data-mobile-drawer aria-label="移动端导航菜单">
+    <div class="mobile-drawer-panel">
+      <div class="mobile-drawer-header">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+        <button type="button" class="icon-btn" data-mobile-drawer-close aria-label="关闭导航菜单">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav aria-label="移动端主导航">
+        <ul class="mobile-nav-list">
+          <li><a class="mobile-nav-link " href="/">首页</a></li>
+          <li><a class="mobile-nav-link is-active" href="/articles/">文章</a></li>
+          <li><a class="mobile-nav-link " href="/projects/">项目</a></li>
+          <li><a class="mobile-nav-link " href="/gallery/">图像</a></li>
+          <li><a class="mobile-nav-link " href="/about/">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </dialog>
+
+  <main id="main-content" tabindex="-1">
+    <div class="reading-progress" aria-hidden="true">
+  <div class="reading-progress-bar" data-reading-progress></div>
+</div>
+
+<article class="post-article">
+  <header class="container post-header">
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="/articles/">文章</a>
+      <span aria-hidden="true">/</span>
+      <span>代码</span>
+    </nav>
+    <h1 class="post-title">用 Python 标准库搭一座静态博客</h1>
+    <p class="post-subtitle">从内容加载到静态输出，把小站的构建拆成几个能单独核对的步骤。</p>
+    <div class="post-meta">
+      <div class="post-meta-items">
+        <time datetime="2026-11-22">2026-11-22</time>
+        <span aria-hidden="true">·</span>
+        <a class="post-meta-category" href="/articles/?category=%E4%BB%A3%E7%A0%81">代码</a>
+        <span aria-hidden="true">·</span>
+        <span>549 字</span>
+        <span aria-hidden="true">·</span>
+        <span>2 分钟</span>
+      </div>
+      <div class="tag-list"><a class="tag-pill" href="/articles/?tag=Python" data-filter-tag="Python">Python</a>
+<a class="tag-pill" href="/articles/?tag=%E9%9D%99%E6%80%81%E7%AB%99%E7%82%B9" data-filter-tag="静态站点">静态站点</a>
+<a class="tag-pill" href="/articles/?tag=%E6%9E%B6%E6%9E%84" data-filter-tag="架构">架构</a></div>
+    </div>
+  </header>
+
+  <div class="container post-cover-wrap">
+    <img class="post-cover" src="/static/images/cover-01.svg" alt="用 Python 标准库搭一座静态博客" width="800" height="480">
+  </div>
+
+  <div class="post-layout">
+    <div class="post-prose prose" data-post-content>
+      <p>给星环手记添一篇文章，我只想写好正文，跑一次构建，在本地打开新页面。站点的深蓝底色和黑胶纹理可以慢慢打磨，发布过程越平常越好。用 Python 标准库搭建主流程，出了问题时，我可以沿着一份源稿，追到它在归档、正文和搜索索引里的三个去处。</p>
+<h2 id="先把内容读成数据">先把内容读成数据<a class="heading-anchor" href="#先把内容读成数据" aria-label="段落锚点">#</a></h2>
+<p>读取阶段统一处理日期、标签和草稿标记。草稿在这里筛掉，归档和订阅源就能共用同一份公开条目。日期相同时，再用短名排出先后。只换文件遍历顺序，上下篇仍然能排在原来的位置。同一个短名会落到同一个输出目录，所以我会在写文件前检查重名，让错误直接报出两份源稿的名字。</p>
+<div class="code-block-wrapper"><div class="code-block-header"><span class="code-lang">python</span><button type="button" class="code-copy-btn" aria-label="复制代码">复制</button></div><div class="highlight"><pre><span></span><span class="n">published</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
+    <span class="p">(</span><span class="n">post</span> <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">post</span><span class="o">.</span><span class="n">draft</span><span class="p">),</span>
+    <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">post</span><span class="p">:</span> <span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">date</span><span class="p">,</span> <span class="n">post</span><span class="o">.</span><span class="n">slug</span><span class="p">),</span>
+    <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div></div>
+<h2 id="让渲染各管一段">让渲染各管一段<a class="heading-anchor" href="#让渲染各管一段" aria-label="段落锚点">#</a></h2>
+<p>文章正文与右侧目录从同一次 Markdown 解析中生成，标题改字时，两处锚点会一起更新。模板接收已经准备好的数据，普通文字先做 HTML 转义，再填入标题和摘要的位置。代码高亮交给 Pygments，这是内容渲染里唯一的第三方依赖。围栏内的文本单独处理，示例里的字符和空格才能原样呈现。</p>
+<ul>
+<li>用 <code>pathlib</code> 写入每篇文章的目录页，用 <code>shutil</code> 拷贝本地封面和字体。</li>
+<li>用同一组已发布条目生成归档、搜索索引和订阅源，让标题与短名保持一致。</li>
+</ul>
+<h2 id="把检查放到产物上">把检查放到产物上<a class="heading-anchor" href="#把检查放到产物上" aria-label="段落锚点">#</a></h2>
+<p>撤下一篇文章后，我会重新构建干净的输出目录，再看看旧页面和搜索结果是否一起消失。封面路径写错时，浏览器有时只留下一小块空白，跑一遍内部链接检查更容易找出源头。站点挂在仓库子路径时，也要拿实际产物走一遍<a href="/articles/">文章归档</a>，确认点进正文后，样式、封面和下一篇都能沿着同一个前缀找到。</p>
+    </div>
+    <aside class="toc-sidebar" aria-label="文章目录">
+      <details class="toc-details" data-post-toc open>
+        <summary class="toc-title">文章目录</summary>
+        <nav class="toc-nav" aria-label="文章目录">
+  <ul class="toc-list">
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#先把内容读成数据">先把内容读成数据</a></li>
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#让渲染各管一段">让渲染各管一段</a></li>
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#把检查放到产物上">把检查放到产物上</a></li>
+  </ul>
+</nav>
+      </details>
+    </aside>
+  </div>
+
+  <footer class="container post-footer">
+    <nav class="post-nav-grid" aria-label="文章翻页">
+      <div aria-hidden="true"></div>
+      <a class="nav-post-card nav-post-card--next" href="/articles/css-scroll-flip-morph/">
+  <span class="nav-post-label">下一篇 →</span>
+  <span class="nav-post-title">让封面沿着滚动收进页眉</span>
+  <span class="nav-post-date">2026-11-20</span>
+</a>
+
+    </nav>
+
+    <section class="related-section" aria-labelledby="related-heading">
+      <h2 id="related-heading" class="related-title">延伸阅读</h2>
+      <div class="related-grid">
+        <a class="related-card" href="/articles/codex-bridge-isolation/"><span class="nav-post-label related-card-meta">工程 · 2026-11-10 · 2 分钟</span><span class="nav-post-title related-card-title">Codex Bridge 的隔离工作区怎么交稿</span></a>
+<a class="related-card" href="/articles/css-scroll-flip-morph/"><span class="nav-post-label related-card-meta">代码 · 2026-11-20 · 2 分钟</span><span class="nav-post-title related-card-title">让封面沿着滚动收进页眉</span></a>
+      </div>
+    </section>
+  </footer>
+</article>
+
+<script src="/static/js/post.js?v=2" defer></script>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-minimal">
+      <span class="footer-copy">© 2026 Astra Yao</span>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/articles/">文章</a>
+        <a href="/projects/">项目</a>
+        <a href="/gallery/">图像</a>
+        <a href="/about/">关于</a>
+        <a href="/rss.xml">RSS</a>
+      </nav>
+      
+    </div>
+  </footer>
+
+  <dialog class="search-modal" data-search-modal aria-label="站内文章搜索">
+    <div class="search-dialog">
+      <div class="search-header">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <input class="search-input" type="search" data-search-input placeholder="搜索…" autocomplete="off" spellcheck="false" aria-label="搜索文章" role="combobox" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false" autofocus>
+        <button type="button" class="search-close-btn" data-search-close aria-label="关闭搜索弹窗">×</button>
+      </div>
+      <div class="search-results" id="site-search-results" data-search-results role="listbox" aria-label="搜索结果列表"></div>
+    </div>
+  </dialog>
+
+  <script src="/static/js/theme.js" defer></script>
+  <script src="/static/js/search.js?v=3" defer></script>
+  <script src="/static/js/main.js?v=4" defer></script>
+  
+</body>
+</html>

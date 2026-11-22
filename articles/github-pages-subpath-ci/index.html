@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>让 GitHub Pages 子路径通过构建检查 · ASTRA YAO · 星环手记</title>
+  <meta name="description" content="用真实挂载前缀校验页面、搜索索引和订阅链接，再发布同一份静态产物。">
+  <meta name="site-base-path" content="">
+  <link rel="canonical" href="https://astrayao.xyz/articles/github-pages-subpath-ci/">
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="ASTRA YAO · 星环手记" href="/rss.xml">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('blog-theme');
+        var theme = (saved === 'dark' || saved === 'light') ? saved : 'dark';
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/prose.css">
+  
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至正文</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-brand" href="/">
+        <img class="brand-mark" src="/static/images/favicon.svg" alt="" width="26" height="26">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link " href="/">首页</a>
+        <a class="nav-link is-active" href="/articles/">文章</a>
+        <a class="nav-link " href="/projects/">项目</a>
+        <a class="nav-link " href="/gallery/">图像</a>
+        <a class="nav-link " href="/about/">关于</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="search-trigger" data-search-open aria-label="搜索">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换明暗主题" aria-pressed="true">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" data-mobile-menu-toggle aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <dialog class="mobile-drawer" id="mobile-drawer" data-mobile-drawer aria-label="移动端导航菜单">
+    <div class="mobile-drawer-panel">
+      <div class="mobile-drawer-header">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+        <button type="button" class="icon-btn" data-mobile-drawer-close aria-label="关闭导航菜单">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav aria-label="移动端主导航">
+        <ul class="mobile-nav-list">
+          <li><a class="mobile-nav-link " href="/">首页</a></li>
+          <li><a class="mobile-nav-link is-active" href="/articles/">文章</a></li>
+          <li><a class="mobile-nav-link " href="/projects/">项目</a></li>
+          <li><a class="mobile-nav-link " href="/gallery/">图像</a></li>
+          <li><a class="mobile-nav-link " href="/about/">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </dialog>
+
+  <main id="main-content" tabindex="-1">
+    <div class="reading-progress" aria-hidden="true">
+  <div class="reading-progress-bar" data-reading-progress></div>
+</div>
+
+<article class="post-article">
+  <header class="container post-header">
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="/articles/">文章</a>
+      <span aria-hidden="true">/</span>
+      <span>工程</span>
+    </nav>
+    <h1 class="post-title">让 GitHub Pages 子路径通过构建检查</h1>
+    <p class="post-subtitle">用真实挂载前缀校验页面、搜索索引和订阅链接，再发布同一份静态产物。</p>
+    <div class="post-meta">
+      <div class="post-meta-items">
+        <time datetime="2026-11-12">2026-11-12</time>
+        <span aria-hidden="true">·</span>
+        <a class="post-meta-category" href="/articles/?category=%E5%B7%A5%E7%A8%8B">工程</a>
+        <span aria-hidden="true">·</span>
+        <span>547 字</span>
+        <span aria-hidden="true">·</span>
+        <span>2 分钟</span>
+      </div>
+      <div class="tag-list"><a class="tag-pill" href="/articles/?tag=%E9%83%A8%E7%BD%B2" data-filter-tag="部署">部署</a>
+<a class="tag-pill" href="/articles/?tag=GitHub%20Pages" data-filter-tag="GitHub Pages">GitHub Pages</a>
+<a class="tag-pill" href="/articles/?tag=%E8%87%AA%E5%8A%A8%E5%8C%96" data-filter-tag="自动化">自动化</a></div>
+    </div>
+  </header>
+
+  <div class="container post-cover-wrap">
+    <img class="post-cover" src="/static/images/cover-04.svg" alt="让 GitHub Pages 子路径通过构建检查" width="800" height="480">
+  </div>
+
+  <div class="post-layout">
+    <div class="post-prose prose" data-post-content>
+      <p>首页能打开，封面却一张也看不见，是子路径部署里很有辨识度的故障。浏览器收到了页面，却去域名根目录找资源。星环手记在根路径预览时看不出这个问题，于是我把项目站点的挂载前缀也放进构建校验。前缀在发布前就进入实际产物，点开一条坏链接时，也能直接检查对应的输出文件。</p>
+<h2 id="源稿只记站内路由">源稿只记站内路由<a class="heading-anchor" href="#源稿只记站内路由" aria-label="段落锚点">#</a></h2>
+<p>Markdown 里的<a href="/articles/">文章归档</a>保留根相对写法。构建时由 <code>--base-path</code> 提供挂载前缀，再统一改写输出页面里的站内 <code>href</code> 和 <code>src</code>，代码块里的示例保留原样。搜索索引也要拿到同一个前缀，否则站内导航走得通，搜索结果却可能跳回域名根目录。</p>
+<div class="code-block-wrapper"><div class="code-block-header"><span class="code-lang">bash</span><button type="button" class="code-copy-btn" aria-label="复制代码">复制</button></div><div class="highlight"><pre><span></span><span class="c1"># SITE_URL 使用完整站点地址，包含项目站点的挂载前缀</span>
+python<span class="w"> </span>scripts/check.py<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--base-path<span class="w"> </span>/starloop<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--site-url<span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">SITE_URL</span><span class="p">:?Set SITE_URL first</span><span class="si">}</span><span class="s2">"</span>
+</pre></div></div>
+<p><code>--site-url</code> 给规范链接、订阅源和站点地图提供绝对地址。检查订阅链接时，尤其要数一数仓库名出现了几次。产物里的 HTML 路径则可以剥掉挂载前缀，再去 <code>dist</code> 找对应的文件或目录首页。</p>
+<h2 id="校验通过再打包">校验通过再打包<a class="heading-anchor" href="#校验通过再打包" aria-label="段落锚点">#</a></h2>
+<p>构建作业先拿到 Pages 的部署信息，再用目标前缀跑检查，成功后将该次构建的 <code>dist</code> 上传为部署工件。发布作业等待构建完成，直接部署这份已检查的文件。这样出了问题，可以对着同一份工件复盘，不必猜测发布时是否又生成了另一批页面。</p>
+<ul>
+<li>从归档点进一篇文章，检查封面和正文样式。</li>
+<li>从搜索结果打开同一篇，比较跳转地址与页面的规范地址。</li>
+<li>打开订阅源，确认每条文章链接的挂载前缀只出现一次。</li>
+</ul>
+<p>我习惯在根路径和项目子路径各过一遍这套检查。将来站点迁回自定义域名时，只需要切换构建参数，文章里彼此引用的路由可以继续沿用。</p>
+    </div>
+    <aside class="toc-sidebar" aria-label="文章目录">
+      <details class="toc-details" data-post-toc open>
+        <summary class="toc-title">文章目录</summary>
+        <nav class="toc-nav" aria-label="文章目录">
+  <ul class="toc-list">
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#源稿只记站内路由">源稿只记站内路由</a></li>
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#校验通过再打包">校验通过再打包</a></li>
+  </ul>
+</nav>
+      </details>
+    </aside>
+  </div>
+
+  <footer class="container post-footer">
+    <nav class="post-nav-grid" aria-label="文章翻页">
+      <a class="nav-post-card nav-post-card--prev" href="/articles/flux-lighting-color-grading/">
+  <span class="nav-post-label">← 上一篇</span>
+  <span class="nav-post-title">用 FLUX 做封面，先定光位再调色</span>
+  <span class="nav-post-date">2026-11-15</span>
+</a>
+
+      <a class="nav-post-card nav-post-card--next" href="/articles/codex-bridge-isolation/">
+  <span class="nav-post-label">下一篇 →</span>
+  <span class="nav-post-title">Codex Bridge 的隔离工作区怎么交稿</span>
+  <span class="nav-post-date">2026-11-10</span>
+</a>
+
+    </nav>
+
+    <section class="related-section" aria-labelledby="related-heading">
+      <h2 id="related-heading" class="related-title">延伸阅读</h2>
+      <div class="related-grid">
+        <a class="related-card" href="/articles/codex-bridge-isolation/"><span class="nav-post-label related-card-meta">工程 · 2026-11-10 · 2 分钟</span><span class="nav-post-title related-card-title">Codex Bridge 的隔离工作区怎么交稿</span></a>
+<a class="related-card" href="/articles/python-zero-dep-ssg/"><span class="nav-post-label related-card-meta">代码 · 2026-11-22 · 2 分钟</span><span class="nav-post-title related-card-title">用 Python 标准库搭一座静态博客</span></a>
+      </div>
+    </section>
+  </footer>
+</article>
+
+<script src="/static/js/post.js?v=2" defer></script>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-minimal">
+      <span class="footer-copy">© 2026 Astra Yao</span>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/articles/">文章</a>
+        <a href="/projects/">项目</a>
+        <a href="/gallery/">图像</a>
+        <a href="/about/">关于</a>
+        <a href="/rss.xml">RSS</a>
+      </nav>
+      
+    </div>
+  </footer>
+
+  <dialog class="search-modal" data-search-modal aria-label="站内文章搜索">
+    <div class="search-dialog">
+      <div class="search-header">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <input class="search-input" type="search" data-search-input placeholder="搜索…" autocomplete="off" spellcheck="false" aria-label="搜索文章" role="combobox" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false" autofocus>
+        <button type="button" class="search-close-btn" data-search-close aria-label="关闭搜索弹窗">×</button>
+      </div>
+      <div class="search-results" id="site-search-results" data-search-results role="listbox" aria-label="搜索结果列表"></div>
+    </div>
+  </dialog>
+
+  <script src="/static/js/theme.js" defer></script>
+  <script src="/static/js/search.js?v=3" defer></script>
+  <script src="/static/js/main.js?v=4" defer></script>
+  
+</body>
+</html>

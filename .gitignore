@@ -35,3 +35,7 @@ desktop.ini
 .idea/
 *.swp
 *.swo
+
+# Codex Bridge isolated workspace (keep README.md, ignore generated drafts)
+codex_workspace/*
+!codex_workspace/README.md

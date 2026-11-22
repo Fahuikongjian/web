@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>星环封面的提示词从一束光开始 · ASTRA YAO · 星环手记</title>
+  <meta name="description" content="把黑胶、星环和午夜蓝写成可观察的摆位、材质和光源。">
+  <meta name="site-base-path" content="">
+  <link rel="canonical" href="https://astrayao.xyz/articles/starloop-prompt-craft/">
+  <link rel="icon" type="image/svg+xml" href="/static/images/favicon.svg">
+  <link rel="alternate" type="application/rss+xml" title="ASTRA YAO · 星环手记" href="/rss.xml">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem('blog-theme');
+        var theme = (saved === 'dark' || saved === 'light') ? saved : 'dark';
+        document.documentElement.dataset.theme = theme;
+      } catch (e) {
+        document.documentElement.dataset.theme = 'dark';
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/css/base.css">
+  <link rel="stylesheet" href="/static/css/components.css">
+  <link rel="stylesheet" href="/static/css/prose.css">
+  
+</head>
+<body>
+  <a class="skip-link" href="#main-content">跳至正文</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="site-brand" href="/">
+        <img class="brand-mark" src="/static/images/favicon.svg" alt="" width="26" height="26">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+      </a>
+
+      <nav class="site-nav" aria-label="主导航">
+        <a class="nav-link " href="/">首页</a>
+        <a class="nav-link is-active" href="/articles/">文章</a>
+        <a class="nav-link " href="/projects/">项目</a>
+        <a class="nav-link " href="/gallery/">图像</a>
+        <a class="nav-link " href="/about/">关于</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="search-trigger" data-search-open aria-label="搜索">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle>
+            <path d="m20 20-3.5-3.5"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="theme-toggle" data-theme-toggle aria-label="切换明暗主题" aria-pressed="true">
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+          </svg>
+        </button>
+
+        <button type="button" class="mobile-menu-btn" data-mobile-menu-toggle aria-label="打开导航菜单" aria-expanded="false" aria-controls="mobile-drawer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 7h16M4 12h16M4 17h16"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <dialog class="mobile-drawer" id="mobile-drawer" data-mobile-drawer aria-label="移动端导航菜单">
+    <div class="mobile-drawer-panel">
+      <div class="mobile-drawer-header">
+        <span class="brand-title">ASTRA YAO · 星环手记</span>
+        <button type="button" class="icon-btn" data-mobile-drawer-close aria-label="关闭导航菜单">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <nav aria-label="移动端主导航">
+        <ul class="mobile-nav-list">
+          <li><a class="mobile-nav-link " href="/">首页</a></li>
+          <li><a class="mobile-nav-link is-active" href="/articles/">文章</a></li>
+          <li><a class="mobile-nav-link " href="/projects/">项目</a></li>
+          <li><a class="mobile-nav-link " href="/gallery/">图像</a></li>
+          <li><a class="mobile-nav-link " href="/about/">关于</a></li>
+        </ul>
+      </nav>
+    </div>
+  </dialog>
+
+  <main id="main-content" tabindex="-1">
+    <div class="reading-progress" aria-hidden="true">
+  <div class="reading-progress-bar" data-reading-progress></div>
+</div>
+
+<article class="post-article">
+  <header class="container post-header">
+    <nav class="breadcrumb" aria-label="面包屑导航">
+      <a href="/">首页</a>
+      <span aria-hidden="true">/</span>
+      <a href="/articles/">文章</a>
+      <span aria-hidden="true">/</span>
+      <span>图像生成</span>
+    </nav>
+    <h1 class="post-title">星环封面的提示词从一束光开始</h1>
+    <p class="post-subtitle">把黑胶、星环和午夜蓝写成可观察的摆位、材质和光源。</p>
+    <div class="post-meta">
+      <div class="post-meta-items">
+        <time datetime="2026-11-18">2026-11-18</time>
+        <span aria-hidden="true">·</span>
+        <a class="post-meta-category" href="/articles/?category=%E5%9B%BE%E5%83%8F%E7%94%9F%E6%88%90">图像生成</a>
+        <span aria-hidden="true">·</span>
+        <span>554 字</span>
+        <span aria-hidden="true">·</span>
+        <span>2 分钟</span>
+      </div>
+      <div class="tag-list"><a class="tag-pill" href="/articles/?tag=Prompt" data-filter-tag="Prompt">Prompt</a>
+<a class="tag-pill" href="/articles/?tag=%E8%A7%86%E8%A7%89" data-filter-tag="视觉">视觉</a>
+<a class="tag-pill" href="/articles/?tag=%E8%89%B2%E5%BD%A9" data-filter-tag="色彩">色彩</a></div>
+    </div>
+  </header>
+
+  <div class="container post-cover-wrap">
+    <img class="post-cover" src="/static/images/cover-02.svg" alt="星环封面的提示词从一束光开始" width="800" height="480">
+  </div>
+
+  <div class="post-layout">
+    <div class="post-prose prose" data-post-content>
+      <p>星环封面的想法来自唱片转到内圈时的反光。灯掠过沟槽，银线只亮半圈，剩下的部分融进暗处。我想把那一瞬做成封面，先写下物体怎么摆、光从哪里进来，以及哪块暗面留给标题。这样看到生成结果时，我也知道具体要改提示词里的哪一句。</p>
+<h2 id="先把构图摆出来">先把构图摆出来<a class="heading-anchor" href="#先把构图摆出来" aria-label="段落锚点">#</a></h2>
+<p>竖幅里只放一枚略偏右下的环，视角稍微倾斜，让外缘和内圈同时可见。把左上留给标题后，我会把提示词写成一段简短的拍摄说明。黑胶的沟槽承担近看的细节，封面缩成小卡片时，则靠那道断开的轮廓把环从深蓝背景里挑出来。</p>
+<div class="code-block-wrapper"><div class="code-block-header"><span class="code-lang">yaml</span><button type="button" class="code-copy-btn" aria-label="复制代码">复制</button></div><div class="highlight"><pre><span></span><span class="nt">prompt</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">&gt;</span>
+<span class="w">  </span><span class="no">A single ring of matte black vinyl, slightly tilted in the lower-right</span>
+<span class="w">  </span><span class="no">of an upright composition. Thin grazing cyan light picks out its grooves.</span>
+<span class="w">  </span><span class="no">A small amber reflection touches the inner rim. Quiet midnight blue above</span>
+<span class="w">  </span><span class="no">and to the left, with sparse grain in the shadows.</span>
+<span class="nt">aspect_ratio</span><span class="p">:</span><span class="w"> </span><span class="s">"4:5"</span>
+</pre></div></div>
+<h2 id="给青色和琥珀分工">给青色和琥珀分工<a class="heading-anchor" href="#给青色和琥珀分工" aria-label="段落锚点">#</a></h2>
+<div class="table-wrap"><table><thead><tr><th>元素</th><th>画面中的位置</th><th>检查方式</th></tr></thead><tbody><tr><td>午夜蓝</td><td>左上留白与远处阴影</td><td>放上标题，看看边缘还有没有呼吸感</td></tr><tr><td>冷青</td><td>外缘受光侧与少量沟槽</td><td>缩成小图，确认弧线还能辨认</td></tr><tr><td>琥珀</td><td>内圈一小段反射</td><td>眯眼看，暖光应先于颗粒被看见</td></tr></tbody></table></div>
+<p>暗处还想留一点纸面的颗粒。颗粒一旦铺满高光，黑胶就容易显得像覆了一层砂。这时我会明确把颗粒放在阴影处，让受光的沟槽保持清楚。琥珀光若占了半个环，就缩小它在内缘的范围，让青线把视线带到那一点暖色上。</p>
+<h2 id="缩小以后再挑图">缩小以后再挑图<a class="heading-anchor" href="#缩小以后再挑图" aria-label="段落锚点">#</a></h2>
+<p>我会在同一排预览里保留原图和裁切图。先看环能否在缩略图里被一眼认出，再看标题区有没有突兀的亮斑。比较时固定画幅和主体位置，一轮只改光色或光线方向。构图失衡时，再单独挪环的位置。放进<a href="/gallery/">图像页</a>之前，连同那版提示词一起保存，下一张封面就有了可以复用的起点。</p>
+    </div>
+    <aside class="toc-sidebar" aria-label="文章目录">
+      <details class="toc-details" data-post-toc open>
+        <summary class="toc-title">文章目录</summary>
+        <nav class="toc-nav" aria-label="文章目录">
+  <ul class="toc-list">
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#先把构图摆出来">先把构图摆出来</a></li>
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#给青色和琥珀分工">给青色和琥珀分工</a></li>
+    <li class="toc-item toc-level-2 toc-item--h2"><a class="toc-link" data-level="2" href="#缩小以后再挑图">缩小以后再挑图</a></li>
+  </ul>
+</nav>
+      </details>
+    </aside>
+  </div>
+
+  <footer class="container post-footer">
+    <nav class="post-nav-grid" aria-label="文章翻页">
+      <a class="nav-post-card nav-post-card--prev" href="/articles/css-scroll-flip-morph/">
+  <span class="nav-post-label">← 上一篇</span>
+  <span class="nav-post-title">让封面沿着滚动收进页眉</span>
+  <span class="nav-post-date">2026-11-20</span>
+</a>
+
+      <a class="nav-post-card nav-post-card--next" href="/articles/flux-lighting-color-grading/">
+  <span class="nav-post-label">下一篇 →</span>
+  <span class="nav-post-title">用 FLUX 做封面，先定光位再调色</span>
+  <span class="nav-post-date">2026-11-15</span>
+</a>
+
+    </nav>
+
+    <section class="related-section" aria-labelledby="related-heading">
+      <h2 id="related-heading" class="related-title">延伸阅读</h2>
+      <div class="related-grid">
+        <a class="related-card" href="/articles/flux-lighting-color-grading/"><span class="nav-post-label related-card-meta">图像生成 · 2026-11-15 · 2 分钟</span><span class="nav-post-title related-card-title">用 FLUX 做封面，先定光位再调色</span></a>
+<a class="related-card" href="/articles/python-zero-dep-ssg/"><span class="nav-post-label related-card-meta">代码 · 2026-11-22 · 2 分钟</span><span class="nav-post-title related-card-title">用 Python 标准库搭一座静态博客</span></a>
+      </div>
+    </section>
+  </footer>
+</article>
+
+<script src="/static/js/post.js?v=2" defer></script>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-minimal">
+      <span class="footer-copy">© 2026 Astra Yao</span>
+      <nav class="footer-links" aria-label="页脚导航">
+        <a href="/articles/">文章</a>
+        <a href="/projects/">项目</a>
+        <a href="/gallery/">图像</a>
+        <a href="/about/">关于</a>
+        <a href="/rss.xml">RSS</a>
+      </nav>
+      
+    </div>
+  </footer>
+
+  <dialog class="search-modal" data-search-modal aria-label="站内文章搜索">
+    <div class="search-dialog">
+      <div class="search-header">
+        <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"></circle>
+          <path d="m20 20-3.5-3.5"></path>
+        </svg>
+        <input class="search-input" type="search" data-search-input placeholder="搜索…" autocomplete="off" spellcheck="false" aria-label="搜索文章" role="combobox" aria-autocomplete="list" aria-controls="site-search-results" aria-expanded="false" autofocus>
+        <button type="button" class="search-close-btn" data-search-close aria-label="关闭搜索弹窗">×</button>
+      </div>
+      <div class="search-results" id="site-search-results" data-search-results role="listbox" aria-label="搜索结果列表"></div>
+    </div>
+  </dialog>
+
+  <script src="/static/js/theme.js" defer></script>
+  <script src="/static/js/search.js?v=3" defer></script>
+  <script src="/static/js/main.js?v=4" defer></script>
+  
+</body>
+</html>

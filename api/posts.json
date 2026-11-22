@@ -1,26 +1,190 @@
 {
-  "generated_at": "2026-11-22T07:06:42Z",
-  "total": 0,
-  "posts": [],
-  "tags": [],
+  "generated_at": "2026-11-22T07:54:09Z",
+  "total": 6,
+  "posts": [
+    {
+      "title": "用 Python 标准库搭一座静态博客",
+      "slug": "python-zero-dep-ssg",
+      "url": "/articles/python-zero-dep-ssg/",
+      "date": "2026-11-22",
+      "category": "代码",
+      "tags": [
+        "Python",
+        "静态站点",
+        "架构"
+      ],
+      "summary": "从内容加载到静态输出，把小站的构建拆成几个能单独核对的步骤。",
+      "cover": "/static/images/cover-01.svg",
+      "featured": true,
+      "word_count": 549,
+      "reading_time": 2
+    },
+    {
+      "title": "让封面沿着滚动收进页眉",
+      "slug": "css-scroll-flip-morph",
+      "url": "/articles/css-scroll-flip-morph/",
+      "date": "2026-11-20",
+      "category": "代码",
+      "tags": [
+        "CSS",
+        "动效",
+        "前端审美"
+      ],
+      "summary": "用 FLIP 测量封面和页眉之间的几何差，再把位移交给原生滚动进度。",
+      "cover": "/static/images/cover-03.svg",
+      "featured": false,
+      "word_count": 538,
+      "reading_time": 2
+    },
+    {
+      "title": "星环封面的提示词从一束光开始",
+      "slug": "starloop-prompt-craft",
+      "url": "/articles/starloop-prompt-craft/",
+      "date": "2026-11-18",
+      "category": "图像生成",
+      "tags": [
+        "Prompt",
+        "视觉",
+        "色彩"
+      ],
+      "summary": "把黑胶、星环和午夜蓝写成可观察的摆位、材质和光源。",
+      "cover": "/static/images/cover-02.svg",
+      "featured": true,
+      "word_count": 554,
+      "reading_time": 2
+    },
+    {
+      "title": "用 FLUX 做封面，先定光位再调色",
+      "slug": "flux-lighting-color-grading",
+      "url": "/articles/flux-lighting-color-grading/",
+      "date": "2026-11-15",
+      "category": "图像生成",
+      "tags": [
+        "Flux",
+        "光影",
+        "色彩"
+      ],
+      "summary": "用一组单变量对照定下光位，再用灰度与缩略图检查午夜蓝和暖色反光。",
+      "cover": "/static/images/starloop-cover.jpg",
+      "featured": false,
+      "word_count": 533,
+      "reading_time": 2
+    },
+    {
+      "title": "让 GitHub Pages 子路径通过构建检查",
+      "slug": "github-pages-subpath-ci",
+      "url": "/articles/github-pages-subpath-ci/",
+      "date": "2026-11-12",
+      "category": "工程",
+      "tags": [
+        "部署",
+        "GitHub Pages",
+        "自动化"
+      ],
+      "summary": "用真实挂载前缀校验页面、搜索索引和订阅链接，再发布同一份静态产物。",
+      "cover": "/static/images/cover-04.svg",
+      "featured": false,
+      "word_count": 547,
+      "reading_time": 2
+    },
+    {
+      "title": "Codex Bridge 的隔离工作区怎么交稿",
+      "slug": "codex-bridge-isolation",
+      "url": "/articles/codex-bridge-isolation/",
+      "date": "2026-11-10",
+      "category": "工程",
+      "tags": [
+        "Codex",
+        "架构",
+        "自动化"
+      ],
+      "summary": "用明确的输入、输出和合入目标，把生成草稿交给可核对的审阅流程。",
+      "cover": "/static/images/cover-05.svg",
+      "featured": false,
+      "word_count": 553,
+      "reading_time": 2
+    }
+  ],
+  "tags": [
+    {
+      "name": "架构",
+      "count": 2
+    },
+    {
+      "name": "自动化",
+      "count": 2
+    },
+    {
+      "name": "色彩",
+      "count": 2
+    },
+    {
+      "name": "CSS",
+      "count": 1
+    },
+    {
+      "name": "Codex",
+      "count": 1
+    },
+    {
+      "name": "Flux",
+      "count": 1
+    },
+    {
+      "name": "GitHub Pages",
+      "count": 1
+    },
+    {
+      "name": "Prompt",
+      "count": 1
+    },
+    {
+      "name": "Python",
+      "count": 1
+    },
+    {
+      "name": "光影",
+      "count": 1
+    },
+    {
+      "name": "前端审美",
+      "count": 1
+    },
+    {
+      "name": "动效",
+      "count": 1
+    },
+    {
+      "name": "视觉",
+      "count": 1
+    },
+    {
+      "name": "部署",
+      "count": 1
+    },
+    {
+      "name": "静态站点",
+      "count": 1
+    }
+  ],
   "categories": [
     {
       "id": "code",
       "name": "代码",
       "icon": "code",
-      "count": 0
+      "count": 2
     },
     {
       "id": "image-gen",
       "name": "图像生成",
       "icon": "image",
-      "count": 0
+      "count": 2
     },
     {
       "id": "engineering",
       "name": "工程",
       "icon": "engineering",
-      "count": 0
+      "count": 2
     }
   ]
 }

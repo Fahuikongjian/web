@@ -116,9 +116,16 @@
 
 .home-cover-name {
   color: #f1c98d;
-  font: 500 var(--text-sm)/1.2 var(--font-mono);
-  letter-spacing: 0.32em;
+  font-family: var(--font-serif);
+  font-size: clamp(0.95rem, 1.35vw, 1.2rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.04em;
   animation: home-cover-fade-in 520ms ease-out 70ms both;
+}
+
+.is-scroll-cover .home-cover-name {
+  color: color-mix(in srgb, #f1c98d, var(--ink-primary) calc(var(--cover-nav-opacity, 0) * 100%));
 }
 
 .home-cover-title {
@@ -127,13 +134,9 @@
   font-size: clamp(3rem, 7.4vw, 7.5rem);
   font-weight: 700;
   line-height: 1.15;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   text-shadow: 0 3px 30px #100a0c7a;
   animation: home-cover-fade-in 520ms ease-out 140ms both;
-}
-
-[data-theme="light"] .is-scroll-cover .home-cover-name {
-  color: color-mix(in srgb, #f1c98d, var(--ink-primary) calc(var(--cover-nav-opacity, 0) * 100%));
 }
 
 [data-theme="light"] .is-scroll-cover .home-cover-title {

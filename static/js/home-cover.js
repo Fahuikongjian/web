@@ -110,7 +110,7 @@
 
   function applyBrandMorph(progress) {
     if (!brandMetrics) return;
-    var t = unitInterval(progress / 0.88);
+    var t = unitInterval(progress / 0.84);
     var smooth = t * t * (3 - 2 * t);
     var morph = 0.32 * t + 0.68 * smooth;
 
