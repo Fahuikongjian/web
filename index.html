@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/static/css/base.css">
   <link rel="stylesheet" href="/static/css/components.css">
   <link rel="stylesheet" href="/static/css/prose.css">
-  <link rel="stylesheet" href="/static/css/home-cover.css?v=12">
+  <link rel="stylesheet" href="/static/css/home-cover.css?v=13">
   <link rel="preload" as="image" href="/static/images/starloop-cover.jpg" fetchpriority="high">
 </head>
 <body>
@@ -96,15 +96,18 @@
 
   <main id="main-content" tabindex="-1">
     <div class="home-opening" data-home-opening>
+  <div class="home-cover-brand-layer" data-cover-brand-layer>
+    <div class="container home-cover-copy">
+      <img class="home-cover-mark" src="/static/images/favicon.svg" alt="" width="42" height="42">
+      <p class="home-cover-name">ASTRA YAO</p>
+      <h1 class="home-cover-title">星环手记</h1>
+    </div>
+  </div>
+
   <div class="home-opening-stage">
     <div class="home-cover">
       <div class="home-cover-backdrop" aria-hidden="true"></div>
       <div class="home-cover-artwork" aria-hidden="true"></div>
-      <div class="container home-cover-copy">
-        <img class="home-cover-mark" src="/static/images/favicon.svg" alt="" width="42" height="42">
-        <p class="home-cover-name">ASTRA YAO</p>
-        <h1 class="home-cover-title">星环手记</h1>
-      </div>
       <div class="container home-cover-foot">
         <a class="home-cover-enter" href="#home-intro" aria-label="进入首页导航">
           <span class="home-cover-stem" aria-hidden="true"></span>
@@ -207,6 +210,6 @@
   <script src="/static/js/theme.js" defer></script>
   <script src="/static/js/search.js?v=3" defer></script>
   <script src="/static/js/main.js?v=4" defer></script>
-  <script src="/static/js/home-cover.js?v=8" defer></script>
+  <script src="/static/js/home-cover.js?v=9" defer></script>
 </body>
 </html>
