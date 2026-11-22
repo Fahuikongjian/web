@@ -7,7 +7,7 @@
 ## 核心特性
 
 - **Starloop Velvet & Vinyl 视觉系统**：默认呈现深邃温暖的 Starloop Night 暗色主视觉（黑曜石底、炽红点缀、香槟金边框），并支持一键切换 Ivory Collector's Edition 日间模式与防闪烁预加载。
-- **首页滚动过渡**：全屏抽象封面 `starloop-cover.jpg` 由下往上淡出，站点介绍与文章入口随滚动从下方升起。关于页展示天琴座星环徽章（`astra-portrait.jpg`）。
+- **首页滚动过渡**：全屏抽象封面 `starloop-cover.jpg` 由下往上淡出，文章、项目、关于三个入口随滚动从下方升起。文章和项目各有独立页面。关于页展示天琴座星环徽章（`astra-portrait.jpg`）。
 - **零重型外部构建依赖**：手写 YAML Frontmatter 解析器、Markdown 渲染引擎（标题锚点 & 目录 TOC、表格、引用、列表、Pygments 语法高亮与一键复制）及轻量模板引擎。
 - **全功能静态交互**：`Ctrl+K` / `Cmd+K` 站内实时搜索（基于 `/api/search-index.json`）、文章归档页多标签筛选、文章页顶部红金阅读进度条与右侧粘性目录滚动高亮。
 - **完整站点产物**：自动输出首页、文章归档、文章详情、项目页、关于页、自定义 `404.html`、`/api/posts.json`、`/api/search-index.json`、`/rss.xml`、`/sitemap.xml`、`/robots.txt`、`dist/.nojekyll` 与可选 `dist/CNAME`。
@@ -38,14 +38,14 @@
 │   ├── renderer.py           # {{key}} 模板渲染器、子路径重写、.nojekyll/CNAME 与页面生成
 │   └── feeds.py              # 生成 posts.json、search-index.json、rss.xml、sitemap.xml、robots.txt
 ├── content/                  # 所有站点文本与配置数据源
-│   ├── site.json             # 站点标题、作者信息、Hero 文案、自定义域名、可选备案号与社交链接
+│   ├── site.json             # 站点标题、作者信息、自定义域名、可选备案号与社交链接
 │   ├── projects.json         # 项目作品集列表
 │   ├── about.md              # 关于页面正文
 │   └── posts/                # Markdown 博客文章（如 01-editorial-web-aesthetics.md）
 ├── templates/                # HTML5 页面模板与局部组件片段
 │   ├── base.html             # 全站骨架（site-base-path 元标签、防闪烁脚本、搜索弹窗、页脚）
 │   ├── home.html / articles.html / post.html / projects.html / about.html / 404.html
-│   └── partials/             # featured_card.html / post_row.html / project_card.html 等
+│   └── partials/             # post_row.html / project_card.html / nav_post_card.html
 ├── static/                   # 静态资源（构建时原样复制至 dist/static/）
 │   ├── css/                  # tokens.css / base.css / components.css / prose.css
 │   ├── js/                   # theme.js / search.js / post.js / main.js
@@ -111,9 +111,9 @@ draft: false
 | `date` | 是 | 发布日期（`YYYY-MM-DD`），文章列表按此字段倒序排列 |
 | `category` | 是 | 文章分类 |
 | `tags` | 是 | 标签列表，支持行内列表 `[标签1, 标签2]` 或 YAML 多行 `- 标签1` |
-| `summary` | 是 | 文章摘要，用于首页卡片、文章列表与 SEO 描述 |
+| `summary` | 是 | 文章摘要，用于文章列表与 SEO 描述 |
 | `cover` | 否 | 封面图片根相对路径（如 `/static/images/cover-01.svg`） |
-| `featured` | 否 | `true` 表示置顶推荐到首页 Spotlight 区域 |
+| `featured` | 否 | 推荐标记，保留在文章元数据 API 中 |
 | `draft` | 否 | `true` 表示草稿，构建时不会发布到 `dist/` 与订阅源中 |
 
 ### 2. 修改站点信息、项目与关于页

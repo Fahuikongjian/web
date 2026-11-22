@@ -130,7 +130,6 @@ def test_load_real_content_repository() -> None:
     loaded = load_all_content(PROJECT_ROOT / "content")
     assert loaded["site"]["site_title"] == "ASTRA YAO · 星环手记"
     assert loaded["site"]["site_url"] == "https://astrayao.xyz"
-    assert len(loaded["projects"]) >= 4
     dates = [p.date for p in loaded["posts"]]
     assert dates == sorted(dates, reverse=True)
 
@@ -271,6 +270,7 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_s
     dist_dir = tmp_path / "dist"
     stats = render_site(populated_site_root, dist_dir=dist_dir, clean=True)
     assert stats["posts_count"] == 2
+    assert stats["projects_count"] == 1
     assert stats["html_pages_count"] == 7
 
     expected_paths = [
@@ -335,10 +335,11 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_s
     home_html = (dist_dir / "index.html").read_text(encoding="utf-8")
     assert '<meta name="site-base-path" content="">' in home_html
     assert "沪ICP备" not in home_html
-    assert 'id="section-featured"' in home_html
-    assert 'id="section-recent"' in home_html
-    assert 'id="section-topics"' in home_html
-    assert '<a class="project-link" href="/articles/build-fixture/">' in home_html
+    assert home_html.count('class="home-entry home-entry--') == 3
+    assert "build-fixture" not in home_html
+    assert "测试项目" not in home_html
+    projects_html = (dist_dir / "projects" / "index.html").read_text(encoding="utf-8")
+    assert '<a class="project-link" href="/articles/build-fixture/">' in projects_html
 
     for html_file in dist_dir.rglob("*.html"):
         text = html_file.read_text(encoding="utf-8")
@@ -354,6 +355,7 @@ def test_clean_build_removes_published_articles_and_feeds(
 
     stats = render_site(empty_site_root, dist_dir=dist_dir, clean=True)
     assert stats["posts_count"] == 0
+    assert stats["projects_count"] == 0
     assert stats["html_pages_count"] == 5
     assert list((dist_dir / "articles").glob("*/index.html")) == []
     assert check_json_and_posts(dist_dir, content_dir=empty_site_root / "content") == ([], 0, 0)
@@ -361,10 +363,10 @@ def test_clean_build_removes_published_articles_and_feeds(
     assert "build-fixture" not in (dist_dir / "sitemap.xml").read_text(encoding="utf-8")
     assert "暂无已发布文章。" in (dist_dir / "articles" / "index.html").read_text(encoding="utf-8")
     home = (dist_dir / "index.html").read_text(encoding="utf-8")
-    assert 'id="section-featured"' not in home
-    assert 'id="section-recent"' not in home
-    assert 'id="section-topics"' not in home
-    assert 'id="section-projects"' in home
+    assert home.count('class="home-entry home-entry--') == 3
+    projects_page = (dist_dir / "projects" / "index.html").read_text(encoding="utf-8")
+    assert "暂无已发布项目。" in projects_page
+    assert 'class="project-card"' not in projects_page
 
 
 def test_normalize_base_path_and_html_rewriting() -> None:

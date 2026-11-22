@@ -241,8 +241,7 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         cover = page.locator(".home-cover")
         artwork = page.locator(".home-cover-artwork")
         header = page.locator(".site-header")
-        content = page.locator(".hero-content")
-        actions = page.locator(".hero-actions")
+        content = page.locator(".home-entries")
         original_bounds = artwork.bounding_box()
         initial_content_y = content.bounding_box()["y"]
         original_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
@@ -278,8 +277,8 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         content_y = content.bounding_box()["y"]
         assert content_y == pytest.approx(initial_content_y - travel, abs=2)
         assert not content.evaluate("el => el.inert")
-        assert actions.is_visible()
-        assert actions.evaluate("el => el.getBoundingClientRect().bottom") <= height
+        assert content.is_visible()
+        assert content.evaluate("el => el.getBoundingClientRect().bottom") <= height
 
         scroll_to(middle)
         assert cover.evaluate("el => getComputedStyle(el).maskImage") == middle_mask
@@ -295,7 +294,7 @@ def test_home_cover_wheel_progress_stays_where_paused(browser: Browser, static_s
     page = browser.new_page(viewport={"width": 1440, "height": 900})
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
-        content = page.locator(".hero-content")
+        content = page.locator(".home-entries")
         original_y = content.bounding_box()["y"]
         travel = page.evaluate(
             """() => document.querySelector('.home-opening').offsetHeight
@@ -311,8 +310,8 @@ def test_home_cover_wheel_progress_stays_where_paused(browser: Browser, static_s
             assert content.bounding_box()["y"] == pytest.approx(original_y - position, abs=2)
 
         page.mouse.wheel(0, travel)
-        page.wait_for_function("y => window.scrollY > y", arg=travel)
-        assert page.locator(".section-block").first.is_visible()
+        page.wait_for_function("y => window.scrollY === y", arg=travel)
+        assert content.locator("a").count() == 3
     finally:
         page.close()
 
@@ -327,7 +326,7 @@ def test_home_cover_touch_stops_at_a_partial_reveal(browser: Browser, static_ser
 
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
-        content = page.locator(".hero-content")
+        content = page.locator(".home-entries")
         original_y = content.bounding_box()["y"]
         dispatch("touchStart", 610)
         for y in (525, 440, 355):
@@ -354,7 +353,7 @@ def test_home_cover_respects_reduced_motion(browser: Browser, static_server: str
         assert page.locator(".site-header").evaluate("el => getComputedStyle(el).position") == "sticky"
         page.locator(".home-cover-enter").click()
         page.wait_for_url("**/#home-intro")
-        assert page.locator(".hero-actions").is_visible()
+        assert page.locator(".home-entries").is_visible()
     finally:
         page.close()
 
@@ -467,8 +466,7 @@ def test_routes_zero_errors_and_responsive_viewports(
                 _assert_images_loaded(page, route)
 
             if viewport_name == "mobile-390x844":
-                page.goto(f"{static_server}/", wait_until="networkidle")
-                _open_home_cover(page)
+                page.goto(f"{static_server}/articles/", wait_until="networkidle")
                 drawer = page.locator("[data-mobile-drawer]")
                 toggle = page.locator("[data-mobile-menu-toggle]")
                 assert toggle.is_visible()
@@ -540,7 +538,7 @@ def test_theme_toggle_and_persistence(browser: Browser, static_server: str) -> N
         context.close()
 
 
-def test_home_cover_loads_and_opens_to_text(browser: Browser, static_server: str) -> None:
+def test_home_cover_loads_and_opens_to_navigation(browser: Browser, static_server: str) -> None:
     context = browser.new_context(viewport={"width": 1440, "height": 900})
     page = context.new_page()
     records = _attach_error_collectors(page)
@@ -553,13 +551,13 @@ def test_home_cover_loads_and_opens_to_text(browser: Browser, static_server: str
             "el => getComputedStyle(el).backgroundImage"
         )
         _open_home_cover(page)
-        intro = page.locator("#home-intro")
-        assert intro.get_by_role("heading", level=1).is_visible()
-        assert intro.locator("img, [data-vinyl-stage]").count() == 0
-        article_link = intro.get_by_role("link", name="浏览全部文章")
-        assert article_link.is_visible() and article_link.get_attribute("href") == "/articles/"
-
-        page.goto(f"{static_server}/about/", wait_until="networkidle")
+        links = page.locator(".home-entries a")
+        expect(links).to_have_text(["文章", "项目", "关于"])
+        assert [link.get_attribute("href") for link in links.all()] == ["/articles/", "/projects/", "/about/"]
+        assert page.locator(".post-row, .project-card, .featured-card").count() == 0
+        expect(page.locator(".site-footer")).to_be_hidden()
+        links.last.click()
+        page.wait_for_url("**/about/")
         portrait_img = page.locator('.about-portrait-frame img[src="/static/images/astra-portrait.jpg"]')
         assert portrait_img.count() == 1 and portrait_img.is_visible()
         assert portrait_img.evaluate("img => img.complete && img.naturalWidth > 0")
@@ -649,9 +647,13 @@ def test_empty_archive_and_search(browser: Browser, empty_server: str) -> None:
     try:
         page.goto(f"{empty_server}/", wait_until="networkidle")
         _open_home_cover(page)
-        assert page.locator("#section-featured, #section-recent, #section-topics").count() == 0
-        expect(page.locator(".project-card").first).to_be_visible()
-        page.locator(".hero-actions").get_by_role("link", name="浏览全部文章").click()
+        navigation = page.locator(".home-entries")
+        navigation.get_by_role("link", name="项目").click()
+        page.wait_for_url("**/projects/")
+        expect(page.locator("main").get_by_text("暂无已发布项目。")).to_be_visible()
+        page.goto(f"{empty_server}/", wait_until="networkidle")
+        _open_home_cover(page)
+        navigation.get_by_role("link", name="文章").click()
         page.wait_for_url("**/articles/")
         expect(page.locator("main").get_by_text("暂无已发布文章。")).to_be_visible()
         assert page.locator("[data-filter-tag]").count() == 0
@@ -870,7 +872,7 @@ def test_github_pages_subpath_deployment(
             == "/astrayao-blog"
         )
         _open_home_cover(page)
-        assert page.locator("#home-intro-title").is_visible()
+        assert page.locator(".home-entries").is_visible()
 
         # Ctrl+K search and click jump into /astrayao-blog/articles/...
         page.keyboard.press("Control+k")

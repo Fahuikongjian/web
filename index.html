@@ -24,7 +24,7 @@
   <link rel="stylesheet" href="/static/css/base.css?v=2">
   <link rel="stylesheet" href="/static/css/components.css?v=2">
   <link rel="stylesheet" href="/static/css/prose.css">
-  <link rel="stylesheet" href="/static/css/home-cover.css?v=7">
+  <link rel="stylesheet" href="/static/css/home-cover.css?v=8">
   <link rel="preload" as="image" href="/static/images/starloop-cover.jpg" fetchpriority="high">
 </head>
 <body>
@@ -103,7 +103,7 @@
       <div class="container home-cover-copy">
         <img class="home-cover-mark" src="/static/images/favicon.svg" alt="" width="42" height="42">
         <p class="home-cover-name">ASTRA YAO</p>
-        <p class="home-cover-title">星环手记</p>
+        <h1 class="home-cover-title">星环手记</h1>
       </div>
       <div class="container home-cover-foot">
         <a class="home-cover-enter" href="#home-intro">
@@ -115,99 +115,27 @@
       </div>
     </div>
 
-    <section class="hero-section" id="home-intro" tabindex="-1" aria-labelledby="home-intro-title">
-      <div class="container hero-content">
-        <div class="hero-eyebrow">STARS OF LYRA · STARLOOP EDITION · ASTRAYAO</div>
-        <h1 class="hero-title" id="home-intro-title">在星环聚光灯下，谱写长久在线的数字唱片。</h1>
-        <p class="hero-subtitle">以《绝区零》天琴座歌姬耀嘉音（Astra Yao）的复古红黑金美学为灵感——记录前端视觉、中文排版、零依赖静态架构与个人服务器上线手记。</p>
-        <div class="hero-actions">
-          <a class="btn btn-primary" href="/articles/">浏览全部文章</a>
-          <a class="btn btn-secondary" href="/about/">关于与建造说明</a>
-        </div>
-        <div class="hero-status-row">
-          <div class="now-badge">
-            <span class="now-dot" aria-hidden="true"></span>
-            <span><strong>Now</strong> · ON AIR · 正在上海打磨 astrayao 个人站，首发托管于 GitHub Pages</span>
-          </div>
-          <div class="hero-stats">
-            <span>0 篇文章</span>
-            <span aria-hidden="true">·</span>
-            <span>0 个主题</span>
-          </div>
-        </div>
-      </div>
+    <section class="home-entrance" id="home-intro" tabindex="-1" aria-label="网站入口">
+      <nav class="container home-entries" aria-label="首页导航">
+        <a class="home-entry home-entry--articles" href="/articles/">
+          <span class="home-entry-mark" aria-hidden="true"></span>
+          <span class="home-entry-label">文章</span>
+          <span class="home-entry-arrow" aria-hidden="true"></span>
+        </a>
+        <a class="home-entry home-entry--projects" href="/projects/">
+          <span class="home-entry-mark" aria-hidden="true"></span>
+          <span class="home-entry-label">项目</span>
+          <span class="home-entry-arrow" aria-hidden="true"></span>
+        </a>
+        <a class="home-entry home-entry--about" href="/about/">
+          <span class="home-entry-mark" aria-hidden="true"></span>
+          <span class="home-entry-label">关于</span>
+          <span class="home-entry-arrow" aria-hidden="true"></span>
+        </a>
+      </nav>
     </section>
   </div>
 </div>
-
-
-
-<section class="section-block" aria-labelledby="section-projects">
-  <div class="container">
-    <div class="section-header">
-      <div>
-        <span class="section-kicker">STAGE WORKS · PROJECTS</span>
-        <h2 id="section-projects" class="section-title">开源与实验项目</h2>
-      </div>
-      <a class="section-more" href="/projects/">全部项目 →</a>
-    </div>
-    <div class="projects-grid">
-      <article class="project-card">
-  <div>
-    <div class="project-card-top">
-      <span class="project-year">2026</span>
-      <span class="project-status">已开源</span>
-    </div>
-    <h3 class="project-name">星环静态出版引擎 (Starloop Press)</h3>
-    <p class="project-summary">基于 Python 3.13 标准库与 Pygments 构建的零重型依赖静态生成引擎，支持手写 YAML Frontmatter、TOC 锚点提取、代码高亮与全站死链门禁。</p>
-  </div>
-  <div class="project-footer">
-    <div class="project-stack"><span class="stack-tag">Python 3.13</span>
-<span class="stack-tag">Pygments</span>
-<span class="stack-tag">HTML5</span>
-<span class="stack-tag">Playwright</span></div>
-  </div>
-</article>
-
-<article class="project-card">
-  <div>
-    <div class="project-card-top">
-      <span class="project-year">2026</span>
-      <span class="project-status">进行中</span>
-    </div>
-    <h3 class="project-name">Starloop Velvet &amp; Vinyl 视觉系统</h3>
-    <p class="project-summary">以耀嘉音复古红黑金舞台与 33⅓ RPM 典藏黑胶唱片为灵感的双主题设计规范，融合黑曜丝绒暗夜主视觉、象牙典藏日间模式与 720px 黄金阅读栏宽。</p>
-  </div>
-  <div class="project-footer">
-    <div class="project-stack"><span class="stack-tag">CSS Tokens</span>
-<span class="stack-tag">Scroll Animation</span>
-<span class="stack-tag">SVG &amp; Art</span>
-<span class="stack-tag">Dual Theme</span></div>
-  </div>
-</article>
-
-<article class="project-card">
-  <div>
-    <div class="project-card-top">
-      <span class="project-year">2026</span>
-      <span class="project-status">实验中</span>
-    </div>
-    <h3 class="project-name">天琴座中文排版标尺 (Lyra CJK Ruler)</h3>
-    <p class="project-summary">用于验证中英文混排节奏、行距呼吸感、等宽数字对齐以及表格与引用块样式的纯 CSS 排版基准工程，无任何第三方前端打包工具。</p>
-  </div>
-  <div class="project-footer">
-    <div class="project-stack"><span class="stack-tag">Typography</span>
-<span class="stack-tag">CSS</span>
-<span class="stack-tag">Vanilla JS</span>
-<span class="stack-tag">Tabular Nums</span></div>
-  </div>
-</article>
-
-    </div>
-  </div>
-</section>
-
-
 
   </main>
 
@@ -255,6 +183,6 @@
   <script src="/static/js/theme.js" defer></script>
   <script src="/static/js/search.js?v=3" defer></script>
   <script src="/static/js/main.js?v=2" defer></script>
-  <script src="/static/js/home-cover.js?v=7" defer></script>
+  <script src="/static/js/home-cover.js?v=8" defer></script>
 </body>
 </html>

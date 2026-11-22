@@ -11,7 +11,8 @@
 | --- | --- |
 | `static/css/tokens.css` | 默认暗色（Starloop Night）与日间（Ivory Collector's Edition）色彩令牌、离线字体栈与标尺 |
 | `static/css/base.css` | 盒模型复位、无障碍焦点环、Skip Link、容器尺寸与 `prefers-reduced-motion` 保护 |
-| `static/css/components.css` | 粘性顶栏、首页标题与介绍、唱片曲目行、搜索弹窗、TOC 与响应式断点 |
+| `static/css/components.css` | 粘性顶栏、唱片曲目行、搜索弹窗、TOC 与响应式断点 |
+| `static/css/home-cover.css` | 首页全屏封面、滚动过渡和响应式入口卡片 |
 | `static/css/prose.css` | `.prose` 长文排版、红金阅读进度条、代码块与丝绒/象牙双主题 Pygments 高亮、表格与脚注 |
 | `static/images/starloop-cover.jpg` | **首页抽象封面（1120×1400, 4:5）**：由绯红舞台光、金色星轨与黑胶纹理组成，用于首页全屏开场 |
 | `static/images/astra-portrait.jpg` | **定制保留资产（640×640, 1:1）**：关于页天琴座黑胶×金色五线谱×话筒徽章图（任何人不得覆盖或删除） |
@@ -59,10 +60,10 @@ CSS 引入顺序严格保持：`tokens.css` → `base.css` → `components.css` 
 - `templates/base.html` 内联脚本与 `static/js/theme.js`：**当 `localStorage.getItem('blog-theme')` 为空时，默认主题设为 `'dark'`**（Starloop Night），支持 `'dark'` ↔ `'light'` 双向切换与持久化。
 - `.theme-toggle[data-theme-toggle]` 内置 `.icon-sun` 与 `.icon-moon`，CSS 根据 `[data-theme="dark"]` 自动显隐，零闪烁。
 
-### 4.2 首页全屏封面与站点介绍（`templates/home.html`）
+### 4.2 首页全屏封面与导航入口（`templates/home.html`）
 
 - `.home-cover` 使用抽象黑胶封面与渐变遮罩，随滚动由下往上淡出。
-- `.hero-content` 采用居中的单栏版式，标题、介绍、入口和状态信息随滚动从下方升起。
+- `.home-entries` 随滚动从下方升起。文章、项目、关于入口各有金线图形，宽屏横排，窄屏竖排时单列展示。
 
 ### 4.3 关于页天琴座徽章框（`templates/about.html`）
 
@@ -77,5 +78,5 @@ CSS 引入顺序严格保持：`tokens.css` → `base.css` → `components.css` 
 
 - **顶栏/抽屉**：`.site-header`、`.nav-link.is-active`、`.mobile-drawer.is-open`
 - **搜索弹窗**：`.search-modal[data-search-modal][hidden]` > `.search-dialog` > `.search-header`（已清除浏览器原生蓝叉 `::-webkit-search-cancel-button`）+ `.search-results`（`.search-result-item.is-selected`）+ `.search-footer`
-- **列表与筛选**：`.featured-card`、`.posts-list` > `.post-row[data-tags]`、`.filter-bar` > `.filter-pill.is-active`、`.projects-grid.projects-grid--catalog`
+- **列表与筛选**：`.posts-list` > `.post-row[data-tags]`、`.filter-bar` > `.filter-pill.is-active`、`.projects-grid.projects-grid--catalog`
 - **文章阅读页**：`.reading-progress` > `.reading-progress-bar[data-reading-progress]`、`.post-layout` > `.post-prose.prose` + `.toc-sidebar`（`.toc-nav` > `.toc-list` > `.toc-item.toc-level-2/3` > `.toc-link.is-active`）、`.code-block-wrapper > .code-block-header + .highlight`、`.table-wrap > table`、`.post-nav-grid` > `.nav-post-card`

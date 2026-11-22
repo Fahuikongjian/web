@@ -217,7 +217,7 @@ def _render_project_card(engine: TemplateEngine, project: dict[str, Any]) -> str
 
 
 def _render_post_row(engine: TemplateEngine, post: Post) -> str:
-    """Render one archive/home post row using ``partials/post_row.html``."""
+    """Render one archive row using ``partials/post_row.html``."""
     return engine.render_partial(
         "post_row.html",
         {
@@ -373,64 +373,7 @@ def render_site(
     html_pages_count = 0
 
     # 3. Render Homepage: dist/index.html
-    featured_post = next((p for p in posts if p.featured), posts[0] if posts else None)
-    if featured_post is not None:
-        featured_post_html = engine.render_partial(
-            "featured_card.html",
-            {
-                "url": featured_post.url,
-                "cover": featured_post.cover or "/static/images/cover-01.svg",
-                "category": featured_post.category,
-                "date": featured_post.date,
-                "reading_time": str(featured_post.reading_time),
-                "title": featured_post.title,
-                "summary": featured_post.summary,
-                "tags_html": _render_inline_tag_pills(featured_post.tags),
-            },
-        )
-    else:
-        featured_post_html = ""
-
-    recent_posts_html = "\n".join(_render_post_row(engine, post) for post in posts[:5])
-    home_articles_html = (
-        engine.render_partial(
-            "home_articles.html",
-            {
-                "featured_post_html": featured_post_html,
-                "recent_posts_html": recent_posts_html,
-                "post_count": str(len(posts)),
-            },
-        )
-        if posts else ""
-    )
-    featured_projects_html = "\n".join(
-        _render_project_card(engine, proj) for proj in projects[:3]
-    )
-    top_tags_html = "\n".join(
-        engine.render_partial(
-            "tag_pill.html",
-            {"tag": str(item["name"]), "count": str(item["count"])},
-        )
-        for item in tag_stats
-    )
-
-    home_body = engine.render(
-        "home.html",
-        {
-            "hero_eyebrow": site["hero_eyebrow"],
-            "hero_title": site["hero_title"],
-            "hero_subtitle": site["hero_subtitle"],
-            "now_status": site["now_status"],
-            "post_count": str(len(posts)),
-            "tag_count": str(len(tag_stats)),
-            "home_articles_html": home_articles_html,
-            "featured_projects_html": featured_projects_html,
-            "home_topics_html": (
-                engine.render_partial("home_topics.html", {"top_tags_html": top_tags_html})
-                if top_tags_html else ""
-            ),
-        },
-    )
+    home_body = engine.render("home.html", {})
     _write_html(
         out_dir / "index.html",
         _wrap_base(
@@ -443,10 +386,10 @@ def render_site(
             page_content=home_body,
             base_path=normalized_base_path,
             extra_head=(
-                '<link rel="stylesheet" href="/static/css/home-cover.css?v=7">\n'
+                '<link rel="stylesheet" href="/static/css/home-cover.css?v=8">\n'
                 '  <link rel="preload" as="image" href="/static/images/starloop-cover.jpg" fetchpriority="high">'
             ),
-            extra_scripts='<script src="/static/js/home-cover.js?v=7" defer></script>',
+            extra_scripts='<script src="/static/js/home-cover.js?v=8" defer></script>',
         ),
     )
     html_pages_count += 1
@@ -559,11 +502,13 @@ def render_site(
         html_pages_count += 1
 
     # 6. Render Projects Page: dist/projects/index.html
+    project_cards = "\n".join(_render_project_card(engine, project) for project in projects)
     projects_body = engine.render(
         "projects.html",
         {
-            "projects_grid_html": "\n".join(
-                _render_project_card(engine, proj) for proj in projects
+            "projects_list_html": (
+                f'<div class="projects-grid projects-grid--catalog">\n{project_cards}\n</div>'
+                if project_cards else '<p class="search-empty">暂无已发布项目。</p>'
             ),
         },
     )
@@ -572,7 +517,7 @@ def render_site(
         _wrap_base(
             engine,
             site,
-            page_title=f"精选项目 · {site['site_title']}",
+            page_title=f"项目 · {site['site_title']}",
             page_description=f"{site['author_name']} 的开源工具、排版设计系统与运维实践项目。",
             route_path="/projects/",
             active_nav="projects",

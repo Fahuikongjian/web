@@ -40,10 +40,8 @@ d:\网页运营\
 │   ├── about.html
 │   ├── 404.html
 │   └── partials/
-│       ├── featured_card.html
 │       ├── post_row.html
 │       ├── project_card.html
-│       ├── tag_pill.html
 │       └── nav_post_card.html
 ├── static/                     # 静态资产（构建时完整拷贝至 dist/static/）
 │   ├── css/                    # tokens.css, base.css, components.css, prose.css
@@ -108,17 +106,13 @@ d:\网页运营\
 | `author_role` | `string` | 作者身份头衔 |
 | `author_location` | `string` | 所在地：`"中国 · 上海"` |
 | `author_bio` | `string` | 作者简介 |
-| `hero_eyebrow` | `string` | 首页 Hero 顶部导语：`"STARS OF LYRA · STARLOOP EDITION · ASTRAYAO"` |
-| `hero_title` | `string` | 首页 Hero 主标题：`"在星环聚光灯下，谱写长久在线的数字唱片。"` |
-| `hero_subtitle` | `string` | 首页 Hero 副标题 |
-| `now_status` | `string` | Hero 区 `ON AIR` 呼吸状态文案：`"ON AIR · 正在上海打磨 astrayao 个人站，首发托管于 GitHub Pages"` |
 | `icp_number` | `string` | 备案状态文案：GitHub Pages 托管期间置空 `""`（页脚不输出占位符）；切回大陆 ECS 时填回正式备案号 |
 | `icp_url` | `string` | 工信部备案查询链接：`"https://beian.miit.gov.cn/"` |
 | `custom_domain` | `string` | 可选自定义域名（如 `""` 或 `"astrayao.com"`），非空或传入 `--cname` 时自动写入 `dist/CNAME` |
 | `social_links` | `list[object]` | 每项包含 `name`、`label`、`url` |
 
 ### 4.2 `content/projects.json` 契约
-必须为 JSON 数组（至少 4 项，首页渲染精选前 3 项，`/projects/` 渲染全部）。每项字段：
+必须为 JSON 数组。`/projects/` 渲染全部项目，数组为空时显示「暂无已发布项目」。每项包含以下字段。
 - `name` (`string`): 项目名称
 - `status` (`string`): 状态标签（`"进行中"` / `"已开源"` / `"实验中"`）
 - `year` (`string`): 年份（如 `"2026"`）
@@ -223,8 +217,7 @@ draft: false
 - `<head>` 内联防闪烁主题脚本在无 `localStorage('blog-theme')` 保存值时默认设置 `document.documentElement.dataset.theme = 'dark'`。
 
 #### `templates/home.html`
-- `{{hero_eyebrow}}`, `{{hero_title}}`, `{{hero_subtitle}}`, `{{now_status}}`, `{{post_count}}`, `{{tag_count}}`, `{{featured_post_html}}`, `{{recent_posts_html}}`, `{{featured_projects_html}}`, `{{top_tags_html}}`
-- `.home-cover-artwork` 展示 `/static/images/starloop-cover.jpg`。`.hero-content` 包含滚动时从下方进入的标题、介绍与文章入口。
+- `.home-cover-artwork` 展示 `/static/images/starloop-cover.jpg`。`.home-entries` 包含滚动时从下方进入的文章、项目和关于入口。
 
 #### `templates/articles.html`
 - `{{total_posts}}`, `{{tag_filters_html}}`, `{{articles_list_html}}`
@@ -233,15 +226,13 @@ draft: false
 - `{{post_title}}`, `{{post_subtitle}}`, `{{post_date}}`, `{{post_reading_time}}`, `{{post_word_count}}`, `{{post_category}}`, `{{post_tags_html}}`, `{{post_cover_html}}`, `{{post_body_html}}`, `{{post_toc_html}}`, `{{prev_post_html}}`, `{{next_post_html}}`, `{{related_posts_html}}`
 
 #### `templates/projects.html` & `templates/about.html` & `templates/404.html`
-- `templates/projects.html`: `{{projects_grid_html}}`
+- `templates/projects.html` 使用 `{{projects_list_html}}`。
 - `templates/about.html`: `{{author_name}}`, `{{author_role}}`, `{{author_location}}`, `{{author_bio}}`, `{{about_body_html}}`, `{{social_links_html}}`（左侧肖像框展示 `/static/images/astra-portrait.jpg`）
 - `templates/404.html`: 静态片段嵌入 `base.html` 的 `{{page_content}}`（不含未替换占位符）
 
 #### `templates/partials/*.html`
-- `featured_card.html`: `{{url}}`, `{{cover}}`, `{{category}}`, `{{date}}`, `{{reading_time}}`, `{{title}}`, `{{summary}}`, `{{tags_html}}`
 - `post_row.html`: `{{url}}`, `{{date}}`, `{{date_short}}`, `{{year}}`, `{{category}}`, `{{tags_csv}}`, `{{title}}`, `{{summary}}`, `{{reading_time}}`, `{{tags_html}}`（根元素带 `data-tags="{{tags_csv}}"`）
 - `project_card.html`: `{{name}}`, `{{status}}`, `{{year}}`, `{{summary}}`, `{{stack_html}}`, `{{url}}`
-- `tag_pill.html`: `{{tag}}`, `{{count}}`（支持 `[data-filter-tag="{{tag}}"]`）
 - `nav_post_card.html`: `{{direction_label}}`, `{{direction_class}}`, `{{url}}`, `{{title}}`, `{{date}}`
 
 ### 6.3 前端交互属性契约（Hooks）

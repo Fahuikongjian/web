@@ -17,12 +17,7 @@ def empty_site_root(tmp_path_factory: pytest.TempPathFactory) -> Path:
     for directory in ("templates", "static"):
         shutil.copytree(PROJECT_ROOT / directory, root / directory)
 
-    project_file = root / "content" / "projects.json"
-    projects = json.loads(project_file.read_text(encoding="utf-8"))
-    for project in projects:
-        if str(project.get("url", "")).startswith("/articles/") and project["url"] != "/articles/":
-            project.pop("url")
-    project_file.write_text(json.dumps(projects, ensure_ascii=False), encoding="utf-8")
+    (root / "content" / "projects.json").write_text("[]\n", encoding="utf-8")
     return root
 
 
@@ -48,7 +43,13 @@ def populated_site_root(empty_site_root: Path, tmp_path_factory: pytest.TempPath
         encoding="utf-8",
     )
     project_file = root / "content" / "projects.json"
-    projects = json.loads(project_file.read_text(encoding="utf-8"))
-    projects[0]["url"] = "/articles/build-fixture/"
-    project_file.write_text(json.dumps(projects, ensure_ascii=False), encoding="utf-8")
+    project = {
+        "name": "测试项目",
+        "status": "测试",
+        "year": "2025",
+        "summary": "项目列表测试样例",
+        "stack": ["Python"],
+        "url": "/articles/build-fixture/",
+    }
+    project_file.write_text(json.dumps([project], ensure_ascii=False), encoding="utf-8")
     return root

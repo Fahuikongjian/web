@@ -108,9 +108,17 @@
   isolation: isolate;
 }
 
-.is-scroll-cover .hero-section {
+.home-entrance {
   display: grid;
   align-items: center;
+  padding-block: clamp(2.5rem, 7svh, 5rem);
+  background:
+    radial-gradient(ellipse at 75% 35%, var(--glow-crimson), transparent 56%),
+    radial-gradient(ellipse at 22% 72%, var(--glow-gold), transparent 52%),
+    var(--bg-paper);
+}
+
+.is-scroll-cover .home-entrance {
   min-height: 100svh;
   padding-top: calc(var(--header-height) + clamp(1rem, 3.5svh, 2.5rem));
   overflow: clip;
@@ -141,14 +149,170 @@
   visibility: hidden;
 }
 
-.hero-content {
-  max-width: 49rem;
+.home-entries {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(0.75rem, 2vw, 1.6rem);
+  max-width: 68rem;
 }
 
-.is-scroll-cover .hero-content {
+.is-scroll-cover .home-entries {
   /* The content travels one pixel per scroll pixel through the pinned opening. */
   transform: translateY(calc(var(--cover-travel) * (1 - var(--cover-progress, 0))));
   opacity: clamp(0, (var(--cover-progress, 0) - 0.08) * 2.6, 1);
+}
+
+.home-entry {
+  --entry-ink: var(--gold-text);
+  --entry-glow: var(--glow-gold);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-rows: 1fr auto;
+  align-items: end;
+  gap: 0.6rem 0.8rem;
+  min-height: clamp(9rem, 16vw, 13.5rem);
+  padding: clamp(1rem, 2.5vw, 1.75rem);
+  overflow: clip;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(ellipse at 100% 0%, var(--entry-glow), transparent 78%),
+    var(--bg-card);
+  color: var(--ink-primary);
+  transition: transform var(--transition-base), border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+.home-entry::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: -4.75rem;
+  right: -3.75rem;
+  width: 13rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: repeating-radial-gradient(circle, transparent 0 12px, var(--border-hairline) 13px 14px);
+  mask-image: linear-gradient(220deg, #000 30%, transparent 92%);
+  pointer-events: none;
+}
+
+.home-entry--projects {
+  --entry-glow: var(--glow-crimson);
+}
+
+.home-entry:hover,
+.home-entry:focus-visible {
+  border-color: var(--gold-text);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-0.2rem);
+}
+
+.home-entry:active {
+  transform: translateY(0);
+}
+
+.home-entry-mark {
+  display: grid;
+  align-self: start;
+  place-items: center;
+  width: 2.875rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--border-strong);
+  border-radius: 50%;
+  color: var(--entry-ink);
+}
+
+.home-entry-mark::before,
+.home-entry-mark::after {
+  content: "";
+  grid-area: 1 / 1;
+}
+
+.home-entry--articles .home-entry-mark::before {
+  width: 0.9rem;
+  height: 1.13rem;
+  border: 1px solid currentColor;
+  border-radius: 1px;
+}
+
+.home-entry--articles .home-entry-mark::after {
+  width: 0.43rem;
+  height: 1px;
+  background: currentColor;
+  box-shadow: 0 4px currentColor;
+  transform: translateY(-2px);
+}
+
+.home-entry--projects .home-entry-mark::before {
+  width: 1.02rem;
+  aspect-ratio: 1;
+  background:
+    linear-gradient(currentColor, currentColor) top left / 38% 38% no-repeat,
+    linear-gradient(currentColor, currentColor) top right / 38% 38% no-repeat,
+    linear-gradient(currentColor, currentColor) bottom left / 38% 38% no-repeat,
+    linear-gradient(currentColor, currentColor) bottom right / 38% 38% no-repeat;
+}
+
+.home-entry--about .home-entry-mark::before {
+  width: 0.82rem;
+  aspect-ratio: 1;
+  transform: rotate(45deg);
+  border: 1px solid currentColor;
+}
+
+.home-entry--about .home-entry-mark::after {
+  width: 0.23rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.home-entry-label {
+  grid-column: 1;
+  font-family: var(--font-serif);
+  font-size: clamp(1.45rem, 3vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.09em;
+}
+
+.home-entry-arrow {
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  color: var(--entry-ink);
+  background: var(--gold-soft);
+  transition: transform var(--transition-base);
+}
+
+.home-entry-arrow::before {
+  content: "→";
+}
+
+.home-entry:hover .home-entry-arrow,
+.home-entry:focus-visible .home-entry-arrow {
+  transform: translateX(0.18rem);
+}
+
+/* The home entry cards handle navigation; the header keeps the site utilities. */
+.site-header .site-nav,
+.site-header .mobile-menu-btn,
+.site-header .search-trigger-label,
+.site-header .kbd-hint,
+.site-footer {
+  display: none;
+}
+
+.site-header .search-trigger {
+  width: 44px;
+  height: 44px;
+  justify-content: center;
+  padding: 0;
 }
 
 .site-header.is-cover-header {
@@ -188,27 +352,27 @@
   .home-cover-foot {
     padding-inline: max(var(--gutter), 6vw);
   }
-
-  .is-scroll-cover .hero-title {
-    font-size: clamp(1.65rem, 6.7vw, 2.25rem);
-  }
-
-  .is-scroll-cover .hero-actions {
-    margin-bottom: 1rem;
-  }
-
-  .is-scroll-cover .hero-subtitle {
-    margin-bottom: 1rem;
-  }
 }
 
-@media (max-width: 370px), (max-height: 660px) and (max-width: 760px) {
-  .is-scroll-cover .hero-eyebrow {
-    margin-bottom: 0.5rem;
+@media (max-width: 600px) and (orientation: portrait) {
+  .home-entries {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 28rem;
   }
 
-  .is-scroll-cover .hero-title {
-    margin-bottom: 0.75rem;
+  .home-entry {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-rows: auto;
+    align-items: center;
+    min-height: clamp(4.75rem, 18vw, 6rem);
+  }
+
+  .home-entry-mark {
+    align-self: center;
+  }
+
+  .home-entry-label {
+    grid-column: 2;
   }
 }
 
@@ -238,32 +402,16 @@
     font-size: clamp(2rem, 12svh, 3.5rem);
   }
 
-  .is-scroll-cover .hero-section {
+  .is-scroll-cover .home-entrance {
     padding-block: calc(var(--header-height) + 0.6rem) 0.9rem;
   }
 
-  .is-scroll-cover .hero-eyebrow {
-    margin-bottom: 0.4rem;
+  .home-entry {
+    min-height: clamp(6rem, 34svh, 9rem);
+    padding: 0.875rem;
   }
 
-  .is-scroll-cover .hero-title {
-    margin-bottom: 0.6rem;
-    font-size: clamp(1.5rem, 4.3vw, 2.125rem);
-    line-height: 1.18;
-  }
-
-  .is-scroll-cover .hero-subtitle {
-    max-width: 68ch;
-    margin-bottom: 0.75rem;
-    font-size: 0.9rem;
-    line-height: 1.57;
-  }
-
-  .is-scroll-cover .hero-actions {
-    margin-bottom: 0.85rem;
-  }
-
-  .is-scroll-cover .hero-status-row {
-    padding-top: 0.7rem;
+  .home-entry-mark {
+    width: 2.25rem;
   }
 }
