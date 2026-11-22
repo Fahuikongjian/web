@@ -1,11 +1,11 @@
 {
   "site_title": "ASTRA YAO · 星环手记",
-  "site_tagline": "以星光与黑胶的节拍，记录网页美学、简洁架构与慢技术日常",
+  "site_tagline": "星光与黑胶之间",
   "site_url": "https://astrayao.xyz",
   "author_name": "Astra Yao",
-  "author_role": "天琴座星环刊物主理人 · 独立软件架构师",
-  "author_location": "中国 · 上海",
-  "author_bio": "以《绝区零》天琴座歌姬耀嘉音（Astra Yao）的复古红黑金唱片美学为视觉灵感，立足上海构建零重型依赖、长久在线的个人数字出版空间与轻量服务器工程。",
+  "author_role": "独立开发者",
+  "author_location": "上海",
+  "author_bio": "上海 · 代码与随想",
   "icp_number": "",
   "icp_url": "https://beian.miit.gov.cn/",
   "custom_domain": "",
@@ -17,17 +17,12 @@
     },
     {
       "name": "rss",
-      "label": "RSS 订阅",
+      "label": "RSS",
       "url": "/rss.xml"
     },
     {
-      "name": "articles",
-      "label": "全部文章",
-      "url": "/articles/"
-    },
-    {
       "name": "email",
-      "label": "hello@astrayao.xyz",
+      "label": "Email",
       "url": "mailto:hello@astrayao.xyz"
     }
   ]

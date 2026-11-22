@@ -78,18 +78,30 @@
 
 .home-cover-enter {
   display: inline-flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.85rem;
+  justify-content: center;
+  gap: 0.15rem;
+  min-width: 44px;
   min-height: 44px;
-  border-top: 1px solid #f1c98d70;
-  color: #fff3e4;
-  font-size: var(--text-sm);
-  letter-spacing: 0.14em;
+  color: rgba(241, 201, 141, 0.86);
+  transition: color var(--transition-fast), transform var(--transition-base);
 }
 
-.home-cover-enter svg,
+.home-cover-stem {
+  width: 1px;
+  height: 1.125rem;
+  background: linear-gradient(to bottom, transparent, rgba(241, 201, 141, 0.78));
+  transition: height var(--transition-base);
+}
+
 .home-cover-enter:hover {
   color: #f1c98d;
+  transform: translateY(3px);
+}
+
+.home-cover-enter:hover .home-cover-stem {
+  height: 1.5rem;
 }
 
 #home-intro {
@@ -296,52 +308,21 @@
   aspect-ratio: 1;
   border: 1px solid var(--border-strong);
   border-radius: 50%;
+  background: radial-gradient(circle at center, var(--gold-soft), transparent 72%);
   color: var(--gold-text);
+  transition: border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
 }
 
-.home-entry-mark::before,
-.home-entry-mark::after {
-  content: "";
-  grid-area: 1 / 1;
+.home-entry-mark svg {
+  width: 1.45rem;
+  height: 1.45rem;
 }
 
-.home-entry--articles .home-entry-mark::before {
-  width: 0.9rem;
-  height: 1.13rem;
-  border: 1px solid currentColor;
-  border-radius: 1px;
-}
-
-.home-entry--articles .home-entry-mark::after {
-  width: 0.43rem;
-  height: 1px;
-  background: currentColor;
-  box-shadow: 0 4px currentColor;
-  transform: translateY(-2px);
-}
-
-.home-entry--projects .home-entry-mark::before {
-  width: 1.02rem;
-  aspect-ratio: 1;
-  background:
-    linear-gradient(currentColor, currentColor) top left / 38% 38% no-repeat,
-    linear-gradient(currentColor, currentColor) top right / 38% 38% no-repeat,
-    linear-gradient(currentColor, currentColor) bottom left / 38% 38% no-repeat,
-    linear-gradient(currentColor, currentColor) bottom right / 38% 38% no-repeat;
-}
-
-.home-entry--about .home-entry-mark::before {
-  width: 0.82rem;
-  aspect-ratio: 1;
-  transform: rotate(45deg);
-  border: 1px solid currentColor;
-}
-
-.home-entry--about .home-entry-mark::after {
-  width: 0.23rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: currentColor;
+.home-entry:hover .home-entry-mark,
+.home-entry:focus-visible .home-entry-mark {
+  border-color: var(--gold-text);
+  box-shadow: 0 0 18px var(--gold-soft);
+  transform: scale(1.04);
 }
 
 .home-entry-label {
@@ -374,7 +355,17 @@
 }
 
 [data-theme="light"] .home-entrance {
-  background: linear-gradient(#fdfbf7, #f4efe6);
+  background:
+    radial-gradient(ellipse at 65% 42%, rgba(196, 30, 58, 0.05), transparent 58%),
+    radial-gradient(ellipse at 25% 68%, rgba(169, 126, 44, 0.08), transparent 56%),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 17px,
+      rgba(169, 126, 44, 0.05) 17px,
+      rgba(169, 126, 44, 0.05) 18px
+    ),
+    linear-gradient(#fdfbf7, #f4efe6);
 }
 
 [data-theme="light"] .home-entry-orbits {

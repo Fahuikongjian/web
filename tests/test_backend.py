@@ -516,7 +516,7 @@ def test_preview_server_serves_pages_and_custom_404(tmp_path: Path, populated_si
         assert err.code == 404
         body = err.read().decode("utf-8")
         assert "404" in body
-        assert "这一段星环旋律似乎尚未灌录" in body
+        assert "此页未录" in body
     finally:
         server.shutdown()
         server.server_close()

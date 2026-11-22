@@ -395,6 +395,13 @@ def render_site(
     html_pages_count += 1
 
     # 4. Render Articles Archive: dist/articles/index.html
+    empty_stage_svg = (
+        '<svg class="empty-stage-mark" viewBox="0 0 88 56" width="88" height="56" fill="none" aria-hidden="true">'
+        '<circle cx="44" cy="28" r="21" stroke="var(--gold)" stroke-opacity="0.34" stroke-width="1"/>'
+        '<ellipse cx="44" cy="28" rx="38" ry="11" transform="rotate(-14 44 28)" stroke="var(--gold)" stroke-opacity="0.52" stroke-width="1"/>'
+        '<path d="M44 19l1.7 4.3 4.3 1.7-4.3 1.7L44 31l-1.7-4.3L38 25l4.3-1.7Z" fill="var(--accent)"/>'
+        '</svg>'
+    )
     archive_html = (
         engine.render_partial(
             "articles_list.html",
@@ -404,15 +411,12 @@ def render_site(
                 "articles_list_html": "\n".join(_render_post_row(engine, post) for post in posts),
             },
         )
-        if posts else '<p class="search-empty">暂无已发布文章。</p>'
+        if posts
+        else f'<div class="empty-stage">{empty_stage_svg}<p class="search-empty">暂无已发布文章。</p></div>'
     )
     articles_body = engine.render(
         "articles.html",
         {
-            "archive_subtitle": (
-                "全部专栏随笔与工程手记按时间倒序排列，支持按主题标签就地筛选。"
-                if posts else "专栏随笔与工程手记。"
-            ),
             "archive_html": archive_html,
         },
     )
@@ -508,7 +512,8 @@ def render_site(
         {
             "projects_list_html": (
                 f'<div class="projects-grid projects-grid--catalog">\n{project_cards}\n</div>'
-                if project_cards else '<p class="search-empty">暂无已发布项目。</p>'
+                if project_cards
+                else f'<div class="empty-stage">{empty_stage_svg}<p class="search-empty">暂无已发布项目。</p></div>'
             ),
         },
     )

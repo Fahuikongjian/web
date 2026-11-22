@@ -1,11 +1,13 @@
 <div class="about-shell">
   <header class="about-hero">
     <div class="about-portrait-frame">
-      <img src="/static/images/astra-portrait.jpg" alt="天琴座黑胶与金色五线谱徽章" width="640" height="640">
+      <img src="/static/images/astra-portrait.jpg" alt="" width="640" height="640">
     </div>
-    <div>
+    <div class="about-identity">
       <h1 class="about-name">{{author_name}}</h1>
-      <p class="about-role">{{author_role}} · {{author_location}}</p>
+      <div class="lyra-divider" aria-hidden="true">
+        <span class="lyra-divider-star"></span>
+      </div>
       <p class="about-bio">{{author_bio}}</p>
       <div class="social-links">
         {{social_links_html}}
@@ -13,7 +15,7 @@
     </div>
   </header>
 
-  <section class="prose" aria-label="关于与建造说明">
+  <section class="prose about-prose" aria-label="关于">
     {{about_body_html}}
   </section>
 </div>
