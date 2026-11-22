@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-11-22T03:54:45Z",
+  "total": 0,
+  "projects": [],
+  "tags": [],
+  "categories": [
+    {
+      "id": "web",
+      "name": "应用",
+      "icon": "code",
+      "count": 0
+    },
+    {
+      "id": "tool",
+      "name": "工具",
+      "icon": "engineering",
+      "count": 0
+    },
+    {
+      "id": "visual",
+      "name": "视觉",
+      "icon": "image",
+      "count": 0
+    }
+  ]
+}

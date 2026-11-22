@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from collections import Counter
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from datetime import date
 import json
@@ -280,6 +281,33 @@ def load_site_config(content_dir: Path) -> dict[str, Any]:
     return data
 
 
+DEFAULT_PROJECT_CATEGORIES: tuple[dict[str, str], ...] = (
+    {"id": "web", "name": "应用", "icon": "code"},
+    {"id": "tool", "name": "工具", "icon": "engineering"},
+    {"id": "visual", "name": "视觉", "icon": "image"},
+)
+
+DEFAULT_GALLERY_CATEGORIES: tuple[dict[str, str], ...] = (
+    {"id": "character", "name": "角色", "icon": "character"},
+    {"id": "scene", "name": "场景", "icon": "scene"},
+    {"id": "visual", "name": "视觉", "icon": "image"},
+)
+
+
+def _format_gallery_params(raw_params: Any) -> str:
+    """Format gallery generation parameters from string or mapping into concise text."""
+    if raw_params is None:
+        return ""
+    if isinstance(raw_params, Mapping):
+        parts = [
+            f"{str(k).strip()}: {str(v).strip()}"
+            for k, v in raw_params.items()
+            if str(k).strip() and str(v).strip()
+        ]
+        return " · ".join(parts)
+    return str(raw_params).strip()
+
+
 def load_projects(content_dir: Path) -> list[dict[str, Any]]:
     """Load and normalize ``content/projects.json``."""
     projects_path = content_dir / "projects.json"
@@ -290,17 +318,85 @@ def load_projects(content_dir: Path) -> list[dict[str, Any]]:
     for idx, item in enumerate(data):
         if not isinstance(item, dict):
             raise ValueError(f"content/projects.json item #{idx} must be an object.")
+        stack = [str(s).strip() for s in item.get("stack", []) if str(s).strip()]
+        explicit_tags = _normalize_tags(item.get("tags"))
+        tags = explicit_tags if explicit_tags else _normalize_tags(stack)
         normalized.append(
             {
                 "name": str(item.get("name", "")),
                 "status": str(item.get("status", "")),
                 "year": str(item.get("year", "")),
                 "summary": str(item.get("summary", "")),
-                "stack": [str(s) for s in item.get("stack", [])],
+                "stack": stack,
+                "category": str(item.get("category") or "").strip(),
+                "tags": tags,
+                "tags_csv": ",".join(tags),
                 "url": str(item.get("url") or "").strip(),
             }
         )
     return normalized
+
+
+def load_gallery(content_dir: Path) -> list[dict[str, Any]]:
+    """Load, validate, normalize, and sort prompt/image items from ``content/gallery.json``."""
+    gallery_path = content_dir / "gallery.json"
+    if not gallery_path.is_file():
+        return []
+    data = json.loads(gallery_path.read_text(encoding="utf-8"))
+    if not isinstance(data, list):
+        raise ValueError("content/gallery.json must be a JSON array.")
+
+    items: list[dict[str, Any]] = []
+    seen_ids: set[str] = set()
+    for idx, item in enumerate(data):
+        if not isinstance(item, dict):
+            raise ValueError(f"content/gallery.json item #{idx} must be an object.")
+        title = str(item.get("title") or "").strip()
+        image = str(item.get("image") or "").strip()
+        prompt = str(item.get("prompt") or "").strip()
+        if not title:
+            raise ValueError(f"content/gallery.json item #{idx} missing required 'title'.")
+        if not image:
+            raise ValueError(f"content/gallery.json item #{idx} missing required 'image'.")
+        if not prompt:
+            raise ValueError(f"content/gallery.json item #{idx} missing required 'prompt'.")
+
+        raw_id = str(item.get("id") or "").strip()
+        item_id = raw_id or f"gallery-{idx + 1}"
+        if item_id in seen_ids:
+            suffix = 2
+            while f"{item_id}-{suffix}" in seen_ids:
+                suffix += 1
+            item_id = f"{item_id}-{suffix}"
+        seen_ids.add(item_id)
+
+        raw_date = str(item.get("date") or "").strip()
+        if raw_date:
+            date_str, _, _ = _normalize_date(raw_date, f"gallery:{item_id}")
+        else:
+            date_str = ""
+
+        tags = _normalize_tags(item.get("tags", []))
+        items.append(
+            {
+                "id": item_id,
+                "title": title,
+                "image": image,
+                "prompt": prompt,
+                "negative_prompt": str(item.get("negative_prompt") or "").strip(),
+                "model": str(item.get("model") or "").strip(),
+                "params": _format_gallery_params(item.get("params")),
+                "category": str(item.get("category") or "").strip(),
+                "tags": tags,
+                "tags_csv": ",".join(tags),
+                "date": date_str,
+            }
+        )
+
+    dated = [entry for entry in items if entry["date"]]
+    dated.sort(key=lambda entry: entry["date"], reverse=True)
+    undated = [entry for entry in items if not entry["date"]]
+    return dated + undated
 
 
 def load_about_markdown(content_dir: Path) -> str:
@@ -433,19 +529,21 @@ def load_posts(content_dir: Path, include_drafts: bool = False) -> list[Post]:
     return posts
 
 
-def load_categories(content_dir: Path) -> list[dict[str, str]]:
-    """Load extensible top-level category definitions from ``content/categories.json``."""
-    categories_path = content_dir / "categories.json"
+def load_categories_file(
+    categories_path: Path,
+    default_categories: tuple[dict[str, str], ...] = (),
+) -> list[dict[str, str]]:
+    """Load and normalize a category registry JSON file with optional fallback defaults."""
     if not categories_path.is_file():
-        return []
+        return [dict(cat) for cat in default_categories]
     data = json.loads(categories_path.read_text(encoding="utf-8"))
     if not isinstance(data, list):
-        raise ValueError("content/categories.json must be a JSON array.")
+        raise ValueError(f"{categories_path.name} must be a JSON array.")
     normalized: list[dict[str, str]] = []
     seen_names: set[str] = set()
     for idx, item in enumerate(data):
         if not isinstance(item, dict):
-            raise ValueError(f"content/categories.json item #{idx} must be an object.")
+            raise ValueError(f"{categories_path.name} item #{idx} must be an object.")
         name = str(item.get("name", "")).strip()
         if not name or name in seen_names:
             continue
@@ -456,25 +554,60 @@ def load_categories(content_dir: Path) -> list[dict[str, str]]:
     return normalized
 
 
-def compute_tag_stats(posts: list[Post]) -> list[dict[str, Any]]:
-    """Aggregate tag counts sorted by frequency descending, then tag name."""
+def load_categories(content_dir: Path) -> list[dict[str, str]]:
+    """Load extensible top-level category definitions from ``content/categories.json``."""
+    return load_categories_file(content_dir / "categories.json")
+
+
+def load_project_categories(content_dir: Path) -> list[dict[str, str]]:
+    """Load extensible project categories from ``content/project_categories.json``."""
+    return load_categories_file(
+        content_dir / "project_categories.json",
+        default_categories=DEFAULT_PROJECT_CATEGORIES,
+    )
+
+
+def load_gallery_categories(content_dir: Path) -> list[dict[str, str]]:
+    """Load extensible gallery categories from ``content/gallery_categories.json``."""
+    return load_categories_file(
+        content_dir / "gallery_categories.json",
+        default_categories=DEFAULT_GALLERY_CATEGORIES,
+    )
+
+
+def _get_item_category(item: Any) -> str:
+    """Extract normalized ``category`` from a ``Post`` or normalized dict."""
+    if isinstance(item, Mapping):
+        return str(item.get("category") or "").strip()
+    return str(getattr(item, "category", "") or "").strip()
+
+
+def _get_item_tags(item: Any) -> list[str]:
+    """Extract deduplicated ``tags`` list from a ``Post`` or normalized dict."""
+    raw = item.get("tags", []) if isinstance(item, Mapping) else getattr(item, "tags", [])
+    return _normalize_tags(raw)
+
+
+def compute_tag_stats(items: list[Any]) -> list[dict[str, Any]]:
+    """Aggregate tag counts across posts, projects, or gallery items."""
     counts: Counter[str] = Counter()
-    for post in posts:
-        for tag in post.tags:
+    for item in items:
+        for tag in _get_item_tags(item):
             counts[tag] += 1
-    ordered = sorted(counts.items(), key=lambda item: (-item[1], item[0]))
+    ordered = sorted(counts.items(), key=lambda entry: (-entry[1], entry[0]))
     return [{"name": name, "count": count} for name, count in ordered]
 
 
 def compute_category_stats(
-    posts: list[Post],
+    items: list[Any],
     configured_categories: list[dict[str, str]] | None = None,
 ) -> list[dict[str, Any]]:
-    """Merge configured ``categories.json`` order with Frontmatter categories and counts."""
+    """Merge configured category registry order with item categories and counts."""
     counts: Counter[str] = Counter()
-    for post in posts:
-        if post.category:
-            counts[post.category] += 1
+    for item in items:
+        cat = _get_item_category(item)
+        if cat:
+            counts[cat] += 1
 
     result: list[dict[str, Any]] = []
     seen: set[str] = set()
@@ -495,7 +628,7 @@ def compute_category_stats(
             )
 
     extras = [(name, count) for name, count in counts.items() if name not in seen]
-    extras.sort(key=lambda item: (-item[1], item[0]))
+    extras.sort(key=lambda entry: (-entry[1], entry[0]))
     for name, count in extras:
         result.append(
             {
@@ -509,9 +642,22 @@ def compute_category_stats(
 
 
 def load_all_content(content_dir: Path) -> dict[str, Any]:
-    """Load site config, projects, categories, about body, published posts, and tag stats."""
+    """Load site config, projects, gallery, categories, about body, and posts."""
     site = load_site_config(content_dir)
     projects = load_projects(content_dir)
+    project_categories = load_project_categories(content_dir)
+    project_tag_stats = compute_tag_stats(projects)
+    project_category_stats = compute_category_stats(
+        projects, configured_categories=project_categories
+    )
+
+    gallery = load_gallery(content_dir)
+    gallery_categories = load_gallery_categories(content_dir)
+    gallery_tag_stats = compute_tag_stats(gallery)
+    gallery_category_stats = compute_category_stats(
+        gallery, configured_categories=gallery_categories
+    )
+
     categories = load_categories(content_dir)
     about_md = load_about_markdown(content_dir)
     posts = load_posts(content_dir)
@@ -520,6 +666,13 @@ def load_all_content(content_dir: Path) -> dict[str, Any]:
     return {
         "site": site,
         "projects": projects,
+        "project_categories": project_categories,
+        "project_category_stats": project_category_stats,
+        "project_tag_stats": project_tag_stats,
+        "gallery": gallery,
+        "gallery_categories": gallery_categories,
+        "gallery_category_stats": gallery_category_stats,
+        "gallery_tag_stats": gallery_tag_stats,
         "categories": categories,
         "about_md": about_md,
         "posts": posts,

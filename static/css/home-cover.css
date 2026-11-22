@@ -166,10 +166,10 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   align-items: start;
-  gap: clamp(1.5rem, 5.4vw, 5rem);
-  max-width: 77rem;
+  gap: clamp(1.25rem, 3.4vw, 3.25rem);
+  max-width: 82rem;
 }
 
 .is-scroll-cover .home-entries {
@@ -287,6 +287,11 @@
 .home-entry--projects {
   --entry-glow: var(--glow-crimson);
   --entry-line: color-mix(in srgb, var(--gold-text) 60%, var(--accent));
+}
+
+.home-entry--gallery {
+  --entry-glow: color-mix(in srgb, var(--glow-crimson) 55%, var(--glow-gold));
+  --entry-line: var(--gold-text);
 }
 
 .home-entry:hover,
@@ -446,11 +451,19 @@
 
 @media (min-width: 1000px) and (min-height: 500px) {
   .home-entry--articles {
-    margin-top: clamp(2.5rem, 4.6vw, 4.25rem);
+    margin-top: 0;
+  }
+
+  .home-entry--projects {
+    margin-top: clamp(1.75rem, 3.2vw, 2.85rem);
+  }
+
+  .home-entry--gallery {
+    margin-top: clamp(0.85rem, 1.6vw, 1.4rem);
   }
 
   .home-entry--about {
-    margin-top: clamp(1.5rem, 3vw, 3rem);
+    margin-top: clamp(2.35rem, 4.2vw, 3.65rem);
   }
 }
 
@@ -476,25 +489,30 @@
 }
 
 @media (max-width: 600px) and (orientation: portrait) {
+  .is-scroll-cover .home-entrance {
+    padding-top: calc(var(--header-height) + clamp(0.75rem, 2.4svh, 1.75rem));
+    padding-bottom: clamp(1rem, 3svh, 2rem);
+  }
+
   .home-entries {
     grid-template-columns: minmax(0, 1fr);
-    gap: clamp(1.75rem, 4.6svh, 2.75rem);
+    gap: clamp(1rem, 2.8svh, 1.75rem);
     max-width: 28rem;
-    padding-inline: clamp(1.4rem, 8vw, 2.25rem);
+    padding-inline: clamp(1.25rem, 7vw, 2.1rem);
   }
 
   .home-entry-orbits::before {
-    inset: -19% 8% -17%;
+    inset: -14% 8% -12%;
     transform: rotate(24deg);
   }
 
   .home-entry-orbits::after {
-    inset: -15% 15% -14%;
+    inset: -11% 15% -10%;
     transform: rotate(-29deg);
   }
 
   .home-entry-star:nth-child(1) {
-    top: -11%;
+    top: -9%;
     left: 25%;
   }
 
@@ -510,31 +528,35 @@
 
   .home-entry-star:nth-child(4) {
     right: 21%;
-    bottom: -11%;
+    bottom: -9%;
   }
 
   .home-entry {
     grid-template-columns: auto minmax(0, 1fr) auto;
     grid-template-rows: auto;
     align-items: center;
-    min-height: clamp(4.75rem, 18vw, 6rem);
+    min-height: clamp(3.6rem, 10.5svh, 5rem);
+    padding: clamp(0.55rem, 1.6svh, 1rem) clamp(0.9rem, 3.6vw, 1.35rem);
   }
 
   .home-entry--articles,
-  .home-entry--about {
-    margin-right: 0.625rem;
+  .home-entry--gallery {
+    margin-right: 0.5rem;
   }
 
-  .home-entry--projects {
-    margin-left: 0.625rem;
+  .home-entry--projects,
+  .home-entry--about {
+    margin-left: 0.5rem;
   }
 
   .home-entry-mark {
     align-self: center;
+    width: clamp(2.25rem, 6.5svh, 2.75rem);
   }
 
   .home-entry-label {
     grid-column: 2;
+    font-size: clamp(1.25rem, 4.8vw, 1.65rem);
   }
 }
 
@@ -565,19 +587,36 @@
   }
 
   .is-scroll-cover .home-entrance {
-    padding-block: calc(var(--header-height) + 0.6rem) 0.9rem;
+    padding-block: calc(var(--header-height) + 0.5rem) 0.75rem;
   }
 
   .home-entries {
-    gap: clamp(1rem, 4.5vw, 3rem);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(0.95rem, 2.8vw, 2rem);
   }
 
   .home-entry {
-    min-height: clamp(6rem, 34svh, 9rem);
-    padding: 0.875rem;
+    min-height: clamp(5.25rem, 32svh, 8.25rem);
+    padding: 0.65rem 0.75rem;
+    gap: 0.45rem 0.5rem;
   }
 
   .home-entry-mark {
-    width: 2.25rem;
+    width: 2rem;
+  }
+
+  .home-entry-mark svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+
+  .home-entry-label {
+    font-size: clamp(1.05rem, 2.8vw, 1.35rem);
+    letter-spacing: 0.04em;
+  }
+
+  .home-entry-arrow {
+    width: 1.55rem;
+    font-size: 0.8rem;
   }
 }

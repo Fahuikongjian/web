@@ -1,0 +1,19 @@
+<article class="gallery-card" data-filter-item data-gallery-id="{{id}}" data-category="{{category}}" data-tags="{{tags_csv}}" data-title="{{title}}" data-image="{{data_image}}" data-prompt="{{prompt}}" data-negative-prompt="{{negative_prompt}}" data-model="{{model}}" data-params="{{params}}" data-date="{{date}}">
+  <div class="gallery-card-media">
+    <button type="button" class="gallery-media-btn" data-gallery-open="{{id}}" aria-label="查看大图：{{title}}">
+      <img src="{{image}}" alt="{{title}}" loading="lazy">
+      <span class="gallery-expand-badge" aria-hidden="true">✦</span>
+    </button>
+  </div>
+  <div class="gallery-card-body">
+    <div class="gallery-card-head">
+      <h2 class="gallery-card-title">{{title}}</h2>
+      <div class="gallery-card-meta">{{category_badge_html}}{{model_chip_html}}</div>
+    </div>
+    <div class="gallery-prompt-box">
+      <p class="gallery-prompt-preview">{{prompt}}</p>
+      <button type="button" class="prompt-copy-btn" data-copy-prompt>复制</button>
+    </div>
+    <div class="gallery-card-tags">{{tags_html}}</div>
+  </div>
+</article>

@@ -108,6 +108,70 @@ def build_posts_api(
     }
 
 
+def build_projects_api(
+    projects: list[dict[str, Any]],
+    tag_stats: list[dict[str, Any]],
+    category_stats: list[dict[str, Any]],
+    base_path: str = "",
+) -> dict[str, Any]:
+    """Build ``/api/projects.json`` payload with normalized project metadata and counts."""
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return {
+        "generated_at": generated_at,
+        "total": len(projects),
+        "projects": [
+            {
+                "name": str(proj.get("name", "")),
+                "status": str(proj.get("status", "")),
+                "year": str(proj.get("year", "")),
+                "summary": str(proj.get("summary", "")),
+                "stack": list(proj.get("stack", [])),
+                "category": str(proj.get("category", "")),
+                "tags": list(proj.get("tags", [])),
+                "url": (
+                    prefix_url(str(proj.get("url", "")), base_path)
+                    if proj.get("url")
+                    else ""
+                ),
+            }
+            for proj in projects
+        ],
+        "tags": tag_stats,
+        "categories": category_stats,
+    }
+
+
+def build_gallery_api(
+    gallery: list[dict[str, Any]],
+    tag_stats: list[dict[str, Any]],
+    category_stats: list[dict[str, Any]],
+    base_path: str = "",
+) -> dict[str, Any]:
+    """Build ``/api/gallery.json`` payload with image prompts, metadata, and counts."""
+    generated_at = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    return {
+        "generated_at": generated_at,
+        "total": len(gallery),
+        "items": [
+            {
+                "id": str(item.get("id", "")),
+                "title": str(item.get("title", "")),
+                "image": prefix_url(str(item.get("image", "")), base_path),
+                "prompt": str(item.get("prompt", "")),
+                "negative_prompt": str(item.get("negative_prompt", "")),
+                "model": str(item.get("model", "")),
+                "params": str(item.get("params", "")),
+                "category": str(item.get("category", "")),
+                "tags": list(item.get("tags", [])),
+                "date": str(item.get("date", "")),
+            }
+            for item in gallery
+        ],
+        "tags": tag_stats,
+        "categories": category_stats,
+    }
+
+
 def build_rss_xml(
     site: dict[str, Any],
     posts: list[Post],
@@ -163,6 +227,7 @@ def build_sitemap_xml(
         ("/", latest_date, "1.0"),
         ("/articles/", latest_date, "0.9"),
         ("/projects/", latest_date, "0.8"),
+        ("/gallery/", latest_date, "0.8"),
         ("/about/", latest_date, "0.7"),
     ]
     for route, lastmod, priority in static_routes:
@@ -195,22 +260,50 @@ def write_feeds(
     tag_stats: list[dict[str, Any]],
     category_stats: list[dict[str, Any]],
     base_path: str = "",
+    projects: list[dict[str, Any]] | None = None,
+    project_tag_stats: list[dict[str, Any]] | None = None,
+    project_category_stats: list[dict[str, Any]] | None = None,
+    gallery: list[dict[str, Any]] | None = None,
+    gallery_tag_stats: list[dict[str, Any]] | None = None,
+    gallery_category_stats: list[dict[str, Any]] | None = None,
 ) -> list[Path]:
-    """Write ``api/posts.json``, ``api/search-index.json``, ``rss.xml``, ``sitemap.xml``, and ``robots.txt``."""
+    """Write JSON APIs (``posts``, ``projects``, ``gallery``, ``search-index``), RSS, Sitemap, and robots."""
     api_dir = dist_dir / "api"
     api_dir.mkdir(parents=True, exist_ok=True)
 
     posts_api_path = api_dir / "posts.json"
+    projects_api_path = api_dir / "projects.json"
+    gallery_api_path = api_dir / "gallery.json"
     search_index_path = api_dir / "search-index.json"
     rss_path = dist_dir / "rss.xml"
     sitemap_path = dist_dir / "sitemap.xml"
     robots_path = dist_dir / "robots.txt"
 
     posts_payload = build_posts_api(posts, tag_stats, category_stats, base_path=base_path)
+    projects_payload = build_projects_api(
+        projects or [],
+        project_tag_stats or [],
+        project_category_stats or [],
+        base_path=base_path,
+    )
+    gallery_payload = build_gallery_api(
+        gallery or [],
+        gallery_tag_stats or [],
+        gallery_category_stats or [],
+        base_path=base_path,
+    )
     search_payload = build_search_index(posts, base_path=base_path)
 
     posts_api_path.write_text(
         json.dumps(posts_payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    projects_api_path.write_text(
+        json.dumps(projects_payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    gallery_api_path.write_text(
+        json.dumps(gallery_payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     search_index_path.write_text(
@@ -221,4 +314,12 @@ def write_feeds(
     sitemap_path.write_text(build_sitemap_xml(site, posts, base_path=base_path), encoding="utf-8")
     robots_path.write_text(build_robots_txt(site, base_path=base_path), encoding="utf-8")
 
-    return [posts_api_path, search_index_path, rss_path, sitemap_path, robots_path]
+    return [
+        posts_api_path,
+        projects_api_path,
+        gallery_api_path,
+        search_index_path,
+        rss_path,
+        sitemap_path,
+        robots_path,
+    ]

@@ -238,7 +238,9 @@ def _assert_no_horizontal_overflow(page: Page, route: str, viewport_name: str) -
 def _assert_images_loaded(page: Page, route: str) -> None:
     broken = page.evaluate(
         """() => {
-            const imgs = Array.from(document.querySelectorAll('img'));
+            const imgs = Array.from(document.querySelectorAll('img')).filter(
+              img => !img.closest('dialog:not([open])')
+            );
             return imgs
               .filter(img => !img.complete || img.naturalWidth === 0)
               .map(img => img.getAttribute('src') || '(no src)');
@@ -258,7 +260,7 @@ def _open_home_cover(page: Page) -> None:
 
 @pytest.mark.parametrize(
     "width,height,flow_axis,min_gap",
-    [(1440, 900, "x", 64), (390, 844, "y", 36), (320, 568, "y", 24), (568, 280, "x", 20)],
+    [(1440, 900, "x", 40), (390, 844, "y", 20), (320, 568, "y", 14), (568, 280, "x", 14)],
 )
 def test_home_cover_fades_as_content_rises_with_scroll(
     browser: Browser, static_server: str, width: int, height: int, flow_axis: str, min_gap: int
@@ -314,7 +316,8 @@ def test_home_cover_fades_as_content_rises_with_scroll(
             following[flow_axis] - current[flow_axis] - current[extent]
             for current, following in zip(card_bounds, card_bounds[1:])
         ]
-        assert len(gaps) == 2
+        print(f"[home-entries {width}x{height}] gaps={gaps}, bottom={content.evaluate('el => el.getBoundingClientRect().bottom')}")
+        assert len(gaps) == 3
         assert min(gaps) >= min_gap
 
         scroll_to(middle)
@@ -348,7 +351,7 @@ def test_home_cover_wheel_progress_stays_where_paused(browser: Browser, static_s
 
         page.mouse.wheel(0, travel)
         page.wait_for_function("y => window.scrollY === y", arg=travel)
-        assert content.locator("a").count() == 3
+        assert content.locator("a").count() == 4
     finally:
         page.close()
 
@@ -484,7 +487,7 @@ def test_routes_zero_errors_and_responsive_viewports(
     browser: Browser, static_server: str, populated_dist: Path
 ) -> None:
     post_routes = _load_post_routes(populated_dist)
-    routes = ["/", "/articles/", "/projects/", "/about/", *post_routes]
+    routes = ["/", "/articles/", "/projects/", "/gallery/", "/about/", *post_routes]
 
     for viewport_name, viewport in [
         ("desktop-1440x900", {"width": 1440, "height": 900}),
@@ -594,9 +597,14 @@ def test_home_cover_loads_and_opens_to_navigation(browser: Browser, static_serve
         )
         _open_home_cover(page)
         links = page.locator(".home-entries a")
-        expect(links).to_have_text(["文章", "项目", "关于"])
-        assert [link.get_attribute("href") for link in links.all()] == ["/articles/", "/projects/", "/about/"]
-        assert page.locator(".post-row, .project-card, .featured-card").count() == 0
+        expect(links).to_have_text(["文章", "项目", "图像", "关于"])
+        assert [link.get_attribute("href") for link in links.all()] == [
+            "/articles/",
+            "/projects/",
+            "/gallery/",
+            "/about/",
+        ]
+        assert page.locator(".post-row, .project-card, .featured-card, .gallery-card").count() == 0
         expect(page.locator(".site-footer")).to_be_hidden()
         links.last.click()
         page.wait_for_url("**/about/")
@@ -687,61 +695,50 @@ def test_empty_archive_and_search(browser: Browser, empty_server: str) -> None:
     page = browser.new_page(viewport={"width": 390, "height": 844})
     records = _attach_error_collectors(page)
     try:
-        page.goto(f"{empty_server}/", wait_until="networkidle")
-        _open_home_cover(page)
-        navigation = page.locator(".home-entries")
-        navigation.get_by_role("link", name="项目").click()
-        page.wait_for_url("**/projects/")
-        expect(page.locator("main").get_by_text("暂无已发布项目。")).to_be_visible()
-        page.goto(f"{empty_server}/", wait_until="networkidle")
-        _open_home_cover(page)
-        navigation.get_by_role("link", name="文章").click()
-        page.wait_for_url("**/articles/")
-        expect(page.locator("main").get_by_text("暂无已发布文章。")).to_be_visible()
-        assert page.locator("[data-filter-tag]").count() == 0
+        for nav_name, route_suffix, expected_empty_text, expected_cats in [
+            ("项目", "/projects/", "暂无已发布项目。", ["all", "应用", "工具", "视觉"]),
+            ("图像", "/gallery/", "暂无已发布图像。", ["all", "角色", "场景", "视觉"]),
+            ("文章", "/articles/", "暂无已发布文章。", ["all", "代码", "图像生成", "工程"]),
+        ]:
+            page.goto(f"{empty_server}/", wait_until="networkidle")
+            _open_home_cover(page)
+            navigation = page.locator(".home-entries")
+            navigation.get_by_role("link", name=nav_name).click()
+            page.wait_for_url(f"**{route_suffix}")
+            expect(page.locator("main").get_by_text(expected_empty_text)).to_be_visible()
+            assert page.locator("[data-filter-tag]").count() == 0
 
-        # Empty archive still displays the 4 category tabs with sliding indicator
-        tabs = page.locator("[data-category-tabs] [data-filter-category]")
-        assert tabs.count() == 4
-        assert [t.get_attribute("data-filter-category") for t in tabs.all()] == [
-            "all",
-            "代码",
-            "图像生成",
-            "工程",
-        ]
-        assert [t.locator(".category-tab-label").inner_text().strip() for t in tabs.all()] == [
-            "全部",
-            "代码",
-            "图像生成",
-            "工程",
-        ]
-        assert [t.locator(".category-tab-count").inner_text().strip() for t in tabs.all()] == [
-            "0",
-            "0",
-            "0",
-            "0",
-        ]
+            tabs = page.locator("[data-category-tabs] [data-filter-category]")
+            assert tabs.count() == 4
+            assert [t.get_attribute("data-filter-category") for t in tabs.all()] == expected_cats
+            assert [t.locator(".category-tab-count").inner_text().strip() for t in tabs.all()] == [
+                "0",
+                "0",
+                "0",
+                "0",
+            ]
 
-        indicator = page.locator("[data-category-indicator]")
-        initial_transform = indicator.evaluate("el => el.style.transform")
-        assert "translate3d(" in initial_transform
-        expect(page.locator('[data-category-tabs] [data-filter-category="all"]')).to_have_attribute(
-            "aria-selected", "true"
-        )
+            indicator = page.locator("[data-category-indicator]")
+            initial_transform = indicator.evaluate("el => el.style.transform")
+            assert "translate3d(" in initial_transform
+            expect(page.locator('[data-category-tabs] [data-filter-category="all"]')).to_have_attribute(
+                "aria-selected", "true"
+            )
 
-        code_tab = page.locator('[data-category-tabs] [data-filter-category="代码"]')
-        code_tab.click()
-        expect(code_tab).to_have_attribute("aria-selected", "true")
-        expect(
-            page.locator('[data-category-tabs] [data-filter-category="all"]')
-        ).to_have_attribute("aria-selected", "false")
-        assert indicator.evaluate("el => el.style.transform") != initial_transform
-        assert "category=代码" in unquote(page.url)
-        assert page.locator("[data-filter-tag]").count() == 0
-        expect(page.locator("main").get_by_text("暂无已发布文章。")).to_be_visible()
+            second_cat = expected_cats[1]
+            second_tab = page.locator(f'[data-category-tabs] [data-filter-category="{second_cat}"]')
+            second_tab.click()
+            expect(second_tab).to_have_attribute("aria-selected", "true")
+            expect(
+                page.locator('[data-category-tabs] [data-filter-category="all"]')
+            ).to_have_attribute("aria-selected", "false")
+            assert indicator.evaluate("el => el.style.transform") != initial_transform
+            assert f"category={second_cat}" in unquote(page.url)
+            assert page.locator("[data-filter-tag]").count() == 0
+            expect(page.locator("main").get_by_text(expected_empty_text)).to_be_visible()
 
-        page.locator('[data-category-tabs] [data-filter-category="all"]').click()
-        assert "category=" not in unquote(page.url)
+            page.locator('[data-category-tabs] [data-filter-category="all"]').click()
+            assert "category=" not in unquote(page.url)
 
         page.locator("[data-search-open]").click()
         dialog = page.locator("[data-search-modal]")
@@ -885,6 +882,282 @@ def test_categorized_articles_dual_filtering_and_navigation(
         _assert_clean_page(records, "categorized-dual-filter")
     finally:
         context.close()
+
+
+def test_projects_dual_category_tag_filtering(
+    browser: Browser, categorized_server: str, empty_server: str
+) -> None:
+    context = browser.new_context(viewport={"width": 1440, "height": 900})
+    page = context.new_page()
+    records = _attach_error_collectors(page)
+    try:
+        page.goto(f"{categorized_server}/projects/", wait_until="networkidle")
+        tabs = page.locator("[data-category-tabs] [data-filter-category]")
+        # Configured '应用', '工具', '视觉' plus auto-discovered '实验'
+        assert [t.get_attribute("data-filter-category") for t in tabs.all()] == [
+            "all",
+            "应用",
+            "工具",
+            "视觉",
+            "实验",
+        ]
+        assert [t.locator(".category-tab-count").inner_text().strip() for t in tabs.all()] == [
+            "4",
+            "1",
+            "1",
+            "1",
+            "1",
+        ]
+
+        grid = page.locator("[data-projects-list]")
+        visible_cards = page.locator("[data-projects-list] article.project-card:visible")
+        assert visible_cards.count() == 4
+        expect(page.locator("[data-projects-count]")).to_have_text("共 4 项")
+        assert "is-filtered" not in (grid.get_attribute("class") or "")
+
+        indicator = page.locator("[data-category-indicator]")
+        all_transform = indicator.evaluate("el => el.style.transform")
+
+        # 1. Category filtering ('应用') & .is-filtered toggle & dynamic tag counts
+        app_tab = page.locator('[data-category-tabs] [data-filter-category="应用"]')
+        app_tab.click()
+        expect(app_tab).to_have_attribute("aria-selected", "true")
+        assert indicator.evaluate("el => el.style.transform") != all_transform
+        assert visible_cards.count() == 1
+        expect(page.locator("[data-projects-count]")).to_have_text("应用 · 共 1 项")
+        assert "is-filtered" in (grid.get_attribute("class") or "")
+        assert "category=应用" in unquote(page.url)
+        expect(page.locator('.filter-pills [data-filter-tag="SVG"]')).to_be_hidden()
+        expect(
+            page.locator('.filter-pills [data-filter-tag="Python"] .filter-pill-count')
+        ).to_have_text("1")
+
+        # 2. Inline project card category badge & stack-fallback tag pill click
+        page.locator('[data-category-tabs] [data-filter-category="all"]').click()
+        assert visible_cards.count() == 4
+        assert "is-filtered" not in (grid.get_attribute("class") or "")
+        page.locator(
+            'article.project-card button.project-category-badge[data-filter-category="实验"]'
+        ).first.click()
+        expect(
+            page.locator('[data-category-tabs] [data-filter-category="实验"]')
+        ).to_have_attribute("aria-selected", "true")
+        assert visible_cards.count() == 1
+        expect(page.locator("[data-projects-count]")).to_have_text("实验 · 共 1 项")
+
+        page.locator('[data-category-tabs] [data-filter-category="all"]').click()
+        assert visible_cards.count() == 4
+        page.locator('article.project-card .tag-pill[data-filter-tag="SVG"]').first.click()
+        expect(page.locator('.filter-pills [data-filter-tag="SVG"]')).to_have_attribute(
+            "aria-pressed", "true"
+        )
+        assert visible_cards.count() == 2
+        expect(page.locator("[data-projects-count]")).to_have_text("「SVG」· 共 2 项")
+
+        # 3. Switching to category '应用' where 'SVG' has 0 items resets tag to 'all'
+        app_tab.click()
+        expect(page.locator('.filter-pills [data-filter-tag="all"]')).to_have_attribute(
+            "aria-pressed", "true"
+        )
+        assert visible_cards.count() == 1
+        expect(page.locator("[data-projects-count]")).to_have_text("应用 · 共 1 项")
+        assert "tag=" not in unquote(page.url)
+
+        # 4. Keyboard ArrowRight navigation on category tablist
+        app_tab.focus()
+        page.keyboard.press("ArrowRight")
+        tool_tab = page.locator('[data-category-tabs] [data-filter-category="工具"]')
+        expect(tool_tab).to_have_attribute("aria-selected", "true")
+        assert visible_cards.count() == 1
+        expect(page.locator("[data-projects-count]")).to_have_text("工具 · 共 1 项")
+
+        # 5. Direct URL query parameter restoration (?category=工具&tag=部署)
+        page.goto(
+            f"{categorized_server}/projects/?category={quote('工具')}&tag={quote('部署')}",
+            wait_until="networkidle",
+        )
+        expect(tool_tab).to_have_attribute("aria-selected", "true")
+        expect(page.locator('.filter-pills [data-filter-tag="部署"]')).to_have_attribute(
+            "aria-pressed", "true"
+        )
+        assert visible_cards.count() == 1
+        expect(page.locator("[data-projects-count]")).to_have_text("工具 · 「部署」· 共 1 项")
+
+        # 6. Zero horizontal overflow across 1440x900, 390x844, 320x568, 280x653
+        for width, height in [(1440, 900), (390, 844), (320, 568), (280, 653)]:
+            page.set_viewport_size({"width": width, "height": height})
+            for target_url, label in [
+                (f"{categorized_server}/projects/", f"categorized-projects-{width}x{height}"),
+                (f"{empty_server}/projects/", f"empty-projects-{width}x{height}"),
+            ]:
+                page.goto(target_url, wait_until="networkidle")
+                _assert_no_horizontal_overflow(page, target_url, label)
+
+        _assert_clean_page(records, "projects-dual-filter")
+    finally:
+        context.close()
+
+
+def test_gallery_filtering_copy_prompt_and_lightbox(
+    browser: Browser, categorized_server: str, empty_server: str
+) -> None:
+    context = browser.new_context(
+        viewport={"width": 1440, "height": 900},
+        permissions=["clipboard-read", "clipboard-write"],
+    )
+    page = context.new_page()
+    records = _attach_error_collectors(page)
+    try:
+        page.goto(f"{categorized_server}/gallery/", wait_until="networkidle")
+        tabs = page.locator("[data-category-tabs] [data-filter-category]")
+        # Configured '角色', '场景', '视觉' plus auto-discovered '光影'
+        assert [t.get_attribute("data-filter-category") for t in tabs.all()] == [
+            "all",
+            "角色",
+            "场景",
+            "视觉",
+            "光影",
+        ]
+        assert [t.locator(".category-tab-count").inner_text().strip() for t in tabs.all()] == [
+            "4",
+            "1",
+            "1",
+            "1",
+            "1",
+        ]
+
+        visible_cards = page.locator("[data-gallery-list] article.gallery-card:visible")
+        assert visible_cards.count() == 4
+        expect(page.locator("[data-gallery-count]")).to_have_text("共 4 幅")
+
+        indicator = page.locator("[data-category-indicator]")
+        all_transform = indicator.evaluate("el => el.style.transform")
+
+        # 1. Category x Tag dual filtering
+        char_tab = page.locator('[data-category-tabs] [data-filter-category="角色"]')
+        char_tab.click()
+        expect(char_tab).to_have_attribute("aria-selected", "true")
+        assert indicator.evaluate("el => el.style.transform") != all_transform
+        assert visible_cards.count() == 1
+        expect(page.locator("[data-gallery-count]")).to_have_text("角色 · 共 1 幅")
+        assert "category=角色" in unquote(page.url)
+
+        page.locator('[data-category-tabs] [data-filter-category="all"]').click()
+        page.locator('.filter-pills [data-filter-tag="星环舞台"]').click()
+        assert visible_cards.count() == 2
+        expect(page.locator("[data-gallery-count]")).to_have_text("「星环舞台」· 共 2 幅")
+
+        page.locator('[data-category-tabs] [data-filter-category="场景"]').click()
+        assert visible_cards.count() == 1
+        expect(page.locator("[data-gallery-count]")).to_have_text("场景 · 「星环舞台」· 共 1 幅")
+        decoded_url = unquote(page.url)
+        assert "category=场景" in decoded_url and "tag=星环舞台" in decoded_url
+
+        page.locator('[data-category-tabs] [data-filter-category="all"]').click()
+        page.locator('.filter-pills [data-filter-tag="all"]').click()
+        assert visible_cards.count() == 4
+
+        # 2. One-click prompt copy on card (without opening Lightbox)
+        first_card = visible_cards.first
+        expected_prompt = first_card.get_attribute("data-prompt") or ""
+        expected_negative = first_card.get_attribute("data-negative-prompt") or ""
+        assert len(expected_prompt) > 20
+        card_copy_btn = first_card.locator(".prompt-copy-btn[data-copy-prompt]")
+        card_copy_btn.click()
+        expect(card_copy_btn).to_have_text("已复制")
+        assert "is-copied" in (card_copy_btn.get_attribute("class") or "")
+        lightbox = page.locator("[data-gallery-lightbox]")
+        expect(lightbox).to_be_hidden()
+        assert page.evaluate("() => navigator.clipboard.readText()") == expected_prompt
+
+        # 3. Lightbox dialog open, image load, prompt/negative/meta display, copy, and Escape close
+        first_trigger = first_card.locator(".gallery-media-btn")
+        first_trigger.click()
+        expect(lightbox).to_be_visible()
+        lb_img = lightbox.locator("[data-lightbox-image]")
+        assert lb_img.evaluate("img => img.complete && img.naturalWidth > 0")
+        expect(lightbox.locator("[data-lightbox-title]")).to_have_text("星环舞台 · 曜石绯金咏叹")
+        expect(lightbox.locator("[data-lightbox-prompt]")).to_have_text(expected_prompt)
+        neg_section = lightbox.locator("[data-lightbox-negative-section]")
+        expect(neg_section).to_be_visible()
+        expect(lightbox.locator("[data-lightbox-negative]")).to_have_text(expected_negative)
+        expect(lightbox.locator("[data-lightbox-meta] .gallery-model-chip")).to_have_text(
+            "Flux.1 Dev"
+        )
+        expect(lightbox.locator("[data-lightbox-meta] .gallery-param-chip")).to_contain_text(
+            "steps: 28"
+        )
+
+        lb_copy_neg = lightbox.locator("[data-lightbox-copy-negative]")
+        lb_copy_neg.click()
+        expect(lb_copy_neg).to_have_text("已复制")
+        assert page.evaluate("() => navigator.clipboard.readText()") == expected_negative
+
+        page.keyboard.press("Escape")
+        expect(lightbox).to_be_hidden()
+        expect(first_trigger).to_be_focused()
+
+        # 4. Card without negative_prompt hides negative section; clicking tag in Lightbox closes & filters
+        no_neg_card = page.locator(
+            'article.gallery-card[data-gallery-id="vinyl-groove-monolith"]'
+        )
+        no_neg_card.locator(".gallery-media-btn").click()
+        expect(lightbox).to_be_visible()
+        expect(neg_section).to_be_hidden()
+        lightbox.locator('[data-lightbox-tags] [data-filter-tag="黑胶美学"]').click()
+        expect(lightbox).to_be_hidden()
+        assert visible_cards.count() == 1
+        expect(page.locator("[data-gallery-count]")).to_have_text("「黑胶美学」· 共 1 幅")
+
+        # 5. Close button & Backdrop click close Lightbox
+        page.locator('.filter-pills [data-filter-tag="all"]').click()
+        assert visible_cards.count() == 4
+        first_trigger.click()
+        expect(lightbox).to_be_visible()
+        lightbox.locator("[data-gallery-close]").click()
+        expect(lightbox).to_be_hidden()
+
+        first_trigger.click()
+        expect(lightbox).to_be_visible()
+        page.mouse.click(8, 8)
+        expect(lightbox).to_be_hidden()
+
+        # 6. Zero horizontal overflow across 1440x900, 390x844, 320x568, 280x653
+        for width, height in [(1440, 900), (390, 844), (320, 568), (280, 653)]:
+            page.set_viewport_size({"width": width, "height": height})
+            for target_url, label in [
+                (f"{categorized_server}/gallery/", f"categorized-gallery-{width}x{height}"),
+                (f"{empty_server}/gallery/", f"empty-gallery-{width}x{height}"),
+            ]:
+                page.goto(target_url, wait_until="networkidle")
+                _assert_no_horizontal_overflow(page, target_url, label)
+
+        _assert_clean_page(records, "gallery-filter-copy-lightbox")
+    finally:
+        context.close()
+
+    # 7. Clipboard unavailable fallback & prefers-reduced-motion: reduce
+    reduced_page = browser.new_page(
+        viewport={"width": 390, "height": 844}, reduced_motion="reduce"
+    )
+    reduced_page.add_init_script(
+        """(() => {
+            Object.defineProperty(navigator, 'clipboard', {
+                value: { writeText: () => Promise.reject(new Error('Clipboard blocked')) },
+            });
+            document.execCommand = () => false;
+        })()"""
+    )
+    reduced_records = _attach_error_collectors(reduced_page)
+    try:
+        reduced_page.goto(f"{categorized_server}/gallery/", wait_until="networkidle")
+        copy_btn = reduced_page.locator(".prompt-copy-btn[data-copy-prompt]").first
+        copy_btn.click()
+        expect(copy_btn).to_have_text("复制失败")
+        assert "is-copy-error" in (copy_btn.get_attribute("class") or "")
+        _assert_clean_page(reduced_records, "gallery-reduced-motion-clipboard-fallback")
+    finally:
+        reduced_page.close()
 
 
 def test_post_reading_experience(browser: Browser, static_server: str) -> None:
@@ -1068,11 +1341,53 @@ def test_capture_visual_acceptance_screenshots(
         page.screenshot(path=str(post_detail_tags), full_page=False)
         captured.append(post_detail_tags)
 
+        # 11. Home 4 Entries Expanded — Dark (1440x900)
+        page.goto(f"{static_server}/", wait_until="networkidle")
+        _open_home_cover(page)
+        page.wait_for_timeout(200)
+        home_entries_4_dark = screenshot_dir / "home-entries-4-dark.png"
+        page.screenshot(path=str(home_entries_4_dark), full_page=False)
+        captured.append(home_entries_4_dark)
+
+        # 12. Projects with Category Bar & Tag Pills — Dark (1440x900)
+        page.goto(f"{categorized_server}/projects/", wait_until="networkidle")
+        page.wait_for_timeout(200)
+        projects_cat_dark = screenshot_dir / "projects-categories-dark.png"
+        page.screenshot(path=str(projects_cat_dark), full_page=False)
+        captured.append(projects_cat_dark)
+
+        # 13. Gallery with Category Bar, Prompt Cards & Images — Dark (1440x900)
+        page.goto(f"{categorized_server}/gallery/", wait_until="networkidle")
+        page.wait_for_timeout(200)
+        gallery_dark = screenshot_dir / "gallery-dark.png"
+        page.screenshot(path=str(gallery_dark), full_page=False)
+        captured.append(gallery_dark)
+
+        # 14. Gallery — Light (1440x900)
+        page.locator("[data-theme-toggle]").click()
+        assert page.evaluate("() => document.documentElement.dataset.theme") == "light"
+        page.wait_for_timeout(200)
+        gallery_light = screenshot_dir / "gallery-light.png"
+        page.screenshot(path=str(gallery_light), full_page=False)
+        captured.append(gallery_light)
+
+        # Switch back to dark mode and capture Gallery Lightbox (1440x900)
+        page.locator("[data-theme-toggle]").click()
+        assert page.evaluate("() => document.documentElement.dataset.theme") == "dark"
+        page.wait_for_timeout(150)
+        page.locator(".gallery-media-btn").first.click()
+        page.locator("[data-gallery-lightbox]").wait_for(state="visible")
+        page.wait_for_timeout(200)
+        gallery_lightbox = screenshot_dir / "gallery-lightbox.png"
+        page.screenshot(path=str(gallery_lightbox), full_page=False)
+        captured.append(gallery_lightbox)
+        page.keyboard.press("Escape")
+
         _assert_clean_page(records, "screenshots-desktop")
     finally:
         context.close()
 
-    # 11. Mobile Home & Mobile Categorized Articles in default dark mode (390x844)
+    # 15. Mobile Home, Mobile 4 Entries, Mobile Articles & Mobile Gallery in default dark mode (390x844)
     mobile_ctx = browser.new_context(viewport=mobile_viewport)
     mobile_page = mobile_ctx.new_page()
     mobile_records = _attach_error_collectors(mobile_page)
@@ -1083,11 +1398,23 @@ def test_capture_visual_acceptance_screenshots(
         mobile_page.screenshot(path=str(home_mobile), full_page=False)
         captured.append(home_mobile)
 
+        _open_home_cover(mobile_page)
+        mobile_page.wait_for_timeout(200)
+        home_entries_4_mobile = screenshot_dir / "home-entries-4-mobile.png"
+        mobile_page.screenshot(path=str(home_entries_4_mobile), full_page=False)
+        captured.append(home_entries_4_mobile)
+
         mobile_page.goto(f"{categorized_server}/articles/", wait_until="networkidle")
         mobile_page.wait_for_timeout(150)
         articles_mobile_dark = screenshot_dir / "articles-mobile-dark.png"
         mobile_page.screenshot(path=str(articles_mobile_dark), full_page=False)
         captured.append(articles_mobile_dark)
+
+        mobile_page.goto(f"{categorized_server}/gallery/", wait_until="networkidle")
+        mobile_page.wait_for_timeout(150)
+        gallery_mobile_dark = screenshot_dir / "gallery-mobile-dark.png"
+        mobile_page.screenshot(path=str(gallery_mobile_dark), full_page=False)
+        captured.append(gallery_mobile_dark)
 
         _assert_clean_page(mobile_records, "screenshots-mobile")
     finally:

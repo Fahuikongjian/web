@@ -1,0 +1,5 @@
+[
+  { "id": "character", "name": "角色", "icon": "character" },
+  { "id": "scene", "name": "场景", "icon": "scene" },
+  { "id": "visual", "name": "视觉", "icon": "image" }
+]

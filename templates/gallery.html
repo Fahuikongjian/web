@@ -1,0 +1,48 @@
+<section class="page-header">
+  <div class="container page-header-inner">
+    <div class="lyra-ornament" aria-hidden="true">
+      <span class="lyra-ornament-line"></span>
+      <span class="lyra-ornament-star"></span>
+    </div>
+    <h1 class="page-title">图像</h1>
+  </div>
+</section>
+
+<section class="container page-body" aria-label="图像集">
+  {{category_tabs_html}}
+  {{gallery_html}}
+</section>
+
+<dialog class="gallery-lightbox" data-gallery-lightbox aria-label="图像与提示词">
+  <div class="gallery-lightbox-shell">
+    <div class="gallery-lightbox-stage">
+      <img data-lightbox-image alt="">
+    </div>
+    <div class="gallery-lightbox-panel">
+      <div class="gallery-lightbox-header">
+        <h2 class="gallery-lightbox-title" data-lightbox-title></h2>
+        <button type="button" class="gallery-lightbox-close" data-gallery-close aria-label="关闭大图">×</button>
+      </div>
+
+      <div class="gallery-lightbox-meta" data-lightbox-meta></div>
+
+      <section class="gallery-prompt-section" data-lightbox-prompt-section aria-label="Prompt">
+        <div class="gallery-prompt-header">
+          <span class="gallery-prompt-label">Prompt</span>
+          <button type="button" class="prompt-copy-btn" data-lightbox-copy-prompt>复制</button>
+        </div>
+        <pre class="gallery-prompt-full" data-lightbox-prompt></pre>
+      </section>
+
+      <section class="gallery-negative-section is-hidden" data-lightbox-negative-section aria-label="Negative Prompt" hidden>
+        <div class="gallery-prompt-header">
+          <span class="gallery-prompt-label">Negative</span>
+          <button type="button" class="prompt-copy-btn" data-lightbox-copy-negative>复制</button>
+        </div>
+        <pre class="gallery-prompt-full" data-lightbox-negative></pre>
+      </section>
+
+      <div class="gallery-lightbox-tags is-hidden" data-lightbox-tags hidden></div>
+    </div>
+  </div>
+</dialog>

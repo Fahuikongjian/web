@@ -7,10 +7,10 @@
 ## 核心特性
 
 - **Starloop Velvet & Vinyl 视觉系统**：默认呈现深邃温暖的 Starloop Night 暗色主视觉（黑曜石底、炽红点缀、香槟金边框），并支持一键切换 Ivory Collector's Edition 日间模式与防闪烁预加载。
-- **首页滚动过渡**：全屏抽象封面 `starloop-cover.jpg` 由下往上淡出，文章、项目、关于三个入口随滚动从下方升起。文章和项目各有独立页面。关于页展示天琴座星环徽章（`astra-portrait.jpg`）。
+- **首页滚动过渡**：全屏抽象封面 `starloop-cover.jpg` 由下往上淡出，文章、项目、图像、关于四个入口随滚动从下方升起。文章、项目与图像各有独立页面。关于页展示天琴座星环徽章（`astra-portrait.jpg`）。
 - **零重型外部构建依赖**：手写 YAML Frontmatter 解析器、Markdown 渲染引擎（标题锚点 & 目录 TOC、表格、引用、列表、Pygments 语法高亮与一键复制）及轻量模板引擎。
-- **全功能静态交互**：`Ctrl+K` / `Cmd+K` 站内实时搜索（基于 `/api/search-index.json`）、文章页**可扩展大分类（`content/categories.json` + Frontmatter 自动发现）× 细小 Tag 标签**二级联动筛选、文章页顶部红金阅读进度条与右侧粘性目录滚动高亮。
-- **完整站点产物**：自动输出首页、文章归档、文章详情、项目页、关于页、自定义 `404.html`、`/api/posts.json`、`/api/search-index.json`、`/rss.xml`、`/sitemap.xml`、`/robots.txt`、`dist/.nojekyll` 与可选 `dist/CNAME`。
+- **全功能静态交互**：`Ctrl+K` / `Cmd+K` 站内实时搜索（基于 `/api/search-index.json`）、文章/项目/图像三大板块统一支持**可扩展大分类 × 细小 Tag 标签**二级联动筛选；图像板块支持提示词一键复制与 `<dialog>` Lightbox 全图预览；文章页顶部红金阅读进度条与右侧粘性目录滚动高亮。
+- **完整站点产物**：自动输出首页、文章归档、文章详情、项目页、图像页、关于页、自定义 `404.html`、`/api/posts.json`、`/api/projects.json`、`/api/gallery.json`、`/api/search-index.json`、`/rss.xml`、`/sitemap.xml`、`/robots.txt`、`dist/.nojekyll` 与可选 `dist/CNAME`。
 - **质量门禁与双路径自动部署**：内置 `scripts/check.py` 支持根路径与子路径（`--base-path`）构建校验；提供 `.github/workflows/deploy-pages.yml` 一键托管至 GitHub Pages，以及阿里云上海 ECS `Caddyfile` / `nginx.conf` / `deploy.sh` 迁移套件。
 
 ---
@@ -36,17 +36,20 @@
 │   ├── content_loader.py     # 加载站点配置、项目数据与 Markdown 文章（含 Frontmatter 与阅读时间估算）
 │   ├── markdown_engine.py    # Markdown -> HTML 渲染器、TOC 提取与 Pygments 代码高亮
 │   ├── renderer.py           # {{key}} 模板渲染器、子路径重写、.nojekyll/CNAME 与页面生成
-│   └── feeds.py              # 生成 posts.json、search-index.json、rss.xml、sitemap.xml、robots.txt
+│   └── feeds.py              # 生成 posts/projects/gallery/search-index JSON、rss.xml、sitemap.xml、robots.txt
 ├── content/                  # 所有站点文本与配置数据源
 │   ├── categories.json       # 可扩展文章大分类注册表（代码 / 图像生成 / 工程，支持追加）
+│   ├── project_categories.json # 可扩展项目大分类注册表（应用 / 工具 / 视觉，支持追加）
+│   ├── gallery_categories.json # 可扩展图像大分类注册表（角色 / 场景 / 视觉，支持追加）
 │   ├── site.json             # 站点标题、作者信息、自定义域名、可选备案号与社交链接
 │   ├── projects.json         # 项目作品集列表
+│   ├── gallery.json          # 图像生成作品、提示词与参数列表
 │   ├── about.md              # 关于页面正文
 │   └── posts/                # Markdown 博客文章（如 01-editorial-web-aesthetics.md）
 ├── templates/                # HTML5 页面模板与局部组件片段
 │   ├── base.html             # 全站骨架（site-base-path 元标签、防闪烁脚本、搜索弹窗、页脚）
-│   ├── home.html / articles.html / post.html / projects.html / about.html / 404.html
-│   └── partials/             # articles_list.html / post_row.html / project_card.html / nav_post_card.html
+│   ├── home.html / articles.html / post.html / projects.html / gallery.html / about.html / 404.html
+│   └── partials/             # articles_list.html / post_row.html / projects_list.html / project_card.html / gallery_list.html / gallery_card.html / nav_post_card.html
 ├── static/                   # 静态资源（构建时原样复制至 dist/static/）
 │   ├── css/                  # tokens.css / base.css / components.css / home-cover.css / prose.css
 │   ├── js/                   # theme.js / search.js / post.js / home-cover.js / main.js
@@ -76,7 +79,7 @@
 
 ---
 
-## 如何新增文章与更新内容
+## 如何新增文章、项目与图像内容
 
 ### 1. 新增博客文章
 在 `content/posts/` 目录下新建 `.md` 文件（建议按序号或日期命名，例如 `06-my-new-article.md`），文件顶部必须包含标准 Frontmatter：
@@ -123,12 +126,53 @@ draft: false
   2. **Frontmatter 自动发现**：直接在任意文章头部写入 `category: 新分类`，构建时会自动识别并追加到分类栏末尾。
 - **细小 Tag 标签筛选**：通过每篇文章 Frontmatter 的 `tags` 字段维护细粒度主题关键词。`/articles/` 页面支持「大分类 × Tag」二级联动筛选与 `?category=...&tag=...` URL 直达，点击文章行内分类/标签或详情页元信息分类链接均可直接筛选定位。
 
-### 3. 修改站点信息、项目与关于页
+### 3. 管理项目与可扩展大分类（`content/projects.json`、`content/project_categories.json`）
+- **新增项目**：向 `content/projects.json` 数组追加对象：
+  ```json
+  [
+    {
+      "name": "Starloop Press",
+      "status": "已开源",
+      "year": "2026",
+      "summary": "纯 Python 3.13 零重型依赖静态站点引擎。",
+      "category": "工具",
+      "tags": ["Python", "静态站点", "Pygments"],
+      "stack": ["Python 3.13", "Pygments"],
+      "url": "/articles/python-static-architecture/"
+    }
+  ]
+  ```
+  - `tags` 为可选数组；若未填写 `tags`，构建时会自动回退使用 `stack` 作为可点击 Tag 胶囊。`url` 可填站内路由（如 `/articles/<slug>/`）、外部 `https://` 链接或留空 `""`。
+- **扩展项目大分类**：在 `content/project_categories.json`（默认包含 `应用` / `工具` / `视觉`）追加 `{ "id": "...", "name": "新分类", "icon": "code|engineering|image|default" }`；也可直接在项目对象的 `category` 字段写入新分类名，构建时自动发现并入分类栏。
+
+### 4. 发布图像作品与提示词（`content/gallery.json`、`content/gallery_categories.json`）
+1. **放入效果图**：将渲染成品图片放入 `static/images/`（例如 `static/images/starloop-stage-01.jpg`，支持 `.jpg` / `.png` / `.webp` / `.svg`）。
+2. **登记图集词条**：在 `content/gallery.json` 数组中添加记录：
+   ```json
+   [
+     {
+       "id": "starloop-stage-01",
+       "title": "星环舞台 · 红金黑胶",
+       "image": "/static/images/starloop-stage-01.jpg",
+       "prompt": "editorial portrait under crimson and champagne gold spotlight, 35mm film grain",
+       "negative_prompt": "lowres, watermark, blurry",
+       "model": "Flux.1 Dev",
+       "params": { "Steps": 28, "CFG": 3.5, "Seed": 42019 },
+       "category": "角色",
+       "tags": ["红黑金", "舞台", "胶片感"],
+       "date": "2026-11-22"
+     }
+   ]
+   ```
+   - `title`、`image`（根相对路径 `/static/images/...`）、`prompt` 为必填；`id`、`negative_prompt`、`model`、`params`（字符串或键值对象均可）、`category`、`tags`、`date` 为可选。
+   - `/gallery/` 页面自动支持提示词一键复制、`Lightbox` 全图与完整正/负向提示词弹窗浏览，以及大分类 × Tag 二级筛选。
+3. **扩展图像大分类**：编辑 `content/gallery_categories.json`（默认包含 `角色` / `场景` / `视觉`，`icon` 可选 `character` / `scene` / `image` / `code` / `engineering` / `default`），或直接在图集条目中填写新 `category` 自动发现。
+
+### 5. 修改站点信息与关于页
 - **站点、域名与托管信息**：编辑 `content/site.json`：
   - `site_url` 是生成 canonical、RSS 和站点地图所用的地址，当前值为 `https://astrayao.xyz`。GitHub Pages 的构建流程会按实际发布地址传入此值。
   - `custom_domain`：可选自定义域名（如 `"astrayao.com"`），设置后自动生成 `dist/CNAME`。
   - `icp_number`：GitHub Pages 托管期间保留为 `""` 不展示占位备案号；若迁回国内服务器，再填入真实备案号。
-- **项目展示**：编辑 `content/projects.json`。
 - **关于页面**：编辑 `content/about.md`。
 
 ---

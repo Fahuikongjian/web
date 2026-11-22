@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-11-22T03:54:45Z",
+  "total": 0,
+  "items": [],
+  "tags": [],
+  "categories": [
+    {
+      "id": "character",
+      "name": "角色",
+      "icon": "character",
+      "count": 0
+    },
+    {
+      "id": "scene",
+      "name": "场景",
+      "icon": "scene",
+      "count": 0
+    },
+    {
+      "id": "visual",
+      "name": "视觉",
+      "icon": "image",
+      "count": 0
+    }
+  ]
+}

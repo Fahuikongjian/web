@@ -1,0 +1,19 @@
+  <div class="filter-bar gallery-toolbar">
+    <div class="filter-pills" role="group" aria-label="按标签筛选图像">
+      {{tag_filters_html}}
+    </div>
+    <p class="gallery-count" data-gallery-count data-filter-count aria-live="polite">共 {{total_gallery}} 幅</p>
+  </div>
+
+  <div class="gallery-grid" data-gallery-list data-filter-list data-count-unit="幅">
+    {{gallery_cards_html}}
+  </div>
+
+  <div class="empty-stage is-hidden" data-gallery-empty data-filter-empty aria-live="polite" hidden>
+    <svg class="empty-stage-mark" viewBox="0 0 88 56" width="88" height="56" fill="none" aria-hidden="true">
+      <circle cx="44" cy="28" r="21" stroke="var(--gold)" stroke-opacity="0.34" stroke-width="1"/>
+      <ellipse cx="44" cy="28" rx="38" ry="11" transform="rotate(-14 44 28)" stroke="var(--gold)" stroke-opacity="0.52" stroke-width="1"/>
+      <path d="M44 19l1.7 4.3 4.3 1.7-4.3 1.7L44 31l-1.7-4.3L38 25l4.3-1.7Z" fill="var(--accent)"/>
+    </svg>
+    <p class="search-empty">暂无已发布图像。</p>
+  </div>

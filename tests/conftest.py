@@ -1,4 +1,4 @@
-"""Temporary site fixtures for tests that exercise article publication."""
+"""Temporary site fixtures for tests that exercise article, project, and gallery publication."""
 
 import json
 from pathlib import Path
@@ -18,6 +18,7 @@ def empty_site_root(tmp_path_factory: pytest.TempPathFactory) -> Path:
         shutil.copytree(PROJECT_ROOT / directory, root / directory)
 
     (root / "content" / "projects.json").write_text("[]\n", encoding="utf-8")
+    (root / "content" / "gallery.json").write_text("[]\n", encoding="utf-8")
     return root
 
 
@@ -45,6 +46,7 @@ def populated_site_root(empty_site_root: Path, tmp_path_factory: pytest.TempPath
     project_file = root / "content" / "projects.json"
     project = {
         "name": "测试项目",
+        "category": "应用",
         "status": "测试",
         "year": "2025",
         "summary": "项目列表测试样例",
@@ -102,5 +104,118 @@ def categorized_site_root(empty_site_root: Path, tmp_path_factory: pytest.TempPa
         "## 门禁与链接校验\n\n"
         "在发布前自动扫描全站 HTML 占位符、静态图像资源与内部根相对链接，保障零死链上线。\n",
         encoding="utf-8",
+    )
+
+    projects = [
+        {
+            "name": "Starloop Press 静态出版引擎",
+            "category": "应用",
+            "status": "已开源",
+            "year": "2026",
+            "summary": "基于 Python 3.13 标准库与 Pygments 构建的零运行时依赖静态内容管线与双层筛选引擎。",
+            "stack": ["Python 3.13", "Pygments", "HTML5"],
+            "tags": ["Python", "静态站点", "架构"],
+            "url": "/articles/python-static-pipeline/",
+        },
+        {
+            "name": "Starloop Frequency 视觉令牌系统",
+            "category": "视觉",
+            "status": "进行中",
+            "year": "2026",
+            "summary": "面向暗夜黑曜石与象牙典藏双主题的色彩、排版网格与 60fps 滑动指示条设计规范。",
+            "stack": ["CSS Tokens", "SVG", "设计"],
+            "url": "/articles/code-highlighting-tokens/",
+        },
+        {
+            "name": "GitHub Pages 零死链部署门禁",
+            "category": "工具",
+            "status": "已开源",
+            "year": "2026",
+            "summary": "支持根域名与项目子路径自动重写、静态资产完整性核验与 XML/JSON 校验的发布套件。",
+            "stack": ["Python", "CI/CD"],
+            "tags": ["部署", "自动化", "Python"],
+            "url": "/articles/github-pages-edge-deploy/",
+        },
+        {
+            "name": "Lyra 声学频谱着色器实验",
+            "category": "实验",
+            "status": "实验中",
+            "year": "2025",
+            "summary": "将黑胶唱针律动与天琴座星轨参数映射为轻量 SVG 几何矢量的生成式视觉实验。",
+            "stack": ["SVG", "着色器"],
+            "url": "/articles/starloop-visual-synthesis/",
+        },
+    ]
+    (root / "content" / "projects.json").write_text(
+        json.dumps(projects, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    gallery_items = [
+        {
+            "id": "astra-starloop-diva",
+            "title": "星环舞台 · 曜石绯金咏叹",
+            "category": "角色",
+            "image": "/static/images/astra-portrait.jpg",
+            "prompt": (
+                "solo songstress on starloop velvet stage, obsidian gown with crimson and "
+                "champagne gold embroidery, vintage microphone, floating golden musical staff "
+                "and four-point stars, cinematic rim lighting, ultra detailed"
+            ),
+            "negative_prompt": (
+                "lowres, blurry, overexposed, neon cyan, purple cyberpunk gradient, "
+                "extra fingers, watermark"
+            ),
+            "model": "Flux.1 Dev",
+            "params": {"steps": 28, "cfg": 3.5, "sampler": "Euler", "aspect": "1:1"},
+            "tags": ["曜石绯金", "角色设定", "星环舞台"],
+            "date": "2026-11-21",
+        },
+        {
+            "id": "starloop-tower-nocturne",
+            "title": "天琴座夜幕 · 星环大厦穹顶",
+            "category": "场景",
+            "image": "/static/images/starloop-cover.jpg",
+            "prompt": (
+                "grand concert hall beneath starloop dome, golden orbital rings in dark velvet "
+                "sky, warm tungsten spotlight on vinyl stage, art deco brass geometry, "
+                "atmospheric depth"
+            ),
+            "negative_prompt": "daylight, flat lighting, noisy texture, deformed architecture",
+            "model": "SDXL Lightning",
+            "params": "Steps: 24 · CFG: 4.0 · 16:9",
+            "tags": ["星环舞台", "建筑空间", "夜幕"],
+            "date": "2026-11-19",
+        },
+        {
+            "id": "vinyl-groove-monolith",
+            "title": "33⅓ RPM · 黑胶声纹几何母版",
+            "category": "视觉",
+            "image": "/static/images/cover-01.svg",
+            "prompt": (
+                "minimalist editorial cover art, concentric vinyl record grooves in champagne "
+                "gold hairline on matte obsidian paper, crimson seal accent, swiss typographic grid"
+            ),
+            "model": "Vector Synth v2",
+            "params": "Seed: 4096 · SVG Grid",
+            "tags": ["黑胶美学", "几何版画", "曜石绯金"],
+            "date": "2026-11-16",
+        },
+        {
+            "id": "lyra-prism-caustics",
+            "title": "天琴棱镜 · 焦散星芒实验",
+            "category": "光影",
+            "image": "/static/images/cover-02.svg",
+            "prompt": (
+                "abstract optical caustics through crystal prism, warm amber and crimson light "
+                "dispersion on dark velvet surface, subtle film grain, macro photography"
+            ),
+            "negative_prompt": "oversaturated, harsh clipping",
+            "model": "Flux.1 Dev",
+            "tags": ["光学焦散", "几何版画"],
+            "date": "2026-11-12",
+        },
+    ]
+    (root / "content" / "gallery.json").write_text(
+        json.dumps(gallery_items, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     return root

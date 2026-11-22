@@ -25,10 +25,20 @@ from backend.content_loader import (  # noqa: E402
     estimate_reading_time,
     load_all_content,
     load_categories,
+    load_gallery,
+    load_gallery_categories,
     load_posts,
+    load_project_categories,
+    load_projects,
     parse_frontmatter,
 )
-from backend.feeds import build_robots_txt, build_rss_xml, build_sitemap_xml  # noqa: E402
+from backend.feeds import (  # noqa: E402
+    build_gallery_api,
+    build_projects_api,
+    build_robots_txt,
+    build_rss_xml,
+    build_sitemap_xml,
+)
 from backend.markdown_engine import render_markdown, render_toc_html  # noqa: E402
 from backend.renderer import (  # noqa: E402
     PLACEHOLDER_RE,
@@ -135,6 +145,10 @@ def test_load_real_content_repository() -> None:
     assert loaded["site"]["site_url"] == "https://astrayao.xyz"
     assert [cat["name"] for cat in loaded["categories"]] == ["代码", "图像生成", "工程"]
     assert [cat["name"] for cat in loaded["category_stats"]] == ["代码", "图像生成", "工程"]
+    assert [cat["name"] for cat in loaded["project_categories"]] == ["应用", "工具", "视觉"]
+    assert [cat["name"] for cat in loaded["gallery_categories"]] == ["角色", "场景", "视觉"]
+    assert loaded["projects"] == []
+    assert loaded["gallery"] == []
     dates = [p.date for p in loaded["posts"]]
     assert dates == sorted(dates, reverse=True)
 
@@ -308,7 +322,9 @@ def test_feeds_xml_escaping_and_validity(populated_site_root: Path) -> None:
     sitemap_xml = build_sitemap_xml(site, posts)
     sm_root = ET.fromstring(sitemap_xml)
     assert sm_root.tag.endswith("urlset")
-    assert len(list(sm_root)) == 4 + len(posts)
+    assert len(list(sm_root)) == 5 + len(posts)
+    locs = [el.findtext("{http://www.sitemaps.org/schemas/sitemap/0.9}loc") for el in sm_root]
+    assert "https://example.com/gallery/" in locs
 
     robots = build_robots_txt(site)
     assert "Sitemap: https://example.com/sitemap.xml" in robots
@@ -319,16 +335,20 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_s
     stats = render_site(populated_site_root, dist_dir=dist_dir, clean=True)
     assert stats["posts_count"] == 2
     assert stats["projects_count"] == 1
-    assert stats["html_pages_count"] == 7
+    assert stats["gallery_count"] == 0
+    assert stats["html_pages_count"] == 8
 
     expected_paths = [
         ".nojekyll",
         "index.html",
         "articles/index.html",
         "projects/index.html",
+        "gallery/index.html",
         "about/index.html",
         "404.html",
         "api/posts.json",
+        "api/projects.json",
+        "api/gallery.json",
         "api/search-index.json",
         "rss.xml",
         "sitemap.xml",
@@ -383,11 +403,18 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_s
     home_html = (dist_dir / "index.html").read_text(encoding="utf-8")
     assert '<meta name="site-base-path" content="">' in home_html
     assert "沪ICP备" not in home_html
-    assert home_html.count('class="home-entry home-entry--') == 3
+    assert home_html.count('class="home-entry home-entry--') == 4
     assert "build-fixture" not in home_html
     assert "测试项目" not in home_html
     projects_html = (dist_dir / "projects" / "index.html").read_text(encoding="utf-8")
     assert '<a class="project-link" href="/articles/build-fixture/">' in projects_html
+
+    projects_api = json.loads((dist_dir / "api" / "projects.json").read_text(encoding="utf-8"))
+    assert projects_api["total"] == 1
+    assert projects_api["projects"][0]["tags"] == ["Python"]
+    gallery_api = json.loads((dist_dir / "api" / "gallery.json").read_text(encoding="utf-8"))
+    assert gallery_api["total"] == 0
+    assert gallery_api["items"] == []
 
     for html_file in dist_dir.rglob("*.html"):
         text = html_file.read_text(encoding="utf-8")
@@ -404,7 +431,8 @@ def test_clean_build_removes_published_articles_and_feeds(
     stats = render_site(empty_site_root, dist_dir=dist_dir, clean=True)
     assert stats["posts_count"] == 0
     assert stats["projects_count"] == 0
-    assert stats["html_pages_count"] == 5
+    assert stats["gallery_count"] == 0
+    assert stats["html_pages_count"] == 6
     assert list((dist_dir / "articles").glob("*/index.html")) == []
     assert check_json_and_posts(dist_dir, content_dir=empty_site_root / "content") == ([], 0, 0)
     assert check_xml_files(dist_dir, posts_count=0) == []
@@ -472,10 +500,22 @@ def test_categorized_articles_post_links_and_api_stats(
         ("乐理", "default", 1),
     ]
     home = (dist_dir / "index.html").read_text(encoding="utf-8")
-    assert home.count('class="home-entry home-entry--') == 3
+    assert home.count('class="home-entry home-entry--') == 4
     projects_page = (dist_dir / "projects" / "index.html").read_text(encoding="utf-8")
     assert "暂无已发布项目。" in projects_page
     assert 'class="project-card"' not in projects_page
+    assert "data-category-bar" in projects_page
+    for cat in ("all", "应用", "工具", "视觉"):
+        assert f'data-filter-category="{cat}"' in projects_page
+    assert "data-filter-tag" not in projects_page
+
+    gallery_page = (dist_dir / "gallery" / "index.html").read_text(encoding="utf-8")
+    assert "暂无已发布图像。" in gallery_page
+    assert 'class="gallery-card"' not in gallery_page
+    assert "data-category-bar" in gallery_page
+    for cat in ("all", "角色", "场景", "视觉"):
+        assert f'data-filter-category="{cat}"' in gallery_page
+    assert "data-filter-tag" not in gallery_page
 
 
 def test_normalize_base_path_and_html_rewriting() -> None:
@@ -630,3 +670,241 @@ def test_preview_server_serves_pages_and_custom_404(tmp_path: Path, populated_si
         server.shutdown()
         server.server_close()
         thread.join(timeout=2)
+
+
+def test_project_and_gallery_category_loaders_and_fallbacks(tmp_path: Path) -> None:
+    missing_dir = tmp_path / "missing"
+    missing_dir.mkdir()
+    assert [c["name"] for c in load_project_categories(missing_dir)] == ["应用", "工具", "视觉"]
+    assert [c["name"] for c in load_gallery_categories(missing_dir)] == ["角色", "场景", "视觉"]
+    assert load_gallery(missing_dir) == []
+
+    explicit_empty = tmp_path / "empty-lists"
+    explicit_empty.mkdir()
+    (explicit_empty / "project_categories.json").write_text("[]", encoding="utf-8")
+    (explicit_empty / "gallery_categories.json").write_text("[]", encoding="utf-8")
+    assert load_project_categories(explicit_empty) == []
+    assert load_gallery_categories(explicit_empty) == []
+
+
+def test_load_projects_tags_fallback_and_gallery_validation_sorting(tmp_path: Path) -> None:
+    content_dir = tmp_path / "content"
+    content_dir.mkdir()
+    (content_dir / "projects.json").write_text(
+        json.dumps(
+            [
+                {
+                    "name": "FallbackProj",
+                    "status": "已开源",
+                    "year": "2026",
+                    "summary": "s1",
+                    "stack": ["Python", "CSS"],
+                    "category": "工具",
+                    "url": "/articles/",
+                },
+                {
+                    "name": "ExplicitTagsProj",
+                    "status": "实验中",
+                    "year": "2026",
+                    "summary": "s2",
+                    "stack": ["Python"],
+                    "category": "实验区",
+                    "tags": ["可视化", "WebGL"],
+                    "url": "",
+                },
+            ],
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    projects = load_projects(content_dir)
+    assert projects[0]["tags"] == ["Python", "CSS"]
+    assert projects[0]["tags_csv"] == "Python,CSS"
+    assert projects[1]["tags"] == ["可视化", "WebGL"]
+    proj_cats = compute_category_stats(projects, load_project_categories(content_dir))
+    assert [(c["name"], c["icon"], c["count"]) for c in proj_cats] == [
+        ("应用", "code", 0),
+        ("工具", "engineering", 1),
+        ("视觉", "image", 0),
+        ("实验区", "default", 1),
+    ]
+
+    (content_dir / "gallery.json").write_text(
+        json.dumps(
+            [
+                {
+                    "title": "Undated Item",
+                    "image": "/static/images/cover-01.svg",
+                    "prompt": "undated prompt",
+                    "category": "视觉",
+                },
+                {
+                    "title": "Older Dated",
+                    "image": "/static/images/cover-02.svg",
+                    "prompt": "older prompt",
+                    "date": "2026-11-01",
+                    "params": {"Steps": 28, "CFG": 7.0},
+                },
+                {
+                    "id": "custom-id",
+                    "title": "Newer Dated",
+                    "image": "/static/images/starloop-cover.jpg",
+                    "prompt": "newer prompt",
+                    "negative_prompt": "blurry",
+                    "model": "Flux.1 dev",
+                    "category": "星环限定",
+                    "tags": ["肖像", "霓虹"],
+                    "date": "2026-11-10",
+                },
+            ],
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    gallery = load_gallery(content_dir)
+    assert [g["title"] for g in gallery] == ["Newer Dated", "Older Dated", "Undated Item"]
+    assert gallery[0]["id"] == "custom-id"
+    assert gallery[1]["id"] == "gallery-2"
+    assert gallery[1]["params"] == "Steps: 28 · CFG: 7.0"
+    assert gallery[2]["id"] == "gallery-1"
+
+    gal_cats = compute_category_stats(gallery, load_gallery_categories(content_dir))
+    assert [(c["name"], c["icon"], c["count"]) for c in gal_cats] == [
+        ("角色", "character", 0),
+        ("场景", "scene", 0),
+        ("视觉", "image", 1),
+        ("星环限定", "default", 1),
+    ]
+
+    # Missing required fields must raise ValueError
+    (content_dir / "gallery.json").write_text(
+        json.dumps([{"title": "NoPrompt", "image": "/static/images/cover-01.svg"}]),
+        encoding="utf-8",
+    )
+    with pytest.raises(ValueError, match="prompt"):
+        load_gallery(content_dir)
+
+
+def test_projects_and_gallery_full_render_subpath_xss_and_apis(
+    tmp_path: Path, empty_site_root: Path
+) -> None:
+    site_root = tmp_path / "full-site"
+    shutil.copytree(empty_site_root, site_root)
+    (site_root / "content" / "projects.json").write_text(
+        json.dumps(
+            [
+                {
+                    "name": "星环工具",
+                    "status": "已开源",
+                    "year": "2026",
+                    "summary": "工具摘要",
+                    "stack": ["Python", "CLI"],
+                    "category": "工具",
+                    "url": "/articles/",
+                },
+                {
+                    "name": "自定义项目",
+                    "status": "实验中",
+                    "year": "2026",
+                    "summary": "实验摘要",
+                    "stack": ["Shader"],
+                    "category": "实验区",
+                    "tags": ["着色器"],
+                    "url": "https://github.com/astrayao",
+                },
+            ],
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+    (site_root / "content" / "gallery.json").write_text(
+        json.dumps(
+            [
+                {
+                    "id": "astra-velvet",
+                    "title": '星环独唱 <script>alert("x")</script>',
+                    "image": "/static/images/starloop-cover.jpg",
+                    "prompt": '1girl, red velvet, {{unexpanded_var}}, "spotlight" <script>',
+                    "negative_prompt": "lowres, blurry",
+                    "model": "Flux.1 dev",
+                    "params": {"Steps": 28, "CFG": 6.5},
+                    "category": "角色",
+                    "tags": ["耀嘉音", "舞台"],
+                    "date": "2026-11-20",
+                },
+                {
+                    "id": "custom-stage",
+                    "title": "跨界舞台",
+                    "image": "/static/images/cover-01.svg",
+                    "prompt": "stage lights, gold rings",
+                    "category": "实验视觉",
+                    "tags": ["舞台"],
+                    "date": "2026-11-18",
+                },
+            ],
+            ensure_ascii=False,
+        ),
+        encoding="utf-8",
+    )
+
+    dist_dir = tmp_path / "dist"
+    stats = render_site(
+        site_root,
+        dist_dir=dist_dir,
+        clean=True,
+        base_path="/astrayao-blog",
+        site_url="https://example.github.io/astrayao-blog",
+    )
+    assert stats["projects_count"] == 2
+    assert stats["gallery_count"] == 2
+
+    projects_html = (dist_dir / "projects" / "index.html").read_text(encoding="utf-8")
+    for cat in ("all", "应用", "工具", "视觉", "实验区"):
+        assert f'data-filter-category="{cat}"' in projects_html
+    assert 'class="project-category-badge" data-filter-category="实验区"' in projects_html
+    assert 'href="/astrayao-blog/projects/?tag=Python"' in projects_html
+    assert 'href="/astrayao-blog/articles/"' in projects_html
+    assert 'href="https://github.com/astrayao"' in projects_html
+
+    gallery_html = (dist_dir / "gallery" / "index.html").read_text(encoding="utf-8")
+    for cat in ("all", "角色", "场景", "视觉", "实验视觉"):
+        assert f'data-filter-category="{cat}"' in gallery_html
+    assert 'data-gallery-id="astra-velvet"' in gallery_html
+    assert 'data-image="/astrayao-blog/static/images/starloop-cover.jpg"' in gallery_html
+    assert 'src="/astrayao-blog/static/images/starloop-cover.jpg"' in gallery_html
+    assert 'href="/astrayao-blog/gallery/?tag=%E8%80%80%E5%98%89%E9%9F%B3"' in gallery_html
+    assert "<script>alert" not in gallery_html
+    assert "&lt;script&gt;alert(&quot;x&quot;)&lt;/script&gt;" in gallery_html
+    assert not PLACEHOLDER_RE.findall(gallery_html)
+    assert 'class="gallery-lightbox" data-gallery-lightbox' in gallery_html
+
+    projects_api = json.loads((dist_dir / "api" / "projects.json").read_text(encoding="utf-8"))
+    assert projects_api["total"] == 2
+    assert projects_api["projects"][0]["url"] == "/astrayao-blog/articles/"
+    assert projects_api["projects"][1]["url"] == "https://github.com/astrayao"
+    assert [(c["name"], c["icon"], c["count"]) for c in projects_api["categories"]] == [
+        ("应用", "code", 0),
+        ("工具", "engineering", 1),
+        ("视觉", "image", 0),
+        ("实验区", "default", 1),
+    ]
+
+    gallery_api = json.loads((dist_dir / "api" / "gallery.json").read_text(encoding="utf-8"))
+    assert gallery_api["total"] == 2
+    assert gallery_api["items"][0]["image"] == "/astrayao-blog/static/images/starloop-cover.jpg"
+    assert [(c["name"], c["icon"], c["count"]) for c in gallery_api["categories"]] == [
+        ("角色", "character", 1),
+        ("场景", "scene", 0),
+        ("视觉", "image", 0),
+        ("实验视觉", "default", 1),
+    ]
+
+    # Verify build_projects_api / build_gallery_api direct helpers respect base_path
+    direct_gal = build_gallery_api(
+        load_gallery(site_root / "content"), [], [], base_path="/sub"
+    )
+    assert direct_gal["items"][0]["image"] == "/sub/static/images/starloop-cover.jpg"
+    direct_proj = build_projects_api(
+        load_projects(site_root / "content"), [], [], base_path="/sub"
+    )
+    assert direct_proj["projects"][0]["url"] == "/sub/articles/"

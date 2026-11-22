@@ -1,13 +1,16 @@
-<article class="project-card">
+<article class="project-card" data-filter-item data-category="{{category}}" data-tags="{{tags_csv}}">
   <div>
     <div class="project-card-top">
-      <span class="project-year">{{year}}</span>
+      <div class="project-card-meta">
+        <span class="project-year">{{year}}</span>
+        {{category_badge_html}}
+      </div>
       <span class="project-status">{{status}}</span>
     </div>
     <h3 class="project-name">{{name_html}}</h3>
     <p class="project-summary">{{summary}}</p>
   </div>
   <div class="project-footer">
-    <div class="project-stack">{{stack_html}}</div>{{link_html}}
+    <div class="project-stack">{{tags_html}}</div>{{link_html}}
   </div>
 </article>

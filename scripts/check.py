@@ -40,9 +40,12 @@ REQUIRED_FILES = (
     "index.html",
     "articles/index.html",
     "projects/index.html",
+    "gallery/index.html",
     "about/index.html",
     "404.html",
     "api/posts.json",
+    "api/projects.json",
+    "api/gallery.json",
     "api/search-index.json",
     "rss.xml",
     "sitemap.xml",
@@ -93,7 +96,7 @@ class InternalLinkExtractor(HTMLParser):
             self.meta_base_path = attr_map.get("content")
 
         for attr_name, attr_val in attrs:
-            if attr_name not in ("href", "src") or attr_val is None:
+            if attr_name not in ("href", "src", "data-image") or attr_val is None:
                 continue
             value = attr_val.strip()
             if value.startswith("/") and not value.startswith("//"):
@@ -373,30 +376,102 @@ def check_json_and_posts(
         if slug != "." and slug not in source_slugs:
             errors.append(f"Stale article detail page: {detail_html.relative_to(dist_dir)}")
 
-    categories_path = content_dir / "categories.json"
-    if categories_path.is_file():
+    category_registries = (
+        ("categories.json", dist_dir / "articles" / "index.html", "articles/index.html", False),
+        ("project_categories.json", dist_dir / "projects" / "index.html", "projects/index.html", True),
+        ("gallery_categories.json", dist_dir / "gallery" / "index.html", "gallery/index.html", True),
+    )
+    for json_name, page_path, page_label, required in category_registries:
+        reg_path = content_dir / json_name
+        if not reg_path.is_file():
+            if required:
+                errors.append(f"Missing required category registry: content/{json_name}")
+            continue
         try:
-            categories_data = json.loads(categories_path.read_text(encoding="utf-8"))
+            reg_data = json.loads(reg_path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
-            errors.append(f"Invalid JSON in content/categories.json: {exc}")
-        else:
-            if not isinstance(categories_data, list):
-                errors.append("content/categories.json must be a JSON array.")
-            else:
-                articles_index = dist_dir / "articles" / "index.html"
-                articles_html = (
-                    articles_index.read_text(encoding="utf-8") if articles_index.is_file() else ""
+            errors.append(f"Invalid JSON in content/{json_name}: {exc}")
+            continue
+        if not isinstance(reg_data, list):
+            errors.append(f"content/{json_name} must be a JSON array.")
+            continue
+
+        page_html = page_path.read_text(encoding="utf-8") if page_path.is_file() else ""
+        if page_html:
+            if "data-category-bar" not in page_html or "data-category-indicator" not in page_html:
+                errors.append(
+                    f"Missing category bar/indicator hooks in dist/{page_label}"
                 )
-                for idx, cat in enumerate(categories_data):
-                    if not isinstance(cat, dict) or not str(cat.get("name", "")).strip():
-                        errors.append(f"content/categories.json entry #{idx} missing 'name'.")
-                        continue
-                    cat_name = str(cat["name"]).strip()
-                    esc_cat_name = html.escape(cat_name, quote=True)
-                    if articles_html and f'data-filter-category="{esc_cat_name}"' not in articles_html:
-                        errors.append(
-                            f"Category '{cat_name}' missing from dist/articles/index.html"
-                        )
+            if 'data-filter-category="all"' not in page_html:
+                errors.append(
+                    f"Missing 'all' category tab in dist/{page_label}"
+                )
+        for idx, cat in enumerate(reg_data):
+            if not isinstance(cat, dict) or not str(cat.get("name", "")).strip():
+                errors.append(f"content/{json_name} entry #{idx} missing 'name'.")
+                continue
+            cat_name = str(cat["name"]).strip()
+            esc_cat_name = html.escape(cat_name, quote=True)
+            if page_html and f'data-filter-category="{esc_cat_name}"' not in page_html:
+                errors.append(
+                    f"Category '{cat_name}' from content/{json_name} missing from dist/{page_label}"
+                )
+
+    for api_name, list_key, source_name, url_field in (
+        ("projects.json", "projects", "projects.json", "url"),
+        ("gallery.json", "items", "gallery.json", "image"),
+    ):
+        api_path = dist_dir / "api" / api_name
+        if not api_path.is_file():
+            continue
+        try:
+            api_data = json.loads(api_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            errors.append(f"Invalid JSON in dist/api/{api_name}: {exc}")
+            continue
+        if not isinstance(api_data, dict):
+            errors.append(f"dist/api/{api_name} must be a JSON object.")
+            continue
+        items_list = api_data.get(list_key)
+        if not isinstance(items_list, list):
+            errors.append(f"dist/api/{api_name} missing list field '{list_key}'.")
+            continue
+        if "total" in api_data and api_data["total"] != len(items_list):
+            errors.append(
+                f"dist/api/{api_name} 'total' ({api_data['total']}) "
+                f"does not match len({list_key}) ({len(items_list)})."
+            )
+        src_path = content_dir / source_name
+        if src_path.is_file():
+            try:
+                src_items = json.loads(src_path.read_text(encoding="utf-8"))
+            except json.JSONDecodeError as exc:
+                errors.append(f"Invalid JSON in content/{source_name}: {exc}")
+            else:
+                if not isinstance(src_items, list):
+                    errors.append(f"content/{source_name} must be a JSON array.")
+                elif len(items_list) != len(src_items):
+                    errors.append(
+                        f"dist/api/{api_name} count ({len(items_list)}) "
+                        f"does not match content/{source_name} ({len(src_items)})."
+                    )
+        if "categories" in api_data:
+            if not isinstance(api_data["categories"], list):
+                errors.append(f"dist/api/{api_name} field 'categories' must be a list.")
+            else:
+                for cidx, cat in enumerate(api_data["categories"]):
+                    if not isinstance(cat, dict) or not cat.get("name"):
+                        errors.append(f"dist/api/{api_name} categories[{cidx}] missing 'name'.")
+        if base_path:
+            for idx, item in enumerate(items_list):
+                if not isinstance(item, dict):
+                    continue
+                val = str(item.get(url_field) or "")
+                if val.startswith("/") and not val.startswith("//") and not val.startswith(f"{base_path}/"):
+                    errors.append(
+                        f"dist/api/{api_name} {list_key}[{idx}].{url_field} '{val}' "
+                        f"missing base_path '{base_path}'."
+                    )
 
     return errors, posts_count, search_count
 
@@ -442,16 +517,25 @@ def check_xml_files(dist_dir: Path, base_path: str = "", *, posts_count: int) ->
                     f"dist/sitemap.xml root element must be <urlset>, got <{sm_root.tag}>"
                 )
             urls = [el for el in sm_root if el.tag.rsplit("}", 1)[-1] == "url"]
-            if len(urls) == 0:
-                errors.append("dist/sitemap.xml contains zero <url> entries.")
-            elif double_prefix:
+            expected_min_urls = 5 + posts_count
+            if len(urls) < expected_min_urls:
+                errors.append(
+                    f"dist/sitemap.xml has {len(urls)} <url> entries, expected at least "
+                    f"{expected_min_urls} (5 core pages + {posts_count} posts)."
+                )
+            else:
+                locs: list[str] = []
                 for url_el in urls:
                     for child in url_el:
-                        if child.text and double_prefix in child.text:
+                        if child.tag.rsplit("}", 1)[-1] == "loc" and child.text:
+                            locs.append(child.text.strip())
+                        if double_prefix and child.text and double_prefix in child.text:
                             errors.append(
                                 f"Duplicate base_path '{double_prefix}' in dist/sitemap.xml: "
                                 f"{child.text}"
                             )
+                if not any(loc.endswith("/gallery/") for loc in locs):
+                    errors.append("dist/sitemap.xml missing '/gallery/' entry.")
 
     return errors
 

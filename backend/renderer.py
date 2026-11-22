@@ -164,6 +164,25 @@ CATEGORY_ICONS: dict[str, str] = {
         'stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>'
         "</svg>"
     ),
+    "character": (
+        '<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true">'
+        '<circle cx="9" cy="6.6" r="2.7" stroke="currentColor" stroke-width="1.25"/>'
+        '<path d="M4.2 14.8C4.8 11.9 6.6 10.6 9 10.6C11.4 10.6 13.2 11.9 13.8 14.8" '
+        'stroke="currentColor" stroke-width="1.25" stroke-linecap="round"/>'
+        '<path d="M13.6 2.6L14.15 4.05L15.6 4.6L14.15 5.15L13.6 6.6L13.05 5.15L11.6 4.6L13.05 4.05Z" '
+        'fill="currentColor"/>'
+        "</svg>"
+    ),
+    "scene": (
+        '<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true">'
+        '<path d="M2.2 13.8H15.8" stroke="currentColor" stroke-width="1.2" '
+        'stroke-linecap="round" stroke-opacity="0.65"/>'
+        '<path d="M3 13.6L7.1 8.5L10.3 11.7L12.6 9.3L15.2 13.6" stroke="currentColor" '
+        'stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"/>'
+        '<path d="M12.4 3.2L12.95 4.65L14.4 5.2L12.95 5.75L12.4 7.2L11.85 5.75L10.4 5.2L11.85 4.65Z" '
+        'fill="currentColor"/>'
+        "</svg>"
+    ),
     "default": (
         '<svg viewBox="0 0 18 18" width="16" height="16" fill="none" aria-hidden="true">'
         '<circle cx="9" cy="9" r="6.2" stroke="currentColor" stroke-width="1.15" '
@@ -176,16 +195,19 @@ CATEGORY_ICONS: dict[str, str] = {
 
 
 def _render_category_tabs(
-    posts: list[Post],
+    items: list[Any] | int,
     category_stats: list[dict[str, Any]],
+    aria_label: str = "文章分类",
 ) -> str:
     """Render top-level extensible category rail with sliding indicator."""
+    total_count = items if isinstance(items, int) else len(items)
+    esc_aria = _neutralize_braces(html.escape(aria_label, quote=True))
     tabs: list[str] = [
         '<button type="button" class="category-tab is-active" role="tab" '
         'aria-selected="true" data-filter-category="all">'
         f'<span class="category-tab-icon" aria-hidden="true">{CATEGORY_ICONS["all"]}</span>'
         '<span class="category-tab-label">全部</span>'
-        f'<span class="category-tab-count">{len(posts)}</span>'
+        f'<span class="category-tab-count">{total_count}</span>'
         "</button>"
     ]
     for cat in category_stats:
@@ -208,7 +230,7 @@ def _render_category_tabs(
     tabs_inner = "\n      ".join(tabs)
     return (
         '<div class="category-bar" data-category-bar>\n'
-        '  <div class="category-tabs" data-category-tabs role="tablist" aria-label="文章分类">\n'
+        f'  <div class="category-tabs" data-category-tabs role="tablist" aria-label="{esc_aria}">\n'
         '    <span class="category-indicator" data-category-indicator aria-hidden="true"></span>\n'
         f"    {tabs_inner}\n"
         "  </div>\n"
@@ -216,25 +238,27 @@ def _render_category_tabs(
     )
 
 
-def _render_inline_tag_pills(tags: list[str]) -> str:
+def _render_inline_tag_pills(tags: list[str], route_prefix: str = "/articles/") -> str:
     """Render clickable tag pills (without counts) for cards and post headers."""
+    base_route = route_prefix if route_prefix.endswith("/") else f"{route_prefix}/"
     pills: list[str] = []
     for tag in tags:
         href_tag = urllib.parse.quote(tag, safe="")
         esc_tag = _neutralize_braces(html.escape(tag, quote=True))
         pills.append(
-            f'<a class="tag-pill" href="/articles/?tag={href_tag}" '
+            f'<a class="tag-pill" href="{base_route}?tag={href_tag}" '
             f'data-filter-tag="{esc_tag}">{esc_tag}</a>'
         )
     return "\n".join(pills)
 
 
-def _render_filter_buttons(posts: list[Post], tag_stats: list[dict[str, Any]]) -> str:
+def _render_filter_buttons(items: list[Any] | int, tag_stats: list[dict[str, Any]]) -> str:
     """Render archive filter pill buttons for ``all`` plus every tag."""
+    total_count = items if isinstance(items, int) else len(items)
     buttons = [
         '<button type="button" class="filter-pill is-active" '
         'data-filter-tag="all" aria-pressed="true">'
-        f'全部 <span class="filter-pill-count">{len(posts)}</span></button>'
+        f'全部 <span class="filter-pill-count">{total_count}</span></button>'
     ]
     for item in tag_stats:
         tag_name = str(item["name"])
@@ -281,10 +305,18 @@ def _render_social_links(social_links: list[dict[str, Any]]) -> str:
 
 def _render_project_card(engine: TemplateEngine, project: dict[str, Any]) -> str:
     """Render one project card using ``partials/project_card.html``."""
-    stack_html = "\n".join(
-        f'<span class="stack-tag">{_neutralize_braces(html.escape(tech, quote=True))}</span>'
-        for tech in project.get("stack", [])
+    category = str(project.get("category") or "").strip()
+    esc_cat = _neutralize_braces(html.escape(category, quote=True))
+    category_badge_html = (
+        f'<button type="button" class="project-category-badge" '
+        f'data-filter-category="{esc_cat}">{esc_cat}</button>'
+        if category
+        else ""
     )
+    tags = list(project.get("tags") or project.get("stack") or [])
+    tags_csv = str(project.get("tags_csv") or ",".join(tags))
+    tags_html = _render_inline_tag_pills(tags, route_prefix="/projects/")
+
     name_html = render_template("{{name}}", project)
     link_html = ""
     if project["url"]:
@@ -293,12 +325,62 @@ def _render_project_card(engine: TemplateEngine, project: dict[str, Any]) -> str
     return engine.render_partial(
         "project_card.html",
         {
+            "category": category,
+            "tags_csv": tags_csv,
+            "category_badge_html": category_badge_html,
             "name_html": name_html,
             "status": project["status"],
             "year": project["year"],
             "summary": project["summary"],
-            "stack_html": stack_html,
+            "tags_html": tags_html,
             "link_html": link_html,
+        },
+    )
+
+
+def _render_gallery_card(
+    engine: TemplateEngine,
+    item: dict[str, Any],
+    base_path: str = "",
+) -> str:
+    """Render one gallery prompt+image card using ``partials/gallery_card.html``."""
+    category = str(item.get("category") or "").strip()
+    esc_cat = _neutralize_braces(html.escape(category, quote=True))
+    category_badge_html = (
+        f'<button type="button" class="gallery-category-badge" '
+        f'data-filter-category="{esc_cat}">{esc_cat}</button>'
+        if category
+        else ""
+    )
+    model = str(item.get("model") or "").strip()
+    esc_model = _neutralize_braces(html.escape(model, quote=True))
+    model_chip_html = (
+        f'<span class="gallery-model-chip">{esc_model}</span>'
+        if model
+        else ""
+    )
+    tags = list(item.get("tags") or [])
+    tags_html = _render_inline_tag_pills(tags, route_prefix="/gallery/")
+    image_src = str(item["image"])
+    data_image = prefix_url(image_src, base_path)
+
+    return engine.render_partial(
+        "gallery_card.html",
+        {
+            "id": item["id"],
+            "title": item["title"],
+            "image": image_src,
+            "data_image": data_image,
+            "prompt": item["prompt"],
+            "negative_prompt": item.get("negative_prompt", ""),
+            "model": model,
+            "params": item.get("params", ""),
+            "date": item.get("date", ""),
+            "category": category,
+            "tags_csv": item.get("tags_csv", ",".join(tags)),
+            "category_badge_html": category_badge_html,
+            "model_chip_html": model_chip_html,
+            "tags_html": tags_html,
         },
     )
 
@@ -374,6 +456,7 @@ def _wrap_base(
             "nav_home_active": "is-active" if active_nav == "home" else "",
             "nav_articles_active": "is-active" if active_nav == "articles" else "",
             "nav_projects_active": "is-active" if active_nav == "projects" else "",
+            "nav_gallery_active": "is-active" if active_nav == "gallery" else "",
             "nav_about_active": "is-active" if active_nav == "about" else "",
             "extra_head": extra_head,
             "page_content": page_content,
@@ -445,6 +528,11 @@ def render_site(
         has_cname = False
 
     projects: list[dict[str, Any]] = loaded["projects"]
+    project_category_stats: list[dict[str, Any]] = loaded["project_category_stats"]
+    project_tag_stats: list[dict[str, Any]] = loaded["project_tag_stats"]
+    gallery: list[dict[str, Any]] = loaded["gallery"]
+    gallery_category_stats: list[dict[str, Any]] = loaded["gallery_category_stats"]
+    gallery_tag_stats: list[dict[str, Any]] = loaded["gallery_tag_stats"]
     posts: list[Post] = loaded["posts"]
     tag_stats: list[dict[str, Any]] = loaded["tag_stats"]
     category_stats: list[dict[str, Any]] = loaded["category_stats"]
@@ -599,15 +687,31 @@ def render_site(
         html_pages_count += 1
 
     # 6. Render Projects Page: dist/projects/index.html
-    project_cards = "\n".join(_render_project_card(engine, project) for project in projects)
+    projects_list_html = (
+        engine.render_partial(
+            "projects_list.html",
+            {
+                "total_projects": str(len(projects)),
+                "tag_filters_html": _render_filter_buttons(projects, project_tag_stats),
+                "projects_cards_html": "\n".join(
+                    _render_project_card(engine, project) for project in projects
+                ),
+            },
+        )
+        if projects
+        else (
+            '<div class="empty-stage" aria-live="polite">'
+            f'{empty_stage_svg}<p class="search-empty" data-projects-empty data-filter-empty>暂无已发布项目。</p>'
+            "</div>"
+        )
+    )
     projects_body = engine.render(
         "projects.html",
         {
-            "projects_list_html": (
-                f'<div class="projects-grid projects-grid--catalog">\n{project_cards}\n</div>'
-                if project_cards
-                else f'<div class="empty-stage">{empty_stage_svg}<p class="search-empty">暂无已发布项目。</p></div>'
+            "category_tabs_html": _render_category_tabs(
+                projects, project_category_stats, aria_label="项目分类"
             ),
+            "projects_list_html": projects_list_html,
         },
     )
     _write_html(
@@ -625,7 +729,51 @@ def render_site(
     )
     html_pages_count += 1
 
-    # 7. Render About Page: dist/about/index.html
+    # 7. Render Gallery Page: dist/gallery/index.html
+    gallery_html = (
+        engine.render_partial(
+            "gallery_list.html",
+            {
+                "total_gallery": str(len(gallery)),
+                "tag_filters_html": _render_filter_buttons(gallery, gallery_tag_stats),
+                "gallery_cards_html": "\n".join(
+                    _render_gallery_card(engine, item, base_path=normalized_base_path)
+                    for item in gallery
+                ),
+            },
+        )
+        if gallery
+        else (
+            '<div class="empty-stage" aria-live="polite">'
+            f'{empty_stage_svg}<p class="search-empty" data-gallery-empty data-filter-empty>暂无已发布图像。</p>'
+            "</div>"
+        )
+    )
+    gallery_body = engine.render(
+        "gallery.html",
+        {
+            "category_tabs_html": _render_category_tabs(
+                gallery, gallery_category_stats, aria_label="图像分类"
+            ),
+            "gallery_html": gallery_html,
+        },
+    )
+    _write_html(
+        out_dir / "gallery" / "index.html",
+        _wrap_base(
+            engine,
+            site,
+            page_title=f"图像 · {site['site_title']}",
+            page_description=f"{site['author_name']} 的图像生成作品与提示词画廊。",
+            route_path="/gallery/",
+            active_nav="gallery",
+            page_content=gallery_body,
+            base_path=normalized_base_path,
+        ),
+    )
+    html_pages_count += 1
+
+    # 8. Render About Page: dist/about/index.html
     about_body = engine.render(
         "about.html",
         {
@@ -652,7 +800,7 @@ def render_site(
     )
     html_pages_count += 1
 
-    # 8. Render 404 Page: dist/404.html
+    # 9. Render 404 Page: dist/404.html
     not_found_body = engine.render("404.html", {})
     _write_html(
         out_dir / "404.html",
@@ -669,7 +817,7 @@ def render_site(
     )
     html_pages_count += 1
 
-    # 9. Write JSON APIs, RSS 2.0, Sitemap XML, robots.txt
+    # 10. Write JSON APIs, RSS 2.0, Sitemap XML, robots.txt
     feed_paths = write_feeds(
         out_dir,
         site,
@@ -677,6 +825,12 @@ def render_site(
         tag_stats,
         category_stats,
         base_path=normalized_base_path,
+        projects=projects,
+        project_tag_stats=project_tag_stats,
+        project_category_stats=project_category_stats,
+        gallery=gallery,
+        gallery_tag_stats=gallery_tag_stats,
+        gallery_category_stats=gallery_category_stats,
     )
 
     elapsed_ms = (time.perf_counter() - started) * 1000.0
@@ -686,6 +840,7 @@ def render_site(
         "has_cname": has_cname,
         "posts_count": len(posts),
         "projects_count": len(projects),
+        "gallery_count": len(gallery),
         "categories_count": len(category_stats),
         "tags_count": len(tag_stats),
         "html_pages_count": html_pages_count,

@@ -1,0 +1,5 @@
+[
+  { "id": "web", "name": "应用", "icon": "code" },
+  { "id": "tool", "name": "工具", "icon": "engineering" },
+  { "id": "visual", "name": "视觉", "icon": "image" }
+]
