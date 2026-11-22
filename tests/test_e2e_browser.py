@@ -269,11 +269,14 @@ def test_home_cover_fades_as_content_rises_with_scroll(
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
         cover = page.locator(".home-cover")
+        copy = page.locator(".home-cover-copy")
         artwork = page.locator(".home-cover-artwork")
         header = page.locator(".site-header")
         content = page.locator(".home-entries")
         original_bounds = artwork.bounding_box()
         initial_content_y = content.bounding_box()["y"]
+        initial_copy_y = copy.bounding_box()["y"]
+        assert copy.evaluate("el => Number(getComputedStyle(el).opacity)") == pytest.approx(1.0, abs=0.01)
         original_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
         assert original_bounds["height"] == pytest.approx(height, abs=1)
         assert original_mask.startswith("linear-gradient(to top,")
@@ -295,15 +298,23 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         middle = round(travel * 0.52)
         scroll_to(middle)
         middle_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
+        middle_copy_y = copy.bounding_box()["y"]
+        middle_copy_opacity = copy.evaluate("el => Number(getComputedStyle(el).opacity)")
         assert middle_mask != original_mask
         assert artwork.bounding_box() == pytest.approx(original_bounds, abs=1)
         assert content.bounding_box()["y"] == pytest.approx(initial_content_y - middle, abs=2)
+        assert middle_copy_y < initial_copy_y - 20
+        assert 0.15 < middle_copy_opacity < 0.40
 
         scroll_to(travel)
         final_mask = cover.evaluate("el => getComputedStyle(el).maskImage")
+        final_copy_y = copy.bounding_box()["y"]
+        final_copy_opacity = copy.evaluate("el => Number(getComputedStyle(el).opacity)")
         assert final_mask not in (middle_mask, original_mask)
         assert "100%" in final_mask
         assert artwork.bounding_box() == pytest.approx(original_bounds, abs=1)
+        assert final_copy_y < middle_copy_y
+        assert final_copy_opacity == pytest.approx(0.0, abs=0.01)
         content_y = content.bounding_box()["y"]
         assert content_y == pytest.approx(initial_content_y - travel, abs=2)
         assert not content.evaluate("el => el.inert")
@@ -323,6 +334,8 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         scroll_to(middle)
         assert cover.evaluate("el => getComputedStyle(el).maskImage") == middle_mask
         assert content.bounding_box()["y"] == pytest.approx(initial_content_y - middle, abs=2)
+        assert copy.bounding_box()["y"] == pytest.approx(middle_copy_y, abs=2)
+        assert copy.evaluate("el => Number(getComputedStyle(el).opacity)") == pytest.approx(middle_copy_opacity, abs=0.02)
         scroll_to(0)
         _open_home_cover(page)
         assert page.evaluate("() => document.activeElement.id") == "home-intro"
@@ -390,6 +403,9 @@ def test_home_cover_respects_reduced_motion(browser: Browser, static_server: str
     try:
         page.goto(f"{static_server}/", wait_until="networkidle")
         assert not page.locator(".home-opening.is-scroll-cover").count()
+        copy = page.locator(".home-cover-copy")
+        assert copy.evaluate("el => Number(getComputedStyle(el).opacity)") == 1
+        assert copy.evaluate("el => getComputedStyle(el).transform") == "none"
         assert page.locator(".site-header").evaluate("el => getComputedStyle(el).position") == "sticky"
         page.locator(".home-cover-enter").click()
         page.wait_for_url("**/#home-intro")

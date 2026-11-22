@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  gap: clamp(2rem, 9svh, 6rem);
+  gap: clamp(3rem, 14svh, 9.5rem);
   min-height: calc(100svh - var(--header-height));
   padding-block: 2rem clamp(1.5rem, 5svh, 3.5rem);
   overflow: clip;
@@ -27,7 +27,35 @@
 
 .home-cover-backdrop {
   inset: 0;
+  overflow: clip;
   background: radial-gradient(ellipse at 30% 18%, #5a2027 0%, #281318 42%, #100c0e 80%);
+}
+
+/* Subtle upper-left Starloop orbit arc anchoring empty negative space */
+.home-cover-backdrop::before {
+  content: "";
+  position: absolute;
+  top: -22%;
+  left: -14%;
+  width: clamp(22rem, 54vw, 52rem);
+  aspect-ratio: 1.55 / 1;
+  border-radius: 50%;
+  border: 1px solid rgba(223, 184, 107, 0.14);
+  border-top-color: rgba(225, 45, 75, 0.18);
+  transform: rotate(-16deg);
+  -webkit-mask-image: radial-gradient(ellipse at 65% 60%, #000 32%, transparent 76%);
+  mask-image: radial-gradient(ellipse at 65% 60%, #000 32%, transparent 76%);
+}
+
+@keyframes home-cover-item-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 .home-cover-artwork {
@@ -58,12 +86,14 @@
   width: clamp(2rem, 3.3vw, 2.625rem);
   height: auto;
   margin-bottom: clamp(0.85rem, 2svh, 1.35rem);
+  animation: home-cover-item-in 520ms cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .home-cover-name {
   color: #f1c98d;
   font: 500 var(--text-sm)/1.2 var(--font-mono);
   letter-spacing: 0.32em;
+  animation: home-cover-item-in 520ms cubic-bezier(0.22, 1, 0.36, 1) 70ms both;
 }
 
 .home-cover-title {
@@ -74,6 +104,7 @@
   line-height: 1.15;
   letter-spacing: 0.06em;
   text-shadow: 0 3px 30px #100a0c7a;
+  animation: home-cover-item-in 520ms cubic-bezier(0.22, 1, 0.36, 1) 140ms both;
 }
 
 .home-cover-enter {
@@ -86,6 +117,7 @@
   min-height: 44px;
   color: rgba(241, 201, 141, 0.86);
   transition: color var(--transition-fast), transform var(--transition-base);
+  animation: home-cover-item-in 520ms cubic-bezier(0.22, 1, 0.36, 1) 220ms both;
 }
 
 .home-cover-stem {
@@ -151,7 +183,15 @@
 }
 
 .is-scroll-cover .home-cover-copy {
-  opacity: clamp(0, 1 - var(--cover-progress, 0) * 2.5, 1);
+  transform: translate3d(0, calc(var(--cover-travel) * -0.58 * var(--cover-progress, 0)), 0);
+  opacity: clamp(0, 1 - var(--cover-progress, 0) * 1.45, 1);
+  will-change: transform, opacity;
+}
+
+.is-scroll-cover .home-cover-foot {
+  transform: translate3d(0, calc(var(--cover-travel) * -0.22 * var(--cover-progress, 0)), 0);
+  opacity: clamp(0, 1 - var(--cover-progress, 0) * 3.1, 1);
+  will-change: transform, opacity;
 }
 
 .is-scroll-cover .home-cover-enter {
@@ -470,7 +510,7 @@
 @media (max-width: 760px) {
   .home-cover {
     --artwork-width: 100%;
-    gap: 1.6rem;
+    gap: clamp(2rem, 10svh, 5rem);
   }
 
   .home-cover-backdrop {
@@ -618,5 +658,15 @@
   .home-entry-arrow {
     width: 1.55rem;
     font-size: 0.8rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-cover-mark,
+  .home-cover-name,
+  .home-cover-title,
+  .home-cover-enter {
+    animation: none !important;
+    transition: none !important;
   }
 }
