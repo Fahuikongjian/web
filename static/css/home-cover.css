@@ -373,6 +373,52 @@
   transform: translateX(0.18rem);
 }
 
+[data-theme="light"] .home-entrance {
+  background: linear-gradient(#fdfbf7, #f4efe6);
+}
+
+[data-theme="light"] .home-entry-orbits {
+  display: none;
+}
+
+[data-theme="light"] .home-entries::before,
+[data-theme="light"] .home-entries::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(4rem, 27vw, 13rem);
+  height: 0.9rem;
+  border: 0 solid var(--border-strong);
+  pointer-events: none;
+}
+
+[data-theme="light"] .home-entries::before {
+  grid-column: 1 / 2;
+  top: -2.25rem;
+  left: 0;
+  border-width: 1px 0 0 1px;
+}
+
+[data-theme="light"] .home-entries::after {
+  grid-column: -2 / -1;
+  right: 0;
+  bottom: -2.25rem;
+  border-width: 0 1px 1px 0;
+}
+
+[data-theme="light"] .home-entry {
+  --entry-line: var(--gold-hairline);
+  background: var(--bg-card);
+}
+
+[data-theme="light"] .home-entry::before,
+[data-theme="light"] .home-entry::after {
+  width: 1.15rem;
+  height: 0.75rem;
+  border-radius: 0;
+  opacity: 1;
+}
+
 /* The home entry cards handle navigation; the header keeps the site utilities. */
 .site-header .site-nav,
 .site-header .mobile-menu-btn,

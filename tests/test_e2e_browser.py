@@ -532,18 +532,23 @@ def test_theme_toggle_and_persistence(browser: Browser, static_server: str) -> N
         page.goto(f"{static_server}/", wait_until="networkidle")
         assert page.evaluate("() => document.documentElement.dataset.theme") == "dark"
         _open_home_cover(page)
+        orbits = page.locator(".home-entry-orbits")
+        expect(orbits).to_be_visible()
 
         page.locator("[data-theme-toggle]").click()
         assert page.evaluate("() => document.documentElement.dataset.theme") == "light"
         assert page.evaluate("() => localStorage.getItem('blog-theme')") == "light"
+        expect(orbits).to_be_hidden()
 
         page.reload(wait_until="networkidle")
         assert page.evaluate("() => document.documentElement.dataset.theme") == "light"
         _open_home_cover(page)
+        expect(orbits).to_be_hidden()
 
         page.locator("[data-theme-toggle]").click()
         assert page.evaluate("() => document.documentElement.dataset.theme") == "dark"
         assert page.evaluate("() => localStorage.getItem('blog-theme')") == "dark"
+        expect(orbits).to_be_visible()
 
         _assert_clean_page(records, "theme-toggle")
     finally:
