@@ -1,0 +1,481 @@
+{
+  "siteName": "千度旧网检索",
+  "domain": "search.qiandu.lh",
+  "tagline": "丰宁地方网页存档索引",
+  "hotQueries": [
+    "纸傩",
+    "槐安里",
+    "周延生",
+    "404B",
+    "site:blog.shanye.lh"
+  ],
+  "syntaxTips": [
+    "可输入公告编号、人名或正文词；用 site:域名 限定站点。"
+  ],
+  "easterEggs": [
+    {
+      "id": "egg-darun-61",
+      "gateId": "gate-search-darun",
+      "triggers": [
+        "LXJZ-61",
+        "丰ICP备-LXJZ-61",
+        "闰腊月廿九",
+        "甲辰年闰腊月廿九",
+        "2019-02-30"
+      ],
+      "bannerTitle": "找到一份索引校对副本",
+      "bannerNote": "本条记录主站已撤回，索引保有当时的缓存。",
+      "resultId": "sr-darun-cache-61"
+    }
+  ],
+  "entries": [
+    {
+      "id": "sr-blog-draft-temple",
+      "title": "[未公开草稿] 白衣野庙空心神像：泥胎里的黄表纸与香火截流 - 山野拾影",
+      "url": "https://blog.shanye.lh/post/draft-wild-temple",
+      "domain": "blog.shanye.lh",
+      "date": "2024-11-06",
+      "snippet": "掀开丰宁后山白衣野庙泥像背部的裂缝，空腔里密密麻麻塞着槐安里住户的生辰八字黄表纸与《纸傩代身诀》残页。供桌前的香一根根烧短，灰却从泥胎背后漏下来...",
+      "keywords": [
+        "野庙",
+        "白衣野庙",
+        "空心",
+        "神像",
+        "黄表纸",
+        "香火",
+        "林野",
+        "纸傩",
+        "草稿",
+        "槐安里"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": true,
+      "unlockGate": null,
+      "badge": "降权草稿"
+    },
+    {
+      "id": "sr-darun-cache-61",
+      "title": "迁站对照表附记：有一页没有原件 - 丰宁非遗中心",
+      "url": "https://feiyi.fengning.gov.lh/archive/darun-draft-61",
+      "domain": "feiyi.fengning.gov.lh",
+      "date": "2019-02-30",
+      "snippet": "纸本页数和电子目录不一致；迁站对照表留下一个无法回查的条目。",
+      "keywords": [
+        "LXJZ-61",
+        "闰腊月廿九",
+        "2019-02-30",
+        "迁站对照"
+      ],
+      "isSnapshotOnly": true,
+      "requireSiteOperator": false,
+      "unlockGate": "gate-search-darun",
+      "badge": "岁差缓存"
+    },
+    {
+      "id": "sr-feiyi-home",
+      "title": "丰宁县非物质文化遗产保护中心（官网）",
+      "url": "https://feiyi.fengning.gov.lh/",
+      "domain": "feiyi.fengning.gov.lh",
+      "date": "2024-09-02",
+      "snippet": "城东文化街 42 号，受理丰宁纸傩戏、传统木作文献、旧戏单与地方族谱的征集、数字化归档与研究保护。梅雨季请预约调阅纸本及底片。",
+      "keywords": [
+        "非遗",
+        "非遗中心",
+        "纸傩",
+        "丰宁",
+        "文化馆"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "非遗政务"
+    },
+    {
+      "id": "sr-feiyi-notices",
+      "title": "工作公告与征集公示 - 丰宁非遗中心",
+      "url": "https://feiyi.fengning.gov.lh/notices",
+      "domain": "feiyi.fengning.gov.lh",
+      "date": "2024-09-12",
+      "snippet": "收录本中心历年数字化归档专员录用公示、乡戏戏单征集启事与旧馆冬季除湿查阅时段调整通知。",
+      "keywords": [
+        "非遗",
+        "公告",
+        "公示",
+        "录用",
+        "戏单"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "公文栏"
+    },
+    {
+      "id": "sr-feiyi-recruit",
+      "title": "关于 2018 年度非遗数字化归档专员录用及工号编制的公示 - 丰宁非遗中心",
+      "url": "https://feiyi.fengning.gov.lh/notices/2018-archive-recruit",
+      "domain": "feiyi.fengning.gov.lh",
+      "date": "2018-08-10",
+      "snippet": "办公室（人事档案组）公示 2018 年度录用人员及科室分配，其中陈砚青入职年份 2018、系统序号 061，分配至特级民俗底片与数字归档室，工号按 FY-YYYY-NNN 规则编制。",
+      "keywords": [
+        "陈砚青",
+        "工号",
+        "061",
+        "2018",
+        "FY",
+        "录用",
+        "公示",
+        "归档"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "人事公示"
+    },
+    {
+      "id": "sr-feiyi-staff",
+      "title": "中心人员名录与工号编制规范 - 丰宁非遗中心",
+      "url": "https://feiyi.fengning.gov.lh/staff",
+      "domain": "feiyi.fengning.gov.lh",
+      "date": "2024-09-02",
+      "snippet": "公开在编及历史封存人员统一工号格式 FY-入职年份(4位)-系统三位序号：包含中心主任赵承安（FY-2006-003）、太平社末代班主白鹤年（FY-1994-013，1994年冬失联）...",
+      "keywords": [
+        "工号",
+        "人员名录",
+        "白鹤年",
+        "赵承安",
+        "纸傩",
+        "FY-2006-003",
+        "FY-1994-013"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "机构名录"
+    },
+    {
+      "id": "sr-feiyi-exhibits",
+      "title": "公开馆藏 · 1994 太平社末场演出合影（缩略件） - 丰宁非遗中心",
+      "url": "https://feiyi.fengning.gov.lh/archives",
+      "domain": "feiyi.fengning.gov.lh",
+      "date": "2024-09-12",
+      "snippet": "档案号 FN-FY-1994-13，1994 甲戌冬丰宁纸傩戏班「太平社」末演合影。原始名册登记 12 名艺人，公开版已裁去最右侧模糊边缘；高清未裁切原片封存于内部馆藏系统。",
+      "keywords": [
+        "合影",
+        "太平社",
+        "1994",
+        "纸傩",
+        "FN-FY-1994-13",
+        "馆藏"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "公开馆藏"
+    },
+    {
+      "id": "sr-feiyi-internal",
+      "title": "丰宁非遗特级馆藏内部档案终端登录入口 - 丰宁非遗中心",
+      "url": "https://feiyi.fengning.gov.lh/internal",
+      "domain": "feiyi.fengning.gov.lh",
+      "date": "2024-09-02",
+      "snippet": "限本中心持有效职工工号（FY-YYYY-NNN）及个人馆藏口令人员调阅特级封存底片与地方族谱核查卷宗。历史离职人员未注销之只读账号仍可登录查询。",
+      "keywords": [
+        "内网",
+        "内部馆藏",
+        "登录",
+        "工号",
+        "陈砚青",
+        "纸傩"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "内部终端"
+    },
+    {
+      "id": "sr-property-home",
+      "title": "槐安里小区物业与拆迁公示网",
+      "url": "https://wy.huaianli.lh/",
+      "domain": "wy.huaianli.lh",
+      "date": "2024-10-16",
+      "snippet": "丰宁县槐安里社区（1994 年建于老剧场旧址）旧城改造测绘公示、水电底数核对与 7 号楼门牌复核栏，均以值班室盖章件为准。",
+      "keywords": [
+        "槐安里",
+        "物业",
+        "拆迁",
+        "鲁守义",
+        "7号楼",
+        "老剧场"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "社区物业"
+    },
+    {
+      "id": "sr-property-demolition",
+      "title": "槐安里 7 号楼结构测绘与拆迁补偿复核公示 - 槐安里物业网",
+      "url": "https://wy.huaianli.lh/notice/building7-demolition",
+      "domain": "wy.huaianli.lh",
+      "date": "2024-10-16",
+      "snippet": "现行公示否认四楼半存在 404B 夹层、称外派测绘员周延生已正常调离并催拆青砖闷梁；页脚存档提示该公示于 10 月 16 日凌晨遭远程覆写，网页时光机保留 2024-10-15 原版。",
+      "keywords": [
+        "槐安里",
+        "404B",
+        "周延生",
+        "闷梁",
+        "苏明",
+        "拆迁",
+        "鲁班尺",
+        "1994-02-30",
+        "HA-2024-404B"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "拆迁公示 · 含快照"
+    },
+    {
+      "id": "sr-property-surveyor",
+      "title": "拆迁测绘人员登记与值班簿协查抄件 - 槐安里物业网",
+      "url": "https://wy.huaianli.lh/surveyor",
+      "domain": "wy.huaianli.lh",
+      "date": "2024-10-16",
+      "snippet": "前站长苏明留在值班簿里的协查抄件记载：10 月 15 日外派测绘员周延生撬开 7 号楼 404B 门锁后失联，身份证签发栏印着 1994-02-30，值班离场签字栏至今空着。",
+      "keywords": [
+        "周延生",
+        "测绘",
+        "苏明",
+        "槐安里",
+        "失联",
+        "1994-02-30"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "人员协查"
+    },
+    {
+      "id": "sr-property-floorplan",
+      "title": "7 号楼标准楼层与门牌对照表 - 槐安里物业网",
+      "url": "https://wy.huaianli.lh/floorplan",
+      "domain": "wy.huaianli.lh",
+      "date": "2024-10-16",
+      "snippet": "原丰宁老剧场旧址，地上 13 层、标准一梯四户。四层与五层楼梯折返平台外有一面无窗青砖墙，开启时光机可查看图纸空档附记。",
+      "keywords": [
+        "404B",
+        "槐安里",
+        "户型",
+        "楼层",
+        "鲁守义",
+        "闷梁"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "楼层图纸"
+    },
+    {
+      "id": "sr-blog-home",
+      "title": "山野拾影 · 民俗摄影手记",
+      "url": "https://blog.shanye.lh/",
+      "domain": "blog.shanye.lh",
+      "date": "2024-11-12",
+      "snippet": "民俗胶片摄影师林野（shanye_lens）的个人网志，记录丰宁老戏台、纸傩旧俗与后山白衣野庙采风见闻。侧栏胶片归档注提及一篇未公开草稿曾被千度爬虫收录。",
+      "keywords": [
+        "山野拾影",
+        "林野",
+        "博客",
+        "纸傩",
+        "野庙",
+        "shanye_lens"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "民俗网志"
+    },
+    {
+      "id": "sr-blog-stage",
+      "title": "太平社老戏台：三十年前的最后一场纸傩 - 山野拾影",
+      "url": "https://blog.shanye.lh/post/taiping-stage",
+      "domain": "blog.shanye.lh",
+      "date": "2024-10-08",
+      "snippet": "走访原丰宁老剧场旧址（今槐安里 7 号楼）。末场《请太岁》散戏后太平社一夜失联，县志与戏台残碑将那场演出清清楚楚记在 1994 年（甲戌年）。",
+      "keywords": [
+        "太平社",
+        "林野",
+        "纸傩",
+        "1994",
+        "请太岁",
+        "老戏台",
+        "yanqing_arch"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "采风手记"
+    },
+    {
+      "id": "sr-blog-smoke",
+      "title": "寒露记：丰宁后山无名野庙的冷香 - 山野拾影",
+      "url": "https://blog.shanye.lh/post/temple-smoke",
+      "domain": "blog.shanye.lh",
+      "date": "2024-10-24",
+      "snippet": "山雨把香炉灌满，无名野庙的泥塑神像竟没有画眼珠，供桌上却长年插着新烧的线香。评论区见「校历人-癸」留言提醒看清页面背后藏着的话。",
+      "keywords": [
+        "野庙",
+        "林野",
+        "寒露",
+        "白衣",
+        "校历人",
+        "反白",
+        "源码"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "采风手记"
+    },
+    {
+      "id": "sr-blog-locked404b",
+      "title": "[加密日志] 11月夜探槐安里：纸人替身与无脸测量员 - 山野拾影",
+      "url": "https://blog.shanye.lh/post/locked-404b",
+      "domain": "blog.shanye.lh",
+      "date": "2024-11-12",
+      "snippet": "林野失联前最后一篇加密记录，需 8 位组合口令解锁（前半段四字母藏于《寒露记》源码注释，后半段为《太平社老戏台》末演公历年份）。",
+      "keywords": [
+        "加密日志",
+        "404B",
+        "槐安里",
+        "周延生",
+        "林野",
+        "NUOX"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "加密归档"
+    },
+    {
+      "id": "sr-forum-home",
+      "title": "老黄历民俗茶馆 BBS",
+      "url": "https://bbs.huangli.lh/",
+      "domain": "bbs.huangli.lh",
+      "date": "2024-10-15",
+      "snippet": "丰宁本地择吉、测八字与乡野掌故怀旧社区。站顶复古万年历挂件不知何时卡死在「甲辰年 闰腊月 廿九 / 2019-02-30」。",
+      "keywords": [
+        "黄历",
+        "老黄历",
+        "茶馆",
+        "BBS",
+        "择吉",
+        "丰宁"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "老黄历BBS"
+    },
+    {
+      "id": "sr-forum-610",
+      "title": "老黄历怎么多出个闰腊月廿九？还有人记得槐安里四楼半吗？ - 老黄历茶馆",
+      "url": "https://bbs.huangli.lh/thread/610",
+      "domain": "bbs.huangli.lh",
+      "date": "2019-02-30",
+      "snippet": "槐安里四楼半闷梁与老黄历异常日期在同一热帖中被接连提起。2F、5F、8F 已被神秘权限屏蔽，网页时光机在 2019-02-30 岁差节点留存了完整楼层。",
+      "keywords": [
+        "黄历",
+        "槐安里",
+        "404B",
+        "610",
+        "鲁家后人",
+        "yanqing_arch",
+        "无名氏_61",
+        "闷梁",
+        "快照"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "热帖 · 含快照"
+    },
+    {
+      "id": "sr-forum-618",
+      "title": "丰宁本地老黄历测八字互助水楼 - 老黄历茶馆",
+      "url": "https://bbs.huangli.lh/thread/618",
+      "domain": "bbs.huangli.lh",
+      "date": "2018-08-15",
+      "snippet": "新来的坛友在水楼报到测八字，3F 网友 yanqing_arch（陈砚青）顺口留下了自己的公历生日与刚入职丰宁非遗中心的近况。",
+      "keywords": [
+        "八字",
+        "陈砚青",
+        "yanqing_arch",
+        "618",
+        "生日",
+        "0815"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "坛友水楼"
+    },
+    {
+      "id": "sr-forum-605",
+      "title": "奇怪，迁进槐安里以后，你们家电子族谱有没有多出不认识的表亲？ - 老黄历茶馆",
+      "url": "https://bbs.huangli.lh/thread/605",
+      "domain": "bbs.huangli.lh",
+      "date": "2024-09-19",
+      "snippet": "槐安里住户说电子族谱多了一个姓周的寄居表亲，纸谱对应格却是空的。另有住户报告饭桌多出一副碗筷。",
+      "keywords": [
+        "槐安里",
+        "族谱",
+        "605",
+        "表亲",
+        "寄居",
+        "闰腊月廿九"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "街坊杂谈"
+    },
+    {
+      "id": "sr-forum-messages",
+      "title": "老黄历民俗茶馆 · 站内私信归档",
+      "url": "https://bbs.huangli.lh/messages",
+      "domain": "bbs.huangli.lh",
+      "date": "2019-02-30",
+      "snippet": "无名氏_61 发来的旧站备份通知，提到 610 号帖的异常日期和 618 号帖。",
+      "keywords": [
+        "私信",
+        "无名氏_61",
+        "610",
+        "快照"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "站内私信"
+    },
+    {
+      "id": "sr-portal",
+      "title": "旧网拾遗 · 丰宁地方网页归档导航",
+      "url": "https://darun.local/portal",
+      "domain": "darun.local",
+      "date": "2024-12-05",
+      "snippet": "丰宁地方旧网互助组整理的友情链接导航，收存 1998–2024 年间丰宁各地方站点入口，页脚印有异常归档备案号 丰ICP备-LXJZ-61。",
+      "keywords": [
+        "丰宁",
+        "旧网拾遗",
+        "地方旧网",
+        "归档",
+        "备案号"
+      ],
+      "isSnapshotOnly": false,
+      "requireSiteOperator": false,
+      "unlockGate": null,
+      "badge": "表网入口"
+    }
+  ]
+}

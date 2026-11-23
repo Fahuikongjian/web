@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{page_title}}</title>
+  <meta name="description" content="{{page_description}}">
+  <meta name="site-base-path" content="{{base_path}}">
+  <link rel="canonical" href="{{canonical_url}}">
+  <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/mystery/css/sites_themes.css">
+  <link rel="stylesheet" href="/static/mystery/css/archive.css">
+</head>
+<body class="archive-reader" data-mystery-app data-archive-config="{{archive_config}}">
+  <header class="reader-strip">
+    <a href="/mystery/">分卷目录</a>
+    <a data-local-home href="/mystery/">本卷导航</a>
+    <a data-local-search href="/mystery/">检索</a>
+    <form data-address-form>
+      <label for="archive-address">网址</label>
+      <input id="archive-address" type="text" autocomplete="off" spellcheck="false" inputmode="url">
+      <button type="submit">前往</button>
+    </form>
+    <div class="reader-tools">
+      <button type="button" data-snapshot hidden aria-pressed="false">历史版本</button>
+      <button type="button" data-source>查看源码</button>
+    </div>
+  </header>
+  <p class="reader-status" data-reader-status role="status" hidden></p>
+  <main class="archive-viewport" data-viewport tabindex="-1">
+    <p class="reader-loading">正在读取地方旧站备份……</p>
+  </main>
+  <dialog class="reader-source" data-source-dialog aria-labelledby="source-title">
+    <div class="reader-source-head"><h2 id="source-title">网页源文件</h2><form method="dialog"><button>关闭</button></form></div>
+    <pre data-source-text tabindex="0"></pre>
+  </dialog>
+  <script src="/static/mystery/js/state_store.js" defer></script>
+  <script src="/static/mystery/js/search_engine.js" defer></script>
+  <script src="/static/mystery/js/renderers/official_renderers.js" defer></script>
+  <script src="/static/mystery/js/renderers/community_renderers.js" defer></script>
+  <script src="/static/mystery/js/renderers/archive_renderers.js" defer></script>
+  <script src="/static/mystery/js/engine.js" defer></script>
+  <script src="/static/mystery/js/app.js" defer></script>
+</body>
+</html>

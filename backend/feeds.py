@@ -229,6 +229,9 @@ def build_sitemap_xml(
         ("/projects/", latest_date, "0.8"),
         ("/gallery/", latest_date, "0.8"),
         ("/games/", latest_date, "0.7"),
+        ("/mystery/", latest_date, "0.8"),
+        ("/mystery/act-1/", latest_date, "0.7"),
+        ("/mystery/act-2/", latest_date, "0.7"),
         ("/about/", latest_date, "0.7"),
     ]
     for route, lastmod, priority in static_routes:

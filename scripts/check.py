@@ -42,6 +42,9 @@ REQUIRED_FILES = (
     "projects/index.html",
     "gallery/index.html",
     "games/index.html",
+    "mystery/index.html",
+    "mystery/act-1/index.html",
+    "mystery/act-2/index.html",
     "about/index.html",
     "404.html",
     "api/posts.json",
@@ -65,6 +68,32 @@ REQUIRED_IMAGE_ASSETS = (
     "static/images/cover-03.svg",
     "static/images/cover-04.svg",
     "static/images/cover-05.svg",
+)
+
+REQUIRED_MYSTERY_ASSETS = (
+    "static/mystery/assets/case-emblem.svg",
+    "static/mystery/assets/institution-logo.svg",
+    "static/mystery/assets/archive-stamp.svg",
+    "static/mystery/assets/blog-avatar.svg",
+    "static/mystery/assets/clue-network.svg",
+    "static/mystery/css/browser_shell.css",
+    "static/mystery/css/sites_themes.css",
+    "static/mystery/css/archive.css",
+    "static/mystery/js/state_store.js",
+    "static/mystery/js/search_engine.js",
+    "static/mystery/js/renderers/official_renderers.js",
+    "static/mystery/js/renderers/community_renderers.js",
+    "static/mystery/js/renderers/archive_renderers.js",
+    "static/mystery/js/engine.js",
+    "static/mystery/js/app.js",
+    "static/mystery/data/case_manifest.json",
+    "static/mystery/data/act-1.json",
+    "static/mystery/data/act-2.json",
+    "static/mystery/data/site_search.json",
+    "static/mystery/data/site_institution.json",
+    "static/mystery/data/site_property.json",
+    "static/mystery/data/site_blog.json",
+    "static/mystery/data/site_forum.json",
 )
 
 PLACEHOLDER_RE = re.compile(r"\{\{[a-zA-Z0-9_]+\}\}")
@@ -539,6 +568,9 @@ def check_xml_files(dist_dir: Path, base_path: str = "", *, posts_count: int) ->
                     errors.append("dist/sitemap.xml missing '/gallery/' entry.")
                 if not any(loc.endswith("/games/") for loc in locs):
                     errors.append("dist/sitemap.xml missing '/games/' entry.")
+                for route in ("/mystery/", "/mystery/act-1/", "/mystery/act-2/"):
+                    if not any(loc.endswith(route) for loc in locs):
+                        errors.append(f"dist/sitemap.xml missing '{route}' entry.")
 
     return errors
 
@@ -607,6 +639,21 @@ def check_static_assets(dist_dir: Path, base_path: str = "") -> tuple[list[str],
         else:
             verified_images += 1
 
+    for rel in REQUIRED_MYSTERY_ASSETS:
+        target = dist_dir / rel
+        if not target.is_file():
+            errors.append(f"Missing required mystery asset: dist/{rel}")
+        elif target.stat().st_size == 0:
+            errors.append(f"Empty mystery asset: dist/{rel}")
+        else:
+            if target.suffix.lower() == ".svg":
+                verified_images += 1
+            elif target.suffix.lower() == ".json":
+                try:
+                    json.loads(target.read_text(encoding="utf-8"))
+                except json.JSONDecodeError as exc:
+                    errors.append(f"Invalid JSON in dist/{rel}: {exc}")
+
     if STATIC_SRC_DIR.is_dir():
         for src_file in sorted(STATIC_SRC_DIR.rglob("*")):
             if not src_file.is_file():
@@ -618,51 +665,53 @@ def check_static_assets(dist_dir: Path, base_path: str = "") -> tuple[list[str],
             elif dist_file.stat().st_size == 0:
                 errors.append(f"Static file is empty in dist: dist/static/{rel.as_posix()}")
             elif dist_file.suffix.lower() in (".jpg", ".jpeg", ".png", ".webp", ".svg"):
-                if f"static/{rel.as_posix()}" not in REQUIRED_IMAGE_ASSETS:
+                asset_rel = f"static/{rel.as_posix()}"
+                if asset_rel not in REQUIRED_IMAGE_ASSETS and asset_rel not in REQUIRED_MYSTERY_ASSETS:
                     verified_images += 1
 
-    css_dir = dist_dir / "static" / "css"
+    css_dirs = [dist_dir / "static" / "css", dist_dir / "static" / "mystery" / "css"]
     dist_root = dist_dir.resolve()
-    if css_dir.is_dir():
-        for css_file in sorted(css_dir.rglob("*.css")):
-            rel_name = css_file.relative_to(dist_dir).as_posix()
-            css_text = css_file.read_text(encoding="utf-8")
-            for match in CSS_URL_RE.finditer(css_text):
-                raw_url = match.group(1).strip()
-                if (
-                    not raw_url
-                    or raw_url.startswith("#")
-                    or raw_url.startswith("//")
-                    or raw_url.startswith(("http://", "https://", "data:"))
-                ):
-                    continue
-                css_links += 1
-                line_no = css_text.count("\n", 0, match.start()) + 1
-                if raw_url.startswith("/"):
-                    ok, reason = _resolve_internal_target(
-                        dist_dir,
-                        raw_url,
-                        base_path=base_path,
-                        require_base_prefix=False,
-                    )
-                    if not ok:
-                        errors.append(
-                            f"Broken CSS url('{raw_url}') ({reason}) in dist/{rel_name}:{line_no}"
-                        )
-                else:
-                    clean_rel = urllib.parse.unquote(urllib.parse.urlsplit(raw_url).path)
-                    rel_target = (css_file.parent / clean_rel).resolve()
-                    try:
-                        rel_target.relative_to(dist_root)
-                    except ValueError:
-                        errors.append(
-                            f"CSS url('{raw_url}') escapes dist/ in dist/{rel_name}:{line_no}"
-                        )
+    for css_dir in css_dirs:
+        if css_dir.is_dir():
+            for css_file in sorted(css_dir.rglob("*.css")):
+                rel_name = css_file.relative_to(dist_dir).as_posix()
+                css_text = css_file.read_text(encoding="utf-8")
+                for match in CSS_URL_RE.finditer(css_text):
+                    raw_url = match.group(1).strip()
+                    if (
+                        not raw_url
+                        or raw_url.startswith("#")
+                        or raw_url.startswith("//")
+                        or raw_url.startswith(("http://", "https://", "data:"))
+                    ):
                         continue
-                    if not rel_target.is_file() or rel_target.stat().st_size == 0:
-                        errors.append(
-                            f"Broken relative CSS url('{raw_url}') in dist/{rel_name}:{line_no}"
+                    css_links += 1
+                    line_no = css_text.count("\n", 0, match.start()) + 1
+                    if raw_url.startswith("/"):
+                        ok, reason = _resolve_internal_target(
+                            dist_dir,
+                            raw_url,
+                            base_path=base_path,
+                            require_base_prefix=False,
                         )
+                        if not ok:
+                            errors.append(
+                                f"Broken CSS url('{raw_url}') ({reason}) in dist/{rel_name}:{line_no}"
+                            )
+                    else:
+                        clean_rel = urllib.parse.unquote(urllib.parse.urlsplit(raw_url).path)
+                        rel_target = (css_file.parent / clean_rel).resolve()
+                        try:
+                            rel_target.relative_to(dist_root)
+                        except ValueError:
+                            errors.append(
+                                f"CSS url('{raw_url}') escapes dist/ in dist/{rel_name}:{line_no}"
+                            )
+                            continue
+                        if not rel_target.is_file() or rel_target.stat().st_size == 0:
+                            errors.append(
+                                f"Broken relative CSS url('{raw_url}') in dist/{rel_name}:{line_no}"
+                            )
 
     return errors, verified_images, css_links
 

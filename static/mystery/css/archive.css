@@ -1,0 +1,244 @@
+:root {
+  color-scheme: light;
+  font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+  color: #252721;
+  background: #e9e9e0;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: #204c73; }
+a:hover { text-decoration: underline; }
+button, input, select { font: inherit; }
+button, summary { cursor: pointer; }
+:focus-visible { outline: 2px solid #135f92; outline-offset: 3px; }
+[hidden] { display: none !important; }
+
+.archive-catalogue {
+  --paper: #fcfaf0;
+  --rule: #b8b6a8;
+  --ink: #243a38;
+  --seal: #8a3029;
+  background: #e3e6da;
+  min-height: 100vh;
+}
+
+.catalogue-strip,
+.reader-strip {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  min-height: 42px;
+  padding: 6px clamp(12px, 3vw, 36px);
+  background: #f1f2ec;
+  color: #3e4945;
+  border-bottom: 1px solid #9fa9a5;
+  font-size: .875rem;
+}
+
+.catalogue-strip a { color: #25433c; font-weight: 700; }
+.catalogue-strip span { color: #4e5c55; }
+
+.catalogue-sheet {
+  width: min(780px, calc(100% - 28px));
+  margin: clamp(20px, 7vh, 80px) auto;
+  padding: clamp(18px, 5.2vw, 56px);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-top: 6px solid var(--ink);
+}
+
+.catalogue-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-block: 4px 21px;
+  border-bottom: 3px double var(--ink);
+}
+
+.catalogue-heading p { margin: 0; color: var(--ink); font-size: .9rem; }
+.catalogue-heading h1 {
+  font: 700 clamp(2.45rem, 9vw, 5rem)/1.12 "STSong", "SimSun", "Songti SC", serif;
+  margin: 7px 0 0;
+  letter-spacing: .11em;
+  color: var(--ink);
+}
+.catalogue-seal {
+  padding: 5px 8px;
+  font: 700 1.22rem/1.05 "SimSun", serif;
+  color: var(--seal);
+  border: 3px double currentColor;
+  transform: rotate(-5deg);
+}
+.catalogue-note { margin: 19px 0 23px; line-height: 1.7; }
+.catalogue-list { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+.catalogue-list li { border-bottom: 1px solid var(--rule); }
+.catalogue-list li > a, .catalogue-list summary {
+  display: grid;
+  grid-template-columns: minmax(3.5em, 18%) 1fr auto;
+  gap: 12px;
+  align-items: center;
+  min-height: 78px;
+  padding: 12px 7px;
+  color: var(--ink);
+  text-decoration: none;
+  list-style: none;
+}
+.catalogue-list summary::-webkit-details-marker { display: none; }
+.catalogue-list li > a:hover, .catalogue-list summary:hover { background: #eeeee1; }
+.catalogue-volume { color: #854236; font-size: .9rem; }
+.catalogue-list strong { display: block; font: 700 clamp(1.13rem, 4vw, 1.5rem)/1.3 "SimSun", "Songti SC", serif; }
+.catalogue-list small { display: block; margin-top: 5px; font-size: .82rem; color: #50584f; }
+.catalogue-action { color: #234d66; text-decoration: underline; font-size: .84rem; }
+.catalogue-list details p { margin: -3px 7px 15px; font-size: .9rem; color: #50584f; }
+.catalogue-footer { margin-top: 26px; color: #535a50; font-size: .8rem; line-height: 1.6; }
+
+.archive-reader { background: #e6e8e8; min-height: 100vh; }
+.reader-strip { background: #e8ecee; }
+.reader-strip a, .reader-strip label, .reader-strip button { white-space: nowrap; }
+.reader-strip form { display: flex; align-items: center; gap: 6px; flex: 1 1 275px; min-width: 0; }
+.reader-strip form > :is(label, button) { flex: 0 0 auto; }
+.reader-strip input {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  padding: 4px 7px;
+  min-height: 32px;
+  border: 1px solid #8e9a9d;
+  background: white;
+  color: #273b45;
+  font: .85rem Consolas, monospace;
+}
+.reader-strip button, .reader-source button, .archive-document button {
+  min-height: 32px;
+  padding: 4px 10px;
+  border: 1px solid #83929a;
+  background: #f4f6f7;
+  color: #253d4b;
+}
+.reader-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+.reader-tools button[aria-pressed="true"] { background: #dce9ed; border-bottom: 2px solid #326186; }
+.reader-status { margin: 0; padding: 7px clamp(12px, 3vw, 36px); background: #fff7de; color: #523d18; font-size: .9rem; }
+.archive-viewport { min-height: calc(100vh - 44px); background: #f7f7f4; }
+.archive-viewport:focus { outline: none; }
+.reader-loading, .mystery-page-error { max-width: 980px; padding: 24px; margin: auto; }
+.mystery-page-error-title { font-size: 1.25rem; font-weight: 700; margin: 10px 0; }
+.mystery-page-error-desc { overflow-wrap: anywhere; }
+.reader-source { max-width: min(880px, calc(100vw - 28px)); width: 100%; padding: 0; border: 1px solid #61747d; }
+.reader-source::backdrop { background: #18283070; }
+.reader-source-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; background: #e8eef2; }
+.reader-source h2 { font-size: 1rem; margin: 0; }
+.reader-source pre { max-height: min(65vh, 540px); margin: 0; padding: 16px; overflow: auto; color: #294634; font: .85rem/1.65 Consolas, monospace; tab-size: 2; }
+
+.archive-site {
+  --mast: #344d5d;
+  --tone: #e7eef2;
+  min-height: calc(100vh - 44px);
+  padding: clamp(12px, 3vw, 35px) 12px;
+  background: #f0f1ec;
+  font-size: .94rem;
+  line-height: 1.65;
+}
+.archive-site[data-style="directory"] { --mast: #38564a; --tone: #e7eddf; }
+.archive-site[data-style="public"] { --mast: #71412f; --tone: #f0e8df; background: #efede6; }
+.archive-site[data-style="library"] { --mast: #625039; --tone: #f1ebd9; background: #efede5; }
+.archive-site[data-style="community"] { --mast: #38626a; --tone: #e3eeef; background: #e9eff0; }
+.archive-frame { max-width: 1000px; margin: auto; border: 1px solid #a8b0aa; background: #fffef9; }
+.archive-mast { padding: 14px clamp(12px, 2.7vw, 28px); border-top: 4px solid var(--mast); background: var(--tone); }
+.archive-brand { color: var(--mast); font: 700 clamp(1.3rem, 4.8vw, 2rem)/1.35 "SimSun", "Songti SC", serif; text-decoration: none; }
+.archive-brand a { color: inherit; text-decoration: inherit; }
+.archive-mast p { margin: 4px 0 0; font-size: .82rem; color: #454d45; }
+.archive-site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 15px;
+  padding: 5px clamp(12px, 2.7vw, 28px);
+  background: var(--mast);
+}
+.archive-site-nav a { color: #fff; padding-block: 3px; }
+.archive-document { padding: clamp(12px, 3vw, 30px); overflow-wrap: anywhere; }
+.archive-document h1 { margin: 10px 0 9px; font: 700 clamp(1.37rem, 4vw, 2rem)/1.45 "SimSun", "Songti SC", serif; color: #273c43; }
+.archive-document h2 { font-size: 1.08rem; margin: 21px 0 8px; }
+.archive-document p { max-width: 64ch; margin: 0 0 12px; }
+.archive-crumb, .archive-date, .archive-record-note { color: #505956; font-size: .84rem; }
+.archive-date { display: block; margin-bottom: 12px; }
+.archive-table-wrap { max-width: 100%; overflow-x: auto; margin: 10px 0 14px; }
+.archive-table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.archive-table th, .archive-table td { border: 1px solid #a8b0aa; padding: 7px 9px; text-align: left; vertical-align: top; }
+.archive-table th { background: var(--tone); font-weight: 700; }
+.archive-table tbody tr:nth-child(even) { background: #f6f7f2; }
+.archive-table time { white-space: nowrap; }
+.archive-links { padding-left: 1.25em; margin: 7px 0; }
+.archive-bulletin { margin: 10px 0 0; padding: 0; list-style: none; border-top: 1px solid #a8b0aa; }
+.archive-bulletin li { border-bottom: 1px solid #c3cbc4; padding: 10px 0; }
+.archive-bulletin li > time { margin-inline-end: 10px; }
+.archive-bulletin li > p { margin: 4px 0 0; color: #46524e; }
+.archive-site-footer { padding: 9px clamp(12px, 2.7vw, 28px); background: var(--tone); color: #465249; font-size: .82rem; border-top: 1px solid #a8b0aa; }
+.archive-review-form { max-width: 590px; margin-top: 16px; }
+.archive-review-form label { display: block; margin-bottom: 12px; font-weight: 700; }
+.archive-review-form input {
+  display: block;
+  width: min(100%, 390px);
+  min-height: 40px;
+  border: 1px solid #869499;
+  margin-top: 3px;
+  padding: 5px 8px;
+  color: #253d4b;
+  background: #fff;
+}
+.archive-review-form input[aria-invalid="true"] { border: 2px solid #ad3426; }
+.archive-review-form .archive-feedback { color: #8b271e; margin-top: 9px; }
+.archive-review-form button { background: var(--mast); color: #fff; min-height: 40px; }
+.archive-help { margin-top: 18px; max-width: 64ch; }
+.archive-help summary { color: #254e6c; text-decoration: underline; }
+.archive-help > ol { margin-top: 6px; padding-left: 1.4em; }
+.archive-receipt { border-left: 4px solid var(--mast); padding-left: 13px; margin-bottom: 16px; }
+.archive-snapshot-note { color: #614620; }
+
+/* Existing Fengning mirrors keep their own period styles. */
+.archive-viewport :is(.site-theme-portal, .site-theme-property, .site-theme-blog, .site-theme-forum, .site-theme-search, .site-theme-institution) {
+  min-height: calc(100vh - 44px);
+}
+.archive-viewport .site-portal-grid { display: block; }
+.archive-viewport .site-portal-card {
+  display: block;
+  padding: 10px 4px;
+  border: 0;
+  border-bottom: 1px solid #c7cfd1;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.archive-viewport .site-portal-card:hover { background: #ecf1ed; transform: none; box-shadow: none; }
+.archive-viewport .site-portal-card-head { justify-content: flex-start; gap: 12px; }
+.archive-viewport .site-portal-card-name { color: #224a71; text-decoration: underline; }
+.archive-viewport :is(.site-portal-card-tag, .site-portal-header, .site-portal-notice, .site-blog-widget, .site-blog-post, .site-prop-panel, .site-inst-section, .site-search-chip, .site-forum-panel) { border-radius: 0; box-shadow: none; }
+.archive-viewport .site-prop-wrapper { box-shadow: none; }
+.archive-viewport .site-prop-warn-strip { background: #f4ebd6; border: 1px solid #c2a577; color: #59411e; }
+.archive-viewport .site-theme-institution--internal { background: #e4e8e8; }
+.archive-viewport .site-theme-institution--internal .site-inst-internal-shell { box-shadow: none; }
+.archive-viewport :is(.site-inst-table-wrap, .site-prop-table-wrap) { max-width: 100%; overflow-x: auto; }
+.archive-viewport :is(.site-search-input, .site-search-submit) { border-radius: 0; }
+.archive-wordmark {
+  flex: 0 0 auto;
+  display: inline-block;
+  padding: 4px 6px;
+  border: 3px double currentColor;
+  color: #375b71;
+  font: 700 .9rem/1.12 "SimSun", "Songti SC", serif;
+  text-align: center;
+}
+.archive-wordmark--seal { color: #9a2d25; font-size: clamp(.85rem, 3.6vw, 1.35rem); padding: 5px 7px; }
+.archive-version-link { background: #f6efe2; color: #7c3327; border: 1px solid #9a7060; min-height: 36px; padding: 4px 9px; }
+
+@media (max-width: 650px) {
+  .reader-strip { gap: 5px 12px; }
+  .reader-strip form { order: 1; flex-basis: 100%; }
+  .reader-tools { margin-left: auto; }
+  .reader-strip button, .reader-strip input { min-height: 36px; }
+  .archive-site-nav a { padding-block: 8px; }
+  .archive-table th, .archive-table td { padding: 6px; }
+  .archive-document .archive-table a { display: inline-block; padding-block: 4px; }
+}

@@ -332,14 +332,29 @@ def test_home_cover_fades_as_content_rises_with_scroll(
         assert content.evaluate("el => el.getBoundingClientRect().bottom") <= height
         _assert_no_horizontal_overflow(page, "/", f"{width}×{height}")
         card_bounds = [card.bounding_box() for card in content.get_by_role("link").all()]
-        extent = "width" if flow_axis == "x" else "height"
-        gaps = [
-            following[flow_axis] - current[flow_axis] - current[extent]
-            for current, following in zip(card_bounds, card_bounds[1:])
-        ]
-        print(f"[home-entries {width}x{height}] gaps={gaps}, bottom={content.evaluate('el => el.getBoundingClientRect().bottom')}")
-        assert len(gaps) == 4
-        assert min(gaps) >= min_gap
+        assert len(card_bounds) == 6
+        if width == 1440:
+            row_one = card_bounds[:3]
+            row_two = card_bounds[3:]
+            row_one_gaps = [b["x"] - a["x"] - a["width"] for a, b in zip(row_one, row_one[1:])]
+            row_two_gaps = [b["x"] - a["x"] - a["width"] for a, b in zip(row_two, row_two[1:])]
+            row_gap = min(b["y"] for b in row_two) - max(a["y"] + a["height"] for a in row_one)
+            print(
+                f"[home-entries {width}x{height}] row1_gaps={row_one_gaps}, "
+                f"row2_gaps={row_two_gaps}, row_gap={row_gap}, "
+                f"bottom={content.evaluate('el => el.getBoundingClientRect().bottom')}"
+            )
+            assert len(row_one_gaps) == 2 and len(row_two_gaps) == 2
+            assert min([*row_one_gaps, *row_two_gaps, row_gap]) >= min_gap
+        else:
+            extent = "width" if flow_axis == "x" else "height"
+            gaps = [
+                following[flow_axis] - current[flow_axis] - current[extent]
+                for current, following in zip(card_bounds, card_bounds[1:])
+            ]
+            print(f"[home-entries {width}x{height}] gaps={gaps}, bottom={content.evaluate('el => el.getBoundingClientRect().bottom')}")
+            assert len(gaps) == 5
+            assert min(gaps) >= min_gap
 
         scroll_to(middle)
         assert cover.evaluate("el => getComputedStyle(el).maskImage") == middle_mask
@@ -375,7 +390,7 @@ def test_home_cover_wheel_progress_stays_where_paused(browser: Browser, static_s
 
         page.mouse.wheel(0, travel)
         page.wait_for_function("y => window.scrollY === y", arg=travel)
-        assert content.locator("a").count() == 5
+        assert content.locator("a").count() == 6
     finally:
         page.close()
 
@@ -514,7 +529,7 @@ def test_routes_zero_errors_and_responsive_viewports(
     browser: Browser, static_server: str, populated_dist: Path
 ) -> None:
     post_routes = _load_post_routes(populated_dist)
-    routes = ["/", "/articles/", "/projects/", "/gallery/", "/games/", "/about/", *post_routes]
+    routes = ["/", "/articles/", "/projects/", "/gallery/", "/games/", "/mystery/", "/about/", *post_routes]
 
     for viewport_name, viewport in [
         ("desktop-1440x900", {"width": 1440, "height": 900}),
@@ -624,12 +639,13 @@ def test_home_cover_loads_and_opens_to_navigation(browser: Browser, static_serve
         )
         _open_home_cover(page)
         links = page.locator(".home-entries a")
-        expect(links).to_have_text(["文章", "项目", "图像", "游戏", "关于"])
+        expect(links).to_have_text(["文章", "项目", "图像", "游戏", "解密", "关于"])
         assert [link.get_attribute("href") for link in links.all()] == [
             "/articles/",
             "/projects/",
             "/gallery/",
             "/games/",
+            "/mystery/",
             "/about/",
         ]
         assert page.locator(".post-row, .project-card, .featured-card, .gallery-card").count() == 0

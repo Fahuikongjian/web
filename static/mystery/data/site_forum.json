@@ -1,0 +1,251 @@
+{
+  "siteName": "老黄历民俗茶馆 BBS",
+  "tagline": "丰宁择吉测字 · 乡野异闻与地方老茶馆（建站于 2005 年）",
+  "domain": "bbs.huangli.lh",
+  "snapshotDate": "2019-02-30",
+  "almanacWidget": {
+    "gregorianDate": "2019年02月30日（岁差异常）",
+    "lunarDate": "甲辰年 闰腊月 廿九",
+    "ganzhi": "原始干支字段缺失",
+    "yi": "修补 · 添页",
+    "ji": "覆印 · 迁档",
+    "anomalyNote": "系统万年历模块日期校验失败：公历 2 月无 30 日，正历亦无闰腊月。"
+  },
+  "announcement": "【茶馆站务】近期涉及槐安里四楼半拆迁、老黄历错日与旧戏班之怪谈楼层均已按要求屏蔽，原楼层编号保留，请勿转存传播。",
+  "boards": [
+    {
+      "id": "folklore",
+      "name": "乡野异闻 & 老城旧事",
+      "description": "丰宁老戏台、宅基厌胜、拆迁传闻与历法杂谈"
+    },
+    {
+      "id": "bazi",
+      "name": "黄历择吉 & 报到茶座",
+      "description": "生辰测字、节气养生与丰宁本地老乡灌水"
+    }
+  ],
+  "threads": [
+    {
+      "id": "610",
+      "boardId": "folklore",
+      "title": "老黄历挂件怎么多出个「闰腊月廿九」？还有人记得槐安里四楼半吗？",
+      "author": "城北老茶客",
+      "createdAt": "2019-02-30 00:13",
+      "views": 6109,
+      "isPinned": true,
+      "hasSnapshotRestore": true,
+      "sourceComment": "<!-- WAYBACK_CAPTURE: 2019-02-30 | RESTORABLE_FLOORS: 2F, 5F, 8F | BY: 无名氏_61 -->",
+      "posts": [
+        {
+          "floor": 1,
+          "author": "城北老茶客",
+          "userId": "north_tea",
+          "badge": "老街坊",
+          "postedAt": "2019-02-30 00:13",
+          "isDeleted": false,
+          "content": "今晚半夜刷茶馆吓我一跳，顶上那个万年历挂件怎么卡死在 2019年02月30日、甲辰年闰腊月廿九？二月哪来的三十号，阴历哪来的闰腊月？\n顺便问一句，城北槐安里 7 号楼是不是早年老戏台的地基？昨夜走亲戚下楼梯，四楼与五楼之间明明多出半截封死的青砖墙，走过去冷风直往领口钻，可问整栋楼的老住户，个个都像失了忆似的说没这回事。",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": "城北青石巷老茶壶一把。"
+        },
+        {
+          "floor": 2,
+          "author": "鲁家后人",
+          "userId": "lu_carpenter",
+          "badge": "木作世家",
+          "postedAt": "2019-02-30 00:42",
+          "isDeleted": true,
+          "deletedNotice": "[该楼层因违反社区规范已被管理员屏蔽]",
+          "content": null,
+          "restoredContent": "看见这帖手都在抖，我爷爷鲁守义就是 1994 年带木工班修槐安里 7 号楼的总木匠！\n当年推平老戏台打地基，从台底掘出过一具空心的纸人胎骨，工地夜夜闹怪声。开发商逼着赶工期，爷爷无奈照残缺《鲁班经》在四五层间设厌胜镇宅，偏偏老尺磨损，把鲁班尺上的「财、义」反刻成了「劫、离」，硬生生在楼梯夹缝切出一间不入房产测绘簿的幽灵夹层——404B 室！\n后来爷爷连夜砌了道青砖闷梁，把当年太平社未烧尽的纸傩母胎死封在里面。他临终前攥着我的手反复叮嘱：宁可楼塌，万不可破拆四五层间的青砖闷梁！听说最近拆迁办盯上 7 号楼了，谁敢砸那道闷梁，整座丰宁城都要出大事！",
+          "clueId": "CLUE-005",
+          "clueLabel": "收集证据：时光机 2F（鲁班反向厌胜与 404B 青砖闷梁忌讳）",
+          "signature": "尺有吉凶，梁不可动。"
+        },
+        {
+          "floor": 3,
+          "author": "檐下听雨",
+          "userId": "rain_eave",
+          "badge": "热心坛友",
+          "postedAt": "2019-02-30 01:02",
+          "isDeleted": false,
+          "content": "楼上说得太玄乎了吧，老小区楼梯间砌墙封管道井很常见，倒是上面那个老黄历日期确实渗人，版主赶紧修修服务器时钟吧。",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": ""
+        },
+        {
+          "floor": 5,
+          "author": "yanqing_arch",
+          "userId": "yanqing_arch",
+          "badge": "非遗小归档",
+          "postedAt": "2019-02-30 01:19",
+          "isDeleted": true,
+          "deletedNotice": "[该楼层因涉及机构未公开档案已被管理员屏蔽]",
+          "content": null,
+          "restoredContent": "我是非遗中心陈砚青。先记原发日期：2024 年 12 月 2 日。电脑一刷新，站页又把我挂到那个坏日期下面。1994 年太平社底片最外侧有一张此前被裁掉的脸，我在槐安里的外派测绘工牌上见过同一张。明天交出职工证；我的只读查询号留给后来查原件的人。入口：feiyi.fengning.gov.lh/internal。口令是我姓名三个字的拼音首字母小写 + 生日月日四位 + 61。先查玻璃底片，再查住户备忘。",
+          "clueId": "CLUE-006",
+          "clueLabel": "收集证据：时光机 5F（陈砚青内网留门与口令规则）",
+          "signature": "底片不会撒谎。"
+        },
+        {
+          "floor": 6,
+          "author": "丰宁吃瓜客",
+          "userId": "melon_fn",
+          "badge": "潜水员",
+          "postedAt": "2019-02-30 01:48",
+          "isDeleted": false,
+          "content": "5 楼真是县非遗馆的小陈？前两天还看他在八字水楼回帖呢，怎么突然说要辞职……刚才刷新一下怎么发帖时间全都变成 2019-02-30 了？",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": ""
+        },
+        {
+          "floor": 8,
+          "author": "无名氏_61",
+          "userId": "anonymous_61",
+          "badge": "档案代存",
+          "postedAt": "2019-02-30 02:30",
+          "isDeleted": true,
+          "deletedNotice": "[该楼层内容已被系统折叠清除]",
+          "content": null,
+          "restoredContent": "我只替陈先生保留了该楼的原件，不要在帖子里追问他现在在哪。这个存档的页眉会把近年的楼层折回 2019-02-30。查别人发帖日期前先看正文自记。坏日月日照录为 0230；传交接本时，不要替这一页纠错。——无名氏_61",
+          "clueId": "CLUE-008",
+          "clueLabel": "收集证据：时光机 8F（无名氏_61 急报与密匙段 0230）",
+          "signature": "天道有缺，岁差成渊。"
+        },
+        {
+          "floor": 9,
+          "author": "茶馆站务",
+          "userId": "bbs_sysop",
+          "badge": "站务管理员",
+          "postedAt": "2019-03-01 09:05",
+          "isDeleted": false,
+          "content": "【站务通告】本帖 2F、5F、8F 涉及未经核实之拆迁传闻与异常历法言论，已按要求予以屏蔽，本帖锁定不再开放新回复。",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": "老黄历民俗茶馆站务组"
+        }
+      ]
+    },
+    {
+      "id": "618",
+      "boardId": "bazi",
+      "title": "【水楼】丰宁本地老黄历测流年互助帖，新来的老乡报个生日！",
+      "author": "半仙不收钱",
+      "createdAt": "2018-08-12 10:05",
+      "views": 1820,
+      "isPinned": false,
+      "hasSnapshotRestore": false,
+      "sourceComment": "<!-- THREAD_618: BAZI ROLL CALL | YANQING_ARCH BIRTHDAY 0815 -->",
+      "posts": [
+        {
+          "floor": 1,
+          "author": "半仙不收钱",
+          "userId": "half_sage",
+          "badge": "茶馆版主",
+          "postedAt": "2018-08-12 10:05",
+          "isDeleted": false,
+          "content": "新来的丰宁老乡都在这栋水楼冒个泡吧！报一下阳历生日和最近忙啥，版主免费翻翻老黄历给大家看个顺口流年，纯属茶余饭后图一乐～",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": "顺时守正，莫信野祠。"
+        },
+        {
+          "floor": 2,
+          "author": "城东修表匠",
+          "userId": "clock_east",
+          "badge": "老街坊",
+          "postedAt": "2018-08-13 15:22",
+          "isDeleted": false,
+          "content": "报个道，城东修机械表的老张，阳历五月十二。顺便吐槽一句，最近来修老怀表的街坊老说表针半夜会卡顿半秒，怪事。",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": ""
+        },
+        {
+          "floor": 3,
+          "author": "yanqing_arch",
+          "userId": "yanqing_arch",
+          "badge": "非遗小归档",
+          "postedAt": "2018-08-15 20:40",
+          "isDeleted": false,
+          "content": "刚通过县文旅局公示、入职丰宁非遗保护中心报个到！俺叫陈砚青，分在特级民俗底片与数字归档室。今天 08月15日 正好是我公历生日，师傅下班请我吃了碗阳春面。家里从前只按阴历过，入职填登记表时还特意核对了一遍公历月日，求版主算算今年守老档案库顺不顺利！",
+          "restoredContent": null,
+          "clueId": "CLUE-009",
+          "clueLabel": "收集证据：黄历八字水楼（陈砚青公历生日 0815）",
+          "signature": "底片不会撒谎。"
+        },
+        {
+          "floor": 4,
+          "author": "半仙不收钱",
+          "userId": "half_sage",
+          "badge": "茶馆版主",
+          "postedAt": "2018-08-16 08:50",
+          "isDeleted": false,
+          "content": "祝小陈生日快乐！进了非遗馆是好差事，不过老戏班留下来的纸扎物件阴气重，夜里加班扫底片记得别多数人头。",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": "顺时守正，莫信野祠。"
+        }
+      ]
+    },
+    {
+      "id": "605",
+      "boardId": "folklore",
+      "title": "奇怪，迁进槐安里以后，你们家电子族谱有没有多出不认识的表亲？",
+      "author": "槐安里老住户",
+      "createdAt": "2024-09-19 19:22",
+      "views": 943,
+      "isPinned": false,
+      "hasSnapshotRestore": false,
+      "sourceComment": "<!-- THREAD_605: GENEALOGY ANOMALY IN HUAIANLI -->",
+      "posts": [
+        {
+          "floor": 1,
+          "author": "槐安里老住户",
+          "userId": "huaian_res",
+          "badge": "7号楼业主",
+          "postedAt": "2024-09-19 19:22",
+          "isDeleted": false,
+          "content": "我家搬进槐安里 7 号楼好几年了，前阵子家里重修电子族谱，导出表格时外婆那一支竟凭空多出一个寄居的表亲，姓周，生辰一栏冷冰冰写着「闰腊月廿九」。我翻出箱底的旧纸谱核对，那一行原本是空的！\n更渗人的是昨晚吃晚饭，我娘盛完饭，顺手往桌边那张空凳前也摆了一双筷子和一碗白米饭。我问她留给谁，她端着饭勺愣了半天，轻声说：“不是还有个周家表叔在屋里坐着么？”可屋里明明只有我们一家三口……",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": ""
+        },
+        {
+          "floor": 2,
+          "author": "城北老茶客",
+          "userId": "north_tea",
+          "badge": "老街坊",
+          "postedAt": "2024-09-20 11:05",
+          "isDeleted": false,
+          "content": "快搬走吧！这礼拜听居委会私下说，7 号楼已经有七户人家的电子户籍和族谱都出了这毛病，而且个个都带着“闰腊月廿九”！",
+          "restoredContent": null,
+          "clueId": null,
+          "clueLabel": null,
+          "signature": "城北青石巷老茶壶一把。"
+        }
+      ]
+    }
+  ],
+  "privateMessages": [
+    {
+      "id": "pm-61",
+      "from": "无名氏_61",
+      "to": "过境访客",
+      "sentAt": "2019-02-30 02:31",
+      "subject": "若 610 帖已被屏蔽，请启「网页时光机」",
+      "body": "正历中的删帖抹不去岁差镜像。打开 610 号帖并拨动浏览器顶栏「网页时光机」至 2019-02-30，即可见 2F、5F、8F 原貌；看过 5F 的口令规则后，再去 618 号水楼寻同一个名字。另请务必以同样方法查验槐安里物业网 7 号楼拆迁公示。",
+      "threadUrl": "https://bbs.huangli.lh/thread/610"
+    }
+  ]
+}

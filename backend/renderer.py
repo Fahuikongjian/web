@@ -458,6 +458,7 @@ def _wrap_base(
             "nav_projects_active": "is-active" if active_nav == "projects" else "",
             "nav_gallery_active": "is-active" if active_nav == "gallery" else "",
             "nav_games_active": "is-active" if active_nav == "games" else "",
+            "nav_mystery_active": "is-active" if active_nav == "mystery" else "",
             "nav_about_active": "is-active" if active_nav == "about" else "",
             "extra_head": extra_head,
             "page_content": page_content,
@@ -798,7 +799,28 @@ def render_site(
     )
     html_pages_count += 1
 
-    # 8. Render About Page: dist/about/index.html
+    # Render the series catalogue and the two case archives.
+    mystery_site_root = effective_site_url(str(site["site_url"]), normalized_base_path)
+    mystery_pages = (
+        ("mystery", "mystery_index.html", "大闰录 · 旧网拾遗", "丰宁与澄溪地方旧网的分卷存档。"),
+        ("mystery/act-1", "mystery.html", "第一幕 · 纸傩代身", "丰宁旧剧场、非遗馆藏与槐安里拆迁公示存档。"),
+        ("mystery/act-2", "mystery.html", "第二幕 · 门牌余号", "澄溪清河巷门牌、地籍与夜渡交接存档。"),
+    )
+    for route, template, title, description in mystery_pages:
+        mystery_html = engine.render(template, {
+            "base_path": normalized_base_path,
+            "page_title": f"{title} · {site['site_title']}",
+            "page_description": description,
+            "canonical_url": f"{mystery_site_root}/{route}/",
+            "archive_config": f"/static/mystery/data/{route.rsplit('/', 1)[-1]}.json",
+        })
+        _write_html(
+            out_dir / route / "index.html",
+            apply_base_path_to_html(mystery_html, normalized_base_path),
+        )
+        html_pages_count += 1
+
+    # 9. Render About Page: dist/about/index.html
     about_body = engine.render(
         "about.html",
         {

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Folk Photographer Polaroid Avatar with Vintage Film Camera & Paper Nuo Silhouette -->
+  <rect width="128" height="128" rx="8" fill="#F2E7D2"/>
+  <rect x="7" y="7" width="114" height="114" rx="4" fill="#FBF5E8" stroke="#CBB79B" stroke-width="1.4"/>
+
+  <!-- Aged Masking Tape -->
+  <path d="M40 2L88 2L84 14L44 14Z" fill="#D4A95E" fill-opacity="0.52"/>
+
+  <!-- Misty Mountain Night Frame -->
+  <rect x="15" y="17" width="98" height="79" rx="2" fill="#232933" stroke="#9E8B74" stroke-width="1"/>
+  <path d="M15 70Q38 56 64 67T113 62V96H15V70Z" fill="#323B48"/>
+  <path d="M15 80Q45 72 78 82T113 76V96H15V80Z" fill="#1A2029"/>
+
+  <!-- Distant Eerie Pale Paper Nuo Mask Silhouette in the Mist -->
+  <path d="M87 38H101L99 52Q94 57 89 52L87 38Z" fill="#EAE2D2" fill-opacity="0.72"/>
+  <circle cx="91.5" cy="44" r="1.1" fill="#1A2029"/>
+  <circle cx="96.5" cy="44" r="1.1" fill="#1A2029"/>
+  <path d="M91.5 49Q94 51 96.5 49" stroke="#B91C1C" stroke-opacity="0.75" stroke-width="1"/>
+
+  <!-- Photographer Silhouette & Vintage Twin-Lens / Film Camera -->
+  <circle cx="48" cy="54" r="11" fill="#13161C"/>
+  <path d="M29 96C31 78 39 70 48 70C57 70 65 78 67 96H29Z" fill="#181C24"/>
+  <!-- Camera Strap & Body -->
+  <path d="M39 67L43 79M57 67L53 79" stroke="#9C4A3B" stroke-width="2" stroke-linecap="round"/>
+  <rect x="40" y="75" width="16" height="12" rx="2" fill="#374151" stroke="#D1C7B7" stroke-width="1"/>
+  <circle cx="48" cy="81" r="3.8" fill="#111827" stroke="#DFB86B" stroke-width="1.2"/>
+  <circle cx="48" cy="81" r="1.4" fill="#60A5FA" fill-opacity="0.65"/>
+
+  <!-- Bottom Handwritten Stamp -->
+  <text x="64" y="111" text-anchor="middle" font-family="monospace" font-size="8.2" letter-spacing="1.2" fill="#6E5A47">山野拾影 · FILM</text>
+</svg>

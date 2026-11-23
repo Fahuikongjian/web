@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
+  <!-- Tai-Run 60 Jiazi Compass Emblem with Misaligned 61st Intercalary Slot -->
+  <rect x="4" y="4" width="120" height="120" rx="20" fill="#0B0B0F"/>
+  <rect x="8" y="8" width="112" height="112" rx="16" stroke="#DFB86B" stroke-opacity="0.34" stroke-width="1.2"/>
+
+  <!-- Outer 60-Division Ring -->
+  <circle cx="64" cy="64" r="49" stroke="#DFB86B" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="1.8 3.33"/>
+  <circle cx="64" cy="64" r="42" stroke="#DFB86B" stroke-opacity="0.72" stroke-width="1.4"/>
+
+  <!-- Precession Off-Axis Orbit Ring -->
+  <ellipse cx="64" cy="64" rx="35" ry="31" transform="rotate(-14 64 64)" stroke="#C81E3A" stroke-opacity="0.7" stroke-width="1.3" stroke-dasharray="5 3"/>
+
+  <!-- Four Order Pillars (Ming / Shi / Xing / Si) Cardinal Markers -->
+  <path d="M64 11V21M64 107V117M11 64H21M107 64H117" stroke="#DFB86B" stroke-width="1.8" stroke-linecap="round"/>
+  <circle cx="64" cy="18" r="2.2" fill="#C81E3A"/>
+  <circle cx="64" cy="110" r="2.2" fill="#DFB86B"/>
+  <circle cx="18" cy="64" r="2.2" fill="#DFB86B"/>
+  <circle cx="110" cy="64" r="2.2" fill="#DFB86B"/>
+
+  <!-- Inner Bagua / Octagonal Frame -->
+  <polygon points="64,30 88,40 98,64 88,88 64,98 40,88 30,64 40,40" fill="#131116" stroke="#DFB86B" stroke-opacity="0.55" stroke-width="1.2"/>
+
+  <!-- Misaligned 61st Intercalary Fissure (Vermilion Split) -->
+  <path d="M61 36L57 58L66 64L59 71L62 92" stroke="#E12D4B" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M67 36L71 58L62 64L69 71L66 92" stroke="#DFB86B" stroke-opacity="0.78" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Center 61st Slot Diamond -->
+  <rect x="57.5" y="57.5" width="13" height="13" transform="rotate(45 64 64)" fill="#1D0B10" stroke="#E12D4B" stroke-width="1.6"/>
+  <circle cx="64" cy="64" r="2.6" fill="#DFB86B"/>
+
+  <!-- Micro Seal Code -->
+  <text x="64" y="119" text-anchor="middle" font-family="monospace" font-size="6.8" letter-spacing="1.6" fill="#DFB86B" fill-opacity="0.85">LXJZ · 61</text>
+</svg>

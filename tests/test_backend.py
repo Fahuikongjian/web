@@ -337,10 +337,13 @@ def test_feeds_xml_escaping_and_validity(populated_site_root: Path) -> None:
     sitemap_xml = build_sitemap_xml(site, posts)
     sm_root = ET.fromstring(sitemap_xml)
     assert sm_root.tag.endswith("urlset")
-    assert len(list(sm_root)) == 6 + len(posts)
+    assert len(list(sm_root)) == 9 + len(posts)
     locs = [el.findtext("{http://www.sitemaps.org/schemas/sitemap/0.9}loc") for el in sm_root]
     assert "https://example.com/gallery/" in locs
     assert "https://example.com/games/" in locs
+    assert "https://example.com/mystery/" in locs
+    assert "https://example.com/mystery/act-1/" in locs
+    assert "https://example.com/mystery/act-2/" in locs
 
     robots = build_robots_txt(site)
     assert "Sitemap: https://example.com/sitemap.xml" in robots
@@ -352,7 +355,7 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_s
     assert stats["posts_count"] == 2
     assert stats["projects_count"] == 1
     assert stats["gallery_count"] == 0
-    assert stats["html_pages_count"] == 9
+    assert stats["html_pages_count"] == 12
 
     expected_paths = [
         ".nojekyll",
@@ -361,6 +364,9 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_s
         "projects/index.html",
         "gallery/index.html",
         "games/index.html",
+        "mystery/index.html",
+        "mystery/act-1/index.html",
+        "mystery/act-2/index.html",
         "about/index.html",
         "404.html",
         "api/posts.json",
@@ -386,6 +392,9 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_s
         "static/images/cover-03.svg",
         "static/images/cover-04.svg",
         "static/images/cover-05.svg",
+        "static/mystery/js/app.js",
+        "static/mystery/data/case_manifest.json",
+        "static/mystery/assets/case-emblem.svg",
     ]
     for rel in expected_paths:
         assert (dist_dir / rel).is_file(), f"Missing built file: {rel}"
@@ -425,7 +434,7 @@ def test_full_build_completeness_and_valid_artifacts(tmp_path: Path, populated_s
     home_html = (dist_dir / "index.html").read_text(encoding="utf-8")
     assert '<meta name="site-base-path" content="">' in home_html
     assert "沪ICP备" not in home_html
-    assert home_html.count('class="home-entry home-entry--') == 5
+    assert home_html.count('class="home-entry home-entry--') == 6
     assert "build-fixture" not in home_html
     assert "测试项目" not in home_html
     projects_html = (dist_dir / "projects" / "index.html").read_text(encoding="utf-8")
@@ -454,7 +463,7 @@ def test_clean_build_removes_published_articles_and_feeds(
     assert stats["posts_count"] == 0
     assert stats["projects_count"] == 0
     assert stats["gallery_count"] == 0
-    assert stats["html_pages_count"] == 7
+    assert stats["html_pages_count"] == 10
     assert list((dist_dir / "articles").glob("*/index.html")) == []
     assert check_json_and_posts(dist_dir, content_dir=empty_site_root / "content") == ([], 0, 0)
     assert check_xml_files(dist_dir, posts_count=0) == []
@@ -522,7 +531,7 @@ def test_categorized_articles_post_links_and_api_stats(
         ("乐理", "default", 1),
     ]
     home = (dist_dir / "index.html").read_text(encoding="utf-8")
-    assert home.count('class="home-entry home-entry--') == 5
+    assert home.count('class="home-entry home-entry--') == 6
     projects_page = (dist_dir / "projects" / "index.html").read_text(encoding="utf-8")
     assert "暂无已发布项目。" in projects_page
     assert 'class="project-card"' not in projects_page

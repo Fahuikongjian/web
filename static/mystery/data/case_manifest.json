@@ -1,0 +1,103 @@
+{
+  "caseId": "CASE-LXJZ-61",
+  "storageKey": "darun_save_v1_ch01",
+  "assets": {
+    "caseEmblem": "/static/mystery/assets/case-emblem.svg"
+  },
+  "sites": [
+    {
+      "siteKey": "search",
+      "domain": "search.qiandu.lh",
+      "dataUrl": "/static/mystery/data/site_search.json"
+    },
+    {
+      "siteKey": "institution",
+      "domain": "feiyi.fengning.gov.lh",
+      "dataUrl": "/static/mystery/data/site_institution.json"
+    },
+    {
+      "siteKey": "property",
+      "domain": "wy.huaianli.lh",
+      "dataUrl": "/static/mystery/data/site_property.json"
+    },
+    {
+      "siteKey": "blog",
+      "domain": "blog.shanye.lh",
+      "dataUrl": "/static/mystery/data/site_blog.json"
+    },
+    {
+      "siteKey": "forum",
+      "domain": "bbs.huangli.lh",
+      "dataUrl": "/static/mystery/data/site_forum.json"
+    }
+  ],
+  "portal": {
+    "title": "旧网拾遗 · 丰宁地方网页归档导航",
+    "subtitle": "丰宁旧戏、社区公示及个人网页的分站备份",
+    "notice": "槐安里七号楼复核补件已开放。县里请居民优先核对初版公示与值班簿，仍有原始材料的请移交收件处。",
+    "noticeLink": "https://fuhe.fengning.lh/",
+    "directoryCards": [
+      {
+        "title": "千度旧网检索",
+        "domain": "search.qiandu.lh",
+        "url": "https://search.qiandu.lh/",
+        "category": "站内索引",
+        "description": "按正文词、档号或域名检索旧站资料。"
+      },
+      {
+        "title": "丰宁县非物质文化遗产保护中心",
+        "domain": "feiyi.fengning.gov.lh",
+        "url": "https://feiyi.fengning.gov.lh/",
+        "category": "政务与文化馆",
+        "description": "查阅丰宁纸傩戏、传统木作厌胜文献、历年人员公示及内部馆藏检索入口。"
+      },
+      {
+        "title": "槐安里小区物业与拆迁公示网",
+        "domain": "wy.huaianli.lh",
+        "url": "https://wy.huaianli.lh/",
+        "category": "社区民生",
+        "description": "槐安里老小区 7 号楼拆迁复核通告、楼栋户型测绘记录与物业值班公示。"
+      },
+      {
+        "title": "山野拾影 · 民俗摄影手记",
+        "domain": "blog.shanye.lh",
+        "url": "https://blog.shanye.lh/",
+        "category": "个人网志",
+        "description": "胶片摄影师林野驻留丰宁时的采风笔记，记下老戏台、纸傩与后山无名野庙。"
+      },
+      {
+        "title": "老黄历民俗茶馆 BBS",
+        "domain": "bbs.huangli.lh",
+        "url": "https://bbs.huangli.lh/",
+        "category": "地方论坛",
+        "description": "丰宁老网民择吉测字、乡野异闻与老城拆迁讨论区，顶栏附带复古万年历挂件。"
+      },
+      {
+        "title": "丰宁地方资料站",
+        "domain": "ziliaoguan.fengning.lh",
+        "url": "https://ziliaoguan.fengning.lh/",
+        "category": "文化资料",
+        "description": "原剧场、县文化站、底片移交清册与纸料登记。"
+      },
+      {
+        "title": "丰宁工程公示备查",
+        "domain": "gongshi.fengning.lh",
+        "url": "https://gongshi.fengning.lh/",
+        "category": "工程资料",
+        "description": "旧城改造批件、值班接收单和网上公示校样。"
+      },
+      {
+        "title": "丰宁旧城复核收件处",
+        "domain": "fuhe.fengning.lh",
+        "url": "https://fuhe.fengning.lh/",
+        "category": "办事入口",
+        "description": "七号楼复核受理。可按材料类别分次提交。"
+      }
+    ],
+    "icpFooter": {
+      "maintainer": "维护：丰宁地方旧网互助组",
+      "icpCode": "丰ICP备-LXJZ-61"
+    },
+    "sourceComment": "<!-- 迁站验收：如备案尾号不符，以纸本底档为准。旧索引对照号 LXJZ-61。 -->"
+  }
+}
