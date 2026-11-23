@@ -799,12 +799,16 @@ def render_site(
     )
     html_pages_count += 1
 
-    # Render the series catalogue and the two case archives.
+    # Render the series catalogue, case archives, and the unlisted reading room.
     mystery_site_root = effective_site_url(str(site["site_url"]), normalized_base_path)
     mystery_pages = (
         ("mystery", "mystery_index.html", "大闰录 · 旧网拾遗", "丰宁与澄溪地方旧网的分卷存档。"),
         ("mystery/act-1", "mystery.html", "第一幕 · 纸傩代身", "丰宁旧剧场、非遗馆藏与槐安里拆迁公示存档。"),
         ("mystery/act-2", "mystery.html", "第二幕 · 门牌余号", "澄溪清河巷门牌、地籍与夜渡交接存档。"),
+        ("mystery/act-3", "mystery.html", "第三幕 · 借姓簿", "栖梧镇迁居清册、宗谱与口述存档。"),
+        ("mystery/act-4", "mystery.html", "第四幕 · 失日台", "鸣川气象观测、授时广播与旧万年历存档。"),
+        ("mystery/act-5", "mystery.html", "第五幕 · 空炉回香", "蒲岭白鹭会修复验收、庙务和地方影像存档。"),
+        ("mystery/reading-room", "mystery.html", "旧网拾遗 · 缺页登记", "地方站归档目录补件。"),
     )
     for route, template, title, description in mystery_pages:
         mystery_html = engine.render(template, {
@@ -813,6 +817,7 @@ def render_site(
             "page_description": description,
             "canonical_url": f"{mystery_site_root}/{route}/",
             "archive_config": f"/static/mystery/data/{route.rsplit('/', 1)[-1]}.json",
+            "robots_policy": "noindex" if route.endswith("/reading-room") else "index, follow",
         })
         _write_html(
             out_dir / route / "index.html",

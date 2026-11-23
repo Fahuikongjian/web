@@ -1,4 +1,4 @@
-"""Browser and data coverage for the two local archive investigations."""
+"""Browser and data coverage for the Darun archive investigations."""
 
 import functools
 import json
@@ -114,12 +114,13 @@ def _review_base(chapter):
 
 
 def test_archive_route_and_story_data_integrity():
-    first, second = _data("act-1"), _data("act-2")
+    chapters = [_data(f"act-{number}") for number in range(1, 6)]
     legacy = _data("case_manifest")
-    assert first["caseId"] != second["caseId"]
-    assert first["storageKey"] == legacy["storageKey"] != second["storageKey"]
-    cases = [(first, legacy["sites"]), (second, [])]
-    for chapter, old_sites in cases:
+    assert len({chapter["caseId"] for chapter in chapters}) == 5
+    assert len({chapter["storageKey"] for chapter in chapters}) == 5
+    assert chapters[0]["storageKey"] == legacy["storageKey"]
+    for number, chapter in enumerate(chapters, start=1):
+        old_sites = legacy["sites"] if number == 1 else []
         domains = {site["domain"] for site in chapter["sites"] + old_sites} | {urlsplit(SEARCH).hostname}
         routes = {(item["site"], item["id"]) for item in chapter["records"]}
         assert len(routes) == len(chapter["records"]) >= 42
@@ -134,6 +135,12 @@ def test_archive_route_and_story_data_integrity():
         assert "vault-61" not in payload
         assert "星环手记" not in payload
         assert "太闰" not in payload
+    entry = _data("reading-room")
+    assert not entry["records"]
+    assert "太闰" not in json.dumps(entry, ensure_ascii=False)
+    assert "星环手记" not in json.dumps(entry, ensure_ascii=False)
+    for chapter, field in zip(chapters, entry["entry"]["fields"], strict=True):
+        assert f"本卷转存撕条：{field['accept'][0]}。" in chapter["conclusion"]["receipt"][-1]
     thread = next(item for item in _data("site_forum")["threads"] if item["id"] == "605")
     entry = next(item for item in _data("site_search")["entries"] if item["id"] == "sr-forum-605")
     assert entry["title"].startswith(thread["title"])
@@ -252,4 +259,95 @@ def test_second_act_independent_mobile_subpath_completion(browser, subpath_url):
     page.get_by_role("link", name="分卷目录").click()
     expect(page).to_have_url(subpath_url + "/mystery/")
     _assert_clean_page(errors, "second archive")
+    page.close()
+
+
+@pytest.mark.parametrize(
+    "volume,landing,version_url,original_text,source_url,old_title,source_domain,receipt_text",
+    [
+        (3, "栖梧迁居资料目录", "https://minzheng.qiwu.lh/maternity-index", "沈霁",
+         "https://fangtan.qiwu.lh/ghost-letter", "回姓暂寄", "fangtan.qiwu.lh", "南埠原册恢复沈霁"),
+        (4, "鸣川春汛资料目录", "https://qixiang.mingchuan.lh/shift-index", "TY-31",
+         "https://radio.mingchuan.lh/lost-carousel", "零点不发", "radio.mingchuan.lh", "春汛数据回到鸣川原来的历页"),
+        (5, "蒲岭会屋修复资料目录", "https://wenhua.puling.lh/restoration", "白麻衬",
+         "https://yingyin.puling.lh/listen-index", "炉后三问", "yingyin.puling.lh", "白鹭会停用代收栏"),
+    ],
+)
+def test_later_acts_independent_completion(
+    browser, subpath_url, volume, landing, version_url, original_text, source_url, old_title, source_domain, receipt_text
+):
+    page = browser.new_page(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True)
+    errors = _attach_error_collectors(page)
+    page.goto(subpath_url + f"/mystery/act-{volume}/", wait_until="networkidle")
+    expect(page.get_by_role("heading", name=landing)).to_be_visible()
+    _assert_no_horizontal_overflow(page, page.url, "390x844")
+    _navigate(page, version_url)
+    page.get_by_role("button", name="历史版本").click()
+    expect(page.get_by_text(original_text, exact=True)).to_be_visible()
+    _navigate(page, source_url)
+    dialog = _source(page)
+    expect(dialog.locator("pre")).to_contain_text(old_title)
+    dialog.get_by_role("button", name="关闭").click()
+    _search(page, f"site:{source_domain} {old_title}")
+    page.get_by_role("link", name=old_title, exact=False).click()
+    expect(page.get_by_role("heading", name=old_title, exact=False)).to_be_visible()
+
+    chapter = _data(f"act-{volume}")
+    base = _review_base(chapter)
+    for work in chapter["checks"]:
+        _navigate(page, base + work["id"])
+        _submit(page, work)
+    _navigate(page, base + chapter["conclusion"]["id"])
+    _submit(page, chapter["conclusion"])
+    page.reload(wait_until="networkidle")
+    expect(page.locator(".archive-receipt")).to_contain_text(receipt_text)
+    assert page.evaluate("localStorage.getItem('darun_save_v1_ch01')") is None
+    _assert_clean_page(errors, f"act {volume}")
+    page.close()
+
+
+def test_hidden_reading_room_and_finale(browser, subpath_url):
+    page = browser.new_page(viewport={"width": 1440, "height": 900})
+    errors = _attach_error_collectors(page)
+    requests = []
+    page.on("request", lambda request: requests.append(request.url))
+    page.goto(subpath_url + "/mystery/", wait_until="networkidle")
+    expect(page.locator(".catalogue-list a[href*='/act-']")).to_have_count(5)
+    page.get_by_text("未完待续", exact=True).click()
+    page.get_by_role("link", name="核对撕条").click()
+    expect(page.get_by_role("heading", name="目录缺页登记")).to_be_visible()
+    assert not any(url.endswith("/finale-dossier.json") for url in requests)
+    expect(page.locator("meta[name=robots]")).to_have_attribute("content", "noindex")
+    _navigate(page, "https://archive61.darun.lh/")
+    expect(page.get_by_role("heading", name="该网址没有存入本卷")).to_be_visible()
+
+    entry = _data("reading-room")
+    _navigate(page, entry["homeUrl"])
+    _submit(page, entry["entry"], wrong=True)
+    assert not any(url.endswith("/finale-dossier.json") for url in requests)
+    _submit(page, entry["entry"])
+    assert any(url.endswith("/finale-dossier.json") for url in requests)
+    page.get_by_role("link", name="第 61 号馆藏目录").click()
+    expect(page.get_by_role("heading", name="五地留件会勘")).to_be_visible()
+
+    dossier = _data("finale-dossier")
+    base = _review_base(dossier)
+    host_imprint = "https://mirror61.darun.lh/host-imprint"
+    _navigate(page, host_imprint)
+    expect(page.get_by_role("heading", name="此页未归档")).to_be_visible()
+    _navigate(page, base + "receipt")
+    expect(page.get_by_role("heading", name="待补材料")).to_be_visible()
+    for work in dossier["checks"]:
+        _navigate(page, base + work["id"])
+        _submit(page, work)
+
+    _navigate(page, host_imprint)
+    expect(page.get_by_text("【宿主印记】ASTRA YAO · 星环手记", exact=False)).to_be_visible()
+    _navigate(page, base + "receipt")
+    _submit(page, dossier["conclusion"])
+    page.reload(wait_until="networkidle")
+    expect(page.locator(".archive-receipt")).to_contain_text("【全录完】")
+    page.get_by_role("link", name="阅封柜后的纸封回执").click()
+    expect(page.get_by_role("heading", name="封柜回执副联 · 留缺")).to_be_visible()
+    _assert_clean_page(errors, "series finale")
     page.close()

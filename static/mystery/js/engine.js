@@ -19,24 +19,33 @@
 
   async function loadCase(configUrl) {
     const chapter = await fetchJson(configUrl);
+    if (chapter.dossierUrl) {
+      const progress = window.MysteryStateStore.open(chapter.storageKey, chapter.caseId);
+      if (progress.isGateUnlocked("filed:" + chapter.entry.id)) {
+        const dossier = await fetchJson(chapter.dossierUrl);
+        Object.assign(chapter, dossier, { sites: chapter.sites.concat(dossier.sites) });
+      }
+    }
     const manifest = chapter.legacyManifest ? await fetchJson(chapter.legacyManifest) : {};
     const siteData = Object.fromEntries(await Promise.all((manifest.sites || []).map(async site => [
       site.siteKey, await fetchJson(site.dataUrl)
     ])));
     const search = siteData.search || chapter.search;
-    chapter.searchUrl = "https://" + search.domain + "/";
-    const siteNames = new Map(chapter.sites.map(site => [site.domain, site.title]));
-    search.entries = search.entries.concat(chapter.records.filter(record => record.index !== false).map(record => ({
-      id: "archive-" + record.id,
-      title: record.title,
-      url: "https://" + record.site + "/" + record.id,
-      domain: record.site,
-      date: record.date,
-      snippet: record.snippet || record.paragraphs[0],
-      keywords: [siteNames.get(record.site), ...(record.keywords || [])],
-      requireSiteOperator: record.index === "site"
-    })));
-    siteData.search = search;
+    if (search) {
+      chapter.searchUrl = "https://" + search.domain + "/";
+      const siteNames = new Map(chapter.sites.map(site => [site.domain, site.title]));
+      search.entries = search.entries.concat(chapter.records.filter(record => record.index !== false).map(record => ({
+        id: "archive-" + record.id,
+        title: record.title,
+        url: "https://" + record.site + "/" + record.id,
+        domain: record.site,
+        date: record.date,
+        snippet: record.snippet || record.paragraphs[0],
+        keywords: [siteNames.get(record.site), ...(record.keywords || [])],
+        requireSiteOperator: record.index === "site"
+      })));
+      siteData.search = search;
+    }
     return { chapter, manifest, siteData };
   }
 
@@ -100,7 +109,7 @@
       let page;
       try {
         const legacy = (manifest.sites || []).find(site => site.domain === route.domain);
-        if (route.domain === siteData.search.domain) {
+        if (route.domain === siteData.search?.domain) {
           page = renderers.search(route, siteData.search, context);
         } else if (legacy) {
           page = renderers[legacy.siteKey](route, siteData[legacy.siteKey], context);

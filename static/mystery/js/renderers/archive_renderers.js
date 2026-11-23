@@ -35,10 +35,11 @@
 
   function renderRecord(record, context) {
     const view = context.isTimeMachine && record.snapshot ? record.snapshot : record;
+    const links = view.links?.filter(item => !item.requiresGate || context.isGateUnlocked(item.requiresGate));
     const html = '<time class="archive-date">' + escapeHtml(view.date || record.date) + "</time>" +
       paragraphs(view.paragraphs) +
       (view.table ? table(view.table.columns, view.table.rows) : "") +
-      paragraphs(view.notes) + attachments(view.links);
+      paragraphs(view.notes) + attachments(links);
     return {
       title: view.title || record.title,
       html,
@@ -95,7 +96,7 @@
     return [];
   }
 
-  function reviewForm(work, context, doneHtml) {
+  function reviewForm(work, context, doneHtml, afterFiling = context.rerender) {
     if (isFiled(context, work.id)) return { title: work.title, html: doneHtml };
     const form = '<form class="archive-review-form" data-review-form autocomplete="off">' +
       work.fields.map((field, index) => '<label for="record-field-' + index + '">' +
@@ -141,7 +142,7 @@
           }
           draft(draftKey, null);
           context.unlockGate("filed:" + work.id);
-          context.rerender();
+          afterFiling();
           window.document.querySelector("#archive-document-title")?.focus();
         });
       }
@@ -187,7 +188,14 @@
     const record = context.chapter.records.find(item => item.site === site.domain && route.path === "/" + item.id);
     let page;
     if (site.kind === "review") page = renderReview(route, site, context);
-    else if (record) page = renderRecord(record, context);
+    else if (site.kind === "entry" && route.path === "/") {
+      const entry = context.chapter.entry;
+      page = reviewForm(entry, context,
+        '<div class="archive-receipt">' + paragraphs(entry.receipt) + "</div>" +
+        attachments(entry.links, "可查阅卷册"), () => window.location.reload());
+    } else if (record && (!record.requiresGate || context.isGateUnlocked(record.requiresGate))) {
+      page = renderRecord(record, context);
+    }
     else if (route.path === "/") page = renderIndex(site, context);
     if (!page) return window.MysteryEngine.errorPage("404", "此页未归档", "请从站点首页查询已公开的文件。");
     const navbar = [{ label: "首页", url: home }, ...(site.nav || [])]

@@ -45,6 +45,10 @@ REQUIRED_FILES = (
     "mystery/index.html",
     "mystery/act-1/index.html",
     "mystery/act-2/index.html",
+    "mystery/act-3/index.html",
+    "mystery/act-4/index.html",
+    "mystery/act-5/index.html",
+    "mystery/reading-room/index.html",
     "about/index.html",
     "404.html",
     "api/posts.json",
@@ -89,6 +93,11 @@ REQUIRED_MYSTERY_ASSETS = (
     "static/mystery/data/case_manifest.json",
     "static/mystery/data/act-1.json",
     "static/mystery/data/act-2.json",
+    "static/mystery/data/act-3.json",
+    "static/mystery/data/act-4.json",
+    "static/mystery/data/act-5.json",
+    "static/mystery/data/reading-room.json",
+    "static/mystery/data/finale-dossier.json",
     "static/mystery/data/site_search.json",
     "static/mystery/data/site_institution.json",
     "static/mystery/data/site_property.json",
@@ -568,7 +577,8 @@ def check_xml_files(dist_dir: Path, base_path: str = "", *, posts_count: int) ->
                     errors.append("dist/sitemap.xml missing '/gallery/' entry.")
                 if not any(loc.endswith("/games/") for loc in locs):
                     errors.append("dist/sitemap.xml missing '/games/' entry.")
-                for route in ("/mystery/", "/mystery/act-1/", "/mystery/act-2/"):
+                mystery_routes = ("/mystery/", *(f"/mystery/act-{volume}/" for volume in range(1, 6)))
+                for route in mystery_routes:
                     if not any(loc.endswith(route) for loc in locs):
                         errors.append(f"dist/sitemap.xml missing '{route}' entry.")
 

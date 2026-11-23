@@ -1,0 +1,73 @@
+{
+  "caseId": "CASE-DARUN-61",
+  "storageKey": "darun_save_v1_finale",
+  "homeUrl": "https://catalogue.darun.lh/",
+  "dossierUrl": "/static/mystery/data/finale-dossier.json",
+  "records": [],
+  "sites": [
+    {
+      "domain": "catalogue.darun.lh",
+      "title": "旧网拾遗 · 缺页登记",
+      "heading": "目录缺页登记",
+      "style": "directory",
+      "strap": "原件补登　核对撕条",
+      "intro": [
+        "纸本读者补登请以成卷先后填写。"
+      ],
+      "nav": [],
+      "kind": "entry",
+      "footer": "地方旧网互助组　纸本附件核对窗口"
+    }
+  ],
+  "entry": {
+    "id": "collate",
+    "title": "目录缺页登记",
+    "intro": [
+      "共留五份分卷回执。请按总目录顺序填写每份转存撕条，照抄末页，不取入卷时收到的前县撕条。"
+    ],
+    "fields": [
+      {
+        "label": "第一幕　纸傩代身",
+        "accept": [
+          "ZN"
+        ]
+      },
+      {
+        "label": "第二幕　门牌余号",
+        "accept": [
+          "QS"
+        ]
+      },
+      {
+        "label": "第三幕　借姓簿",
+        "accept": [
+          "MK"
+        ]
+      },
+      {
+        "label": "第四幕　失日台",
+        "accept": [
+          "T6"
+        ]
+      },
+      {
+        "label": "第五幕　空炉回香",
+        "accept": [
+          "WL"
+        ]
+      }
+    ],
+    "hints": [
+      "每份撕条都在本卷结案回执末尾。"
+    ],
+    "receipt": [
+      "【缺页合拢】所收五联的裁边连续。卷夹内还有一页未见于地方目录，页首只印第 61 号。"
+    ],
+    "links": [
+      {
+        "url": "https://archive61.darun.lh/",
+        "label": "第 61 号馆藏目录"
+      }
+    ]
+  }
+}

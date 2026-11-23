@@ -50,9 +50,12 @@
     const home = root.querySelector("[data-local-home]");
     const search = root.querySelector("[data-local-search]");
     home.href = localUrl(data.chapter.homeUrl);
-    search.href = localUrl(data.chapter.searchUrl);
     home.dataset.mysteryLink = data.chapter.homeUrl;
-    search.dataset.mysteryLink = data.chapter.searchUrl;
+    search.hidden = !data.chapter.searchUrl;
+    if (data.chapter.searchUrl) {
+      search.href = localUrl(data.chapter.searchUrl);
+      search.dataset.mysteryLink = data.chapter.searchUrl;
+    }
 
     function show(next, snapshot) {
       const url = localUrl(next.rawUrl, snapshot);

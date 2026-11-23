@@ -145,6 +145,9 @@ button, summary { cursor: pointer; }
 .archive-site[data-style="public"] { --mast: #71412f; --tone: #f0e8df; background: #efede6; }
 .archive-site[data-style="library"] { --mast: #625039; --tone: #f1ebd9; background: #efede5; }
 .archive-site[data-style="community"] { --mast: #38626a; --tone: #e3eeef; background: #e9eff0; }
+.archive-site[data-style="registry"] { --mast: #5c2e2a; --tone: #eee5d7; background: #e8e4d9; }
+.archive-site[data-style="registry"] .archive-frame { border-color: #a68f80; }
+.archive-site[data-style="registry"] .archive-mast { border-top-width: 6px; }
 .archive-frame { max-width: 1000px; margin: auto; border: 1px solid #a8b0aa; background: #fffef9; }
 .archive-mast { padding: 14px clamp(12px, 2.7vw, 28px); border-top: 4px solid var(--mast); background: var(--tone); }
 .archive-brand { color: var(--mast); font: 700 clamp(1.3rem, 4.8vw, 2rem)/1.35 "SimSun", "Songti SC", serif; text-decoration: none; }

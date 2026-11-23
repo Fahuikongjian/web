@@ -1,0 +1,2280 @@
+{
+  "caseId": "CASE-MC-T6",
+  "storageKey": "darun_save_v1_ch04",
+  "homeUrl": "https://oldweb.mingchuan.lh/",
+  "search": {
+    "domain": "search.qiandu.lh",
+    "siteName": "千度旧网检索",
+    "tagline": "鸣川旧站联合索引 · 网页存档索引",
+    "hotQueries": [
+      "鸣川",
+      "春汛",
+      "授时",
+      "纸带",
+      "万年历"
+    ],
+    "syntaxTips": [
+      "可按条目、档号或正文词检索，使用 site:域名 限定站点。"
+    ],
+    "quickDomains": [
+      "qixiang.mingchuan.lh",
+      "lifa.mingchuan.lh"
+    ],
+    "entries": []
+  },
+  "sites": [
+    {
+      "domain": "oldweb.mingchuan.lh",
+      "title": "旧网拾遗 · 鸣川站",
+      "heading": "鸣川春汛资料目录",
+      "style": "directory",
+      "strap": "鸣川旧站联合索引",
+      "intro": [
+        "本目录包括旧气象台、万年历、驻地学校和小功率台的数次迁站备份。授时异议由会签处受理。"
+      ],
+      "nav": [
+        {
+          "url": "https://shoushi.mingchuan.lh/",
+          "label": "授时核对"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/",
+          "label": "鸣川气象观测台"
+        },
+        {
+          "url": "https://lifa.mingchuan.lh/",
+          "label": "鸣川旧历站"
+        },
+        {
+          "url": "https://radio.mingchuan.lh/",
+          "label": "鸣川小功率广播台"
+        },
+        {
+          "url": "https://xiaoxue.mingchuan.lh/",
+          "label": "北翅小学旧档"
+        },
+        {
+          "url": "https://shoushi.mingchuan.lh/",
+          "label": "鸣川授时会签处"
+        }
+      ]
+    },
+    {
+      "domain": "qixiang.mingchuan.lh",
+      "title": "鸣川气象观测台",
+      "heading": "观测公示及机械记录",
+      "style": "public",
+      "strap": "风哨　河尺　纸带",
+      "intro": [
+        "机械纸卷与预估消息分别发布。春汛录入值可看历史版。"
+      ],
+      "nav": [
+        {
+          "url": "https://lifa.mingchuan.lh/",
+          "label": "旧历"
+        },
+        {
+          "url": "https://radio.mingchuan.lh/",
+          "label": "授时广播"
+        },
+        {
+          "url": "https://shoushi.mingchuan.lh/",
+          "label": "会签处"
+        }
+      ]
+    },
+    {
+      "domain": "lifa.mingchuan.lh",
+      "title": "鸣川旧历站",
+      "heading": "旧历公示与转印附件",
+      "style": "library",
+      "strap": "校印日期　公历与农历",
+      "intro": [
+        "往年纸本留样和网页临时附页可能分置。镜像仅供翻查。"
+      ],
+      "nav": [
+        {
+          "url": "https://qixiang.mingchuan.lh/",
+          "label": "气象台"
+        },
+        {
+          "url": "https://oldweb.mingchuan.lh/",
+          "label": "鸣川目录"
+        }
+      ]
+    },
+    {
+      "domain": "radio.mingchuan.lh",
+      "title": "鸣川小功率广播台",
+      "heading": "台本、收盘录音与来信",
+      "style": "community",
+      "strap": "本地台讯　纸带抄读",
+      "intro": [
+        "节目单和设备投递号分别保留，不对原录音做增删。"
+      ],
+      "nav": [
+        {
+          "url": "https://qixiang.mingchuan.lh/",
+          "label": "气象台"
+        },
+        {
+          "url": "https://xiaoxue.mingchuan.lh/",
+          "label": "北翅小学"
+        }
+      ]
+    },
+    {
+      "domain": "xiaoxue.mingchuan.lh",
+      "title": "北翅小学旧档",
+      "heading": "旧课册与校外观测",
+      "style": "office",
+      "strap": "班片借阅　校外备课",
+      "intro": [
+        "名单仅保留旧作业必要附表。回访录在广播台存放。"
+      ],
+      "nav": [
+        {
+          "url": "https://radio.mingchuan.lh/",
+          "label": "广播台"
+        },
+        {
+          "url": "https://shoushi.mingchuan.lh/",
+          "label": "会签处"
+        }
+      ]
+    },
+    {
+      "domain": "shoushi.mingchuan.lh",
+      "title": "鸣川授时会签处",
+      "heading": "三月首班归时办件",
+      "style": "office",
+      "strap": "台站、校印、广播会签",
+      "intro": [
+        "观测原日与页眉错位从旧纸校核。分件完成后提交春汛校时会签。"
+      ],
+      "nav": [
+        {
+          "url": "https://oldweb.mingchuan.lh/",
+          "label": "本地目录"
+        },
+        {
+          "url": "https://qixiang.mingchuan.lh/",
+          "label": "气象台"
+        }
+      ],
+      "kind": "review"
+    }
+  ],
+  "records": [
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "shift-index",
+      "title": "鸣川台 · 春汛观测顺列公示",
+      "date": "1988-03-04",
+      "paragraphs": [
+        "系统按导入顺序列日期。二月底已完成两班后排新的观测，第一支新卷签名未打印。若需复查纸本时段，切换到初排底表。"
+      ],
+      "table": {
+        "columns": [
+          "行序",
+          "现行日期",
+          "索引卷"
+        ],
+        "rows": [
+          [
+            "29",
+            "1988-02-28",
+            "TY-29"
+          ],
+          [
+            "30",
+            "1988-02-29",
+            "TY-30"
+          ],
+          [
+            "31",
+            "1988-02-30",
+            "TY-97"
+          ]
+        ]
+      },
+      "snapshot": {
+        "date": "1988-03-01 07:00",
+        "paragraphs": [
+          "纸排由双班观测员抄成。二月最后一格下方分隔后启用三月首张，双月卷各存一册。"
+        ],
+        "table": {
+          "columns": [
+            "行序",
+            "交班日",
+            "机械纸卷"
+          ],
+          "rows": [
+            [
+              "29",
+              "1988-02-28",
+              "TY-29"
+            ],
+            [
+              "30",
+              "1988-02-29",
+              "TY-30"
+            ],
+            [
+              "31",
+              "1988-03-01",
+              "TY-31"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "url": "https://qixiang.mingchuan.lh/roll-release",
+            "label": "机械纸卷领用页 · 春汛"
+          }
+        ]
+      },
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/roll-release",
+          "label": "机械纸卷领用页 · 春汛"
+        }
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "roll-release",
+      "title": "机械纸卷领用页 · 春汛",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "机械带只有当班人能在背胶写名。台库里的备条也印月日，未穿纸的卷以“备”标，报告不能用备贴。"
+      ],
+      "table": {
+        "columns": [
+          "领用序",
+          "卷号",
+          "岗位",
+          "纸签"
+        ],
+        "rows": [
+          [
+            "AA-67",
+            "TY-29",
+            "二月夜班",
+            "简宁"
+          ],
+          [
+            "AA-68",
+            "TY-30",
+            "双月留观",
+            "叶闻"
+          ],
+          [
+            "AA-69",
+            "TY-31",
+            "三月开卷",
+            "程泊"
+          ],
+          [
+            "AA-70",
+            "TY-97",
+            "未出柜",
+            "空白"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/dawn-broadcast",
+          "label": "晨间值班广播选段"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "dawn-broadcast",
+      "title": "晨间值班广播选段",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "播音员先读二月最后一天的回顾，接着说“今天是三月一日”。这一句被后来的凌晨重播剪掉了。早班信号仍留窗边敲杯次数，用来辨别哪条是直播。"
+      ],
+      "links": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/new-month-notice",
+          "label": "气象兴趣班的观测作业"
+        }
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "new-month-notice",
+      "title": "气象兴趣班的观测作业",
+      "date": "1988-03-02",
+      "paragraphs": [
+        "学校取台站纸带作一张颜色示例，真正夹住的是当月首班。小学生照抄日期时写了三次，最后一行被红笔改成没有空格的两个三月一日。老师让他们先不要撕纸。"
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "river-watch",
+      "title": "鸣川北桥河尺普查 · 一班",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "下表为一小时内记录，通知的预计水位不能登在首条实测。只有现场水尺读数与眼位牌一并抄到卷带。"
+      ],
+      "table": {
+        "columns": [
+          "时刻",
+          "水位（米）",
+          "类别",
+          "附记"
+        ],
+        "rows": [
+          [
+            "06:37",
+            "1.82",
+            "红线预告",
+            "落雨后"
+          ],
+          [
+            "06:42",
+            "1.64",
+            "实测",
+            "先登记"
+          ],
+          [
+            "06:54",
+            "1.67",
+            "实测",
+            "复查"
+          ],
+          [
+            "07:00",
+            "1.80",
+            "台账预估",
+            "待看"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/gauge-cards",
+          "label": "水位观察卡 · 首班补页"
+        }
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "gauge-cards",
+      "title": "水位观察卡 · 首班补页",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "同一颜色的观察卡会在上下游各套一叠。只有与首班实测相同时刻且注明“北桥端”的才可并入本次水尺复核。"
+      ],
+      "table": {
+        "columns": [
+          "卡号",
+          "时刻",
+          "设施点"
+        ],
+        "rows": [
+          [
+            "YC-3",
+            "06:37",
+            "站外墙尺"
+          ],
+          [
+            "YC-8",
+            "06:42",
+            "北桥端"
+          ],
+          [
+            "YC-9",
+            "06:42",
+            "南支渠高阶"
+          ],
+          [
+            "YC-10",
+            "06:54",
+            "北桥端"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/riverside-diagram",
+          "label": "小学校外观测点地名表"
+        }
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "riverside-diagram",
+      "title": "小学校外观测点地名表",
+      "date": "1988-02-25",
+      "paragraphs": [
+        "学生把测尺点唱成口令，老师录入正式命名。桥头有石笋一左一右，照片从下游拍。课本只取正式牌名，无需按看图猜方向。"
+      ],
+      "table": {
+        "columns": [
+          "设施点",
+          "挂牌名",
+          "试音人"
+        ],
+        "rows": [
+          [
+            "北桥端",
+            "北翅尺",
+            "小陈"
+          ],
+          [
+            "南支渠高阶",
+            "南岔阶",
+            "乔青"
+          ],
+          [
+            "站外墙尺",
+            "折纹尺",
+            "小叶"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/bank-camera",
+          "label": "首班河岸样片说明"
+        }
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "bank-camera",
+      "title": "首班河岸样片说明",
+      "date": "1988-03-03",
+      "paragraphs": [
+        "台站曾用黑白感光纸做水线校样。三月第一天比预计涨线低一截。只有背影处横出一双脚，脚下没有涟漪，也没有踩湿岸边纸张。"
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "second-test",
+      "title": "小功率台授时及测试哨登记",
+      "date": "1988-02-28",
+      "paragraphs": [
+        "旧线改变后用一隐蔽哨读两钟。播表抄机器显示，发射时仍以原钟为准。误差固定，连续三条都一样。"
+      ],
+      "table": {
+        "columns": [
+          "测试哨",
+          "发射原刻",
+          "显示钟"
+        ],
+        "rows": [
+          [
+            "一短",
+            "05:10:00",
+            "05:10:49"
+          ],
+          [
+            "双短",
+            "06:20:00",
+            "06:20:49"
+          ],
+          [
+            "一长",
+            "07:25:00",
+            "07:25:49"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/plug-in",
+          "label": "晨间插播时隙记录"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "plug-in",
+      "title": "晨间插播时隙记录",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "本卷时刻用显示钟；播放人辨认来源只用原声卷标。插播河桥巡更报号时前后有两次空拍，不等同于正式整点。"
+      ],
+      "table": {
+        "columns": [
+          "显示钟",
+          "类别",
+          "备注"
+        ],
+        "rows": [
+          [
+            "06:59:36",
+            "停机噪点",
+            "不收"
+          ],
+          [
+            "07:00:00",
+            "河桥巡更插播",
+            "双空拍"
+          ],
+          [
+            "07:00:49",
+            "整点报时",
+            "常规"
+          ],
+          [
+            "07:02:15",
+            "人工天气回读",
+            "末档"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/sound-sleeves",
+          "label": "收盘录音原刻编号"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "sound-sleeves",
+      "title": "收盘录音原刻编号",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "收盘只看录音头写下的原钟刻度。装盒老人晚上忘带眼镜，这一次凭短调有无空白停顿认出来访者。"
+      ],
+      "table": {
+        "columns": [
+          "时刻",
+          "原声编号",
+          "来源"
+        ],
+        "rows": [
+          [
+            "06:58:47",
+            "SY-09",
+            "电力停机"
+          ],
+          [
+            "06:59:11",
+            "SY-11",
+            "河桥巡更"
+          ],
+          [
+            "07:00:00",
+            "SY-49",
+            "台本日播"
+          ],
+          [
+            "07:01:26",
+            "SY-51",
+            "补发天气"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/borrowed-bell",
+          "label": "校值日室 · 留下的整点铃"
+        }
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "borrowed-bell",
+      "title": "校值日室 · 留下的整点铃",
+      "date": "1988-03-03",
+      "paragraphs": [
+        "教师把广播铃借来记上课，有一天学校拨掉插头，铃仍在旧钟刻度上响了一次。秘书只记了音响庭里的墙上时间，气象台后来收走时刻纸。"
+      ]
+    },
+    {
+      "site": "lifa.mingchuan.lh",
+      "id": "calendar-home",
+      "title": "鸣川旧历站 · 早年校印稿",
+      "date": "2019-03-02",
+      "paragraphs": [
+        "节令公布页只列正式纸历的月末日期。一条附页曾在网站暂挂，核印员没有将其发去印厂。它跟着目录重排而消失。历史版本保留当时的转印队列。"
+      ],
+      "table": {
+        "columns": [
+          "正式页",
+          "公历",
+          "发印"
+        ],
+        "rows": [
+          [
+            "二月末",
+            "2019-02-28",
+            "有"
+          ],
+          [
+            "三月初",
+            "2019-03-01",
+            "有"
+          ]
+        ]
+      },
+      "snapshot": {
+        "date": "2019-02-30",
+        "paragraphs": [
+          "末项由外接索引临时增加，退除时未获得纸本号码。"
+        ],
+        "table": {
+          "columns": [
+            "索引",
+            "公历",
+            "农历页面字样"
+          ],
+          "rows": [
+            [
+              "LXJZ-56",
+              "2019-02-28",
+              "正月廿四"
+            ],
+            [
+              "LXJZ-61",
+              "2019-02-30",
+              "甲辰年 闰腊月 廿九"
+            ],
+            [
+              "LXJZ-62",
+              "2019-03-01",
+              "正月廿五"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "url": "https://lifa.mingchuan.lh/print-batches",
+            "label": "旧历附页交付清单"
+          }
+        ]
+      },
+      "links": [
+        {
+          "url": "https://lifa.mingchuan.lh/print-batches",
+          "label": "旧历附页交付清单"
+        }
+      ]
+    },
+    {
+      "site": "lifa.mingchuan.lh",
+      "id": "print-batches",
+      "title": "旧历附页交付清单",
+      "date": "2019-03-04",
+      "paragraphs": [
+        "送印后的实物件数写在背面，挂起的纸页留作无页。纸本组不愿删除号位，怕下次程序复制时自行补一张。"
+      ],
+      "table": {
+        "columns": [
+          "索引",
+          "纸本状态",
+          "分拨"
+        ],
+        "rows": [
+          [
+            "LXJZ-56",
+            "有",
+            "合订"
+          ],
+          [
+            "LXJZ-60",
+            "坏页",
+            "清扫"
+          ],
+          [
+            "LXJZ-61",
+            "无页",
+            "暂不分拨"
+          ],
+          [
+            "LXJZ-62",
+            "有",
+            "合订"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/zero-page",
+          "label": "气象归档附送的无页报告"
+        }
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "zero-page",
+      "title": "气象归档附送的无页报告",
+      "date": "2019-03-05",
+      "paragraphs": [
+        "复制人说自己的终端在开机后出现“00:61”，实际机械时刻没多走一步。公司之前接受过异地的同号索引，一旦它的旧日期回到页面，三月一日的观测名就会缺一行。"
+      ],
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/correction-sound",
+          "label": "无页公告的两次口播校对"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "correction-sound",
+      "title": "无页公告的两次口播校对",
+      "date": "2019-03-07",
+      "paragraphs": [
+        "第一遍试念时播音员问了现场其他人，说自己没有读错日子。当时所有人都点头。第二遍采用纸本后，只剩值台员记得前一遍多出来的那句。"
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "attendance",
+      "title": "三月气象作业点名前联",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "前联最后一行写实际到课人数。开册时班主任写预计十八人；一名学生在西门领纸后并未进教室，实际人数以交还的名签计。"
+      ],
+      "table": {
+        "columns": [
+          "日期",
+          "班章",
+          "预计",
+          "签回"
+        ],
+        "rows": [
+          [
+            "1988-02-28",
+            "QB-28",
+            "18",
+            "18"
+          ],
+          [
+            "1988-02-29",
+            "QB-29",
+            "18",
+            "16"
+          ],
+          [
+            "1988-03-01",
+            "QB-31",
+            "18",
+            "17"
+          ],
+          [
+            "1988-03-02",
+            "QB-32",
+            "18",
+            "18"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/attendance-mirror",
+          "label": "兴趣班电子迁册 · 班章重复排查"
+        }
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "attendance-mirror",
+      "title": "兴趣班电子迁册 · 班章重复排查",
+      "date": "1999-09-15",
+      "paragraphs": [
+        "旧册复制给校友站时出现两个相同日期章号。转抄规则将补出的一格写“备案”，校档员贴黑线请未办正式迁册。"
+      ],
+      "table": {
+        "columns": [
+          "导入章",
+          "分类",
+          "迁册行"
+        ],
+        "rows": [
+          [
+            "QB-29",
+            "普通",
+            "29A"
+          ],
+          [
+            "QB-31",
+            "普通",
+            "31A"
+          ],
+          [
+            "QB-31",
+            "备案",
+            "31B"
+          ],
+          [
+            "QB-32",
+            "普通",
+            "32A"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/mud-steps",
+          "label": "校外观测集合点泥印记录"
+        }
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "mud-steps",
+      "title": "校外观测集合点泥印记录",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "照相小组按每次巡回从泥道的足迹确认人数。备用夹上的一格填“印缺”。最后那人若只经过石板没经泥边，需有另外的签条证明。"
+      ],
+      "table": {
+        "columns": [
+          "统计行",
+          "纸签数量",
+          "同场见证",
+          "末注"
+        ],
+        "rows": [
+          [
+            "31A",
+            "17",
+            "17",
+            "均有鞋印"
+          ],
+          [
+            "31B",
+            "0",
+            "代抄",
+            "章后无鞋印"
+          ],
+          [
+            "32A",
+            "18",
+            "18",
+            "纸测一致"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/school-voices",
+          "label": "旧校友开学回访 · 空出的座位"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "school-voices",
+      "title": "旧校友开学回访 · 空出的座位",
+      "date": "2024-12-16",
+      "paragraphs": [
+        "六年二班的校友都能指着课桌说，那里原坐过一个当天多进来的人。问他的姓，就有人改说坐的是自己。教室阵列没搬动，桌号在原簿中仍留。"
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "notch-ruler",
+      "title": "风哨纸带计格约定",
+      "date": "1988-02-27",
+      "paragraphs": [
+        "三种转盘可并用。鸣川春汛启用三分格短笔。两个画点之间的格数减始点，不含重复落上的起点。原报时只接受原刻栏。"
+      ],
+      "table": {
+        "columns": [
+          "笔型",
+          "格宽（分钟）",
+          "登记项"
+        ],
+        "rows": [
+          [
+            "短笔",
+            "3",
+            "原刻栏"
+          ],
+          [
+            "粗笔",
+            "4",
+            "校正估测"
+          ],
+          [
+            "红石",
+            "5",
+            "事后评估"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/wind-signals",
+          "label": "春汛前两次风哨原画"
+        }
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "wind-signals",
+      "title": "春汛前两次风哨原画",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "纸工抄哨点时忘在报告写哪两线，原段表保存双方的短笔斜线。最后的红石是离站印，不能当风哨。"
+      ],
+      "table": {
+        "columns": [
+          "线号",
+          "笔型",
+          "记录"
+        ],
+        "rows": [
+          [
+            "17",
+            "短笔",
+            "晨间第一哨"
+          ],
+          [
+            "20",
+            "粗笔",
+            "更钟估测"
+          ],
+          [
+            "29",
+            "短笔",
+            "晨间第二哨"
+          ],
+          [
+            "30",
+            "红石",
+            "停机画线"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://lifa.mingchuan.lh/wind-print",
+          "label": "旧历风哨演示附帖"
+        }
+      ]
+    },
+    {
+      "site": "lifa.mingchuan.lh",
+      "id": "wind-print",
+      "title": "旧历风哨演示附帖",
+      "date": "2019-02-28",
+      "paragraphs": [
+        "新附帖把第二哨改到第三十格，刷新时示意图向右挪一格。气象台保留了最早的纸表。"
+      ],
+      "table": {
+        "columns": [
+          "线",
+          "网络文字"
+        ],
+        "rows": [
+          [
+            "17",
+            "第一哨"
+          ],
+          [
+            "30",
+            "第二哨"
+          ]
+        ]
+      },
+      "snapshot": {
+        "date": "2019-02-26",
+        "paragraphs": [
+          "来自气象台的原刻，两哨各录一条。"
+        ],
+        "table": {
+          "columns": [
+            "线",
+            "纸带"
+          ],
+          "rows": [
+            [
+              "17",
+              "第一哨"
+            ],
+            [
+              "29",
+              "第二哨"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "url": "https://radio.mingchuan.lh/cup-window",
+            "label": "广播停顿收听笔记"
+          }
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/cup-window",
+          "label": "广播停顿收听笔记"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "cup-window",
+      "title": "广播停顿收听笔记",
+      "date": "2019-03-06",
+      "paragraphs": [
+        "调表的人放了两盏茶，想等第二哨后才喝。屋内钟说还差三分钟，杯口却没有蒸气。他另记了一行，在原表填写间隔。"
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "lost-carousel",
+      "title": "晨间录音迁移说明 · 维修页",
+      "date": "2019-03-08",
+      "paragraphs": [
+        "这一页曾经挂过一张未读完的磁带标签。站务查对拒绝把测试标签并入正式节目单。早页旧题保存在版面留字，条目只供本站范围检索。"
+      ],
+      "source": "<!-- 失效附件旧题「零点不发」。检索范围 site:radio.mingchuan.lh。标签左边的分钟数照原纸。 -->"
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "zero-quiet",
+      "title": "零点不发 · 夜航留声备份",
+      "date": "2019-02-30",
+      "paragraphs": [
+        "机器读完自己的分钟，程泊在正常段仍口报“三月一日”。后面的一声点火信号没有任何播出记录。按纸袋和设备标记照录最后一个值。"
+      ],
+      "table": {
+        "columns": [
+          "袋号",
+          "文件段",
+          "原标"
+        ],
+        "rows": [
+          [
+            "BC-61",
+            "正常口读",
+            "三月一日"
+          ],
+          [
+            "BC-61",
+            "无声续接",
+            "00:61"
+          ],
+          [
+            "BC-62",
+            "试放",
+            "00:19"
+          ],
+          [
+            "BC-73",
+            "停机重录",
+            "无日"
+          ]
+        ]
+      },
+      "listed": false,
+      "index": "site",
+      "keywords": [
+        "零点不发",
+        "BC-61"
+      ],
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/old-packet",
+          "label": "听写备份的保全核签"
+        }
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "old-packet",
+      "title": "听写备份的保全核签",
+      "date": "2019-03-08",
+      "paragraphs": [
+        "扫描记录可以独立于节目发布，只要保留与正常日说法相撞的原听声。旧台收到首个不能正常排入月表的录音同时，机器色灯微动，纸带没有空走。"
+      ],
+      "links": [
+        {
+          "url": "https://lifa.mingchuan.lh/old-filenames",
+          "label": "换版前缓存题名手本"
+        }
+      ]
+    },
+    {
+      "site": "lifa.mingchuan.lh",
+      "id": "old-filenames",
+      "title": "换版前缓存题名手本",
+      "date": "2019-03-10",
+      "paragraphs": [
+        "误删的题名另留，不参加旧历站稿件数。本册里原有十五题，抄到第十五条后页脚自己写成十六。站务后来说数错了，可明明每次是同一个字顶了出来。"
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "instrument-box",
+      "title": "春汛运箱 · 器物交接",
+      "date": "1988-03-02",
+      "paragraphs": [
+        "外站来借运箱时可沿用旧牌。本日开卷留纸的春汛箱需双方签在封贴两头。箱正面若只写“备用”不得与春汛实物同档。"
+      ],
+      "table": {
+        "columns": [
+          "箱号",
+          "用途",
+          "本班封签"
+        ],
+        "rows": [
+          [
+            "MC-12",
+            "旧例春汛",
+            "借阅复印"
+          ],
+          [
+            "MC-16",
+            "三月开卷",
+            "双签春汛"
+          ],
+          [
+            "MC-18",
+            "废件",
+            "未落"
+          ],
+          [
+            "MC-27",
+            "后勤",
+            "备用"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/sheet-layers",
+          "label": "湿纸隔层录入须知"
+        }
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "sheet-layers",
+      "title": "湿纸隔层录入须知",
+      "date": "1988-03-02",
+      "paragraphs": [
+        "先收到的薄纸平放在箱底，后来两张涂厚胶的都压到它上面。录入先后以实际叠层而非纸件号码定。另处受潮的不进箱，照片拍得到外袋折边的两孔。"
+      ],
+      "links": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/dry-sheets",
+          "label": "校展运箱里的观测底纸"
+        }
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "dry-sheets",
+      "title": "校展运箱里的观测底纸",
+      "date": "1988-03-04",
+      "paragraphs": [
+        "学生借来展箱时画了三层位置。请认箱号和有效位置，同一批封原纸都采用写在封头的三月一日。"
+      ],
+      "table": {
+        "columns": [
+          "箱号",
+          "纸件号",
+          "层位",
+          "封头原日"
+        ],
+        "rows": [
+          [
+            "MC-16",
+            "Q-2",
+            "最上",
+            "1988-03-01"
+          ],
+          [
+            "MC-16",
+            "Q-4",
+            "夹中",
+            "1988-03-01"
+          ],
+          [
+            "MC-16",
+            "Q-7",
+            "箱底",
+            "1988-03-01"
+          ],
+          [
+            "MC-16",
+            "Q-8",
+            "外借",
+            "1988-02-29"
+          ],
+          [
+            "MC-12",
+            "Q-1",
+            "箱底",
+            "1987-03-01"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/creak",
+          "label": "一间器物室的夜间交接录"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "creak",
+      "title": "一间器物室的夜间交接录",
+      "date": "2024-12-22",
+      "paragraphs": [
+        "器物室在封好盒之后有人回头再听了一次。无风，最上层的纸轻轻叩柜，像先前无人开门而把手顶在外面。借器人请只记录当时在场的日期。"
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "courier-map",
+      "title": "北路递时路径 · 机械台案",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "下表给出徒步距离，不可逆行过自动拦梯。修钟信需由北复核站夹回验章。过河桥亭的路最平，但昨日留了封闭表。"
+      ],
+      "table": {
+        "columns": [
+          "从—到",
+          "路段",
+          "距离（米）"
+        ],
+        "rows": [
+          [
+            "台站—凉棚",
+            "甲",
+            "70"
+          ],
+          [
+            "台站—河桥亭",
+            "乙",
+            "50"
+          ],
+          [
+            "河桥亭—广播台",
+            "丙",
+            "60"
+          ],
+          [
+            "河桥亭—北复核站",
+            "丁",
+            "120"
+          ],
+          [
+            "凉棚—北复核站",
+            "戊",
+            "65"
+          ],
+          [
+            "凉棚—东门",
+            "己",
+            "45"
+          ],
+          [
+            "北复核站—广播台",
+            "庚",
+            "70"
+          ],
+          [
+            "东门—北复核站",
+            "辛",
+            "60"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/rail-gates",
+          "label": "校外路口临时封锁簿"
+        }
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "rail-gates",
+      "title": "校外路口临时封锁簿",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "早汛时某些巷道关闭，记录整日有效。拦梯过不了人，桥灯关了不代表退水已开。未列项目按通常通行。"
+      ],
+      "table": {
+        "columns": [
+          "路段",
+          "状态",
+          "事因"
+        ],
+        "rows": [
+          [
+            "丙",
+            "关闭",
+            "过桥有水"
+          ],
+          [
+            "己",
+            "关闭",
+            "拦梯待修"
+          ],
+          [
+            "戊",
+            "开",
+            "已验"
+          ],
+          [
+            "庚",
+            "开",
+            "已验"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/stamp-receipts",
+          "label": "递时纸件临时验章表"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "stamp-receipts",
+      "title": "递时纸件临时验章表",
+      "date": "1988-03-01",
+      "paragraphs": [
+        "拿到对点纸不表示可以直接播送。北复核站验章用于将纸样入播台案，当时无需电台线上连线。"
+      ],
+      "table": {
+        "columns": [
+          "验章处",
+          "章码",
+          "纸件用法"
+        ],
+        "rows": [
+          [
+            "凉棚",
+            "SC-1",
+            "领取信封"
+          ],
+          [
+            "北复核站",
+            "SC-4",
+            "递时可播"
+          ],
+          [
+            "广播台",
+            "SC-7",
+            "收到给发件人"
+          ],
+          [
+            "东门",
+            "SC-8",
+            "仅巡更回条"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://lifa.mingchuan.lh/route-steps",
+          "label": "纸时报送的旧历边注"
+        }
+      ]
+    },
+    {
+      "site": "lifa.mingchuan.lh",
+      "id": "route-steps",
+      "title": "纸时报送的旧历边注",
+      "date": "1988-03-02",
+      "paragraphs": [
+        "递表的人说从北站下坡时路上碰到自己。他没交回多出来的那封信，只看着另一个走到桥亭。登记只写亲手送给广播员的那一封。"
+      ]
+    },
+    {
+      "site": "lifa.mingchuan.lh",
+      "id": "calendar-return",
+      "title": "春汛时间校印更正公告",
+      "date": "1988-03-09",
+      "paragraphs": [
+        "当前缓存建议以新增月末页覆盖三月首班，原印明确不许更换。印厂回卷的第一张三月历保留交接人红批。"
+      ],
+      "table": {
+        "columns": [
+          "类型",
+          "现行建议"
+        ],
+        "rows": [
+          [
+            "电子节令表",
+            "三月开卷顺延"
+          ],
+          [
+            "机械纸联",
+            "待备查"
+          ]
+        ]
+      },
+      "snapshot": {
+        "date": "1988-03-07",
+        "paragraphs": [
+          "按原递时版本归还三月一日，孤页不应当作正式日期。"
+        ],
+        "table": {
+          "columns": [
+            "材料",
+            "初稿处置"
+          ],
+          "rows": [
+            [
+              "首班机械纸联",
+              "原日归位"
+            ],
+            [
+              "不可能的月末页",
+              "异页只录不行"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "url": "https://qixiang.mingchuan.lh/return-stamps",
+            "label": "人工校历 · 复位用印临表"
+          }
+        ]
+      },
+      "links": [
+        {
+          "url": "https://qixiang.mingchuan.lh/return-stamps",
+          "label": "人工校历 · 复位用印临表"
+        }
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "return-stamps",
+      "title": "人工校历 · 复位用印临表",
+      "date": "1988-03-08",
+      "paragraphs": [
+        "各格用印按原事件类型，不会自动发一个空白章。能还到纸本时刻的请用复位章，孤页送风哨袋。"
+      ],
+      "table": {
+        "columns": [
+          "处置",
+          "章码",
+          "核验据"
+        ],
+        "rows": [
+          [
+            "人工复位",
+            "JR",
+            "机械原卷"
+          ],
+          [
+            "缓存留观",
+            "CG",
+            "无纸日期"
+          ],
+          [
+            "关掉报时",
+            "GT",
+            "广播检修"
+          ],
+          [
+            "纸票补发",
+            "ZF",
+            "领取凭单"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/march-again",
+          "label": "三月一日回读稿 · 小功率台"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "march-again",
+      "title": "三月一日回读稿 · 小功率台",
+      "date": "1988-03-10",
+      "paragraphs": [
+        "播音员原来问离散的日期要怎么读出来。她重新用一个人的声音把三月一日念一遍，播到最后听见一个人把它续成三月一日。收盘只保留实际念出的那句。"
+      ],
+      "links": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/returned-calendar",
+          "label": "气象兴趣班更正作业附联"
+        }
+      ]
+    },
+    {
+      "site": "xiaoxue.mingchuan.lh",
+      "id": "returned-calendar",
+      "title": "气象兴趣班更正作业附联",
+      "date": "1988-03-10",
+      "paragraphs": [
+        "老师重新收白纸时记得有孩子总想把空出来的格填上。给纸本贴过封口以后，空格仍在，只是纸上的三月一日重新与当天铃声对上了。"
+      ]
+    },
+    {
+      "site": "qixiang.mingchuan.lh",
+      "id": "cross-weather",
+      "title": "外县初刻证交接 · 冬季抄本",
+      "date": "2024-12-28",
+      "paragraphs": [
+        "本处接受库交的纸联做观察。异地发来的日期不能覆盖本站钟。两张纸合在一起，编号补落处应写出方向。"
+      ],
+      "table": {
+        "columns": [
+          "方向",
+          "地名",
+          "撕条",
+          "件名"
+        ],
+        "rows": [
+          [
+            "来",
+            "栖梧",
+            "MK",
+            "迁居原底"
+          ],
+          [
+            "来",
+            "玉寨",
+            "YZ",
+            "河名修稿"
+          ],
+          [
+            "发",
+            "蒲岭",
+            "T6",
+            "历站无纸页副联"
+          ],
+          [
+            "发",
+            "沈港",
+            "SG",
+            "河尺估测"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://lifa.mingchuan.lh/typed-margin",
+          "label": "旧历副联的打印边注"
+        }
+      ]
+    },
+    {
+      "site": "lifa.mingchuan.lh",
+      "id": "typed-margin",
+      "title": "旧历副联的打印边注",
+      "date": "2024-12-29",
+      "paragraphs": [
+        "传真笺有的只写“对”，有的写“照”。本次蒲岭的来往手续把同样的字打在封条上，确认已经按原钟复位。"
+      ],
+      "table": {
+        "columns": [
+          "去向",
+          "电文简称",
+          "纸本封条"
+        ],
+        "rows": [
+          [
+            "蒲岭",
+            "按初刻",
+            "按初刻"
+          ],
+          [
+            "沈港",
+            "看河尺",
+            "另报"
+          ],
+          [
+            "东门",
+            "不录入",
+            "暂缓"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://radio.mingchuan.lh/ferry-relay",
+          "label": "蒲岭接受件的广播代签"
+        }
+      ]
+    },
+    {
+      "site": "radio.mingchuan.lh",
+      "id": "ferry-relay",
+      "title": "蒲岭接受件的广播代签",
+      "date": "2024-12-30",
+      "paragraphs": [
+        "白鹭会筹屋换梁，在收件处设临时借阅台。柜员把收下的旧历副联标作 T6 并写了有人在原封末加癸的记号。网页回执独有的先一日存备考，地面签收照纸本。"
+      ],
+      "table": {
+        "columns": [
+          "撕条",
+          "网站确认",
+          "地面签收"
+        ],
+        "rows": [
+          [
+            "T6",
+            "2024-12-29",
+            "2024-12-30"
+          ],
+          [
+            "MK",
+            "2024-12-28",
+            "2024-12-28"
+          ],
+          [
+            "SG",
+            "2024-12-30",
+            "2024-12-31"
+          ]
+        ]
+      },
+      "links": [
+        {
+          "url": "https://lifa.mingchuan.lh/courier-epilogue",
+          "label": "蒲岭回函 · 灯罩里面的灰线"
+        }
+      ]
+    },
+    {
+      "site": "lifa.mingchuan.lh",
+      "id": "courier-epilogue",
+      "title": "蒲岭回函 · 灯罩里面的灰线",
+      "date": "2024-12-31",
+      "paragraphs": [
+        "蒲岭的读档人说原版灯罩明明空着，翻账却有一个收到的名字。问起鸣川的坏日在哪里，她说自己只能闻见香还在烧。旧历站在本栏下面留了后续借阅地。"
+      ],
+      "source": "<!-- 送白鹭会修复员。校历人-癸：纸火与时刻都按原物问。 -->"
+    }
+  ],
+  "checks": [
+    {
+      "id": "first-shift",
+      "title": "春汛观测交班的应接日期",
+      "intro": [
+        "鸣川气象台三月期的第一笔观测脱档。确认机械记录实际跨到了哪天、交班词来自哪条卷带。"
+      ],
+      "fields": [
+        {
+          "label": "二月底最后一天",
+          "accept": [
+            "1988-02-29",
+            "1988年2月29日"
+          ]
+        },
+        {
+          "label": "完整纸带接续日期",
+          "accept": [
+            "1988-03-01",
+            "1988年3月1日"
+          ]
+        },
+        {
+          "label": "留观测原字的机械纸卷",
+          "accept": [
+            "TY-31"
+          ]
+        },
+        {
+          "label": "签字的交班人",
+          "accept": [
+            "程泊"
+          ]
+        }
+      ],
+      "hints": [
+        "公告现行稿拿网页日记作索引，旧版有纸带实排。",
+        "核卷带号和岗位，不能只看电子发文人。"
+      ],
+      "receipt": [
+        "观测交班应在三月一日续接。程泊写过这一天，系统却准备用另一张日期相近的纸带代走它。"
+      ],
+      "leads": [
+        {
+          "url": "https://qixiang.mingchuan.lh/shift-index",
+          "label": "鸣川台 · 春汛观测顺列公示"
+        }
+      ]
+    },
+    {
+      "id": "high-water",
+      "title": "河尺预告与实测水位",
+      "intro": [
+        "找出实际三月首班的第一条水位。雨量段、预告红刻度及河尺实测分开比对。"
+      ],
+      "fields": [
+        {
+          "label": "当班首条实测时刻",
+          "accept": [
+            "06:42"
+          ]
+        },
+        {
+          "label": "实际水位",
+          "accept": [
+            "1.64",
+            "1.64米"
+          ]
+        },
+        {
+          "label": "同刻观察卡",
+          "accept": [
+            "YC-8"
+          ]
+        },
+        {
+          "label": "观测位置记号",
+          "accept": [
+            "北翅尺"
+          ]
+        }
+      ],
+      "hints": [
+        "超过红预估线的那行只有通知。",
+        "看“实测”栏，用同刻定位卡。",
+        "用站位挂牌核对尺名。"
+      ],
+      "receipt": [
+        "实测值已复位。坏日的网页记录却写成预告水位，而且说台站已涨到桥上。原件拍得到那天桥底还是干的。"
+      ],
+      "leads": [
+        {
+          "url": "https://qixiang.mingchuan.lh/river-watch",
+          "label": "鸣川北桥河尺普查 · 一班"
+        }
+      ]
+    },
+    {
+      "id": "radio-clock",
+      "title": "共同授时信号的偏差复核",
+      "intro": [
+        "广播柜显示钟因代班未校，有一只钟在整点误快。以发射原刻为基准，反算插播的真正时刻并确认收盘录音编号。"
+      ],
+      "fields": [
+        {
+          "label": "显示钟快的秒数",
+          "accept": [
+            "49",
+            "49秒",
+            "四十九秒"
+          ]
+        },
+        {
+          "label": "插播对应的发射原刻（时:分:秒）",
+          "accept": [
+            "06:59:11"
+          ]
+        },
+        {
+          "label": "收盘的原声编号",
+          "accept": [
+            "SY-11"
+          ]
+        },
+        {
+          "label": "插播对象",
+          "accept": [
+            "河桥巡更",
+            "巡更"
+          ]
+        }
+      ],
+      "hints": [
+        "取两个表同一次测试音相减。",
+        "显示钟回算时注意向前借一分钟。",
+        "按发射实刻从声音登记表找编号。"
+      ],
+      "receipt": [
+        "那句插播来自河桥巡更。这次读秒刚退到前一分钟，办公室里响起一次本来还没到的整点报时。"
+      ],
+      "leads": [
+        {
+          "url": "https://radio.mingchuan.lh/second-test",
+          "label": "小功率台授时及测试哨登记"
+        }
+      ]
+    },
+    {
+      "id": "almanac-proof",
+      "title": "旧万年历的无纸日期页",
+      "intro": [
+        "区分能在纸历里翻到的日期和网站缓存生成的孤页，抄孤页的公历值、农历值、编联号与纸本状态。"
+      ],
+      "fields": [
+        {
+          "label": "无纸缓存所写公历日",
+          "accept": [
+            "2019-02-30",
+            "2019年2月30日"
+          ]
+        },
+        {
+          "label": "该页保留的农历标签",
+          "accept": [
+            "甲辰年闰腊月廿九",
+            "闰腊月廿九"
+          ]
+        },
+        {
+          "label": "关联的旧索引号",
+          "accept": [
+            "LXJZ-61"
+          ]
+        },
+        {
+          "label": "纸本状态",
+          "accept": [
+            "无页",
+            "无纸本"
+          ]
+        }
+      ],
+      "hints": [
+        "查看旧历站修订前的年末队列。",
+        "查数字索引附页，确认和印厂交付清单是否一致。"
+      ],
+      "receipt": [
+        "旧历作为异常缓存存下。该日既不能排在二月之后，也与纸本农历对不上，却能接过异地数据库里缺少的日期。"
+      ],
+      "leads": [
+        {
+          "url": "https://lifa.mingchuan.lh/calendar-home",
+          "label": "鸣川旧历站 · 早年校印稿"
+        }
+      ]
+    },
+    {
+      "id": "school",
+      "title": "气象兴趣班的原始到课签",
+      "intro": [
+        "同一名学生一度全班都记得来过两次。按原班章复核表册实际人数，找重复行和无鞋印留记。"
+      ],
+      "fields": [
+        {
+          "label": "三月一日到课纸联",
+          "accept": [
+            "QB-31"
+          ]
+        },
+        {
+          "label": "到课人数",
+          "accept": [
+            "17",
+            "十七",
+            "17人"
+          ]
+        },
+        {
+          "label": "编号相同的重复时间行",
+          "accept": [
+            "备案31B",
+            "31B"
+          ]
+        },
+        {
+          "label": "重复行末所缺的是",
+          "accept": [
+            "鞋印",
+            "实见鞋印",
+            "章后鞋印"
+          ]
+        }
+      ],
+      "hints": [
+        "纸到课簿印章要按日期找。",
+        "在电子迁册找同号重复，别数纸簿上的小组标题。",
+        "记校道冻泥里真正看见的泥印。"
+      ],
+      "receipt": [
+        "纸到课签到。案卷仍留一行无人能将之叫出名字的电子报名。原来冻泥没有第十八双脚印。"
+      ],
+      "leads": [
+        {
+          "url": "https://xiaoxue.mingchuan.lh/attendance",
+          "label": "三月气象作业点名前联"
+        }
+      ]
+    },
+    {
+      "id": "tide-count",
+      "title": "两次风哨之间的纸带间隔",
+      "intro": [
+        "算观测曲线上两个实际风哨间隔。查计时纸格宽和画线者先注的刻度，报可重现的时差与虚加的末格。"
+      ],
+      "fields": [
+        {
+          "label": "两处刻画之间的格数",
+          "accept": [
+            "12",
+            "十二",
+            "12格"
+          ]
+        },
+        {
+          "label": "实际间隔（分钟）",
+          "accept": [
+            "36",
+            "三十六",
+            "36分钟"
+          ]
+        },
+        {
+          "label": "自动版比纸带多出的格数",
+          "accept": [
+            "1",
+            "一",
+            "1格"
+          ]
+        },
+        {
+          "label": "正式回填的纸带校栏",
+          "accept": [
+            "原刻栏"
+          ]
+        }
+      ],
+      "hints": [
+        "台站使用哪个笔型以调入单为准。",
+        "两个有效线号照纸带相减，再乘格宽。",
+        "电子表中最末线在历史版本没有出现。"
+      ],
+      "receipt": [
+        "那一格无法落回纸带。不管用多细的刻线重抄，空转的间隔都不会让三月一日迟到一格。"
+      ],
+      "leads": [
+        {
+          "url": "https://qixiang.mingchuan.lh/notch-ruler",
+          "label": "风哨纸带计格约定"
+        }
+      ]
+    },
+    {
+      "id": "lost-reel",
+      "title": "源码残名与还原录音段",
+      "intro": [
+        "旧小功率台留了一段不可在首页检索的备份。查源文件里的母题，按站点限定找回它，再核原始档号和最后一句。"
+      ],
+      "fields": [
+        {
+          "label": "被弃用的文件题名",
+          "accept": [
+            "零点不发"
+          ]
+        },
+        {
+          "label": "原录音袋号",
+          "accept": [
+            "BC-61"
+          ]
+        },
+        {
+          "label": "跳转前公开说的日期",
+          "accept": [
+            "三月一日",
+            "3月1日"
+          ]
+        },
+        {
+          "label": "文件上保留的分钟值",
+          "accept": [
+            "61",
+            "六十一"
+          ]
+        }
+      ],
+      "hints": [
+        "页签只能在交接网页源码里看见。",
+        "索引通过标题和域名限定。",
+        "文件同时给出正常口读和异常时间，分别照录。"
+      ],
+      "receipt": [
+        "音带明确读过三月一日，后面空白却比整支带标记的时间长。值班人劝采访员把时间里的那个 61 留在原样，千万别换算成下一小时。"
+      ],
+      "leads": [
+        {
+          "url": "https://radio.mingchuan.lh/lost-carousel",
+          "label": "晨间录音迁移说明 · 维修页"
+        }
+      ]
+    },
+    {
+      "id": "log-order",
+      "title": "观测底纸的夹层先后次序",
+      "intro": [
+        "原卷三种实物都有积水痕。按夹物压叠规则确定哪张纸落在同一天最早，找当日站号并写回正确先后。"
+      ],
+      "fields": [
+        {
+          "label": "当日用的箱号",
+          "accept": [
+            "MC-16"
+          ]
+        },
+        {
+          "label": "最早纸件号",
+          "accept": [
+            "Q-7"
+          ]
+        },
+        {
+          "label": "三张有效纸件的先后（按字母数字拼接）",
+          "accept": [
+            "Q7Q4Q2",
+            "Q-7/Q-4/Q-2"
+          ]
+        },
+        {
+          "label": "原排纸件的共同观测日",
+          "accept": [
+            "1988-03-01",
+            "三月一日"
+          ]
+        }
+      ],
+      "hints": [
+        "同号箱只取有春汛签，不认挂牌。",
+        "厚纸压在先到的底纸上，由下至上读。",
+        "单列借出的 Q-8 没有进箱。"
+      ],
+      "receipt": [
+        "三件原物在三月一日完成。那张带二月三十的纸在最上面一层，拆开后发现它并没有压住桌上原本坐人的凳子投下的阴影。"
+      ],
+      "leads": [
+        {
+          "url": "https://qixiang.mingchuan.lh/instrument-box",
+          "label": "春汛运箱 · 器物交接"
+        }
+      ]
+    },
+    {
+      "id": "wire-route",
+      "title": "三月首班人工递时路线",
+      "intro": [
+        "修钟信息须从气象台送到广播台，经由有签发能力的北复核站。按退潮时刻开通的路段中选择最短路线，确认北站验章。"
+      ],
+      "fields": [
+        {
+          "label": "递时通过的路段序列",
+          "accept": [
+            "甲戊庚",
+            "甲/戊/庚"
+          ]
+        },
+        {
+          "label": "最短路程（米）",
+          "accept": [
+            "205",
+            "205米"
+          ]
+        },
+        {
+          "label": "北复核站盖章码",
+          "accept": [
+            "SC-4"
+          ]
+        },
+        {
+          "label": "封闭导致不能直走的末段",
+          "accept": [
+            "丙"
+          ]
+        }
+      ],
+      "hints": [
+        "先排除电话亭直达等已关的段。",
+        "每段距离按箭头累加，必须经过北复核站。",
+        "北站验章不同于广播台签收章。"
+      ],
+      "receipt": [
+        "手抄读秒送到。广播收到北站纸本，至少有两处钟已对上，旧历站多留的刻度却还自己在走。"
+      ],
+      "leads": [
+        {
+          "url": "https://qixiang.mingchuan.lh/courier-map",
+          "label": "北路递时路径 · 机械台案"
+        }
+      ]
+    },
+    {
+      "id": "restore-day",
+      "title": "纸历归位与异页分存",
+      "intro": [
+        "处理被缓存挤出的三月一日。比对两份对时公示和校印章，保留有效纸历与无纸缓存各自的状态。"
+      ],
+      "fields": [
+        {
+          "label": "应归还的日期",
+          "accept": [
+            "1988-03-01",
+            "1988年3月1日"
+          ]
+        },
+        {
+          "label": "异页归档类别",
+          "accept": [
+            "只录不行",
+            "异页只录不行"
+          ]
+        },
+        {
+          "label": "本台复位用章",
+          "accept": [
+            "JR"
+          ]
+        },
+        {
+          "label": "恢复所据的机械纸卷",
+          "accept": [
+            "TY-31"
+          ]
+        }
+      ],
+      "hints": [
+        "早期机械卷在第一件里可以找到。",
+        "纸历页和缓存分别发章。",
+        "先看发印原览，再按收件规程做处置。"
+      ],
+      "receipt": [
+        "校正单转发完成，三月首班按纸带入历。旧历站后面仍然有一格，有些人说随手删掉就好，可删掉总是有人填回去。"
+      ],
+      "leads": [
+        {
+          "url": "https://lifa.mingchuan.lh/calendar-return",
+          "label": "春汛时间校印更正公告"
+        }
+      ]
+    },
+    {
+      "id": "relay",
+      "title": "旧历碎页的异地借转",
+      "intro": [
+        "收到栖梧原底后，有一联复件须送到蒲岭。核对上一卷来件、本卷转件、共用的保全缩语和蒲岭交接日期。"
+      ],
+      "fields": [
+        {
+          "label": "栖梧来件撕条",
+          "accept": [
+            "MK"
+          ]
+        },
+        {
+          "label": "发蒲岭的本卷撕条",
+          "accept": [
+            "T6"
+          ]
+        },
+        {
+          "label": "转件原注缩语",
+          "accept": [
+            "按初刻",
+            "初刻"
+          ]
+        },
+        {
+          "label": "蒲岭的地面签收日期",
+          "accept": [
+            "2024-12-30",
+            "2024年12月30日"
+          ]
+        }
+      ],
+      "hints": [
+        "注意来件和发件的方向。",
+        "蒲岭为签归香具批次，不以网页丢失同一天计时。",
+        "短语查同时在纸面和电文上留下的字。"
+      ],
+      "receipt": [
+        "纸间有相同的癸字。另一张纸第一次提到有人查香火轨迹，因为在旧柜里发现同样一处被补得天衣无缝的空格。"
+      ],
+      "leads": [
+        {
+          "url": "https://qixiang.mingchuan.lh/cross-weather",
+          "label": "外县初刻证交接 · 冬季抄本"
+        }
+      ]
+    }
+  ],
+  "conclusion": {
+    "id": "receipt",
+    "title": "春汛三月首班会签回执",
+    "intro": [
+      "归还真实日期前，需要选定能够互证的纸卷、插播声和误多的记录。请写明真实批与无纸批分别怎样处理。"
+    ],
+    "fields": [
+      {
+        "label": "归还的三月观测日",
+        "accept": [
+          "1988-03-01",
+          "1988年3月1日"
+        ]
+      },
+      {
+        "label": "据以复位的机械纸卷",
+        "accept": [
+          "TY-31"
+        ]
+      },
+      {
+        "label": "河桥巡更原声编号",
+        "accept": [
+          "SY-11"
+        ]
+      },
+      {
+        "label": "无纸页索引号",
+        "accept": [
+          "LXJZ-61"
+        ]
+      },
+      {
+        "label": "三月复位用章",
+        "accept": [
+          "JR"
+        ]
+      },
+      {
+        "label": "本卷转存撕条",
+        "accept": [
+          "T6"
+        ]
+      }
+    ],
+    "hints": [
+      "先从首班交接查机械卷。",
+      "有原声没原钟的读数不能单独作为凭据。",
+      "复位章和无纸页保留措施可分别查找。"
+    ],
+    "receipt": [
+      "【会签已收】三月一日的春汛数据回到鸣川原来的历页，北翅小学收回那天的第十七张签，广播按实际收盘音回读。此前多出来的日子依然存于原先的挂页，任何排历操作都已经撤回。",
+      "程泊那天恰好没有带伞。他后来还能记起两次上班的雨不同，第一次淋湿了帽子，第二次背着隔夜太阳。三月一日这个名字回来了，帽子却依旧挂在办公室另一侧。",
+      "本卷转存撕条：T6。蒲岭收件处问，假如没有人来领另一天的香灰，该把它送回哪座炉？"
+    ],
+    "leads": [
+      {
+        "url": "https://qixiang.mingchuan.lh/roll-release",
+        "label": "春汛纸卷领用"
+      },
+      {
+        "url": "https://lifa.mingchuan.lh/calendar-return",
+        "label": "更正前后公示"
+      },
+      {
+        "url": "https://qixiang.mingchuan.lh/cross-weather",
+        "label": "异地初刻证交接"
+      }
+    ]
+  }
+}
