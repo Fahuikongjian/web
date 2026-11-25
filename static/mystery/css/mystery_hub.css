@@ -458,7 +458,8 @@ body {
 }
 
 .hub-nuo-emblem,
-.hub-suojiang-emblem {
+.hub-suojiang-emblem,
+.hub-shiyin-emblem {
   width: 100%;
   max-width: 222px;
   height: auto;
@@ -741,7 +742,110 @@ body {
 }
 
 /* ==========================================================================
-   Card 4: Veiled Series 03 — 十音簿 (400px)
+   Card 4: Featured Series 03 — 十音簿 (640px)
+   Obsidian-Lacquer × Amber-Gold × Court Plum vs. Series 01 & 02
+   ========================================================================== */
+.hub-card--shiyin {
+  background:
+    radial-gradient(ellipse 68% 58% at 24% 48%, rgba(217, 164, 65, 0.14), transparent 64%),
+    radial-gradient(ellipse 60% 54% at 88% 16%, rgba(91, 35, 54, 0.48), transparent 66%),
+    linear-gradient(155deg, #241219 0%, #170C10 58%, #120B0D 100%);
+  border-color: rgba(217, 164, 65, 0.42);
+  box-shadow:
+    inset 0 0 0 7px rgba(18, 11, 13, 0.92),
+    inset 0 0 0 8px rgba(91, 35, 54, 0.36),
+    0 24px 52px -14px rgba(0, 0, 0, 0.8);
+}
+
+.hub-card--shiyin.is-active {
+  border-color: rgba(242, 232, 213, 0.62);
+  box-shadow:
+    inset 0 0 0 7px rgba(18, 11, 13, 0.92),
+    inset 0 0 0 8px rgba(217, 164, 65, 0.32),
+    0 28px 64px -14px rgba(0, 0, 0, 0.88),
+    0 0 36px -12px rgba(217, 164, 65, 0.24);
+}
+
+.hub-card--shiyin .hub-emblem-sanctuary {
+  border-color: rgba(217, 164, 65, 0.28);
+  background:
+    linear-gradient(180deg, rgba(217, 164, 65, 0.05) 0%, transparent 18%, transparent 82%, rgba(217, 164, 65, 0.05) 100%),
+    radial-gradient(circle at 50% 48%, rgba(91, 35, 54, 0.46) 0%, rgba(23, 12, 16, 0.9) 66%, rgba(18, 11, 13, 0.98) 100%);
+  box-shadow: inset 0 0 28px rgba(18, 11, 13, 0.86);
+}
+
+.hub-card--shiyin .hub-emblem-sanctuary::before {
+  background: linear-gradient(180deg, rgba(217, 164, 65, 0.48), transparent);
+}
+
+.hub-card--shiyin .hub-emblem-sanctuary::after {
+  background: linear-gradient(0deg, rgba(217, 164, 65, 0.48), transparent);
+}
+
+.hub-card--shiyin .hub-series-badge {
+  border-color: rgba(217, 164, 65, 0.44);
+  background: rgba(91, 35, 54, 0.44);
+  color: #F2E8D5;
+}
+
+.hub-card--shiyin .hub-badge-dot {
+  background: #D9A441;
+  box-shadow: 0 0 8px rgba(217, 164, 65, 0.85);
+}
+
+.hub-seal-stamp--shiyin {
+  border: 1.5px solid #D9A441;
+  background: rgba(91, 35, 54, 0.46);
+  box-shadow: inset 0 0 0 2px rgba(242, 232, 213, 0.22);
+  color: #F2E8D5;
+}
+
+.hub-card--shiyin .hub-series-title {
+  color: #F2E8D5;
+}
+
+.hub-card--shiyin .hub-series-roman {
+  color: #D9A441;
+}
+
+.hub-card--shiyin .hub-tag {
+  border-color: rgba(217, 164, 65, 0.34);
+  background: rgba(91, 35, 54, 0.26);
+  color: #F2E8D5;
+}
+
+.hub-card--shiyin .hub-series-synopsis {
+  color: #D6C9B6;
+}
+
+.hub-card--shiyin .hub-featured-actions {
+  border-top-color: rgba(217, 164, 65, 0.22);
+}
+
+.hub-card--shiyin .hub-series-specs {
+  color: #A89481;
+}
+
+.mystery-hub .hub-cta-gilded--shiyin {
+  border: 1px solid rgba(242, 232, 213, 0.52);
+  background: linear-gradient(135deg, #F2E8D5 0%, #D9A441 58%, #9B6C22 100%);
+  color: #120B0D;
+  box-shadow: 0 10px 24px -10px rgba(217, 164, 65, 0.42);
+}
+
+.mystery-hub .hub-cta-gilded--shiyin:hover {
+  box-shadow:
+    0 14px 28px -10px rgba(217, 164, 65, 0.52),
+    0 0 22px -2px rgba(91, 35, 54, 0.54);
+}
+
+.mystery-hub .hub-cta-gilded--shiyin:focus-visible {
+  outline: 2px solid #F2E8D5;
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Card 5: Veiled Series 04 — 百药图 (400px)
    ========================================================================== */
 .hub-card--veiled {
   width: 400px;
@@ -953,7 +1057,7 @@ body {
   border-radius: inherit;
   background: linear-gradient(90deg, var(--hub-mist-glow), var(--hub-gold));
   transform-origin: left center;
-  transform: scaleX(0.2);
+  transform: scaleX(0.1667);
   will-change: transform;
 }
 
@@ -1135,7 +1239,8 @@ body {
   }
 
   .hub-nuo-emblem,
-  .hub-suojiang-emblem {
+  .hub-suojiang-emblem,
+  .hub-shiyin-emblem {
     width: auto;
     height: 138px;
     max-width: 100%;

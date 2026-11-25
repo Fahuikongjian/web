@@ -1,0 +1,968 @@
+/* ==========================================================================
+   十音簿 · 五幕戏路画廊 (Level 2 — 乌木大漆黑 × 螺钿琥珀金 × 宫廷绛紫 × 素绢象牙白)
+   Pure offline CSS (zero external URLs, zero CDN fonts).
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: clip;
+  background-color: #120B0D;
+  color: #F2E8D5;
+  font-family: var(--font-sans, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", sans-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.shiyin-stage[data-mystery-level="shiyin"] {
+  --sy-bg-lacquer: #120B0D;
+  --sy-bg-folio: #190D12;
+  --sy-bg-inlay: #211017;
+  --sy-bg-well: #0E080A;
+
+  --sy-amber: #D9A441;
+  --sy-amber-deep: #9B6C22;
+  --sy-amber-soft: rgba(217, 164, 65, 0.16);
+  --sy-hairline: rgba(217, 164, 65, 0.34);
+  --sy-hairline-strong: rgba(242, 232, 213, 0.56);
+
+  --sy-plum: #5B2336;
+  --sy-plum-bright: #8A3653;
+  --sy-plum-soft: rgba(91, 35, 54, 0.36);
+
+  --sy-ivory: #F2E8D5;
+  --sy-ivory-muted: #D2C3AD;
+  --sy-ivory-dim: #9C8A77;
+
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100dvh;
+  min-height: 540px;
+  display: grid;
+  grid-template-rows: 64px minmax(0, 1fr) 64px;
+  overflow: hidden;
+  background: var(--sy-bg-lacquer);
+  color: var(--sy-ivory);
+  isolation: isolate;
+}
+
+/* --------------------------------------------------------------------------
+   Pure-CSS Lacquer Depth & Rotating Inline-SVG 编钟声律轮 × 工尺音槽
+   -------------------------------------------------------------------------- */
+.shiyin-backdrop {
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.shiyin-lacquer-depth {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 64% 52% at 50% 48%,
+      rgba(91, 35, 54, 0.36) 0%,
+      rgba(25, 13, 18, 0.92) 52%,
+      #120B0D 86%
+    ),
+    radial-gradient(
+      ellipse 68% 26% at 50% 0%,
+      rgba(217, 164, 65, 0.09) 0%,
+      transparent 72%
+    );
+}
+
+/* 工尺谱 decorative staves & acoustic measure ticks */
+.shiyin-gongche-grid {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(217, 164, 65, 0.025) 0 1px,
+      transparent 1px 36px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(242, 232, 213, 0.016) 0 1px,
+      transparent 1px 72px
+    ),
+    repeating-linear-gradient(
+      14deg,
+      rgba(91, 35, 54, 0.04) 0 2px,
+      transparent 2px 58px
+    );
+}
+
+.shiyin-wheel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(88vmin, 760px);
+  height: min(88vmin, 760px);
+  transform: translate(-50%, -50%);
+  opacity: 0.25;
+}
+
+.sy-wheel-outer {
+  transform-origin: 320px 320px;
+  animation: sy-spin-cw 150s linear infinite;
+}
+
+.sy-wheel-inner {
+  transform-origin: 320px 320px;
+  animation: sy-spin-ccw 104s linear infinite;
+}
+
+@keyframes sy-spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sy-spin-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Top Lacquer-Folio Navigation Bar
+   -------------------------------------------------------------------------- */
+.shiyin-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 36px;
+  min-width: 0;
+  border-bottom: 1px solid var(--sy-hairline);
+  background-image: linear-gradient(
+    180deg,
+    rgba(18, 11, 13, 0.96) 0%,
+    rgba(42, 16, 26, 0.86) 100%
+  );
+  box-shadow: 0 1px 0 rgba(91, 35, 54, 0.52);
+}
+
+.sy-breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+.sy-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(217, 164, 65, 0.36);
+  background: rgba(91, 35, 54, 0.28);
+  color: var(--sy-ivory-muted);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color var(--transition-fast, 150ms ease),
+    border-color var(--transition-fast, 150ms ease),
+    background-color var(--transition-fast, 150ms ease);
+}
+
+.sy-back-link:hover {
+  color: var(--sy-ivory);
+  border-color: var(--sy-amber);
+  background: rgba(91, 35, 54, 0.56);
+}
+
+.sy-back-link:focus-visible {
+  outline: 2px solid var(--sy-amber);
+  outline-offset: 2px;
+}
+
+.sy-crumb-sep {
+  color: var(--sy-amber);
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.sy-crumb-slash {
+  color: var(--sy-ivory-dim);
+  font-size: 0.9rem;
+}
+
+.sy-topbar-title {
+  margin: 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--sy-ivory);
+  white-space: nowrap;
+}
+
+.sy-topbar-sub {
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.84rem;
+  letter-spacing: 0.12em;
+  color: var(--sy-amber);
+  white-space: nowrap;
+}
+
+.sy-topbar-meta {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sy-archive-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 12px;
+  border: 1px solid rgba(217, 164, 65, 0.44);
+  border-radius: 999px;
+  background: var(--sy-bg-well);
+  color: var(--sy-amber);
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Horizontal Lacquer-Folio Track
+   -------------------------------------------------------------------------- */
+.shiyin-reel[data-horizontal-reel] {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding-left: 44px;
+  padding-right: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+
+.shiyin-reel[data-horizontal-reel]::-webkit-scrollbar {
+  display: none;
+}
+
+.shiyin-reel[data-horizontal-reel]::after {
+  content: "";
+  flex: 0 0 20px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Mother-of-Pearl Inlay Lacquer Folio Card Geometry (乌木螺钿折页)
+   Distinct backgroundImage, borderColor, and borderRadius on .sy-card--act
+   -------------------------------------------------------------------------- */
+.sy-card {
+  position: relative;
+  flex: 0 0 326px;
+  width: 326px;
+  height: min(524px, calc(100dvh - 188px));
+  min-height: 432px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  border: 1px solid rgba(217, 164, 65, 0.48);
+  background-color: var(--sy-bg-folio);
+  background-image:
+    radial-gradient(circle at 50% 18%, rgba(91, 35, 54, 0.36), transparent 56%),
+    linear-gradient(172deg, #241118 0%, #160C10 54%, #120B0D 100%);
+  box-shadow:
+    inset 0 0 0 6px var(--sy-bg-lacquer),
+    inset 0 0 0 7px rgba(91, 35, 54, 0.48),
+    0 22px 46px -14px rgba(0, 0, 0, 0.84);
+  overflow: hidden;
+  transition:
+    transform var(--transition-base, 220ms ease),
+    border-color var(--transition-base, 220ms ease),
+    box-shadow var(--transition-base, 220ms ease);
+}
+
+.sy-card.is-active {
+  border-color: var(--sy-amber);
+  box-shadow:
+    inset 0 0 0 6px var(--sy-bg-lacquer),
+    inset 0 0 0 7px rgba(217, 164, 65, 0.38),
+    0 26px 56px -12px rgba(0, 0, 0, 0.9),
+    0 0 30px -10px rgba(217, 164, 65, 0.24);
+}
+
+@media (hover: hover) {
+  .sy-card--act:hover {
+    transform: translateY(-4px);
+    border-color: var(--sy-ivory);
+  }
+}
+
+.sy-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sy-card-link:focus-visible {
+  outline: 2px solid var(--sy-amber);
+  outline-offset: -3px;
+}
+
+.sy-folio-surface {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  margin: 7px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  background: linear-gradient(180deg, rgba(91, 35, 54, 0.14) 0%, transparent 28%, rgba(14, 8, 10, 0.45) 100%);
+}
+
+/* 工尺谱 decorative tick bars flanking the inner lacquer frame */
+.sy-folio-surface::before,
+.sy-folio-surface::after {
+  content: "";
+  position: absolute;
+  top: 58px;
+  bottom: 22px;
+  width: 5px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.sy-folio-surface::before {
+  left: 5px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(217, 164, 65, 0.44) 0 1px,
+    transparent 1px 14px
+  );
+}
+
+.sy-folio-surface::after {
+  right: 5px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(242, 232, 213, 0.24) 0 1px,
+    transparent 1px 28px
+  );
+}
+
+.sy-folio-head {
+  flex: 0 0 44px;
+  height: 44px;
+  padding: 0 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(217, 164, 65, 0.14) 0%,
+    rgba(91, 35, 54, 0.12) 100%
+  );
+  border-bottom: 1px solid rgba(217, 164, 65, 0.34);
+  box-shadow: 0 2px 0 rgba(91, 35, 54, 0.42);
+}
+
+.sy-card-vol {
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--sy-amber);
+}
+
+.sy-card-pillar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 10px;
+  border: 1px solid var(--sy-amber);
+  border-radius: 999px;
+  background: rgba(91, 35, 54, 0.56);
+  color: var(--sy-ivory);
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.sy-card-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 18px 22px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Circular 78-RPM Lacquer Groove Well */
+.sy-card-emblem {
+  flex: 0 0 auto;
+  width: clamp(104px, 16dvh, 134px);
+  height: clamp(104px, 16dvh, 134px);
+  margin-bottom: 14px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(217, 164, 65, 0.42);
+  background: radial-gradient(
+    circle at 50% 44%,
+    rgba(91, 35, 54, 0.38) 0%,
+    var(--sy-bg-well) 74%
+  );
+  box-shadow:
+    inset 0 4px 16px rgba(0, 0, 0, 0.86),
+    inset 0 0 0 4px rgba(217, 164, 65, 0.1),
+    0 1px 0 rgba(242, 232, 213, 0.14);
+  transition: transform var(--transition-base, 220ms ease), border-color var(--transition-base, 220ms ease);
+}
+
+.sy-card-emblem svg {
+  width: 82%;
+  height: 82%;
+  display: block;
+}
+
+@media (hover: hover) {
+  .sy-card--act:hover .sy-card-emblem {
+    transform: scale(1.035);
+    border-color: var(--sy-ivory);
+  }
+}
+
+.sy-card-locality {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--sy-amber);
+}
+
+.sy-card-title {
+  margin: 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: clamp(1.28rem, 1.8vw, 1.52rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  color: var(--sy-ivory);
+}
+
+.sy-card-rule {
+  position: relative;
+  width: 112px;
+  height: 10px;
+  margin: 10px auto 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sy-card-rule::before {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(217, 164, 65, 0.72) 50%,
+    transparent 100%
+  );
+}
+
+.sy-card-rule span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: var(--sy-plum-bright);
+  border: 1px solid var(--sy-amber);
+}
+
+.sy-card-synopsis {
+  margin: 0 0 auto;
+  font-size: 0.855rem;
+  line-height: 1.66;
+  color: var(--sy-ivory-muted);
+  text-align: left;
+}
+
+.sy-card-case {
+  width: 100%;
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(217, 164, 65, 0.28);
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--sy-ivory-dim);
+  text-align: left;
+}
+
+.sy-card-cta {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(217, 164, 65, 0.56);
+  background: rgba(91, 35, 54, 0.36);
+  color: var(--sy-ivory);
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transition:
+    background var(--transition-fast, 150ms ease),
+    color var(--transition-fast, 150ms ease),
+    border-color var(--transition-fast, 150ms ease),
+    box-shadow var(--transition-fast, 150ms ease);
+}
+
+@media (hover: hover) {
+  .sy-card--act:hover .sy-card-cta {
+    border-color: var(--sy-ivory);
+    background: linear-gradient(135deg, #F2E8D5 0%, #D9A441 100%);
+    color: #120B0D;
+    box-shadow: 0 0 22px rgba(217, 164, 65, 0.38);
+  }
+}
+
+.sy-card-link:focus-visible .sy-card-cta,
+.sy-card-link:active .sy-card-cta {
+  border-color: var(--sy-ivory);
+  background: linear-gradient(135deg, #F2E8D5 0%, #D9A441 100%);
+  color: #120B0D;
+  box-shadow: 0 0 22px rgba(217, 164, 65, 0.38);
+}
+
+/* --------------------------------------------------------------------------
+   Card 6: Sealed Continuation Card (后续卷 · 封匣)
+   -------------------------------------------------------------------------- */
+.sy-card--sealed {
+  flex: 0 0 304px;
+  width: 304px;
+  border-color: rgba(138, 54, 83, 0.72);
+  background-image:
+    radial-gradient(circle at 50% 24%, rgba(91, 35, 54, 0.45), transparent 62%),
+    linear-gradient(175deg, #210E15 0%, #160A0E 58%, #10080B 100%);
+}
+
+.sy-card--sealed .sy-folio-head {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(91, 35, 54, 0.34) 0 8px,
+    rgba(217, 164, 65, 0.08) 8px 16px
+  );
+  border-bottom-color: rgba(217, 164, 65, 0.42);
+}
+
+.sy-card--sealed .sy-card-pillar {
+  border-color: var(--sy-plum-bright);
+  background: var(--sy-plum-soft);
+}
+
+.sy-card-emblem--sealed {
+  margin-bottom: 12px;
+  border-style: dashed;
+  border-color: rgba(217, 164, 65, 0.56);
+}
+
+.sy-card-body--sealed {
+  justify-content: flex-start;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.sy-sealed-note {
+  margin: 0 0 12px;
+  font-size: 0.82rem;
+  line-height: 1.58;
+  color: var(--sy-ivory-muted);
+  text-align: left;
+}
+
+.sy-continuation {
+  width: 100%;
+  margin-top: auto;
+  min-height: 118px;
+  text-align: left;
+}
+
+.sy-continuation-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid rgba(217, 164, 65, 0.52);
+  border-radius: 6px;
+  background: linear-gradient(
+    180deg,
+    rgba(91, 35, 54, 0.46) 0%,
+    rgba(14, 8, 10, 0.92) 100%
+  );
+  color: var(--sy-ivory);
+  cursor: pointer;
+  list-style: none;
+  transition:
+    border-color var(--transition-fast, 150ms ease),
+    background-color var(--transition-fast, 150ms ease);
+}
+
+.sy-continuation-summary::-webkit-details-marker {
+  display: none;
+}
+
+.sy-continuation-summary:hover {
+  border-color: var(--sy-ivory);
+}
+
+.sy-continuation-summary:focus-visible {
+  outline: 2px solid var(--sy-amber);
+  outline-offset: 2px;
+}
+
+.sy-continuation-title {
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--sy-ivory);
+}
+
+.sy-continuation-action {
+  padding: 2px 8px;
+  border: 1px solid rgba(217, 164, 65, 0.52);
+  border-radius: 4px;
+  color: var(--sy-amber);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.sy-continuation[open] .sy-continuation-action {
+  border-color: var(--sy-ivory);
+  background: var(--sy-plum);
+  color: var(--sy-ivory);
+}
+
+.sy-continuation-copy {
+  margin: 10px 0 0;
+  padding: 11px 12px;
+  border: 1px dashed rgba(217, 164, 65, 0.56);
+  border-radius: 6px;
+  background: rgba(14, 8, 10, 0.92);
+  font-size: 0.82rem;
+  line-height: 1.62;
+  color: var(--sy-ivory-muted);
+}
+
+.sy-continuation-copy a {
+  color: var(--sy-amber);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sy-continuation-copy a:hover {
+  color: var(--sy-ivory);
+}
+
+.sy-continuation-copy a:focus-visible {
+  outline: 2px solid var(--sy-amber);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Bottom Stage HUD
+   -------------------------------------------------------------------------- */
+.reel-hud {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 36px;
+  min-width: 0;
+  border-top: 1px solid var(--sy-hairline);
+  background: linear-gradient(
+    0deg,
+    rgba(18, 11, 13, 0.96) 0%,
+    rgba(36, 15, 22, 0.84) 100%
+  );
+}
+
+.sy-colophon {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--sy-ivory-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reel-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.reel-counter {
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--sy-ivory);
+  min-width: 58px;
+}
+
+.reel-progress-track {
+  position: relative;
+  width: clamp(96px, 16vw, 220px);
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(217, 164, 65, 0.22);
+  overflow: hidden;
+}
+
+.reel-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #5B2336 0%, #D9A441 55%, #F2E8D5 100%);
+  transform-origin: left center;
+  transform: scaleX(0.1667);
+  will-change: transform;
+}
+
+.reel-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reel-nav-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(217, 164, 65, 0.46);
+  border-radius: 50%;
+  background: rgba(14, 8, 10, 0.86);
+  color: var(--sy-ivory);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast, 150ms ease),
+    border-color var(--transition-fast, 150ms ease),
+    color var(--transition-fast, 150ms ease),
+    opacity var(--transition-fast, 150ms ease);
+}
+
+.reel-nav-btn:hover:not(:disabled):not(.disabled) {
+  border-color: var(--sy-amber);
+  background: rgba(91, 35, 54, 0.56);
+  color: var(--sy-amber);
+}
+
+.reel-nav-btn:focus-visible {
+  outline: 2px solid var(--sy-amber);
+  outline-offset: 2px;
+}
+
+.reel-nav-btn:disabled,
+.reel-nav-btn.disabled {
+  opacity: 0.34;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Narrow Viewport Horizontal Reel (<= 959px, e.g. 390x844)
+   -------------------------------------------------------------------------- */
+@media (max-width: 959px) {
+  .shiyin-stage[data-mystery-level="shiyin"] {
+    height: auto;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: visible;
+    overflow-x: clip;
+  }
+
+  .shiyin-wheel {
+    width: min(84vw, 340px);
+    height: min(84vw, 340px);
+    opacity: 0.2;
+  }
+
+  .shiyin-topbar {
+    min-height: 52px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  .sy-breadcrumbs {
+    flex: 1 1 auto;
+    gap: 6px 8px;
+  }
+
+  .sy-back-link {
+    min-height: 34px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+  }
+
+  .sy-topbar-title {
+    font-size: 1.04rem;
+    letter-spacing: 0.1em;
+  }
+
+  .sy-topbar-sub {
+    display: none;
+  }
+
+  .sy-archive-badge {
+    font-size: 0.66rem;
+    padding: 3px 9px;
+  }
+
+  .shiyin-reel[data-horizontal-reel] {
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0 18px 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .shiyin-reel[data-horizontal-reel]::after {
+    flex: 0 0 4px;
+  }
+
+  .sy-card,
+  .sy-card--sealed {
+    flex: 0 0 min(320px, calc(100vw - 44px));
+    width: min(320px, calc(100vw - 44px));
+    height: auto;
+    min-height: 468px;
+  }
+
+  .sy-card-body {
+    padding: 16px 18px;
+  }
+
+  .sy-card-emblem {
+    width: 102px;
+    height: 102px;
+    margin-bottom: 12px;
+  }
+
+  .sy-continuation {
+    min-height: 0;
+  }
+
+  .reel-hud {
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    padding: 10px 16px 14px;
+  }
+
+  .reel-controls {
+    order: 1;
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .reel-progress-track {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .reel-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sy-colophon {
+    order: 2;
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    white-space: normal;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .sy-wheel-outer,
+  .sy-wheel-inner {
+    animation: none;
+  }
+
+  .sy-card,
+  .sy-card-emblem,
+  .sy-card-cta,
+  .sy-back-link,
+  .sy-continuation-summary,
+  .reel-nav-btn {
+    transition: none;
+  }
+}

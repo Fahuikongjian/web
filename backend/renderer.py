@@ -817,6 +817,13 @@ def render_site(
         ("mystery/suojiang/act-4", "mystery.html", "第四幕 · 暗渠行灯", "临安坊排水泵站、古城暗渠舆图与井巷口述存档。", "/static/mystery/data/suojiang-act-4.json", "/mystery/suojiang/"),
         ("mystery/suojiang/act-5", "mystery.html", "第五幕 · 锁江铁牛", "崇沙洲海事航道、潮汐观测与镇海铁牛史料存档。", "/static/mystery/data/suojiang-act-5.json", "/mystery/suojiang/"),
         ("mystery/suojiang/reading-room", "mystery.html", "锁江旧网 · 水签合验", "锁江流域五幕回执水签核验窗口。", "/static/mystery/data/suojiang-reading-room.json", "/mystery/suojiang/"),
+        ("mystery/shiyin", "mystery_shiyin.html", "十音簿 · 声律档案", "《十音簿》青溪戏路五幕声律志异网页档案。", "", "/mystery/shiyin/"),
+        ("mystery/shiyin/act-1", "mystery.html", "第一幕 · 哑钟楼", "钟潭广电目录、古钟楼修缮公示与跨年报时播控遥测存档。", "/static/mystery/data/shiyin-act-1.json", "/mystery/shiyin/"),
+        ("mystery/shiyin/act-2", "mystery.html", "第二幕 · 断弦坊", "桐荫街丝竹琴坊、声学频谱监测与乐器古谱档案。", "/static/mystery/data/shiyin-act-2.json", "/mystery/shiyin/"),
+        ("mystery/shiyin/act-3", "mystery.html", "第三幕 · 借腔台", "戏码渡老剧团旧网、文保公示与梨园封箱碑记存档。", "/static/mystery/data/shiyin-act-3.json", "/mystery/shiyin/"),
+        ("mystery/shiyin/act-4", "mystery.html", "第四幕 · 漏更鼓", "更鼓巷城建公示、夜间噪测台账与民俗方志存档。", "/static/mystery/data/shiyin-act-4.json", "/mystery/shiyin/"),
+        ("mystery/shiyin/act-5", "mystery.html", "第五幕 · 封盘室", "省音像资料馆调度通告、母带并网监测与典籍库档案。", "/static/mystery/data/shiyin-act-5.json", "/mystery/shiyin/"),
+        ("mystery/shiyin/reading-room", "mystery.html", "十音旧网 · 音签合验", "青溪戏路五幕工尺音签核验窗口。", "/static/mystery/data/shiyin-reading-room.json", "/mystery/shiyin/"),
     )
     for route, template, title, description, archive_config, series_catalogue_url in mystery_pages:
         mystery_html = engine.render(template, {

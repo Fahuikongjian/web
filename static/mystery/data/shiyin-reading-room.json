@@ -1,0 +1,80 @@
+{
+  "caseId": "CASE-SY-00",
+  "storageKey": "shiyin_save_v1_finale",
+  "homeUrl": "https://yinqian.shiyin.lh/",
+  "seriesKey": "shiyin",
+  "archiveBrand": "十音簿声律档案",
+  "snapshotButtonLabels": {
+    "enter": "切至原始母带",
+    "exit": "返回数字转录版"
+  },
+  "dossierUrl": "/static/mystery/data/shiyin-finale-dossier.json",
+  "robots": "noindex",
+  "records": [],
+  "sites": [
+    {
+      "domain": "yinqian.shiyin.lh",
+      "title": "五卷工尺音签合验",
+      "heading": "五卷工尺音签合验",
+      "style": "directory",
+      "strap": "青溪戏路档案",
+      "intro": [
+        "按第一幕至第五幕的顺序填入各卷回执末行的工尺音签。"
+      ],
+      "nav": [],
+      "footer": "十音簿声律档案",
+      "kind": "entry"
+    }
+  ],
+  "entry": {
+    "id": "collate-tone",
+    "title": "五卷工尺音签合验",
+    "intro": [
+      "请逐卷抄录结案回执里的工尺音签。"
+    ],
+    "fields": [
+      {
+        "label": "第一幕工尺音签",
+        "accept": [
+          "GG"
+        ]
+      },
+      {
+        "label": "第二幕工尺音签",
+        "accept": [
+          "SH"
+        ]
+      },
+      {
+        "label": "第三幕工尺音签",
+        "accept": [
+          "JU"
+        ]
+      },
+      {
+        "label": "第四幕工尺音签",
+        "accept": [
+          "ZH"
+        ]
+      },
+      {
+        "label": "第五幕工尺音签",
+        "accept": [
+          "YU"
+        ]
+      }
+    ],
+    "hints": [
+      "每卷回执末句均以「本卷工尺音签」起首。"
+    ],
+    "receipt": [
+      "五卷音签核验通过，十音总录已开卷。"
+    ],
+    "links": [
+      {
+        "url": "https://zonglu.shiyin.lh/",
+        "label": "十音总录 · 律吕密档"
+      }
+    ]
+  }
+}

@@ -1,0 +1,493 @@
+{
+  "sites": [
+    {
+      "domain": "zonglu.shiyin.lh",
+      "title": "十音总录 · 律吕密档",
+      "heading": "十音总录 · 律吕密档",
+      "style": "registry",
+      "strap": "青溪戏路档案",
+      "intro": [
+        "并勘五卷行迹、并播记录与母带底本。"
+      ],
+      "nav": [
+        {
+          "url": "https://muban.shiyin.lh/",
+          "label": "原版工尺谱与母带库"
+        },
+        {
+          "url": "https://luowang.shiyin.lh/",
+          "label": "终审归律收件处"
+        }
+      ],
+      "footer": "十音簿声律档案"
+    },
+    {
+      "domain": "muban.shiyin.lh",
+      "title": "原版工尺谱与母带库",
+      "heading": "原版工尺谱与母带库",
+      "style": "library",
+      "strap": "青溪戏路档案",
+      "intro": [
+        "查阅工尺谱尾、旧部名册及保管附记。"
+      ],
+      "nav": [
+        {
+          "url": "https://zonglu.shiyin.lh/",
+          "label": "十音总录 · 律吕密档"
+        },
+        {
+          "url": "https://luowang.shiyin.lh/",
+          "label": "终审归律收件处"
+        }
+      ],
+      "footer": "十音簿声律档案"
+    },
+    {
+      "domain": "luowang.shiyin.lh",
+      "title": "终审归律收件处",
+      "heading": "终审归律收件处",
+      "style": "office",
+      "strap": "青溪戏路档案",
+      "intro": [
+        "完成四项核验后递交归律回执。"
+      ],
+      "nav": [
+        {
+          "url": "https://zonglu.shiyin.lh/",
+          "label": "十音总录 · 律吕密档"
+        },
+        {
+          "url": "https://muban.shiyin.lh/",
+          "label": "原版工尺谱与母带库"
+        }
+      ],
+      "footer": "十音簿声律档案",
+      "kind": "review"
+    }
+  ],
+  "records": [
+    {
+      "site": "zonglu.shiyin.lh",
+      "id": "route-matrix",
+      "title": "青溪戏路五卷并录",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "五地并卷次序抄录为 GG、SH、JU、ZH、YU。前两卷的现场回听先后出现同一处拖腔，第三卷封箱带将它误收进末段，第四卷更楼又在无人打点时续上半拍，第五卷母盘终于把五处余音并入一路。对照表将共同异常记为五地同拍，原来的音签照旧随各卷保管。"
+      ],
+      "links": [
+        {
+          "url": "https://muban.shiyin.lh/gongche-rules",
+          "label": "工尺谱尾记"
+        },
+        {
+          "url": "https://zonglu.shiyin.lh/master-drift",
+          "label": "母带漂移比对"
+        }
+      ]
+    },
+    {
+      "site": "zonglu.shiyin.lh",
+      "id": "master-drift",
+      "title": "母带漂移比对",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "数字转录把这段标为普通尾噪，复听员却在每次并播重启后听见同一个吸气声。比对以母盘起转为零点，读得漂移量为半拍。封盘当天的并播队列记作 SY-10-CAST，底本编号在转录时被裁去，要到原始母带的导带标签上核实。值班员在比对栏末尾特地留了复读记号。"
+      ],
+      "snapshot": {
+        "date": "2008-12-31",
+        "bannerText": "原始母带 · 导带标签",
+        "paragraphs": [
+          "母带总号 SY-10。导带背面另有一张窄纸，手写「静态副本留在星环手记」，旁边一笔圈着半拍。原始计时把这半拍划在演出结束以后，转录版却把它接到了下一道播放指令上。"
+        ],
+        "source": "<!-- 审音人-癸：核对原始导带，母带总号 SY-10。陆闻笙已在副本签收栏画押。 -->"
+      },
+      "source": "<!-- 审音人-癸：核对原始导带，母带总号 SY-10。陆闻笙已在副本签收栏画押。 -->",
+      "links": [
+        {
+          "url": "https://muban.shiyin.lh/tuner-lineage",
+          "label": "审音交接簿"
+        },
+        {
+          "url": "https://luowang.shiyin.lh/reseal-order",
+          "label": "归律封存工单"
+        }
+      ]
+    },
+    {
+      "site": "zonglu.shiyin.lh",
+      "id": "dispatch-ledger",
+      "title": "五地并播交接清册",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "清册把五地录音的现场副本逐项还给原保管人，惟有一份总接带仍挂在调度台名下。交接员翻到封盘当天的回单，发现五处接收时间被同一条指令抄成一个数，连更楼夜班的更次也给覆盖了。按值班员的手抄副本重排以后，才找回各处原有的先后次序。"
+      ],
+      "links": [
+        {
+          "url": "https://zonglu.shiyin.lh/route-matrix",
+          "label": "五卷并录"
+        },
+        {
+          "url": "https://zonglu.shiyin.lh/master-drift",
+          "label": "母带漂移比对"
+        }
+      ]
+    },
+    {
+      "site": "zonglu.shiyin.lh",
+      "id": "closing-note",
+      "title": "陆闻笙留笺 · 归律之后",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "我是 YS-10 陆闻笙。昨夜我把工具箱送回更亭，门里有人试敲了两下，第二下落完以后，大家在原地等了一会儿，什么也没接上来。那一小段安静，我以前总急着从带子上剪掉。谢谢你替我在星环手记翻到了它。馆里问我明早能不能来点收，我答应带一壶新茶。"
+      ],
+      "listed": false,
+      "index": false,
+      "requiresGate": "filed:receipt"
+    },
+    {
+      "site": "muban.shiyin.lh",
+      "id": "gongche-rules",
+      "title": "工尺谱尾记与律学原抄",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "《礼记·乐记》说「凡音之起，由人心生也」。用今天的话说，声响经人感受和组织，才成为乐声。工尺谱以合、四、一、上、尺、工、凡、六、五、乙等字记唱奏的音高，各谱本仍要依本门调门校读。青溪本另抄封箱口诀「九音留一，煞声入匣」，意思是收声时须保留谱尾留白，把煞声随原带封存。"
+      ],
+      "links": [
+        {
+          "url": "https://zonglu.shiyin.lh/route-matrix",
+          "label": "五卷并录"
+        }
+      ]
+    },
+    {
+      "site": "muban.shiyin.lh",
+      "id": "tuner-lineage",
+      "title": "审音旧部交接簿",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "交接簿正页将失联技术员登记为 YS-10 陆闻笙，担任末任巡路调音员，须逐站核对收声后保留的空拍。名册边栏的审音人-癸只在复核格落款，负责照看跨站调卷。陆闻笙离馆前借走一只回听耳机和五张空白试听单，留在桌上的存根分别盖过五处保管章。"
+      ],
+      "links": [
+        {
+          "url": "https://zonglu.shiyin.lh/master-drift",
+          "label": "母带漂移比对"
+        }
+      ]
+    },
+    {
+      "site": "muban.shiyin.lh",
+      "id": "tool-case",
+      "title": "更亭工具箱清点单",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "更亭值夜人把无主工具箱交到库房，箱里有磨薄的拨片、旧耳机和一叠按路线夹好的票根。内盖刻着巡路校音，领用簿上还有同一行刻字的拓片。馆员把雨水泡开的最末一页慢慢摊开，见主人在更楼停了两次，第二次专为等最后一声落尽才合箱。"
+      ],
+      "links": [
+        {
+          "url": "https://muban.shiyin.lh/tuner-lineage",
+          "label": "审音交接簿"
+        }
+      ]
+    },
+    {
+      "site": "muban.shiyin.lh",
+      "id": "shellac-room",
+      "title": "虫胶母盘保管附记",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "保管员把七十八转母盘从试听架撤下时，在纸套里发现一张早年的换针记录。记录背面用铅笔描出了唱段以后的空槽，旁注留一镇煞，指的就是最后一圈要留在原处。每次借听都得先登记落针位置，归还时逐圈检查，空槽上的细划痕也要照样描回卡片。"
+      ],
+      "links": [
+        {
+          "url": "https://muban.shiyin.lh/gongche-rules",
+          "label": "工尺谱尾记"
+        },
+        {
+          "url": "https://zonglu.shiyin.lh/master-drift",
+          "label": "母带漂移比对"
+        }
+      ]
+    },
+    {
+      "site": "luowang.shiyin.lh",
+      "id": "reseal-order",
+      "title": "全戏路归律封存工单",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "终审采用的处置口令是九音归位。值班人员须依次撤下并播队列，逐点本地复听，再断网封盘。五处各按原来的收尾位置点交，由当地保管人在底表上签收；总录只收签过的副本。封签贴妥后应从本地再读一次导带编号，并把末段静默保留在复核记录里。"
+      ],
+      "links": [
+        {
+          "url": "https://zonglu.shiyin.lh/master-drift",
+          "label": "母带漂移比对"
+        }
+      ]
+    },
+    {
+      "site": "luowang.shiyin.lh",
+      "id": "station-listen",
+      "title": "五处本地复听验收单",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "第一处交来手写刻度，第二处附了值守人的复唱记号，戏台交回揭封后的静场记录，更楼值夜人等到五更才签字，封盘室则留了针尖停在空槽里的照片。五份回件各自保留原时标，复核员只在同一页上并排抄录，供终审逐处核对声尾有没有落回原位。"
+      ],
+      "links": [
+        {
+          "url": "https://luowang.shiyin.lh/reseal-order",
+          "label": "归律封存工单"
+        }
+      ]
+    },
+    {
+      "site": "luowang.shiyin.lh",
+      "id": "queue-pull",
+      "title": "并播队列撤签存根",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "调度台把定时重播的登记页和母带借阅页分开编号，撤签存根盖在登记页右侧，借阅页继续交库房保存。巡检员在五处终端各等完一个原定播出时段，听见各地只有原本应有的声音。最后一张存根由更楼交回，上面还摁着值夜人摘手套时沾的一点鼓灰。"
+      ],
+      "links": [
+        {
+          "url": "https://luowang.shiyin.lh/reseal-order",
+          "label": "归律封存工单"
+        }
+      ]
+    },
+    {
+      "site": "luowang.shiyin.lh",
+      "id": "receipt-register",
+      "title": "终审回执登记页",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "回执登记页预留四格，用于收齐五卷合验、旧部核名、母带溯源和停播复核。经办员收到最后一份验收单后，要当面复述归律口令，再把签过的封盘页挂回总录末尾。纸本回执夹层原先用来放借阅条，这次只有一张折好的笺，交件人嘱咐等盖完章再读。"
+      ],
+      "links": [
+        {
+          "url": "https://zonglu.shiyin.lh/route-matrix",
+          "label": "五卷并录"
+        },
+        {
+          "url": "https://muban.shiyin.lh/tuner-lineage",
+          "label": "审音交接簿"
+        },
+        {
+          "url": "https://zonglu.shiyin.lh/master-drift",
+          "label": "母带漂移比对"
+        },
+        {
+          "url": "https://luowang.shiyin.lh/reseal-order",
+          "label": "归律封存工单"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "five-tones",
+      "title": "青溪戏路五音脉络总核",
+      "intro": [
+        "据并卷记录与谱尾原抄填报。"
+      ],
+      "leads": [
+        {
+          "url": "https://zonglu.shiyin.lh/route-matrix",
+          "label": "五卷并录"
+        },
+        {
+          "url": "https://muban.shiyin.lh/gongche-rules",
+          "label": "工尺谱尾记"
+        }
+      ],
+      "fields": [
+        {
+          "label": "封箱口诀",
+          "accept": [
+            "九音留一，煞声入匣"
+          ]
+        },
+        {
+          "label": "共同异常",
+          "accept": [
+            "五地同拍"
+          ]
+        },
+        {
+          "label": "保留的谱尾位置",
+          "accept": [
+            "谱尾留白"
+          ]
+        }
+      ],
+      "receipt": [
+        "五地声尾及工尺谱尾已核对。"
+      ]
+    },
+    {
+      "id": "tuner-lineage",
+      "title": "审音旧部与失联技术员核对",
+      "intro": [
+        "核对交接簿落款及工具箱刻字。"
+      ],
+      "leads": [
+        {
+          "url": "https://muban.shiyin.lh/tuner-lineage",
+          "label": "审音交接簿"
+        },
+        {
+          "url": "https://muban.shiyin.lh/tool-case",
+          "label": "工具箱清点单"
+        }
+      ],
+      "fields": [
+        {
+          "label": "工号与姓名",
+          "accept": [
+            "YS-10 陆闻笙"
+          ]
+        },
+        {
+          "label": "复核人落款",
+          "accept": [
+            "审音人-癸"
+          ]
+        },
+        {
+          "label": "工具箱内盖",
+          "accept": [
+            "巡路校音"
+          ]
+        }
+      ],
+      "receipt": [
+        "巡路调音员身份已确认。"
+      ]
+    },
+    {
+      "id": "master-drift",
+      "title": "母带自播漂移溯源",
+      "intro": [
+        "核对转录页和原始母带导带标签。"
+      ],
+      "leads": [
+        {
+          "url": "https://zonglu.shiyin.lh/master-drift",
+          "label": "母带漂移比对"
+        }
+      ],
+      "fields": [
+        {
+          "label": "母带总号",
+          "accept": [
+            "SY-10"
+          ]
+        },
+        {
+          "label": "漂移量",
+          "accept": [
+            "半拍"
+          ]
+        },
+        {
+          "label": "并播队列",
+          "accept": [
+            "SY-10-CAST"
+          ]
+        }
+      ],
+      "receipt": [
+        "并播串接的位置已标明。"
+      ],
+      "hints": [
+        "切至原始母带可查看导带背面的标签。"
+      ]
+    },
+    {
+      "id": "tone-reseal",
+      "title": "全戏路停播归律方案核定",
+      "intro": [
+        "按终审工单抄录处置口令与复核步骤。"
+      ],
+      "leads": [
+        {
+          "url": "https://luowang.shiyin.lh/reseal-order",
+          "label": "归律封存工单"
+        }
+      ],
+      "fields": [
+        {
+          "label": "处置口令",
+          "accept": [
+            "九音归位"
+          ]
+        },
+        {
+          "label": "逐点验收方式",
+          "accept": [
+            "本地复听"
+          ]
+        },
+        {
+          "label": "末道封存操作",
+          "accept": [
+            "断网封盘"
+          ]
+        }
+      ],
+      "receipt": [
+        "五处验收单已归档，封签核定。"
+      ]
+    }
+  ],
+  "conclusion": {
+    "id": "receipt",
+    "title": "十音总录 · 归律封存回执",
+    "intro": [
+      "填报封箱口诀、母带总号与归律口令。"
+    ],
+    "leads": [
+      {
+        "url": "https://muban.shiyin.lh/gongche-rules",
+        "label": "工尺谱尾记"
+      },
+      {
+        "url": "https://zonglu.shiyin.lh/master-drift",
+        "label": "母带漂移比对"
+      },
+      {
+        "url": "https://luowang.shiyin.lh/reseal-order",
+        "label": "归律封存工单"
+      }
+    ],
+    "fields": [
+      {
+        "label": "封箱口诀",
+        "accept": [
+          "九音留一，煞声入匣"
+        ]
+      },
+      {
+        "label": "母带总号",
+        "accept": [
+          "SY-10"
+        ]
+      },
+      {
+        "label": "归律口令",
+        "accept": [
+          "九音归位"
+        ]
+      }
+    ],
+    "receipt": [
+      "五地已各自复听签收，并播队列撤下，母盘照原槽封存。末次回听结束后，星环手记的那页抄本上还留着半拍空白。",
+      "【十音总录完】"
+    ],
+    "links": [
+      {
+        "url": "https://zonglu.shiyin.lh/closing-note",
+        "label": "陆闻笙留笺 · 归律之后",
+        "requiresGate": "filed:receipt"
+      }
+    ]
+  }
+}

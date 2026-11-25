@@ -1,0 +1,778 @@
+{
+  "title": "第五幕 封盘室",
+  "caseId": "CASE-SY-05",
+  "storageKey": "shiyin_save_v1_ch05",
+  "homeUrl": "https://index.yinxiang.lh/",
+  "seriesKey": "shiyin",
+  "archiveBrand": "十音簿声律档案",
+  "snapshotButtonLabels": {
+    "enter": "切至原始母带",
+    "exit": "返回数字转录版"
+  },
+  "search": {
+    "domain": "search.shiyin.lh",
+    "siteName": "十音簿档案检索",
+    "tagline": "检索省音像资料馆旧网",
+    "hotQueries": [
+      "总录信道",
+      "永封母盘",
+      "虫胶母盘"
+    ],
+    "syntaxTips": [
+      "使用 site:域名 关键词 查找指定站点的档案。"
+    ],
+    "entries": [],
+    "quickDomains": [
+      {
+        "url": "https://index.yinxiang.lh/",
+        "label": "省音像资料馆旧网目录"
+      },
+      {
+        "url": "https://diaodu.yinxiang.lh/",
+        "label": "省馆调度通告台"
+      },
+      {
+        "url": "https://jiance.yinxiang.lh/",
+        "label": "省馆播控监测站"
+      },
+      {
+        "url": "https://dianji.yinxiang.lh/",
+        "label": "省馆典籍与唱片档案室"
+      },
+      {
+        "url": "https://jishu.yinxiang.lh/",
+        "label": "省馆音像技术交流区"
+      },
+      {
+        "url": "https://zhonghe.yinxiang.lh/",
+        "label": "省馆封盘复核处"
+      }
+    ]
+  },
+  "sites": [
+    {
+      "domain": "index.yinxiang.lh",
+      "title": "省音像资料馆旧网目录",
+      "heading": "省音像资料馆旧网目录",
+      "style": "directory",
+      "strap": "省音像资料馆",
+      "intro": [
+        "第一步请到省馆播控监测站（jiance.yinxiang.lh），打开《总录信道监测日报》，切至原始母带，核对接收机所印的真实接通日期，随后进入省音像资料馆终核处。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.yinxiang.lh/",
+          "label": "省音像资料馆旧网目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "footer": "省音像资料馆旧网存档",
+      "links": [
+        {
+          "url": "https://jiance.yinxiang.lh/channel-feed",
+          "label": "第一步：总录信道监测日报"
+        },
+        {
+          "url": "https://diaodu.yinxiang.lh/",
+          "label": "省馆调度通告台"
+        },
+        {
+          "url": "https://jiance.yinxiang.lh/",
+          "label": "省馆播控监测站"
+        },
+        {
+          "url": "https://dianji.yinxiang.lh/",
+          "label": "省馆典籍与唱片档案室"
+        },
+        {
+          "url": "https://jishu.yinxiang.lh/",
+          "label": "省馆音像技术交流区"
+        },
+        {
+          "url": "https://zhonghe.yinxiang.lh/",
+          "label": "省馆封盘复核处"
+        }
+      ]
+    },
+    {
+      "domain": "diaodu.yinxiang.lh",
+      "title": "省馆调度通告台",
+      "heading": "省馆调度通告台",
+      "style": "maritime",
+      "strap": "省音像资料馆",
+      "intro": [
+        "调度台按批次登记母盘出入、交接与归库。请以门岗留存的签联为准。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.yinxiang.lh/",
+          "label": "省音像资料馆旧网目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "footer": "省音像资料馆旧网存档"
+    },
+    {
+      "domain": "jiance.yinxiang.lh",
+      "title": "省馆播控监测站",
+      "heading": "省馆播控监测站",
+      "style": "hydro",
+      "strap": "省音像资料馆",
+      "intro": [
+        "本站保存总录信道的监测日报与校线记录。日报可切换至原始母带。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.yinxiang.lh/",
+          "label": "省音像资料馆旧网目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "footer": "省音像资料馆旧网存档"
+    },
+    {
+      "domain": "dianji.yinxiang.lh",
+      "title": "省馆典籍与唱片档案室",
+      "heading": "省馆典籍与唱片档案室",
+      "style": "library",
+      "strap": "省音像资料馆",
+      "intro": [
+        "本室保存唱片实物登记簿与历代声律文献抄件，附有馆员的白话释读。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.yinxiang.lh/",
+          "label": "省音像资料馆旧网目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "footer": "省音像资料馆旧网存档"
+    },
+    {
+      "domain": "jishu.yinxiang.lh",
+      "title": "省馆音像技术交流区",
+      "heading": "省馆音像技术交流区",
+      "style": "community",
+      "strap": "省音像资料馆",
+      "intro": [
+        "本区保留技术组旧帖与当班人员补记，便于和同日工单相互核对。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.yinxiang.lh/",
+          "label": "省音像资料馆旧网目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "footer": "省音像资料馆旧网存档"
+    },
+    {
+      "domain": "zhonghe.yinxiang.lh",
+      "title": "省馆封盘复核处",
+      "heading": "省馆封盘复核处",
+      "style": "office",
+      "strap": "省音像资料馆",
+      "intro": [
+        "请按卷内次序填写六项复核，完成后提交封盘回执。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.yinxiang.lh/",
+          "label": "省音像资料馆旧网目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "footer": "省音像资料馆旧网存档",
+      "kind": "review",
+      "links": [
+        {
+          "url": "https://zhonghe.yinxiang.lh/master-leak",
+          "label": "核对母盘漏播"
+        },
+        {
+          "url": "https://zhonghe.yinxiang.lh/vault-breach",
+          "label": "核对母盘提调"
+        },
+        {
+          "url": "https://zhonghe.yinxiang.lh/shellac-rule",
+          "label": "核对虫胶盘规"
+        },
+        {
+          "url": "https://zhonghe.yinxiang.lh/vault-note",
+          "label": "查认恒温柜手记"
+        },
+        {
+          "url": "https://zhonghe.yinxiang.lh/hidden-script",
+          "label": "核对并播任务"
+        },
+        {
+          "url": "https://zhonghe.yinxiang.lh/disc-reseal",
+          "label": "复核母盘归封"
+        },
+        {
+          "url": "https://zhonghe.yinxiang.lh/receipt",
+          "label": "封盘归档回执"
+        }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "site": "jiance.yinxiang.lh",
+      "id": "channel-feed",
+      "title": "总录信道监测日报",
+      "date": "2009-01-02",
+      "paragraphs": [
+        "这份日报从省馆播控值班机转出。数字转录版只保留各路送审节目的起止时间，测试段按当年的降噪规程归为静音，跨日试车的时间戳也没有抄入汇总。",
+        "馆员在核对表上注明，若要查省网试车当晚的实际入线时刻，应切至原始母带，读取接收机直接压印的时间。原始通道的监听内容与汇总表并不同步。"
+      ],
+      "keywords": [
+        "母带",
+        "总录信道"
+      ],
+      "snapshot": {
+        "date": "2008-12-31",
+        "paragraphs": [
+          "接收机压印：2008-12-31，23时57分，SY-10突然起线。播控员尚未打开送播推子，监听端却先收到九次均匀的定音脉冲，紧接着滚出一声低沉的拖音。",
+          "当班员拔下监听回送线后，拖音仍然沿省网送出。原始监记将本次异常记作空载回送，并在页边记下去调度台查永封盘转运签联的交接要求。"
+        ],
+        "notes": [
+          "时间以接收机原始压印为准。"
+        ],
+        "links": [
+          {
+            "url": "https://diaodu.yinxiang.lh/transfer-slip",
+            "label": "永封盘转运签联"
+          }
+        ]
+      }
+    },
+    {
+      "site": "jiance.yinxiang.lh",
+      "id": "line-test",
+      "title": "回送线路校线记录",
+      "date": "2008-12-30",
+      "paragraphs": [
+        "技术组在正式试车前逐一拔下地方送审口，只留接收机和耳机通电。值班员用馆内标准音校对输入刻度，同时记下测试开始与结束的时刻。",
+        "测试完成后，纸带上只应留下校准音的短脉冲。接收机与送播台各有一只独立时钟，事后复核时应优先参照接收端纸带上的压印。"
+      ],
+      "keywords": [
+        "校线",
+        "接收机"
+      ]
+    },
+    {
+      "site": "jiance.yinxiang.lh",
+      "id": "routing-sheet",
+      "title": "总录交换机端口对照",
+      "date": "2008-12-29",
+      "paragraphs": [
+        "交换机按地方戏路分配输入口，省馆总录另占一口。端口表用铅笔作了两轮修订，改动经当班人和机房钥匙保管员分别签认。",
+        "馆内监听口接往隔壁审音桌，只供当班人抽听。省网出口接往播控总线，两路在交换机上各有独立接点，交班时须逐项核实。"
+      ],
+      "keywords": [
+        "交换机",
+        "监听"
+      ]
+    },
+    {
+      "site": "jiance.yinxiang.lh",
+      "id": "cast-script",
+      "title": "省网总录并播任务抄件",
+      "date": "2008-12-31",
+      "paragraphs": [
+        "任务登记名为SY-10-CAST，挂接的调盘批单为SY-518。登记表的运行方式一栏写着自动并播，省网各接收端一旦应答，交换机便从总录信道取声。该任务抄件标明为年底总录并网自动调度清单。",
+        "值班员把九段定音后的盘尾余槽也圈进了播送范围。停用任务只能撤掉下一轮预约，已经接通的出口还须由机房现场隔离，随后交保管组重新贴签。"
+      ],
+      "keywords": [
+        "并网",
+        "总录"
+      ],
+      "listed": false,
+      "index": "site"
+    },
+    {
+      "site": "diaodu.yinxiang.lh",
+      "id": "transfer-slip",
+      "title": "永封盘转运签联",
+      "date": "2008-12-31",
+      "paragraphs": [
+        "夜班门岗收下的转运签联编号为SY-518，提调物是七十八转永封母盘，交接地点写着省馆二层送审间。右下角原该由保管组签字的位置空着。",
+        "门岗依调度联开门后，次日核对才发现这张批单未获保管组联签。签联背面抄有母盘原登记簿的索引，要求先核对典籍室所存的封盘原条。"
+      ],
+      "keywords": [
+        "转运签联",
+        "永封母盘"
+      ],
+      "links": [
+        {
+          "url": "https://dianji.yinxiang.lh/shellac-ledger",
+          "label": "虫胶母盘登记簿"
+        }
+      ]
+    },
+    {
+      "site": "diaodu.yinxiang.lh",
+      "id": "shift-log",
+      "title": "库门夜班交接簿",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "夜班先清点机械钥匙，再按出库册对照推车件数。二层送审间那趟推车回到库门时，车上只剩帆布盘套与两块防震垫，值班人把空车单独记了一行。",
+        "交班人沿旧规把签联压在当天的出库册里，并留字请早班核对封签骑缝。纸册上没有代签栏，口头交接只能补记经过，不能补足提调手续。"
+      ],
+      "keywords": [
+        "交接簿",
+        "推车"
+      ]
+    },
+    {
+      "site": "diaodu.yinxiang.lh",
+      "id": "return-tally",
+      "title": "封存物归库点验单",
+      "date": "2009-01-03",
+      "paragraphs": [
+        "保管组把原盘与转录用的试压片分开核对，按盘芯字样、外缘缺口和盘套号逐项记下辨认特征。两名清点员同时在场。",
+        "旧封签残片装入封袋，封袋随新签一起归到盘套内页。点验人把归库状态登记为新签在位，随后交回钥匙，并将点验单送复核处归档。"
+      ],
+      "keywords": [
+        "归库",
+        "封签"
+      ]
+    },
+    {
+      "site": "dianji.yinxiang.lh",
+      "id": "shellac-ledger",
+      "title": "虫胶母盘登记簿",
+      "date": "1998-06-12",
+      "paragraphs": [
+        "《省馆虫胶母盘封存规程》原条写道：“九槽供校，余槽入匣，留一镇煞。”登记簿在这页另有一枚写着第十槽的纸签，贴在原条下方。",
+        "用今天的话说，每分钟七十八转的虫胶唱片母盘只取前九段做常规音高比对，最后一道盘槽随原盘封存。转录员遇到这道盘槽，应在采样开始前划定停针位置。"
+      ],
+      "keywords": [
+        "虫胶母盘",
+        "封存规程"
+      ],
+      "source": "<!-- 审音人-癸：核完盘规和恒温柜手记，到检索页查 site:jiance.yinxiang.lh 并网。 -->",
+      "links": [
+        {
+          "url": "https://jishu.yinxiang.lh/cabinet-note",
+          "label": "恒温柜前的手记"
+        }
+      ]
+    },
+    {
+      "site": "dianji.yinxiang.lh",
+      "id": "acoustics",
+      "title": "乐记声因条释读",
+      "date": "2008-10-17",
+      "paragraphs": [
+        "《礼记·乐记》说：“凡音之起，由人心生也。人心之动，物使之然也。”馆员在唱片读本里抄了这两句，供编目人员辨认口述资料中常见的说法。",
+        "用今天的话说，演奏者听见或看见外界事物而受到触动，这份感受又借演奏成为可听的声音。做录音编目时，可分别记下演奏缘由和实际收录的声响。"
+      ],
+      "keywords": [
+        "乐记",
+        "古典声律"
+      ]
+    },
+    {
+      "site": "jishu.yinxiang.lh",
+      "id": "cabinet-note",
+      "title": "恒温柜前的手记",
+      "date": "2009-01-02",
+      "paragraphs": [
+        "我陪保管员去看封盘室的恒温柜，在柜门和墙之间摸到一本薄册。封面写着陆闻笙，内页的工牌栏写着YS-10，墨迹和他平日的测音表一致。",
+        "最后一页只记了五站重测完成和盘尾入线两件事，末尾还有一句请查原簿页底批注。值班室拨过他的分机，后来又去楼梯间找过，都没有听到回应。"
+      ],
+      "keywords": [
+        "恒温柜",
+        "陆闻笙"
+      ],
+      "links": [
+        {
+          "url": "https://dianji.yinxiang.lh/shellac-ledger",
+          "label": "查看登记簿及其源码"
+        }
+      ]
+    },
+    {
+      "site": "jishu.yinxiang.lh",
+      "id": "monitor-room",
+      "title": "送审间的耳机",
+      "date": "2009-01-03",
+      "paragraphs": [
+        "试车前我们把两副耳机分给送审间和播控机房。送审间的耳机沿墙接进本地监听口，机房那副则用来听接收机回送的总录信号。",
+        "交班后有人把两处听到的声音记在同一栏里。我们复抄时把地点逐一补齐，还在页角记了谁负责收线，免得往后对不上当班表。"
+      ],
+      "keywords": [
+        "耳机",
+        "送审间"
+      ]
+    },
+    {
+      "site": "jishu.yinxiang.lh",
+      "id": "route-notes",
+      "title": "五站重测器材清单",
+      "date": "2008-12-28",
+      "paragraphs": [
+        "陆师傅借走便携接收机、两卷空白带和一匣备用针头，说要沿青溪戏路把各站的盘尾再听一遍。借用单列了五处交接点。",
+        "他每到一站便在器材箱内侧贴一张回程签，最后一张注明把原件送回省馆封盘室。器材后来由库房收回，回程签都留在箱盖内侧。"
+      ],
+      "keywords": [
+        "重测",
+        "青溪戏路"
+      ]
+    },
+    {
+      "site": "zhonghe.yinxiang.lh",
+      "id": "isolation-order",
+      "title": "总录停播与封盘作业单",
+      "date": "2009-01-03",
+      "paragraphs": [
+        "复核处把机房和盘库共同执行的处置登记为断网封盘。机房完成出口隔离后，由接收端回报省网总录信道已静默，值班员把回报抄入同一张作业单。",
+        "保管员随后按原簿检查盘尾，在盘套两边重新贴签，并在新签上压下骑缝章。作业单将出口隔离和盘套贴签分别记在前后两行。"
+      ],
+      "keywords": [
+        "停播",
+        "封盘"
+      ]
+    },
+    {
+      "site": "zhonghe.yinxiang.lh",
+      "id": "signoff-log",
+      "title": "封盘复核交班记录",
+      "date": "2009-01-04",
+      "paragraphs": [
+        "复核员按照接收端压印、提调签联、盘规和恒温柜手记的次序收齐原件，再将已停止的并播任务登记名抄到交班记录的背页。",
+        "保管组送来的作业单同时写有机房回报和骑缝章见证人。交班员把原盘留在恒温柜，转录件与交接册另存于阅档架，供后班调阅。"
+      ],
+      "keywords": [
+        "交班",
+        "复核"
+      ]
+    },
+    {
+      "site": "zhonghe.yinxiang.lh",
+      "id": "return-book",
+      "title": "归档凭证登记页",
+      "date": "2009-01-05",
+      "paragraphs": [
+        "本次凭证登记地点为省音像资料馆，归档对象写作彩签封存的母盘及其调度副本。值班员凭盘库点验单逐项录入，盖章前复核归库状态。",
+        "登记页将中止省网播送的处置与归库凭证并在一卷，阅档人可凭两项记载核对盘套上的新签与机房的停播回报。"
+      ],
+      "keywords": [
+        "归档",
+        "凭证"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "master-leak",
+      "title": "核对母盘漏播",
+      "intro": [
+        "按接收机压印核对省网试车时的异常。"
+      ],
+      "leads": [
+        {
+          "url": "https://jiance.yinxiang.lh/channel-feed",
+          "label": "总录信道监测日报"
+        }
+      ],
+      "fields": [
+        {
+          "label": "异常日期",
+          "accept": [
+            "2008-12-31"
+          ]
+        },
+        {
+          "label": "总录信道",
+          "accept": [
+            "SY-10"
+          ]
+        },
+        {
+          "label": "原始监记用语",
+          "accept": [
+            "空载回送"
+          ]
+        }
+      ],
+      "hints": [
+        "切至原始母带，查看接收机压印和值班员的记载。"
+      ],
+      "receipt": [
+        "漏播监记已收录，请核对永封盘转运签联。"
+      ]
+    },
+    {
+      "id": "vault-breach",
+      "title": "核对母盘提调",
+      "intro": [
+        "以门岗留下的签联核对提调。"
+      ],
+      "leads": [
+        {
+          "url": "https://diaodu.yinxiang.lh/transfer-slip",
+          "label": "永封盘转运签联"
+        }
+      ],
+      "fields": [
+        {
+          "label": "批单编号",
+          "accept": [
+            "SY-518"
+          ]
+        },
+        {
+          "label": "提调物",
+          "accept": [
+            "七十八转永封母盘"
+          ]
+        },
+        {
+          "label": "交接地点",
+          "accept": [
+            "省馆二层送审间"
+          ]
+        }
+      ],
+      "hints": [
+        "查看签联首段的三项登记。"
+      ],
+      "receipt": [
+        "提调手续已复核，请查母盘登记簿。"
+      ]
+    },
+    {
+      "id": "shellac-rule",
+      "title": "核对虫胶盘规",
+      "intro": [
+        "按登记簿原条和纸签填写。"
+      ],
+      "leads": [
+        {
+          "url": "https://dianji.yinxiang.lh/shellac-ledger",
+          "label": "虫胶母盘登记簿"
+        }
+      ],
+      "fields": [
+        {
+          "label": "留槽原条末句",
+          "accept": [
+            "留一镇煞"
+          ]
+        },
+        {
+          "label": "原条所载供校范围",
+          "accept": [
+            "九槽供校"
+          ]
+        },
+        {
+          "label": "纸签所记盘槽",
+          "accept": [
+            "第十槽"
+          ]
+        }
+      ],
+      "hints": [
+        "原条和纸签同页保存。"
+      ],
+      "receipt": [
+        "盘规已核定，请查恒温柜前留下的手记。"
+      ]
+    },
+    {
+      "id": "vault-note",
+      "title": "查认恒温柜手记",
+      "intro": [
+        "核对留下手记的技术组人员与末页记录。"
+      ],
+      "leads": [
+        {
+          "url": "https://jishu.yinxiang.lh/cabinet-note",
+          "label": "恒温柜前的手记"
+        }
+      ],
+      "fields": [
+        {
+          "label": "工牌号",
+          "accept": [
+            "YS-10"
+          ]
+        },
+        {
+          "label": "封面姓名",
+          "accept": [
+            "陆闻笙"
+          ]
+        },
+        {
+          "label": "末页所记入线情况",
+          "accept": [
+            "盘尾入线"
+          ]
+        }
+      ],
+      "hints": [
+        "交流区帖子抄录了薄册封面、工牌栏和末页。"
+      ],
+      "receipt": [
+        "手记已登记，请依原簿源码批注检索并播任务。"
+      ]
+    },
+    {
+      "id": "hidden-script",
+      "title": "核对并播任务",
+      "intro": [
+        "从监测站的任务抄件核对登记。"
+      ],
+      "leads": [
+        {
+          "url": "https://dianji.yinxiang.lh/shellac-ledger",
+          "label": "虫胶母盘登记簿"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "fields": [
+        {
+          "label": "任务登记名",
+          "accept": [
+            "SY-10-CAST"
+          ]
+        },
+        {
+          "label": "挂接批单",
+          "accept": [
+            "SY-518"
+          ]
+        },
+        {
+          "label": "运行方式",
+          "accept": [
+            "自动并播"
+          ]
+        }
+      ],
+      "hints": [
+        "登记簿的源码批注留有站内检索式。"
+      ],
+      "receipt": [
+        "并播任务已核明，请查停播与封盘作业单。"
+      ]
+    },
+    {
+      "id": "disc-reseal",
+      "title": "复核母盘归封",
+      "intro": [
+        "以作业单和归库点验单核对处置。"
+      ],
+      "leads": [
+        {
+          "url": "https://zhonghe.yinxiang.lh/isolation-order",
+          "label": "总录停播与封盘作业单"
+        },
+        {
+          "url": "https://diaodu.yinxiang.lh/return-tally",
+          "label": "封存物归库点验单"
+        }
+      ],
+      "fields": [
+        {
+          "label": "合并处置用语",
+          "accept": [
+            "断网封盘"
+          ]
+        },
+        {
+          "label": "机房现场动作",
+          "accept": [
+            "出口隔离"
+          ]
+        },
+        {
+          "label": "归库状态",
+          "accept": [
+            "新签在位"
+          ]
+        }
+      ],
+      "hints": [
+        "机房动作见作业单，封签状态见点验单。"
+      ],
+      "receipt": [
+        "封盘作业已复核，可提交归档回执。"
+      ]
+    }
+  ],
+  "conclusion": {
+    "id": "receipt",
+    "title": "封盘归档回执",
+    "intro": [
+      "六项复核齐备后，汇填归档凭证。"
+    ],
+    "leads": [
+      {
+        "url": "https://zhonghe.yinxiang.lh/return-book",
+        "label": "归档凭证登记页"
+      },
+      {
+        "url": "https://zhonghe.yinxiang.lh/isolation-order",
+        "label": "总录停播与封盘作业单"
+      },
+      {
+        "url": "https://diaodu.yinxiang.lh/return-tally",
+        "label": "封存物归库点验单"
+      }
+    ],
+    "fields": [
+      {
+        "label": "归档地点",
+        "accept": [
+          "省音像资料馆"
+        ]
+      },
+      {
+        "label": "处置登记",
+        "accept": [
+          "断网封盘"
+        ]
+      },
+      {
+        "label": "归库状态",
+        "accept": [
+          "新签在位"
+        ]
+      }
+    ],
+    "hints": [
+      "将凭证登记页与作业单、点验单并读。"
+    ],
+    "receipt": [
+      "省网已停播，七十八转母盘复归恒温柜。提调签联、接收机压印和陆闻笙的手记随卷归档。",
+      "本卷工尺音签：YU。"
+    ]
+  }
+}

@@ -1,0 +1,873 @@
+{
+  "caseId": "CASE-SY-03",
+  "storageKey": "shiyin_save_v1_ch03",
+  "homeUrl": "https://index.xima.lh/",
+  "seriesKey": "shiyin",
+  "archiveBrand": "十音簿声律档案",
+  "snapshotButtonLabels": {
+    "enter": "切至原始母带",
+    "exit": "返回数字转录版"
+  },
+  "search": {
+    "domain": "search.shiyin.lh",
+    "siteName": "十音簿检索",
+    "tagline": "青溪戏路档案检索",
+    "hotQueries": [
+      "封箱带",
+      "藻井",
+      "封箱记"
+    ],
+    "syntaxTips": [
+      "用 site:域名 关键词 限定站内检索。"
+    ],
+    "entries": [],
+    "quickDomains": [
+      {
+        "url": "https://jutuan.xima.lh/",
+        "label": "戏码渡剧团"
+      },
+      {
+        "url": "https://liyuan.xima.lh/",
+        "label": "梨园文献室"
+      },
+      {
+        "url": "https://wenbao.xima.lh/",
+        "label": "文保公示栏"
+      },
+      {
+        "url": "https://ximi.xima.lh/",
+        "label": "戏码渡戏迷论坛"
+      },
+      {
+        "url": "https://hecha.xima.lh/",
+        "label": "戏码渡复核处"
+      }
+    ]
+  },
+  "sites": [
+    {
+      "domain": "index.xima.lh",
+      "title": "第三幕 借腔台",
+      "heading": "第三幕 借腔台",
+      "style": "directory",
+      "strap": "戏码渡旧网目录",
+      "intro": [
+        "第一步到戏码渡剧团（jutuan.xima.lh）打开《一九八六年封箱带》，切至原始母带核对末板后的声音和带盒背签，再到戏码渡复核处提交「核对封箱带尾腔」。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.xima.lh/",
+          "label": "戏码渡目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://jutuan.xima.lh/tape-1986",
+          "label": "一九八六年封箱带"
+        },
+        {
+          "url": "https://jutuan.xima.lh/",
+          "label": "戏码渡剧团"
+        },
+        {
+          "url": "https://liyuan.xima.lh/",
+          "label": "梨园文献室"
+        },
+        {
+          "url": "https://wenbao.xima.lh/",
+          "label": "文保公示栏"
+        },
+        {
+          "url": "https://ximi.xima.lh/",
+          "label": "戏码渡戏迷论坛"
+        },
+        {
+          "url": "https://hecha.xima.lh/",
+          "label": "戏码渡复核处"
+        }
+      ],
+      "footer": "十音簿声律档案 · 戏码渡"
+    },
+    {
+      "domain": "jutuan.xima.lh",
+      "title": "戏码渡剧团",
+      "heading": "戏码渡剧团",
+      "style": "office",
+      "strap": "剧目与音像室",
+      "intro": [
+        "这里保管剧团演出单、封箱带与音像室的借阅说明。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.xima.lh/",
+          "label": "戏码渡目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://jutuan.xima.lh/tape-1986",
+          "label": "一九八六年封箱带"
+        },
+        {
+          "url": "https://jutuan.xima.lh/audio-catalog",
+          "label": "音像室检索说明"
+        }
+      ],
+      "footer": "十音簿声律档案 · 戏码渡"
+    },
+    {
+      "domain": "liyuan.xima.lh",
+      "title": "梨园文献室",
+      "heading": "梨园文献室",
+      "style": "library",
+      "strap": "戏码渡会馆旧藏",
+      "intro": [
+        "这里可查旧戏台的拓片、碑抄和测绘图。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.xima.lh/",
+          "label": "戏码渡目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://liyuan.xima.lh/guild-edict",
+          "label": "梨园封箱碑抄"
+        }
+      ],
+      "footer": "十音簿声律档案 · 戏码渡"
+    },
+    {
+      "domain": "wenbao.xima.lh",
+      "title": "戏码渡文保公示栏",
+      "heading": "戏码渡文保公示栏",
+      "style": "public",
+      "strap": "老戏台维修档案",
+      "intro": [
+        "这里公开老戏台的工程登记、现场复查和复原处置。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.xima.lh/",
+          "label": "戏码渡目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://wenbao.xima.lh/caisson-works",
+          "label": "戏台藻井涂封工程"
+        },
+        {
+          "url": "https://wenbao.xima.lh/reopen-notice",
+          "label": "藻井复原决定"
+        }
+      ],
+      "footer": "十音簿声律档案 · 戏码渡"
+    },
+    {
+      "domain": "ximi.xima.lh",
+      "title": "戏码渡戏迷论坛",
+      "heading": "戏码渡戏迷论坛",
+      "style": "community",
+      "strap": "渡口看戏与会馆旧闻",
+      "intro": [
+        "戏友在这里补记演出见闻、后台交接和会馆失物。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.xima.lh/",
+          "label": "戏码渡目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://ximi.xima.lh/backstage-echo",
+          "label": "后台回声与失物"
+        }
+      ],
+      "footer": "十音簿声律档案 · 戏码渡"
+    },
+    {
+      "domain": "hecha.xima.lh",
+      "title": "戏码渡复核处",
+      "heading": "戏码渡复核处",
+      "style": "office",
+      "strap": "第三幕卷宗收件",
+      "intro": [
+        "请按收件顺序核对材料，再提交结案单。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.xima.lh/",
+          "label": "戏码渡目录"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "档案检索"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://hecha.xima.lh/forbidden-aria",
+          "label": "封箱带尾段核对"
+        },
+        {
+          "url": "https://hecha.xima.lh/caisson-seal",
+          "label": "藻井涂封核对"
+        },
+        {
+          "url": "https://hecha.xima.lh/guild-edict",
+          "label": "梨园封箱旧规核对"
+        },
+        {
+          "url": "https://hecha.xima.lh/stage-notebook",
+          "label": "后台调音簿核对"
+        },
+        {
+          "url": "https://hecha.xima.lh/hidden-dub",
+          "label": "音像室交接卡核对"
+        },
+        {
+          "url": "https://hecha.xima.lh/caisson-reopen",
+          "label": "藻井复原核对"
+        },
+        {
+          "url": "https://hecha.xima.lh/receipt",
+          "label": "第三幕 借腔台结案"
+        }
+      ],
+      "footer": "十音簿声律档案 · 戏码渡",
+      "kind": "review"
+    }
+  ],
+  "records": [
+    {
+      "site": "jutuan.xima.lh",
+      "id": "tape-1986",
+      "title": "一九八六年封箱带",
+      "date": "2008-12-04",
+      "paragraphs": [
+        "这卷带子来自戏码渡老戏台音像柜，盒背写着收箱曲。数字转录从开场锣起，到末板落定即止。节目单末栏抄作《折柳送客》，报幕员没有另念返场曲目。",
+        "转录员把末板以后登记为擦头杂声，成品便只留下场内搬凳和合箱的声音。母带仍按原盒卷存，切回原始母带可以核对带盒背签和收音员的尾段旁记。"
+      ],
+      "keywords": [
+        "封箱带",
+        "末板",
+        "原始母带"
+      ],
+      "snapshot": {
+        "date": "1986-11-18",
+        "paragraphs": [
+          "背签手写日期为1986-11-18，录音位置写作井口拾音。末板已经落定，台口和后台的麦克风只收到搬凳声，朝向藻井的那一路却接出半句完整的唱腔。",
+          "收音员在带尺上写下藻井禁腔。末字拖音向井心回卷，衰减几次之后仍对得上先前的腔口。转录底稿夹着一张文保移交条，提示查看后来封住井口的工程记录。"
+        ],
+        "notes": [
+          "带盒与节目单随卷存放，尾段以背签日期编目。"
+        ],
+        "links": [
+          {
+            "url": "https://wenbao.xima.lh/caisson-works",
+            "label": "戏台藻井涂封工程"
+          }
+        ]
+      }
+    },
+    {
+      "site": "jutuan.xima.lh",
+      "id": "audio-catalog",
+      "title": "音像室检索说明",
+      "date": "2008-12-08",
+      "paragraphs": [
+        "音像室按演出名称公开节目单，按工作用语保留内部交接卡。交接卡沿用当年库房的便条写法，标题通常只写桌号和接收人，工作用语留在索引里。",
+        "目录翻页只能看到已列出的正式条目。查找交接卡时，请到全网页检索框使用站点限定，先填站名，再照抄经手人记下的工作用语，两者之间留一个空格。"
+      ],
+      "keywords": [
+        "音像室",
+        "检索",
+        "交接卡"
+      ],
+      "links": [
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "打开十音簿检索"
+        }
+      ]
+    },
+    {
+      "site": "jutuan.xima.lh",
+      "id": "mix-handoff",
+      "title": "二号桌交接卡",
+      "date": "2008-12-12",
+      "paragraphs": [
+        "交接卡沿用藻井施工批号XM-309登记，制作栏写二号棚借声，所取材料是封住井口之前留存的一段拖腔。棚里照那段拖腔补齐尾字，交接员另外收存了一条净声轨。（此件按棚内临时补录交接流程单独登记。）",
+        "送审副本标为合成送审带，声轨保管栏写干声留底。两条带子按不同来源入柜，值班员在卡背记下文保处随后接手现场复原，井口处置以公开决定为准。"
+      ],
+      "keywords": [
+        "补录",
+        "交接卡"
+      ],
+      "listed": false,
+      "index": "site",
+      "links": [
+        {
+          "url": "https://wenbao.xima.lh/reopen-notice",
+          "label": "藻井复原决定"
+        }
+      ]
+    },
+    {
+      "site": "liyuan.xima.lh",
+      "id": "guild-edict",
+      "title": "梨园封箱碑抄",
+      "date": "2008-11-21",
+      "paragraphs": [
+        "《戏码渡梨园封箱记》残碑抄：「老腔既煞，藻井藏音；封箱之后，生人不得借腔代口。」夹页上有戏班师傅写给徒弟的四字简记，字样是生人勿代。",
+        "换成今天的话，散戏封箱后就让台上的旧腔自然止息，即使唱本留存，也不能请外人照着旧腔补录，冒作原唱。抄本将适用场合记为封箱之后，将旧腔所藏之处记为藻井。"
+      ],
+      "keywords": [
+        "封箱记",
+        "碑抄",
+        "梨园规矩"
+      ],
+      "links": [
+        {
+          "url": "https://ximi.xima.lh/backstage-echo",
+          "label": "后台回声与失物"
+        }
+      ]
+    },
+    {
+      "site": "liyuan.xima.lh",
+      "id": "manuscript",
+      "title": "封箱碑抄入藏说明",
+      "date": "2008-11-20",
+      "paragraphs": [
+        "渡口改建时，梨园会馆把残碑拓片同几册戏单一并交到资料室。拓片右下已经起毛，装裱前由保管员照原摺痕拍照，辨认困难的字留给碑抄夹页补读。",
+        "查阅者可以按馆藏登记先看照片，再读同盒的抄本。戏班师傅留下的夹页可用来理解当时怎么说这条规矩，馆里仍将夹页和碑文分别编目。"
+      ],
+      "keywords": [
+        "拓片",
+        "入藏",
+        "夹页"
+      ],
+      "links": [
+        {
+          "url": "https://liyuan.xima.lh/guild-edict",
+          "label": "梨园封箱碑抄"
+        }
+      ]
+    },
+    {
+      "site": "liyuan.xima.lh",
+      "id": "stage-plan",
+      "title": "老戏台斗拱与井心图",
+      "date": "2008-11-25",
+      "paragraphs": [
+        "平面图沿用会馆旧测绘的朝向，从渡口看过去，戏台右侧窄门直通后台。藻井在台板正中上方，升起高梯后才够得到最下圈的木枋。",
+        "图背另有一张纸画出收音员站位。台口和后台的拾音点都贴着墙线，余下一路从栅栏上方走线，线尾用墨笔圈出井心的位置，便于下一班按图摆线。"
+      ],
+      "keywords": [
+        "戏台",
+        "井心",
+        "测绘"
+      ],
+      "links": [
+        {
+          "url": "https://jutuan.xima.lh/tape-1986",
+          "label": "一九八六年封箱带"
+        }
+      ]
+    },
+    {
+      "site": "wenbao.xima.lh",
+      "id": "caisson-works",
+      "title": "戏台藻井涂封工程",
+      "date": "2008-12-06",
+      "paragraphs": [
+        "档案室公开老戏台前次维修登记。藻井涂封的工程批号为XM-309，施工对象登记为古戏台藻井，承包人将井格缝口填平后罩刷两遍，方便交付时统一清扫。",
+        "随件留存的材料表把涂封材料写为白灰腻子。复查员在旧图上圈出被填平的井格，并附上梨园封箱碑抄的查阅单，供核对涂封前的台场用途。"
+      ],
+      "keywords": [
+        "涂封",
+        "工程批号",
+        "材料表"
+      ],
+      "links": [
+        {
+          "url": "https://liyuan.xima.lh/guild-edict",
+          "label": "梨园封箱碑抄"
+        }
+      ]
+    },
+    {
+      "site": "wenbao.xima.lh",
+      "id": "works-inspection",
+      "title": "涂封工程复查纪要",
+      "date": "2008-12-09",
+      "paragraphs": [
+        "复查小组从侧门登台，先查看梁头渗水处，再对照交工照片逐格记下井壁新旧颜色。照片上的生肖花板尚留一圈木线，现场只能从罩刷层下隐约辨认。",
+        "检查员将剥落的散屑装袋送回备查，台板上另外画出高梯安放位置。后续处置由文保处公告，未开放的台口由会馆值班人引导绕行。"
+      ],
+      "keywords": [
+        "现场复查",
+        "交工照片",
+        "井壁"
+      ],
+      "links": [
+        {
+          "url": "https://wenbao.xima.lh/caisson-works",
+          "label": "戏台藻井涂封工程"
+        }
+      ]
+    },
+    {
+      "site": "wenbao.xima.lh",
+      "id": "reopen-notice",
+      "title": "藻井复原决定",
+      "date": "2008-12-19",
+      "paragraphs": [
+        "经现场复查和档案核对，处置措施定为揭封清井，由会馆配合清去后添腻子，逐格复查木枋表面，再按原格复位。工匠拆下的填料按井格分袋登记。",
+        "公告所列验收方式为原位试响，完成后沿旧图所列三处收音位置重测。档案交接须附前后两份录音和原填料清单，归档去向登记为戏码渡复核处。"
+      ],
+      "keywords": [
+        "复原决定",
+        "藻井",
+        "验收"
+      ],
+      "links": [
+        {
+          "url": "https://hecha.xima.lh/filing-notes",
+          "label": "本卷归档用语"
+        }
+      ]
+    },
+    {
+      "site": "ximi.xima.lh",
+      "id": "backstage-echo",
+      "title": "后台回声与失物",
+      "date": "2008-12-10",
+      "paragraphs": [
+        "那天借来的梯子收走以后，我在后台木箱边捡到一本井口调音簿。封皮磨得厉害，夹页倒很清楚，领用人写着陆闻笙，工牌栏写的是YS-10。",
+        "簿子里几张纸都画了井心和台口的拾音位置。我把原件连同夹在中间的借用单交给会馆，音像室的熟人说，同批交接卡还能从他们的站内索引查到。"
+      ],
+      "keywords": [
+        "后台",
+        "回声",
+        "调音簿"
+      ],
+      "links": [
+        {
+          "url": "https://jutuan.xima.lh/audio-catalog",
+          "label": "音像室检索说明"
+        }
+      ],
+      "source": "<!-- 审音人-癸：在检索框输入 site:jutuan.xima.lh 补录，查音像室那张交接卡。 -->"
+    },
+    {
+      "site": "ximi.xima.lh",
+      "id": "dock-matinee",
+      "title": "渡口午场散场记",
+      "date": "2008-12-03",
+      "paragraphs": [
+        "午场那天摆摊的人都在戏台外候雨，台口收完板便有人搬凳子，把檐下腾出来给渡船来客歇脚。我家长辈记得旧时封箱也照这样收拾，连茶碗都要点清。",
+        "有朋友想拿这次午场对照旧录音，我把音像柜的节目单页发在下面。旧戏的曲目得以剧团抄本为准，我听惯的是渡口小调，认不全当晚报过的戏名。"
+      ],
+      "keywords": [
+        "渡口",
+        "午场",
+        "散场"
+      ],
+      "links": [
+        {
+          "url": "https://jutuan.xima.lh/tape-1986",
+          "label": "一九八六年封箱带"
+        }
+      ]
+    },
+    {
+      "site": "ximi.xima.lh",
+      "id": "lost-property",
+      "title": "会馆失物交接回帖",
+      "date": "2008-12-11",
+      "paragraphs": [
+        "值班人说昨日收下一本窄封皮簿子，夹纸已照拾得时的顺序收进纸袋。纸袋封口贴着收件日期，临时借阅须在门房登记经手人和归还时刻。",
+        "补一条给要查簿子的街坊，后台木箱暂时移到靠河一侧的库房，想辨认究竟是哪个木箱，可以看前帖所述的位置，再向原来收箱的班组问一声。"
+      ],
+      "keywords": [
+        "失物",
+        "会馆",
+        "交接"
+      ],
+      "links": [
+        {
+          "url": "https://ximi.xima.lh/backstage-echo",
+          "label": "后台回声与失物"
+        }
+      ]
+    },
+    {
+      "site": "hecha.xima.lh",
+      "id": "filing-notes",
+      "title": "本卷归档用语",
+      "date": "2008-12-22",
+      "paragraphs": [
+        "本案归档案名为借腔台，结案类别填写封箱声律复核，移交册把沿线档案的全称列为青溪戏路。三项写在同一页，便于省馆按路段调阅分卷。",
+        "请随收件单附上现场重测回执和带盒背签抄件。音像室送来的两版录音应分别写清载体来源，文保处所附验收页依公告顺序夹在卷尾。"
+      ],
+      "keywords": [
+        "归档",
+        "移交",
+        "收件"
+      ],
+      "links": [
+        {
+          "url": "https://hecha.xima.lh/receipt",
+          "label": "提交结案"
+        }
+      ]
+    },
+    {
+      "site": "hecha.xima.lh",
+      "id": "intake-procedure",
+      "title": "声律材料收件说明",
+      "date": "2008-12-05",
+      "paragraphs": [
+        "复核处受理同一戏台的带盒背签、工程登记、规约抄本及现场交接材料。请保留各页惯用的称谓，日期依原始载体填写，地名依站点登记填写。",
+        "查档时可先交录音核对，随后跟着移交记录逐件补齐。窗口会从已有材料里核对每项填写内容，收件意见随各项核对结果一并发回。"
+      ],
+      "keywords": [
+        "收件说明",
+        "带盒",
+        "复核"
+      ],
+      "links": [
+        {
+          "url": "https://jutuan.xima.lh/tape-1986",
+          "label": "一九八六年封箱带"
+        }
+      ]
+    },
+    {
+      "site": "hecha.xima.lh",
+      "id": "listening-copy",
+      "title": "试听副本登记说明",
+      "date": "2008-12-14",
+      "paragraphs": [
+        "试听副本供窗口逐段比对，调阅时先记起止位置，再把所听到的唱词与演出单对照。听辨人如需回放，同一段反复播放仍记在本次调阅名下。",
+        "副本用毕留在复核处，原带由剧团音像室保管。封箱带的原始收音情况可查剧团的载体记录，井口处置和完工后的收音则随文保公示存卷。"
+      ],
+      "keywords": [
+        "试听",
+        "副本",
+        "载体"
+      ],
+      "links": [
+        {
+          "url": "https://jutuan.xima.lh/tape-1986",
+          "label": "一九八六年封箱带"
+        },
+        {
+          "url": "https://wenbao.xima.lh/reopen-notice",
+          "label": "藻井复原决定"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "forbidden-aria",
+      "title": "封箱带尾段核对",
+      "intro": [
+        "对照节目单与母带，登记末板后留下的声音。"
+      ],
+      "leads": [
+        {
+          "url": "https://jutuan.xima.lh/tape-1986",
+          "label": "一九八六年封箱带"
+        }
+      ],
+      "fields": [
+        {
+          "label": "带盒背签日期",
+          "accept": [
+            "1986-11-18"
+          ]
+        },
+        {
+          "label": "末栏曲目",
+          "accept": [
+            "《折柳送客》"
+          ]
+        },
+        {
+          "label": "尾段旁记",
+          "accept": [
+            "藻井禁腔"
+          ]
+        }
+      ],
+      "hints": [
+        "切至原始母带读背签，再回数字转录版核对节目单。"
+      ],
+      "receipt": [
+        "带盒背签和井口收音已经核对。按母带所夹移交条查阅文保处的涂封工程。"
+      ]
+    },
+    {
+      "id": "caisson-seal",
+      "title": "藻井涂封核对",
+      "intro": [
+        "从文保处公开的工程登记中抄录施工信息。"
+      ],
+      "leads": [
+        {
+          "url": "https://wenbao.xima.lh/caisson-works",
+          "label": "戏台藻井涂封工程"
+        }
+      ],
+      "fields": [
+        {
+          "label": "工程批号",
+          "accept": [
+            "XM-309"
+          ]
+        },
+        {
+          "label": "施工对象",
+          "accept": [
+            "古戏台藻井"
+          ]
+        },
+        {
+          "label": "涂封材料",
+          "accept": [
+            "白灰腻子"
+          ]
+        }
+      ],
+      "hints": [
+        "工程登记和随件材料表收在同一页。"
+      ],
+      "receipt": [
+        "涂封工程已登记。按复查员所附查阅单核对梨园封箱碑抄。"
+      ]
+    },
+    {
+      "id": "guild-edict",
+      "title": "梨园封箱旧规核对",
+      "intro": [
+        "抄下夹页简记和碑抄里的适用场合、藏音位置。"
+      ],
+      "leads": [
+        {
+          "url": "https://liyuan.xima.lh/guild-edict",
+          "label": "梨园封箱碑抄"
+        }
+      ],
+      "fields": [
+        {
+          "label": "四字简记",
+          "accept": [
+            "生人勿代"
+          ]
+        },
+        {
+          "label": "适用场合",
+          "accept": [
+            "封箱之后"
+          ]
+        },
+        {
+          "label": "藏音位置",
+          "accept": [
+            "藻井"
+          ]
+        }
+      ],
+      "hints": [
+        "简记在戏班师傅留给徒弟的夹页上。"
+      ],
+      "receipt": [
+        "封箱规约已核对。去戏迷论坛查后台拾得的簿子，确认是谁在井口重测。"
+      ]
+    },
+    {
+      "id": "stage-notebook",
+      "title": "后台调音簿核对",
+      "intro": [
+        "根据拾得人的帖子登记簿主与簿名。"
+      ],
+      "leads": [
+        {
+          "url": "https://ximi.xima.lh/backstage-echo",
+          "label": "后台回声与失物"
+        }
+      ],
+      "fields": [
+        {
+          "label": "领用人工牌",
+          "accept": [
+            "YS-10"
+          ]
+        },
+        {
+          "label": "领用人",
+          "accept": [
+            "陆闻笙"
+          ]
+        },
+        {
+          "label": "簿名",
+          "accept": [
+            "井口调音簿"
+          ]
+        }
+      ],
+      "hints": [
+        "拾得人把夹页上的领用信息抄在首段。"
+      ],
+      "receipt": [
+        "井口调音簿已登记。查看拾得帖的网页源代码，按审音人的留言查找交接卡。"
+      ]
+    },
+    {
+      "id": "hidden-dub",
+      "title": "音像室交接卡核对",
+      "intro": [
+        "找到同批交接卡，区分制作栏、送审副本和留存声轨。"
+      ],
+      "leads": [
+        {
+          "url": "https://jutuan.xima.lh/audio-catalog",
+          "label": "音像室检索说明"
+        }
+      ],
+      "fields": [
+        {
+          "label": "制作栏用语",
+          "accept": [
+            "二号棚借声"
+          ]
+        },
+        {
+          "label": "送审副本标记",
+          "accept": [
+            "合成送审带"
+          ]
+        },
+        {
+          "label": "声轨保管用语",
+          "accept": [
+            "干声留底"
+          ]
+        }
+      ],
+      "hints": [
+        "将审音人给出的站点和工作用语一并输入检索框。"
+      ],
+      "receipt": [
+        "交接卡已核对。沿卡背的移交记录到文保处查看藻井复原决定。"
+      ]
+    },
+    {
+      "id": "caisson-reopen",
+      "title": "藻井复原核对",
+      "intro": [
+        "根据公告登记现场处置与验收。"
+      ],
+      "leads": [
+        {
+          "url": "https://wenbao.xima.lh/reopen-notice",
+          "label": "藻井复原决定"
+        }
+      ],
+      "fields": [
+        {
+          "label": "处置措施",
+          "accept": [
+            "揭封清井"
+          ]
+        },
+        {
+          "label": "验收方式",
+          "accept": [
+            "原位试响"
+          ]
+        },
+        {
+          "label": "归档去向",
+          "accept": [
+            "戏码渡复核处"
+          ]
+        }
+      ],
+      "hints": [
+        "两段公告分别载明施工处置和验收交接。"
+      ],
+      "receipt": [
+        "处置和验收已核对。按复核处的归档用语填写本卷收件单。"
+      ]
+    }
+  ],
+  "conclusion": {
+    "id": "receipt",
+    "title": "第三幕 借腔台结案",
+    "intro": [
+      "填写封箱带与藻井工程的归档信息。"
+    ],
+    "leads": [
+      {
+        "url": "https://hecha.xima.lh/filing-notes",
+        "label": "本卷归档用语"
+      }
+    ],
+    "fields": [
+      {
+        "label": "归档案名",
+        "accept": [
+          "借腔台"
+        ]
+      },
+      {
+        "label": "结案类别",
+        "accept": [
+          "封箱声律复核"
+        ]
+      },
+      {
+        "label": "沿线档案全称",
+        "accept": [
+          "青溪戏路"
+        ]
+      }
+    ],
+    "hints": [
+      "三项用语都在复核处归档说明的首段。"
+    ],
+    "receipt": [
+      "戏码渡老戏台已按原井格复位，原始母带与棚录副本分别入卷。",
+      "本卷工尺音签：JU。"
+    ]
+  }
+}

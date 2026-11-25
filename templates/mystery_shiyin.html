@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{page_title}}</title>
+  <meta name="description" content="{{page_description}}">
+  <meta name="site-base-path" content="{{base_path}}">
+  <meta name="robots" content="{{robots_policy}}">
+  <link rel="canonical" href="{{canonical_url}}">
+  <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/mystery/css/mystery_shiyin.css">
+  <script src="/static/mystery/js/gallery_scroll.js" defer></script>
+</head>
+<body class="shiyin-body">
+  <div class="shiyin-stage" data-mystery-level="shiyin" data-reel-stage>
+    <!-- Pure-CSS Lacquer Depth & Rotating Inline-SVG 编钟声律轮 × 工尺音槽 Backdrop -->
+    <div class="shiyin-backdrop" aria-hidden="true">
+      <div class="shiyin-lacquer-depth"></div>
+      <div class="shiyin-gongche-grid"></div>
+      <svg class="shiyin-wheel" viewBox="0 0 640 640" fill="none">
+        <!-- Outer 78-RPM Concentric Sound Grooves & 10-Tone Pitch Ticks -->
+        <g class="sy-wheel-outer">
+          <circle cx="320" cy="320" r="306" stroke="#D9A441" stroke-opacity="0.32" stroke-width="1"/>
+          <circle cx="320" cy="320" r="294" stroke="#D9A441" stroke-opacity="0.54" stroke-width="1.4" stroke-dasharray="22 8 4 8"/>
+          <circle cx="320" cy="320" r="280" stroke="#F2E8D5" stroke-opacity="0.22" stroke-width="0.9"/>
+          <circle cx="320" cy="320" r="266" stroke="#D9A441" stroke-opacity="0.56" stroke-width="6.5" stroke-dasharray="2 20.5"/>
+          <circle cx="320" cy="320" r="250" stroke="#5B2336" stroke-opacity="0.88" stroke-width="2.2"/>
+          <!-- Tenth-Tone Residual Pitch Arc & Plum Notch -->
+          <path d="M402 42A294 294 0 0 1 598 238" stroke="#D9A441" stroke-opacity="0.85" stroke-width="2.4" stroke-linecap="round"/>
+          <polygon points="528,112 536,120 528,128 520,120" fill="#5B2336" stroke="#D9A441" stroke-width="1.2"/>
+          <line x1="502" y1="138" x2="546" y2="94" stroke="#F2E8D5" stroke-opacity="0.55" stroke-width="1.1" stroke-dasharray="3 3"/>
+        </g>
+
+        <!-- Inner Acoustic Resonance Orbits & Five-Tone Nodes -->
+        <g class="sy-wheel-inner">
+          <circle cx="320" cy="320" r="228" stroke="#D9A441" stroke-opacity="0.34" stroke-width="1.1" stroke-dasharray="10 6"/>
+          <ellipse cx="320" cy="320" rx="216" ry="188" transform="rotate(-16 320 320)" stroke="#5B2336" stroke-opacity="0.95" stroke-width="1.8"/>
+          <ellipse cx="320" cy="320" rx="188" ry="216" transform="rotate(14 320 320)" stroke="#D9A441" stroke-opacity="0.36" stroke-width="1"/>
+          <circle cx="320" cy="320" r="168" stroke="#D9A441" stroke-opacity="0.5" stroke-width="1.2"/>
+          <circle cx="320" cy="320" r="154" stroke="#F2E8D5" stroke-opacity="0.34" stroke-width="4" stroke-dasharray="2 46.37"/>
+          <!-- Cardinal Tone-Slip Nodes -->
+          <polygon points="320,144 327,152 320,160 313,152" fill="#D9A441"/>
+          <polygon points="488,313 496,320 488,327 480,320" fill="#D9A441"/>
+          <polygon points="320,480 327,488 320,496 313,488" fill="#D9A441"/>
+          <polygon points="144,313 152,320 144,327 136,320" fill="#D9A441"/>
+        </g>
+
+        <!-- Static Center Bronze Chime-Bell Silhouette & 工尺 Ticks -->
+        <g class="sy-wheel-core">
+          <circle cx="320" cy="320" r="106" stroke="#D9A441" stroke-opacity="0.4" stroke-width="1.1"/>
+          <circle cx="320" cy="320" r="94" stroke="#5B2336" stroke-opacity="0.82" stroke-width="1.4" stroke-dasharray="4 4"/>
+          <path d="M276 266H364M320 266V282" stroke="#D9A441" stroke-opacity="0.7" stroke-width="1.6" stroke-linecap="round"/>
+          <path d="M294 288H346L358 372C344 364 332 364 320 369C308 364 296 364 282 372Z" fill="#180C11" fill-opacity="0.72" stroke="#D9A441" stroke-opacity="0.65" stroke-width="1.4" stroke-linejoin="round"/>
+          <path d="M296 306H344M292 322H348M288 338H352" stroke="#F2E8D5" stroke-opacity="0.28" stroke-width="0.9"/>
+          <circle cx="320" cy="352" r="5" fill="#5B2336" stroke="#D9A441" stroke-width="1.1"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Top Lacquer-Folio Navigation Bar -->
+    <header class="shiyin-topbar">
+      <nav class="sy-breadcrumbs" aria-label="归档导航">
+        <a class="sy-back-link" href="/">← 星环手记</a>
+        <span class="sy-crumb-sep" aria-hidden="true">◇</span>
+        <a class="sy-back-link" href="/mystery/">系列总录</a>
+        <span class="sy-crumb-slash" aria-hidden="true">/</span>
+        <h1 class="sy-topbar-title">十音簿</h1>
+        <span class="sy-topbar-sub">五幕戏路</span>
+      </nav>
+      <div class="sy-topbar-meta">
+        <span class="sy-archive-badge">ACOUSTIC-LOG · SYB-10</span>
+      </div>
+    </header>
+
+    <!-- Horizontal Lacquer-Folio Track -->
+    <main class="shiyin-reel" data-horizontal-reel aria-label="《十音簿》五幕戏路画廊">
+      <!-- Act 1 -->
+      <article class="sy-card sy-card--act" data-reel-card>
+        <a class="sy-card-link" href="/mystery/shiyin/act-1/">
+          <div class="sy-folio-surface">
+            <div class="sy-folio-head">
+              <span class="sy-card-vol">卷壹 · ACT 01</span>
+              <span class="sy-card-pillar">哑钟</span>
+            </div>
+            <div class="sy-card-body">
+              <div class="sy-card-emblem" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                  <circle cx="60" cy="60" r="50" stroke="#D9A441" stroke-opacity="0.38" stroke-width="1"/>
+                  <circle cx="60" cy="60" r="44" stroke="#5B2336" stroke-width="1.4" stroke-dasharray="3 3"/>
+                  <!-- Bell Tower Beam & Bronze Chime Bell -->
+                  <path d="M30 26H90M34 23V29M86 23V29" stroke="#D9A441" stroke-width="1.6" stroke-linecap="round"/>
+                  <path d="M60 26V35" stroke="#F2E8D5" stroke-width="1.4"/>
+                  <rect x="54" y="35" width="12" height="8" rx="1" fill="#5B2336" stroke="#D9A441" stroke-width="1.2"/>
+                  <path d="M44 43H76L84 85C75 80 68 80 60 83C52 80 45 80 36 85Z" fill="#1B0E14" stroke="#D9A441" stroke-width="1.5" stroke-linejoin="round"/>
+                  <!-- Chime Bosses -->
+                  <circle cx="49" cy="52" r="1.8" fill="#D9A441"/>
+                  <circle cx="56" cy="52" r="1.8" fill="#D9A441"/>
+                  <circle cx="64" cy="52" r="1.8" fill="#D9A441"/>
+                  <circle cx="71" cy="52" r="1.8" fill="#D9A441"/>
+                  <circle cx="48" cy="60" r="1.8" fill="#F2E8D5"/>
+                  <circle cx="56" cy="60" r="1.8" fill="#F2E8D5"/>
+                  <circle cx="64" cy="60" r="1.8" fill="#F2E8D5"/>
+                  <circle cx="72" cy="60" r="1.8" fill="#F2E8D5"/>
+                  <path d="M44 68H76M42 75H78" stroke="#5B2336" stroke-width="1.6"/>
+                  <!-- Subterranean Resonator Dome -->
+                  <path d="M38 96C44 89 76 89 82 96" stroke="#D9A441" stroke-opacity="0.72" stroke-width="1.2" stroke-dasharray="4 2.5"/>
+                  <circle cx="60" cy="94" r="3" fill="#5B2336" stroke="#F2E8D5" stroke-width="1"/>
+                  <!-- Lateral Acoustic Waves -->
+                  <path d="M29 52C24 58 24 68 29 74M91 52C96 58 96 68 91 74" stroke="#D9A441" stroke-opacity="0.6" stroke-width="1.2" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <p class="sy-card-locality">钟潭镇 · 古钟楼与广电播控室</p>
+              <h2 class="sy-card-title">第一幕 哑钟楼</h2>
+              <div class="sy-card-rule" aria-hidden="true"><span></span></div>
+              <p class="sy-card-synopsis">跨年报时重播前，钟潭广播播控室的转录记录与古钟楼现场录带出现出入。</p>
+              <p class="sy-card-case">卷档 · CASE-SY-01 · 独立可开卷</p>
+              <span class="sy-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Act 2 -->
+      <article class="sy-card sy-card--act" data-reel-card>
+        <a class="sy-card-link" href="/mystery/shiyin/act-2/">
+          <div class="sy-folio-surface">
+            <div class="sy-folio-head">
+              <span class="sy-card-vol">卷贰 · ACT 02</span>
+              <span class="sy-card-pillar">断弦</span>
+            </div>
+            <div class="sy-card-body">
+              <div class="sy-card-emblem" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                  <circle cx="60" cy="60" r="50" stroke="#D9A441" stroke-opacity="0.38" stroke-width="1"/>
+                  <!-- Zither Soundboard & Bridges -->
+                  <path d="M36 22H84L88 96H32Z" fill="#1B0E14" stroke="#D9A441" stroke-width="1.4" stroke-linejoin="round"/>
+                  <path d="M35 34H85M33 84H87" stroke="#F2E8D5" stroke-opacity="0.72" stroke-width="1.5"/>
+                  <!-- Six Taut Strings + Missing 7th String -->
+                  <path d="M42 34V84M48 34V84M54 34V84M60 34V84M66 34V84M72 34V84" stroke="#D9A441" stroke-opacity="0.82" stroke-width="1"/>
+                  <path d="M78 34V52M78 66V84" stroke="#F2E8D5" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+                  <!-- Acoustic Resonance Peak on Empty Slot -->
+                  <path d="M70 59Q74 52 78 59T86 59" stroke="#5B2336" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M70 59Q74 52 78 59T86 59" stroke="#F2E8D5" stroke-width="1" stroke-linecap="round"/>
+                  <circle cx="78" cy="59" r="3" fill="#5B2336" stroke="#D9A441" stroke-width="1.1"/>
+                  <!-- Tuning Pegs -->
+                  <circle cx="42" cy="28" r="1.6" fill="#D9A441"/>
+                  <circle cx="54" cy="28" r="1.6" fill="#D9A441"/>
+                  <circle cx="66" cy="28" r="1.6" fill="#D9A441"/>
+                  <circle cx="78" cy="28" r="1.6" fill="#5B2336" stroke="#F2E8D5" stroke-width="0.9"/>
+                </svg>
+              </div>
+              <p class="sy-card-locality">桐荫街 · 制琴作坊与声学测室</p>
+              <h2 class="sy-card-title">第二幕 断弦坊</h2>
+              <div class="sy-card-rule" aria-hidden="true"><span></span></div>
+              <p class="sy-card-synopsis">桐荫街琴坊送检的试音录音，与声学测室留存的检测版本存在出入。</p>
+              <p class="sy-card-case">卷档 · CASE-SY-02 · 独立可开卷</p>
+              <span class="sy-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Act 3 -->
+      <article class="sy-card sy-card--act" data-reel-card>
+        <a class="sy-card-link" href="/mystery/shiyin/act-3/">
+          <div class="sy-folio-surface">
+            <div class="sy-folio-head">
+              <span class="sy-card-vol">卷叁 · ACT 03</span>
+              <span class="sy-card-pillar">借腔</span>
+            </div>
+            <div class="sy-card-body">
+              <div class="sy-card-emblem" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                  <circle cx="60" cy="60" r="50" stroke="#D9A441" stroke-opacity="0.38" stroke-width="1"/>
+                  <!-- Octagonal Opera Caisson (戏台藻井) -->
+                  <polygon points="44,18 76,18 98,40 98,72 76,94 44,94 22,72 22,40" fill="#1B0E14" stroke="#D9A441" stroke-width="1.4"/>
+                  <polygon points="48,26 72,26 88,42 88,70 72,86 48,86 32,70 32,42" stroke="#5B2336" stroke-width="1.6"/>
+                  <polygon points="53,35 67,35 77,45 77,67 67,77 53,77 43,67 43,45" stroke="#D9A441" stroke-opacity="0.65" stroke-width="1"/>
+                  <!-- Gramophone Horn & Tape Reel Center -->
+                  <path d="M44 56L72 42V70Z" fill="#5B2336" fill-opacity="0.45" stroke="#F2E8D5" stroke-width="1.35" stroke-linejoin="round"/>
+                  <circle cx="60" cy="56" r="10" stroke="#D9A441" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="3 2"/>
+                  <!-- Sealed Putty Cross Lines -->
+                  <path d="M29 31L91 81M91 31L29 81" stroke="#F2E8D5" stroke-opacity="0.32" stroke-width="1" stroke-dasharray="4 3"/>
+                  <circle cx="60" cy="56" r="3" fill="#D9A441"/>
+                </svg>
+              </div>
+              <p class="sy-card-locality">戏码渡 · 老剧团音像室与古戏台</p>
+              <h2 class="sy-card-title">第三幕 借腔台</h2>
+              <div class="sy-card-rule" aria-hidden="true"><span></span></div>
+              <p class="sy-card-synopsis">戏码渡剧团留下一卷一九八六年的封箱录音，当年演出记录与古戏台修缮档案有几处对不上。</p>
+              <p class="sy-card-case">卷档 · CASE-SY-03 · 独立可开卷</p>
+              <span class="sy-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Act 4 -->
+      <article class="sy-card sy-card--act" data-reel-card>
+        <a class="sy-card-link" href="/mystery/shiyin/act-4/">
+          <div class="sy-folio-surface">
+            <div class="sy-folio-head">
+              <span class="sy-card-vol">卷肆 · ACT 04</span>
+              <span class="sy-card-pillar">漏更</span>
+            </div>
+            <div class="sy-card-body">
+              <div class="sy-card-emblem" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                  <circle cx="60" cy="60" r="50" stroke="#D9A441" stroke-opacity="0.38" stroke-width="1"/>
+                  <!-- Five Night-Watch Beat Ticks (五更打点) -->
+                  <path d="M32 30H88" stroke="#5B2336" stroke-width="2"/>
+                  <circle cx="38" cy="30" r="2.2" fill="#D9A441"/>
+                  <circle cx="49" cy="30" r="2.2" fill="#D9A441"/>
+                  <circle cx="60" cy="30" r="2.2" fill="#D9A441"/>
+                  <circle cx="71" cy="30" r="2.2" fill="#D9A441"/>
+                  <circle cx="82" cy="30" r="2.4" fill="#F2E8D5"/>
+                  <!-- Night-Watch Drum (更鼓) & Wooden Clapper (暗梆) -->
+                  <ellipse cx="60" cy="61" rx="28" ry="20" fill="#1B0E14" stroke="#D9A441" stroke-width="1.5"/>
+                  <ellipse cx="60" cy="55" rx="22" ry="12" fill="#5B2336" fill-opacity="0.45" stroke="#F2E8D5" stroke-opacity="0.78" stroke-width="1.2"/>
+                  <circle cx="39" cy="66" r="1.5" fill="#D9A441"/>
+                  <circle cx="49" cy="70" r="1.5" fill="#D9A441"/>
+                  <circle cx="60" cy="72" r="1.5" fill="#D9A441"/>
+                  <circle cx="71" cy="70" r="1.5" fill="#D9A441"/>
+                  <circle cx="81" cy="66" r="1.5" fill="#D9A441"/>
+                  <!-- Clapper & Mallet -->
+                  <path d="M35 89H85" stroke="#D9A441" stroke-width="2.2" stroke-linecap="round"/>
+                  <path d="M44 85V93M76 85V93" stroke="#F2E8D5" stroke-width="1.2" stroke-linecap="round"/>
+                  <path d="M60 45L76 38" stroke="#F2E8D5" stroke-width="1.4" stroke-linecap="round"/>
+                  <circle cx="60" cy="45" r="2.6" fill="#D9A441"/>
+                </svg>
+              </div>
+              <p class="sy-card-locality">更鼓巷 · 古城更楼与夜间噪测站</p>
+              <h2 class="sy-card-title">第四幕 漏更鼓</h2>
+              <div class="sy-card-rule" aria-hidden="true"><span></span></div>
+              <p class="sy-card-synopsis">更鼓巷冬季夜间联测留下两路录音，街头测点与旧更楼值班记录对不上。</p>
+              <p class="sy-card-case">卷档 · CASE-SY-04 · 独立可开卷</p>
+              <span class="sy-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Act 5 -->
+      <article class="sy-card sy-card--act" data-reel-card>
+        <a class="sy-card-link" href="/mystery/shiyin/act-5/">
+          <div class="sy-folio-surface">
+            <div class="sy-folio-head">
+              <span class="sy-card-vol">卷伍 · ACT 05</span>
+              <span class="sy-card-pillar">封盘</span>
+            </div>
+            <div class="sy-card-body">
+              <div class="sy-card-emblem" aria-hidden="true">
+                <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                  <circle cx="60" cy="60" r="50" stroke="#D9A441" stroke-opacity="0.38" stroke-width="1"/>
+                  <!-- 78-RPM Shellac Master Disc -->
+                  <circle cx="60" cy="60" r="40" fill="#180C11" stroke="#D9A441" stroke-width="1.6"/>
+                  <circle cx="60" cy="60" r="34" stroke="#F2E8D5" stroke-opacity="0.24" stroke-width="0.9"/>
+                  <circle cx="60" cy="60" r="28" stroke="#D9A441" stroke-opacity="0.46" stroke-width="1.2" stroke-dasharray="10 4 2 4"/>
+                  <circle cx="60" cy="60" r="22" stroke="#F2E8D5" stroke-opacity="0.22" stroke-width="0.9"/>
+                  <!-- Center Plum Label & Spindle -->
+                  <circle cx="60" cy="60" r="14" fill="#5B2336" stroke="#D9A441" stroke-width="1.3"/>
+                  <circle cx="60" cy="60" r="3.5" fill="#120B0D" stroke="#F2E8D5" stroke-width="1.1"/>
+                  <!-- Crossed Archive Seal Bands -->
+                  <path d="M27 42L93 78" stroke="#D9A441" stroke-opacity="0.72" stroke-width="1.3" stroke-dasharray="4 2.5"/>
+                  <path d="M93 42L27 78" stroke="#F2E8D5" stroke-opacity="0.58" stroke-width="1.3" stroke-dasharray="4 2.5"/>
+                  <!-- Tonearm Stylus -->
+                  <path d="M95 25L84 48L69 57" stroke="#F2E8D5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="95" cy="25" r="3.2" fill="#120B0D" stroke="#D9A441" stroke-width="1.3"/>
+                </svg>
+              </div>
+              <p class="sy-card-locality">省音像资料馆 · 恒温母盘库与调度台</p>
+              <h2 class="sy-card-title">第五幕 封盘室</h2>
+              <div class="sy-card-rule" aria-hidden="true"><span></span></div>
+              <p class="sy-card-synopsis">省音像资料馆留下一份年底联测日报，汇总记录与接收机所印时刻出现出入。</p>
+              <p class="sy-card-case">卷档 · CASE-SY-05 · 独立可开卷</p>
+              <span class="sy-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+            </div>
+          </div>
+        </a>
+      </article>
+
+      <!-- Card 6: Sealed Continuation Card -->
+      <article class="sy-card sy-card--sealed" data-reel-card>
+        <div class="sy-folio-surface">
+          <div class="sy-folio-head">
+            <span class="sy-card-vol">后续卷</span>
+            <span class="sy-card-pillar">封匣</span>
+          </div>
+          <div class="sy-card-body sy-card-body--sealed">
+            <div class="sy-card-emblem sy-card-emblem--sealed" aria-hidden="true">
+              <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                <!-- Sealed Lacquer Disc Vault -->
+                <rect x="24" y="20" width="72" height="54" rx="4" fill="#120B0D" stroke="#D9A441" stroke-width="1.4"/>
+                <circle cx="60" cy="47" r="18" stroke="#5B2336" stroke-width="2"/>
+                <circle cx="60" cy="47" r="12" stroke="#D9A441" stroke-opacity="0.55" stroke-width="1" stroke-dasharray="3 2"/>
+                <!-- Crossed Plum-Gold Seal Strips -->
+                <path d="M22 28L98 64L94 70L18 34Z" fill="#5B2336" fill-opacity="0.65" stroke="#D9A441" stroke-width="1.15"/>
+                <path d="M98 28L22 64L26 70L102 34Z" fill="#5B2336" fill-opacity="0.65" stroke="#D9A441" stroke-width="1.15"/>
+                <polygon points="60,38 69,47 60,56 51,47" fill="#120B0D" stroke="#F2E8D5" stroke-width="1.2"/>
+                <circle cx="60" cy="47" r="2.4" fill="#D9A441"/>
+                <!-- Five Gongche Pitch-Slip Stubs (五联工尺音签) -->
+                <g stroke-width="1.1">
+                  <rect x="28" y="83" width="10" height="15" stroke="#D9A441" stroke-dasharray="2 1.5"/>
+                  <rect x="41" y="83" width="10" height="15" stroke="#D9A441" stroke-dasharray="2 1.5"/>
+                  <rect x="54" y="83" width="10" height="15" stroke="#F2E8D5" stroke-dasharray="2 1.5"/>
+                  <rect x="67" y="83" width="10" height="15" stroke="#D9A441" stroke-dasharray="2 1.5"/>
+                  <rect x="80" y="85" width="10" height="15" transform="rotate(6 85 92.5)" stroke="#F2E8D5" fill="#5B2336" fill-opacity="0.55"/>
+                </g>
+              </svg>
+            </div>
+            <p class="sy-card-locality">总录合匣</p>
+            <p class="sy-sealed-note">五幕戏路档案均留有工尺音签。集齐五地音签后，可由此核入十音总录律吕密档。</p>
+            <details id="continuation" class="sy-continuation">
+              <summary class="sy-continuation-summary">
+                <span class="sy-continuation-title">未完待续</span>
+                <span class="sy-continuation-action">查看</span>
+              </summary>
+              <p class="sy-continuation-copy">此页留待下一批声律母带档案校勘完成。集齐五幕工尺音签的读者可<a href="/mystery/shiyin/reading-room/">核对音签</a>。</p>
+            </details>
+          </div>
+        </div>
+      </article>
+    </main>
+
+    <!-- Bottom Lacquer-Folio Stage HUD -->
+    <footer class="reel-hud">
+      <p class="sy-colophon">《十音簿》为虚构作品 · 卷内网址为站内模拟旧网</p>
+      <div class="reel-controls">
+        <span class="reel-counter" data-reel-counter aria-live="polite">01 / 06</span>
+        <div class="reel-progress-track" aria-hidden="true">
+          <span class="reel-progress-fill" data-reel-progress></span>
+        </div>
+        <div class="reel-buttons">
+          <button type="button" class="reel-nav-btn" data-reel-prev aria-label="上一幕">
+            <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
+              <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button type="button" class="reel-nav-btn" data-reel-next aria-label="下一幕">
+            <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
+              <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

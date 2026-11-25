@@ -1,0 +1,809 @@
+{
+  "caseId": "CASE-SY-04",
+  "storageKey": "shiyin_save_v1_ch04",
+  "homeUrl": "https://index.gengguxiang.lh/",
+  "seriesKey": "shiyin",
+  "archiveBrand": "十音簿声律档案",
+  "snapshotButtonLabels": {
+    "enter": "切至原始母带",
+    "exit": "返回数字转录版"
+  },
+  "search": {
+    "domain": "search.shiyin.lh",
+    "siteName": "十音簿检索",
+    "tagline": "查找更鼓巷旧网档案",
+    "hotQueries": [
+      "夜间录音",
+      "鼓腔",
+      "定宵约"
+    ],
+    "syntaxTips": [
+      "用 site:域名 关键词 查找指定站点的条目。"
+    ],
+    "entries": [],
+    "quickDomains": [
+      "index.gengguxiang.lh",
+      "chengjian.gengguxiang.lh",
+      "minsu.gengguxiang.lh",
+      "zaosheng.gengguxiang.lh",
+      "laoju.gengguxiang.lh",
+      "shouli.gengguxiang.lh"
+    ]
+  },
+  "sites": [
+    {
+      "domain": "index.gengguxiang.lh",
+      "title": "更鼓巷旧网目录",
+      "heading": "更鼓巷旧网目录",
+      "style": "directory",
+      "strap": "第四幕 漏更鼓",
+      "intro": [
+        "第一步请到更鼓巷夜间噪声监测站，打开《更楼夜间录音库》，点按「切至原始母带」，比对收板后楼内与巷口两路录音。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.gengguxiang.lh/",
+          "label": "本站首页"
+        },
+        {
+          "url": "https://index.gengguxiang.lh/",
+          "label": "旧网目录"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://zaosheng.gengguxiang.lh/night-db",
+          "label": "更楼夜间录音库"
+        },
+        {
+          "url": "https://chengjian.gengguxiang.lh/",
+          "label": "更鼓巷城建公示栏"
+        },
+        {
+          "url": "https://minsu.gengguxiang.lh/",
+          "label": "青溪城厢民俗馆"
+        },
+        {
+          "url": "https://zaosheng.gengguxiang.lh/",
+          "label": "更鼓巷夜间噪声监测站"
+        },
+        {
+          "url": "https://laoju.gengguxiang.lh/",
+          "label": "更鼓巷老街坊论坛"
+        },
+        {
+          "url": "https://shouli.gengguxiang.lh/",
+          "label": "更鼓巷声档复核受理处"
+        }
+      ],
+      "footer": "更鼓巷旧网目录旧网页存档"
+    },
+    {
+      "domain": "chengjian.gengguxiang.lh",
+      "title": "更鼓巷城建公示栏",
+      "heading": "更鼓巷城建公示栏",
+      "style": "public",
+      "strap": "旧更楼整修",
+      "intro": [
+        "查阅更楼改造工单、工程验收资料与恢复开放公告。"
+      ],
+      "nav": [
+        {
+          "url": "https://chengjian.gengguxiang.lh/",
+          "label": "本站首页"
+        },
+        {
+          "url": "https://index.gengguxiang.lh/",
+          "label": "旧网目录"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://chengjian.gengguxiang.lh/wall-order",
+          "label": "本栏档案"
+        }
+      ],
+      "footer": "更鼓巷城建公示栏旧网页存档"
+    },
+    {
+      "domain": "minsu.gengguxiang.lh",
+      "title": "青溪城厢民俗馆",
+      "heading": "青溪城厢民俗馆",
+      "style": "library",
+      "strap": "城厢夜巡旧俗",
+      "intro": [
+        "本馆按抄本与口述史分册归档，供查考旧时打更规矩。"
+      ],
+      "nav": [
+        {
+          "url": "https://minsu.gengguxiang.lh/",
+          "label": "本站首页"
+        },
+        {
+          "url": "https://index.gengguxiang.lh/",
+          "label": "旧网目录"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://minsu.gengguxiang.lh/curfew-copy",
+          "label": "本栏档案"
+        }
+      ],
+      "footer": "青溪城厢民俗馆旧网页存档"
+    },
+    {
+      "domain": "zaosheng.gengguxiang.lh",
+      "title": "更鼓巷夜间噪声监测站",
+      "heading": "更鼓巷夜间噪声监测站",
+      "style": "hydro",
+      "strap": "更楼声源观测",
+      "intro": [
+        "查阅更楼值班记录、夜间录音及仪器布点说明。"
+      ],
+      "nav": [
+        {
+          "url": "https://zaosheng.gengguxiang.lh/",
+          "label": "本站首页"
+        },
+        {
+          "url": "https://index.gengguxiang.lh/",
+          "label": "旧网目录"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://zaosheng.gengguxiang.lh/night-db",
+          "label": "更楼夜间录音库"
+        }
+      ],
+      "footer": "更鼓巷夜间噪声监测站旧网页存档"
+    },
+    {
+      "domain": "laoju.gengguxiang.lh",
+      "title": "更鼓巷老街坊论坛",
+      "heading": "更鼓巷老街坊论坛",
+      "style": "community",
+      "strap": "街坊旧帖",
+      "intro": [
+        "这里保留更亭失物认领、街坊听音和巷史口述等旧帖。"
+      ],
+      "nav": [
+        {
+          "url": "https://laoju.gengguxiang.lh/",
+          "label": "本站首页"
+        },
+        {
+          "url": "https://index.gengguxiang.lh/",
+          "label": "旧网目录"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://laoju.gengguxiang.lh/drum-rumor",
+          "label": "本栏档案"
+        }
+      ],
+      "footer": "更鼓巷老街坊论坛旧网页存档"
+    },
+    {
+      "domain": "shouli.gengguxiang.lh",
+      "title": "更鼓巷声档复核受理处",
+      "heading": "更鼓巷声档复核受理处",
+      "style": "office",
+      "strap": "第四幕 漏更鼓",
+      "intro": [
+        "请按受理顺序核对六项证据，再提交定案回执。"
+      ],
+      "nav": [
+        {
+          "url": "https://shouli.gengguxiang.lh/",
+          "label": "本站首页"
+        },
+        {
+          "url": "https://index.gengguxiang.lh/",
+          "label": "旧网目录"
+        }
+      ],
+      "links": [
+        {
+          "url": "https://shouli.gengguxiang.lh/protocol",
+          "label": "本栏档案"
+        },
+        {
+          "url": "https://shouli.gengguxiang.lh/midnight-beat",
+          "label": "核对夜鼓原带"
+        },
+        {
+          "url": "https://shouli.gengguxiang.lh/drum-demolish",
+          "label": "核对更楼封砌工单"
+        },
+        {
+          "url": "https://shouli.gengguxiang.lh/curfew-rule",
+          "label": "核对定宵旧约"
+        },
+        {
+          "url": "https://shouli.gengguxiang.lh/courier-case",
+          "label": "核对更亭失物"
+        },
+        {
+          "url": "https://shouli.gengguxiang.lh/hidden-log",
+          "label": "核对夜测草稿"
+        },
+        {
+          "url": "https://shouli.gengguxiang.lh/drum-reopen",
+          "label": "核对更楼恢复开放措施"
+        },
+        {
+          "url": "https://shouli.gengguxiang.lh/receipt",
+          "label": "漏更鼓结案回执"
+        }
+      ],
+      "footer": "更鼓巷声档复核受理处旧网页存档",
+      "kind": "review"
+    }
+  ],
+  "records": [
+    {
+      "site": "zaosheng.gengguxiang.lh",
+      "id": "night-db",
+      "title": "更楼夜间录音库",
+      "date": "2008-12-31",
+      "paragraphs": [
+        "冬季联测的数字转录版把末更之后的波形归入巷道底噪，检索时只显示整夜的起止时间。更夫巡签已在末更交回，更楼门房当夜没有补发钥匙。",
+        "如需辨别收板之后是否仍有鼓声，请按原始母带上的报时口令定位。楼内、巷口两路须对着听，转录版合成单声道后已无法分辨哪一路先起。"
+      ],
+      "keywords": [
+        "夜间录音",
+        "更楼",
+        "原始母带"
+      ],
+      "snapshot": {
+        "date": "2008-12-30",
+        "paragraphs": [
+          "带头报时口令为五更三点。录音员说完更牌已收，把话筒搁回窗台。过了半拍，楼内拾音先收到一记短促的闷响，巷口一路随后才听见它。",
+          "值班员把这一下记作余响一击。同期录影显示木槌仍横在鼓架上，楼上没有巡更人。纸带外盒所写的鼓腔封砌与当夜录音位置有关，需回查城建工单。"
+        ],
+        "notes": [
+          "设备分轨以测点表为准。"
+        ],
+        "links": [
+          {
+            "url": "https://chengjian.gengguxiang.lh/wall-order",
+            "label": "查更楼鼓腔封砌工单"
+          }
+        ]
+      }
+    },
+    {
+      "site": "zaosheng.gengguxiang.lh",
+      "id": "meter-map",
+      "title": "冬季联测测点表",
+      "date": "2008-12-29",
+      "paragraphs": [
+        "楼内话筒固定在鼓架侧边的窗台，巷口话筒设在更亭柱上。两机开录时共用有线同步脉冲，换盘以前在带头录一段口述，方便后来的值班员对时。",
+        "更亭这一轨可以收到路上脚步和推车经过的杂声，鼓架这一轨则保留贴墙的回声。数字件只供通览，凡须判断声音先后，统一回原始带分轨复听。"
+      ],
+      "keywords": [
+        "测点",
+        "分轨",
+        "更楼"
+      ],
+      "links": [
+        {
+          "url": "https://zaosheng.gengguxiang.lh/night-db",
+          "label": "返回更楼夜间录音库"
+        }
+      ]
+    },
+    {
+      "site": "zaosheng.gengguxiang.lh",
+      "id": "rough-log",
+      "title": "夜间噪测原始草稿",
+      "date": "2008-12-31",
+      "paragraphs": [
+        "封砌工单GG-412所记的北侧门洞已逐孔核对。复测前在楼梯口贴纸封，拔掉电子更器插头，并在两支话筒的带头各录一次对时口令。值班员怀疑夜半传出的闷响近似旧时巡夜人私敲暗梆。",
+        "收板以后纸封没动，楼内仍比巷口先收到一声闷鼓。草稿定名空楼自鸣，声源栏暂记鼓腔内侧。值班员将这卷留给总录通道SY-10，再把两路数据送城建复验。"
+      ],
+      "keywords": [
+        "暗梆",
+        "夜间噪测"
+      ],
+      "listed": false,
+      "index": "site",
+      "links": [
+        {
+          "url": "https://chengjian.gengguxiang.lh/reopen-notice",
+          "label": "查恢复开放公告"
+        }
+      ]
+    },
+    {
+      "site": "chengjian.gengguxiang.lh",
+      "id": "wall-order",
+      "title": "更楼门洞封砌工单",
+      "date": "2008-11-12",
+      "paragraphs": [
+        "现场签收联编号GG-412，施工位置栏填写鼓腔门洞。班组在北侧拱脚内砌砖至顶，完工单上写的是挡雨。施工前的测绘图仍把这处门洞画作鼓腔出声口。",
+        "复查时，监理把签收联和批准图逐项对照，认定此项属于越项施工，并将工单退回。原来的门洞为何要留空，请查民俗馆所收定宵旧约及抄本附页。"
+      ],
+      "keywords": [
+        "鼓腔",
+        "封砌",
+        "城建工单"
+      ],
+      "links": [
+        {
+          "url": "https://minsu.gengguxiang.lh/curfew-copy",
+          "label": "查更鼓定宵旧约"
+        }
+      ]
+    },
+    {
+      "site": "chengjian.gengguxiang.lh",
+      "id": "inspection",
+      "title": "更楼工程复查纪要",
+      "date": "2008-11-19",
+      "paragraphs": [
+        "复查人员由更亭沿后梯上楼，在鼓架背后找到两层颜色不同的砖。旧拱券的灰缝较宽，新砖用水泥抹平，砖脚还压住了原来固定木挡板的孔眼。",
+        "墙体绘图员将拱券、挡板孔与新砌体分别标注，送馆方核对旧照片。工程组暂缓表面粉刷，等认清原墙与后补墙的接缝，再安排保护性拆除。"
+      ],
+      "keywords": [
+        "复查",
+        "旧砖",
+        "施工"
+      ],
+      "links": [
+        {
+          "url": "https://chengjian.gengguxiang.lh/wall-order",
+          "label": "查封砌工单"
+        }
+      ]
+    },
+    {
+      "site": "chengjian.gengguxiang.lh",
+      "id": "reopen-notice",
+      "title": "更楼恢复开放复验公告",
+      "date": "2009-01-04",
+      "paragraphs": [
+        "拆除北侧补砖后，营造组按旧灰缝修边，恢复鼓腔门洞。复验当夜先试敲三点，确认楼内外对时无误，再按旧约收板，收板后连续守听至天明。",
+        "公告将复验措施写为停电子更，恢复门洞后的值守方式登记为人工收板。鼓槌回架、代鼓停电、门洞复尺均已签收，夜间原带随复验单移交受理处。"
+      ],
+      "keywords": [
+        "复验",
+        "恢复开放",
+        "电子代鼓"
+      ],
+      "links": [
+        {
+          "url": "https://shouli.gengguxiang.lh/drum-reopen",
+          "label": "提交复验结果"
+        }
+      ]
+    },
+    {
+      "site": "minsu.gengguxiang.lh",
+      "id": "curfew-copy",
+      "title": "《青溪城厢更鼓定宵约》抄本",
+      "date": "2008-09-18",
+      "paragraphs": [
+        "《青溪城厢更鼓定宵约》抄文曰：“五更落定，打点收板；禁更之后，巷坊毋得复敲暗梆。”附页把这条记入夜巡旧约，并画出归还梆板的位置。",
+        "用今天的话说，末更报完就把梆板收起来，夜巡已经结束，坊间再偷偷敲一点便违了规矩。更亭是交板和登记的地方，馆员还在附页夹存了街坊提供的近年失物登记。"
+      ],
+      "keywords": [
+        "定宵约",
+        "更鼓",
+        "城厢"
+      ],
+      "links": [
+        {
+          "url": "https://laoju.gengguxiang.lh/tool-case",
+          "label": "查巷口更亭失物登记"
+        }
+      ]
+    },
+    {
+      "site": "minsu.gengguxiang.lh",
+      "id": "night-route",
+      "title": "城厢巡更路线附图释读",
+      "date": "2008-09-22",
+      "paragraphs": [
+        "附图从南市口画到北水关，在线路折回更楼前圈出一间更亭。亭后有一条短阶，走夜路的人可以从台阶下避雨，等更夫回来再把门闩挂上。",
+        "抄本在更楼北壁留出一道白口，边上只写听巷两字。访谈录里有人记得寒天挂木挡迎风，换季再撤；不同时期是否用了同一块挡板，仍待查实。"
+      ],
+      "keywords": [
+        "更亭",
+        "巡更路线",
+        "方志"
+      ]
+    },
+    {
+      "site": "minsu.gengguxiang.lh",
+      "id": "clapper-ledger",
+      "title": "梆板与更牌入藏清册",
+      "date": "2008-10-03",
+      "paragraphs": [
+        "馆里收到一块榆木梆板和两面纸衬更牌，梆板系绳处磨得发亮。捐赠人说，老人收板时会把梆板用布卷好，竖在更亭靠里的架角，以免碰出声响。",
+        "纸衬更牌背面有两次重新编号的墨迹，经手人把号码一并照录，旧绳仍系在原孔里。供展用的仿件由木工另制，原物随抄本装入同柜保管。"
+      ],
+      "keywords": [
+        "梆板",
+        "更牌",
+        "入藏"
+      ]
+    },
+    {
+      "site": "laoju.gengguxiang.lh",
+      "id": "tool-case",
+      "title": "巷口更亭失物登记",
+      "date": "2008-12-30",
+      "paragraphs": [
+        "早班管理员在更亭后窗下捡到调音工具箱，里头有线圈、短柄调音扳手和一张旧工牌。箱主一栏按牌面抄录为陆闻笙，工牌号是YS-10。",
+        "借钥匙的纸条写着请将双轨录音交夜班，找箱的人问过街坊是否听见过收板后的那一下。失主未到更亭时，管理员把箱盖闭好，另把街坊的话抄进旧帖。"
+      ],
+      "keywords": [
+        "工具箱",
+        "更亭",
+        "失物"
+      ],
+      "links": [
+        {
+          "url": "https://laoju.gengguxiang.lh/drum-rumor",
+          "label": "查街坊听鼓旧帖"
+        }
+      ]
+    },
+    {
+      "site": "laoju.gengguxiang.lh",
+      "id": "drum-rumor",
+      "title": "收板之后谁听见了鼓",
+      "date": "2008-12-31",
+      "paragraphs": [
+        "卖早点的周嫂说，她醒时正淘米，先听到更楼那边一声闷响，再听见水管振了一下。楼下看门的说钥匙整夜挂在柜里，早班来时封楼纸条还贴在门缝上。",
+        "楼主把这两段话分开记下，提醒跟帖人写清自己站在哪间屋、窗户开向哪边。几位夜班测声的街坊只留下了测点位置，说纸上的原话应去夜间噪声监测站找。"
+      ],
+      "keywords": [
+        "街坊听音",
+        "鼓声",
+        "旧帖"
+      ],
+      "source": "<!-- 审音人-癸：夜班草稿留在站内索引。请检索 site:zaosheng.gengguxiang.lh 暗梆。 -->"
+    },
+    {
+      "site": "laoju.gengguxiang.lh",
+      "id": "shop-oral",
+      "title": "修伞铺口述整理",
+      "date": "2008-12-24",
+      "paragraphs": [
+        "修伞铺在北巷做了三十多年，掌柜听得出更楼敲鼓与街口敲铁盆的区别。换上电子更器那年，家里孩子拿收音机跟着对时，他才知道新声音是从檐下传出来的。",
+        "整理者请掌柜在街图上圈出平时收摊的位置，当天雨棚的挂法也记在图旁。后来巷口搬了果摊，棚布压低一截，过夜回声的来路便更难单凭耳朵分辨。"
+      ],
+      "keywords": [
+        "修伞铺",
+        "鼓声",
+        "街坊"
+      ]
+    },
+    {
+      "site": "shouli.gengguxiang.lh",
+      "id": "protocol",
+      "title": "更楼联合复核收件办法",
+      "date": "2008-12-31",
+      "paragraphs": [
+        "复核处依次收取原带时点、工程签收联、旧约抄本、工具箱登记、夜测草稿与恢复开放公告。每项登记须抄录原件词句，手写件可按站内页面所列题名核对。",
+        "复核席把夜间录音和工程材料合在一案办理，原卷退归各站。最后一单签收后，才收定案回执并记音签，另把双轨带的交接时间填入后续调阅簿。"
+      ],
+      "keywords": [
+        "复核",
+        "收件",
+        "联测"
+      ]
+    },
+    {
+      "site": "shouli.gengguxiang.lh",
+      "id": "filing-slip",
+      "title": "更鼓巷结卷项目抄录",
+      "date": "2009-01-04",
+      "paragraphs": [
+        "定案所用案名登记为漏更鼓，整改项目以恢复开放公告为准。受理员将人工收板、停电子更和恢复门洞三项并列抄存，并附联测组签名的鼓架照片。",
+        "交接清册将双轨原带编入SY-10，工具箱仍由更亭暂存。技术档案组的收件联已经盖章，陆闻笙名下留着省馆封盘室的下一站交接栏，等来人补签。"
+      ],
+      "keywords": [
+        "结卷",
+        "复验",
+        "交接"
+      ]
+    },
+    {
+      "site": "shouli.gengguxiang.lh",
+      "id": "tape-handoff",
+      "title": "夜测带交接单",
+      "date": "2009-01-03",
+      "paragraphs": [
+        "值班员在防潮纸套上标了楼内轨与巷口轨，先把两路原带交给复核席核点，再按同一时间轴整理一份听辨副本。副本盒中另夹有接线图和换盘时间。",
+        "送交时两盘带的封口胶都保留在盒侧。复核席在清单上盖了骑缝章，备注最末半拍须连着此前收板口令一起保留，供下次测点比对时复听。"
+      ],
+      "keywords": [
+        "原带",
+        "夜测",
+        "交接"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "midnight-beat",
+      "title": "核对夜鼓原带",
+      "intro": [
+        "请在录音库切回原始母带，核对那一击的时点及分轨先后。"
+      ],
+      "leads": [
+        {
+          "url": "https://zaosheng.gengguxiang.lh/night-db",
+          "label": "更楼夜间录音库"
+        }
+      ],
+      "fields": [
+        {
+          "label": "带头报时时点",
+          "accept": [
+            "五更三点"
+          ]
+        },
+        {
+          "label": "值班员所记响声",
+          "accept": [
+            "余响一击"
+          ]
+        },
+        {
+          "label": "先响的一路",
+          "accept": [
+            "楼内拾音"
+          ]
+        }
+      ],
+      "hints": [
+        "切换版本后，按带头的报时口令往下读。"
+      ],
+      "receipt": [
+        "原带时点已入册。请查城建栏的更楼门洞封砌工单。"
+      ]
+    },
+    {
+      "id": "drum-demolish",
+      "title": "核对更楼封砌工单",
+      "intro": [
+        "按签收联和监理复查说明登记施工责任。"
+      ],
+      "leads": [
+        {
+          "url": "https://chengjian.gengguxiang.lh/wall-order",
+          "label": "更楼门洞封砌工单"
+        }
+      ],
+      "fields": [
+        {
+          "label": "签收联编号",
+          "accept": [
+            "GG-412"
+          ]
+        },
+        {
+          "label": "施工位置",
+          "accept": [
+            "鼓腔门洞"
+          ]
+        },
+        {
+          "label": "监理认定",
+          "accept": [
+            "越项施工"
+          ]
+        }
+      ],
+      "hints": [
+        "施工位置按签收联填写，施工性质按复查意见填写。"
+      ],
+      "receipt": [
+        "封砌事项已登记。请翻阅民俗馆所收定宵旧约。"
+      ]
+    },
+    {
+      "id": "curfew-rule",
+      "title": "核对定宵旧约",
+      "intro": [
+        "依抄文及附页确认末更结束后巷坊如何行事。"
+      ],
+      "leads": [
+        {
+          "url": "https://minsu.gengguxiang.lh/curfew-copy",
+          "label": "《青溪城厢更鼓定宵约》抄本"
+        }
+      ],
+      "fields": [
+        {
+          "label": "五更落定后的动作",
+          "accept": [
+            "打点收板"
+          ]
+        },
+        {
+          "label": "坊间禁敲的响器",
+          "accept": [
+            "暗梆"
+          ]
+        },
+        {
+          "label": "交板登记处",
+          "accept": [
+            "更亭"
+          ]
+        }
+      ],
+      "hints": [
+        "前两栏可从引文抄录，交板地点见白话释文。"
+      ],
+      "receipt": [
+        "旧例已核。接着查巷口更亭的失物登记。"
+      ]
+    },
+    {
+      "id": "courier-case",
+      "title": "核对更亭失物",
+      "intro": [
+        "用失物登记里的工牌和物件描述确认箱主身份。"
+      ],
+      "leads": [
+        {
+          "url": "https://laoju.gengguxiang.lh/tool-case",
+          "label": "巷口更亭失物登记"
+        }
+      ],
+      "fields": [
+        {
+          "label": "工牌号",
+          "accept": [
+            "YS-10"
+          ]
+        },
+        {
+          "label": "箱主姓名",
+          "accept": [
+            "陆闻笙"
+          ]
+        },
+        {
+          "label": "拾得物",
+          "accept": [
+            "调音工具箱"
+          ]
+        }
+      ],
+      "hints": [
+        "姓名与编号都取工牌抄录，拾得物按登记原文填写。"
+      ],
+      "receipt": [
+        "箱主已核。失物页连着听鼓旧帖，请查看旧帖页面源代码中的复核留言。"
+      ]
+    },
+    {
+      "id": "hidden-log",
+      "title": "核对夜测草稿",
+      "intro": [
+        "找到夜班草稿，核对现场条件与值班员记下的声音。"
+      ],
+      "leads": [
+        {
+          "url": "https://laoju.gengguxiang.lh/drum-rumor",
+          "label": "收板之后谁听见了鼓"
+        }
+      ],
+      "fields": [
+        {
+          "label": "草稿对响声的定名",
+          "accept": [
+            "空楼自鸣"
+          ]
+        },
+        {
+          "label": "关联工单号",
+          "accept": [
+            "GG-412"
+          ]
+        },
+        {
+          "label": "暂记声源",
+          "accept": [
+            "鼓腔内侧"
+          ]
+        }
+      ],
+      "hints": [
+        "依旧帖源代码中的复核留言做一次限定站点的检索。"
+      ],
+      "receipt": [
+        "草稿已入卷。请到城建公示栏查恢复开放复验公告。"
+      ]
+    },
+    {
+      "id": "drum-reopen",
+      "title": "核对更楼恢复开放措施",
+      "intro": [
+        "按复验公告填写停用措施、恢复部位与值守方式。"
+      ],
+      "leads": [
+        {
+          "url": "https://chengjian.gengguxiang.lh/reopen-notice",
+          "label": "更楼恢复开放复验公告"
+        }
+      ],
+      "fields": [
+        {
+          "label": "停用措施",
+          "accept": [
+            "停电子更"
+          ]
+        },
+        {
+          "label": "恢复部位",
+          "accept": [
+            "鼓腔门洞"
+          ]
+        },
+        {
+          "label": "复验后值守方式",
+          "accept": [
+            "人工收板"
+          ]
+        }
+      ],
+      "hints": [
+        "复验公告将停用措施与值守方式分栏记载。"
+      ],
+      "receipt": [
+        "复验项目已签收。请按结卷抄录提交定案。"
+      ]
+    }
+  ],
+  "conclusion": {
+    "id": "receipt",
+    "title": "漏更鼓结案回执",
+    "intro": [
+      "六项复核提交后，按结卷抄录填写案名、停用措施及母带总录编号。"
+    ],
+    "leads": [
+      {
+        "url": "https://shouli.gengguxiang.lh/filing-slip",
+        "label": "更鼓巷结卷项目抄录"
+      }
+    ],
+    "fields": [
+      {
+        "label": "结案案名",
+        "accept": [
+          "漏更鼓"
+        ]
+      },
+      {
+        "label": "停用措施",
+        "accept": [
+          "停电子更"
+        ]
+      },
+      {
+        "label": "母带总录编号",
+        "accept": [
+          "SY-10"
+        ]
+      }
+    ],
+    "hints": [
+      "三项均可在结卷抄录中找到。"
+    ],
+    "receipt": [
+      "更鼓巷更楼已重开鼓腔，电子代鼓停用。原始双轨母带并入总录，工具箱登记随卷留存。",
+      "本卷工尺音签：ZH。"
+    ]
+  }
+}

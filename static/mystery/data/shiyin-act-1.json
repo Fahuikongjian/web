@@ -1,0 +1,899 @@
+{
+  "caseId": "CASE-SY-01",
+  "storageKey": "shiyin_save_v1_ch01",
+  "homeUrl": "https://index.zhongtan.lh/",
+  "seriesKey": "shiyin",
+  "archiveBrand": "十音簿声律档案",
+  "snapshotButtonLabels": {
+    "enter": "切至原始母带",
+    "exit": "返回数字转录版"
+  },
+  "search": {
+    "domain": "search.shiyin.lh",
+    "siteName": "十音簿旧网检索",
+    "tagline": "钟潭镇广电与地方档案索引",
+    "hotQueries": [
+      "跨年报时",
+      "钟腹铭拓",
+      "修缮公示"
+    ],
+    "syntaxTips": [
+      "可按档名或工单号查找。站内检索格式为 site:域名 关键词。"
+    ],
+    "entries": [],
+    "quickDomains": [
+      "gongshi.zhongtan.lh",
+      "zhizhi.zhongtan.lh",
+      "bobao.zhongtan.lh",
+      "zhongsheng.zhongtan.lh",
+      "jiaoyin.zhongtan.lh"
+    ]
+  },
+  "sites": [
+    {
+      "domain": "index.zhongtan.lh",
+      "title": "钟潭广电与古钟旧网目录",
+      "heading": "第一幕 哑钟楼",
+      "style": "directory",
+      "strap": "青溪戏路钟潭节点旧网镜像",
+      "intro": [
+        "跨年直播结束后，钟楼下的住户来电称末响之后似乎还余一声。请先到钟潭广播播控遥测站打开《跨年报时录音转录单》，对照数字转录版与原始母带。"
+      ],
+      "nav": [
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "旧网检索"
+        },
+        {
+          "url": "https://index.zhongtan.lh/",
+          "label": "旧网目录"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/",
+          "label": "复核收件"
+        }
+      ],
+      "footer": "钟潭广电与古钟旧网目录 · 钟潭镇旧网存档",
+      "links": [
+        {
+          "url": "https://bobao.zhongtan.lh/newyear-tape",
+          "label": "跨年报时录音转录单"
+        },
+        {
+          "url": "https://gongshi.zhongtan.lh/",
+          "label": "钟潭古钟楼修缮公示栏"
+        },
+        {
+          "url": "https://zhizhi.zhongtan.lh/",
+          "label": "钟潭地方志与声律碑馆"
+        },
+        {
+          "url": "https://bobao.zhongtan.lh/",
+          "label": "钟潭广播播控遥测站"
+        },
+        {
+          "url": "https://zhongsheng.zhongtan.lh/",
+          "label": "钟潭老街坊听音论坛"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/",
+          "label": "钟潭跨年报时校音复核处"
+        }
+      ]
+    },
+    {
+      "domain": "gongshi.zhongtan.lh",
+      "title": "钟潭古钟楼修缮公示栏",
+      "heading": "钟潭古钟楼修缮公示栏",
+      "style": "public",
+      "strap": "镇修缮办工程公示",
+      "intro": [
+        "本栏收存古钟楼修缮公示、工程移交件及复原方案。签发日期以各页落款为准。"
+      ],
+      "nav": [
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "旧网检索"
+        },
+        {
+          "url": "https://index.zhongtan.lh/",
+          "label": "旧网目录"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/",
+          "label": "复核收件"
+        }
+      ],
+      "footer": "钟潭古钟楼修缮公示栏 · 钟潭镇旧网存档"
+    },
+    {
+      "domain": "zhizhi.zhongtan.lh",
+      "title": "钟潭地方志与声律碑馆",
+      "heading": "钟潭地方志与声律碑馆",
+      "style": "library",
+      "strap": "县志办碑拓与旧抄",
+      "intro": [
+        "碑拓照录原字，标点由馆员补入。乐社抄本与钟楼铭文分架存放。"
+      ],
+      "nav": [
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "旧网检索"
+        },
+        {
+          "url": "https://index.zhongtan.lh/",
+          "label": "旧网目录"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/",
+          "label": "复核收件"
+        }
+      ],
+      "footer": "钟潭地方志与声律碑馆 · 钟潭镇旧网存档"
+    },
+    {
+      "domain": "bobao.zhongtan.lh",
+      "title": "钟潭广播播控遥测站",
+      "heading": "钟潭广播播控遥测站",
+      "style": "hydro",
+      "strap": "钟楼拾音与跨年播出档",
+      "intro": [
+        "本站保存塔内拾音、锤位触点和发射端回录。带盘日期按开录时刻登记。"
+      ],
+      "nav": [
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "旧网检索"
+        },
+        {
+          "url": "https://index.zhongtan.lh/",
+          "label": "旧网目录"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/",
+          "label": "复核收件"
+        }
+      ],
+      "footer": "钟潭广播播控遥测站 · 钟潭镇旧网存档"
+    },
+    {
+      "domain": "zhongsheng.zhongtan.lh",
+      "title": "钟潭老街坊听音论坛",
+      "heading": "钟潭老街坊听音论坛",
+      "style": "community",
+      "strap": "钟楼街坊自办版面",
+      "intro": [
+        "老街口的事可按当晚所站位置留言。转述他人听闻时，请注明出处。"
+      ],
+      "nav": [
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "旧网检索"
+        },
+        {
+          "url": "https://index.zhongtan.lh/",
+          "label": "旧网目录"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/",
+          "label": "复核收件"
+        }
+      ],
+      "footer": "钟潭老街坊听音论坛 · 钟潭镇旧网存档"
+    },
+    {
+      "domain": "jiaoyin.zhongtan.lh",
+      "title": "钟潭跨年报时校音复核处",
+      "heading": "钟潭跨年报时校音复核处",
+      "style": "office",
+      "strap": "跨年报时原件复核与归档",
+      "intro": [
+        "请依次核对母带、修缮工单、铭文、进场登记、批文及复原方案，再填写结案回执。"
+      ],
+      "nav": [
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "旧网检索"
+        },
+        {
+          "url": "https://index.zhongtan.lh/",
+          "label": "旧网目录"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/",
+          "label": "复核收件"
+        }
+      ],
+      "footer": "钟潭跨年报时校音复核处 · 钟潭镇旧网存档",
+      "kind": "review"
+    }
+  ],
+  "records": [
+    {
+      "site": "bobao.zhongtan.lh",
+      "id": "newyear-tape",
+      "title": "跨年报时录音转录单",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "本页供元旦节目重播时查找钟楼现场声。播出版收了九记，末记下方的持续声与主持人口播相叠，值班编辑把它标成街口串音，重播时整段压低了音量。",
+        "机务员保留塔内拾音和锤位触点两条同期记录，入馆时随报时盘装在同一只纸盒内。纸盒封面以开录那天为带盘日期，与本页发布日分开登记。"
+      ],
+      "keywords": [
+        "跨年",
+        "报时",
+        "转录"
+      ],
+      "snapshot": {
+        "date": "2008-12-31",
+        "bannerText": "跨年报时原始母带 · 塔内拾音及触点记录",
+        "paragraphs": [
+          "原盘盘签写着 2008-12-31。23:59:58，第九记落锤，紧接着锤位回到静止。2 秒后塔内拾音另起一道短促低响，前沿清楚，和第九记自然衰减的尾音之间隔着一小段静音。",
+          "机务员将触点与拾音逐格对齐，记为「无锤击回响」。同一段声响被省馆总录信道 SY-10 收入，发射端回录的低响稍晚才到。请接着查看《钟楼地坑修缮公示》。"
+        ],
+        "table": {
+          "columns": [
+            "盘内时刻",
+            "塔内拾音",
+            "锤位触点"
+          ],
+          "rows": [
+            [
+              "23:59:58",
+              "第九记",
+              "闭合一次"
+            ],
+            [
+              "00:00:00",
+              "第十声",
+              "维持断开"
+            ]
+          ]
+        },
+        "links": [
+          {
+            "url": "https://gongshi.zhongtan.lh/tower-repair",
+            "label": "钟楼地坑修缮公示"
+          }
+        ]
+      },
+      "links": [
+        {
+          "url": "https://bobao.zhongtan.lh/pickup-map",
+          "label": "钟楼拾音线路登记"
+        },
+        {
+          "url": "https://zhongsheng.zhongtan.lh/street-listening",
+          "label": "街坊帖：钟声停了以后"
+        }
+      ]
+    },
+    {
+      "site": "gongshi.zhongtan.lh",
+      "id": "tower-repair",
+      "title": "钟楼地坑修缮公示",
+      "date": "2008-12-18",
+      "paragraphs": [
+        "本次登记事项为地坑排潮和砖缝补灰。原核准图保留坑沿开口，现场验收时却发现瓮体拆除，旧砖环内灌了新浆。施工领班交来的追加工单为 ZT-108，经窗口对照签发簿，未查到批准拆除的签字。",
+        "修缮办将施工方与监工的签收页分开存卷，暂缓这一项的工程结算。旧砖环尺寸可持测绘底表到档柜核对。"
+      ],
+      "keywords": [
+        "钟楼",
+        "修缮",
+        "工单"
+      ],
+      "source": "<!-- 审音人-癸：公示页面仅列出工程签收结果；随带盘退回、涉案的共鸣瓮批文副本，可通过检索站输入 site:gongshi.zhongtan.lh 共鸣瓮 调阅。 -->",
+      "links": [
+        {
+          "url": "https://gongshi.zhongtan.lh/pit-survey",
+          "label": "地坑测绘底表"
+        },
+        {
+          "url": "https://gongshi.zhongtan.lh/material-return",
+          "label": "旧料移交签收页"
+        },
+        {
+          "url": "https://zhizhi.zhongtan.lh/bell-rubbing",
+          "label": "钟腹九音铭拓"
+        }
+      ]
+    },
+    {
+      "site": "gongshi.zhongtan.lh",
+      "id": "pit-survey",
+      "title": "地坑测绘底表",
+      "date": "2008-11-27",
+      "paragraphs": [
+        "测绘员从楼梯脚向东绕坑编号，记录了十处砖圈。前九处有瓮身及垫砖，第十处只见整齐收边的空口，灰缝颜色与外沿一致。",
+        "测量时空口落了一把枯叶，扫清后仍可见底部旧砖的磨痕。测绘图在空位上画了虚线，免得日后照着平面图配料的人把它算作缺件。"
+      ],
+      "keywords": [
+        "地坑",
+        "开口",
+        "测绘"
+      ]
+    },
+    {
+      "site": "gongshi.zhongtan.lh",
+      "id": "material-return",
+      "title": "旧料移交签收页",
+      "date": "2008-12-19",
+      "paragraphs": [
+        "搬离地坑的陶瓮逐件用草绳扎口，存入戏台背后的旧布景房。清点员将九件瓮体和散落的垫砖分栏登记，裂纹位置用纸条系在瓮耳上。",
+        "有人问第十件是否在路上丢了，仓管便把搬运清单翻到背面给他看。出门与入库都是九件，收料人和车夫在同一行画押。"
+      ],
+      "keywords": [
+        "旧料",
+        "移交",
+        "瓮体"
+      ]
+    },
+    {
+      "site": "gongshi.zhongtan.lh",
+      "id": "master-approval",
+      "title": "报时母带复听批文副本",
+      "date": "2009-01-03",
+      "paragraphs": [
+        "本副本随原盘退回修缮办，复听所涉拆除工单为 ZT-108。批文背面按旧图写有「九瓮留一」，意指十处砖圈复置九只共鸣瓮，末位仍须留空，与第十声封而不用的旧例相应。",
+        "录音附件注明，原轨须连同锤位触点一道封存，广播副本另行转录。带盒背签写作「末位空口」，可与地坑测绘底表互证。"
+      ],
+      "keywords": [
+        "共鸣瓮",
+        "母带",
+        "批文"
+      ],
+      "listed": false,
+      "index": "site",
+      "snippet": "随跨年原盘退回修缮办的复听批文副本，附带盒背签。"
+    },
+    {
+      "site": "zhizhi.zhongtan.lh",
+      "id": "bell-rubbing",
+      "title": "钟腹九音铭拓",
+      "date": "2008-10-16",
+      "paragraphs": [
+        "秋日翻钟时取的墨拓，从钟腹内沿向下展开。题头四字为「黄钟大吕」，下一行是「九音为正」。旧志把题头列在律首栏，提示校钟者先立音高基准，再依铭位逐音校验。",
+        "旧拓右缘有一道断线，系纸张跨过铸缝留下的白边。释文按本馆甲本抄录，复查时可用左下角钟钮小印辨认。"
+      ],
+      "keywords": [
+        "铭拓",
+        "九音",
+        "律首"
+      ]
+    },
+    {
+      "site": "zhizhi.zhongtan.lh",
+      "id": "music-essay",
+      "title": "《礼记·乐记》节录与听声笔记",
+      "date": "2008-10-20",
+      "paragraphs": [
+        "《礼记·乐记》曰：「凡音之起，由人心生也。人心之动，物使之然也。」用今天的话说，人受到外物触动，情感由此发而成声。",
+        "馆员借这段话提醒读者，街坊听见的钟声足以提供调查线索，判断声音从哪来，还须对照发声的器物、人的动作与现场条件。钟下与巷口声响有异，也该分开记。"
+      ],
+      "keywords": [
+        "乐记",
+        "钟声",
+        "听声"
+      ]
+    },
+    {
+      "site": "zhizhi.zhongtan.lh",
+      "id": "society-rule",
+      "title": "《青溪十番乐社成规》抄本",
+      "date": "2008-10-22",
+      "paragraphs": [
+        "《青溪十番乐社成规》载：「九板正奏以安四邻，第十煞声入匣封签，非社祭定磬不得轻动。」白话说来，平日合奏只取九音，第十音须收起来封存，只有社祭定磬时才按规程启封。",
+        "钟潭抄本另附钟楼口述，称大丧或重修定磬时方启一响。日常报时沿用九音，抄本末页留有当时乐社掌匣人的印记。"
+      ],
+      "keywords": [
+        "乐社",
+        "成规",
+        "煞音",
+        "定磬"
+      ]
+    },
+    {
+      "site": "bobao.zhongtan.lh",
+      "id": "shift-log",
+      "title": "元旦重播值班交接",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "早班接到台里电话，元旦重播仍用播出柜里的短版。值班员听到最后一个钟点下方叠着沉声，按昨夜编辑单把这一段压低，随后核对整点口播。",
+        "原盘已连盒移交机务，取用先签借阅单。接班员在纸上圈了盘签栏，因为跨年录音往往比节目表早一天，按播出日借容易找错。"
+      ],
+      "keywords": [
+        "重播",
+        "交接",
+        "转录"
+      ]
+    },
+    {
+      "site": "bobao.zhongtan.lh",
+      "id": "pickup-map",
+      "title": "钟楼拾音线路登记",
+      "date": "2008-12-29",
+      "paragraphs": [
+        "主拾音头装在塔内栏杆以下，备用头朝向街口，分别进机务室的两路输入。锤位触点另占一轨，供检查机械回位与音频起点是否相合。",
+        "信号回到发射端还会经过节目缓冲。复听员须先用同期触点对齐原轨，再拿发射端回录比对先后，落锤次数以现场触点轨为据。"
+      ],
+      "keywords": [
+        "塔内拾音",
+        "锤位",
+        "线路"
+      ]
+    },
+    {
+      "site": "bobao.zhongtan.lh",
+      "id": "province-copy",
+      "title": "省馆并网样带交接",
+      "date": "2009-01-02",
+      "paragraphs": [
+        "钟潭台把跨年盘的塔内轨和触点轨分别抄入省馆样带，合送至总录信道 SY-10。抄送员在说明栏保留源盘起录日期，并把尾段另标供复听。",
+        "交接清单由机务和档案室各执一份。广播播出版仍归节目库，省馆收到的是带原同步标记的档案副本，凭同一盘签成对核查。"
+      ],
+      "keywords": [
+        "并网",
+        "样带",
+        "SY-10"
+      ]
+    },
+    {
+      "site": "zhongsheng.zhongtan.lh",
+      "id": "street-listening",
+      "title": "街坊帖：钟声停了以后",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "我在南墙下卖热茶，数到第九记就伸手去盖壶盖。盖子还没扣住，砖墙里又闷闷地响了一下，隔壁铺子正喊新年好，大概只有贴着墙的人听得明白。",
+        "楼上的老许说他家收音机里已经在念节目名。我俩把听到的先后写在这里，机务来问时也好说清各自站在哪里。"
+      ],
+      "keywords": [
+        "街坊",
+        "跨年",
+        "听音"
+      ]
+    },
+    {
+      "site": "zhongsheng.zhongtan.lh",
+      "id": "pass-copy",
+      "title": "换岗册夹页里的进场证",
+      "date": "2009-01-02",
+      "paragraphs": [
+        "昨晚整理门房值班册，翻到年前进场证的存根。姓名栏是陆闻笙，单位栏盖着省音像技术档案组的章，工牌号 YS-10。那天他在门口等过十分钟，我给他指了后梯。",
+        "存根上写的是「塔内复测」，随身只登记了拾音箱。镇上后来找人核对原盘，电话转到省馆也没联系上他，这页夹纸已交复核处照录。"
+      ],
+      "keywords": [
+        "进场证",
+        "工牌",
+        "省音像技术档案组"
+      ],
+      "table": {
+        "columns": [
+          "姓名",
+          "工牌号",
+          "单位"
+        ],
+        "rows": [
+          [
+            "陆闻笙",
+            "YS-10",
+            "省音像技术档案组"
+          ]
+        ]
+      }
+    },
+    {
+      "site": "zhongsheng.zhongtan.lh",
+      "id": "mason-note",
+      "title": "泥瓦匠回帖：东头空口",
+      "date": "2009-01-04",
+      "paragraphs": [
+        "小时候随师父补钟楼墙脚，我替他拎过水桶。做到东头，他让我把手里的碎砖全捡出去，说那一圈开口有自己的尺寸，补砖只补外沿。",
+        "旧图摊开以后我才知道，那处就是第十位。搬瓮的小工没见过原样，回来问要不要补一个。我让他照图找旧砖，等复核处定下方案再动手。"
+      ],
+      "keywords": [
+        "瓦工",
+        "空口",
+        "旧砖"
+      ]
+    },
+    {
+      "site": "jiaoyin.zhongtan.lh",
+      "id": "filing-guide",
+      "title": "跨年报时复核收件说明",
+      "date": "2009-01-02",
+      "paragraphs": [
+        "先报原盘日期，再核修缮变更单号。拓片、工牌存根和母带批文各有自己的签发人，收件时按原件逐栏填写，正文转述可作查找线索。",
+        "末项请对照复原定案与试响记录。调查人可把各件卷名抄在同一张纸上，交件时工作人员会按接件次序逐份勾销。"
+      ],
+      "keywords": [
+        "收件",
+        "复核",
+        "日期"
+      ]
+    },
+    {
+      "site": "jiaoyin.zhongtan.lh",
+      "id": "transfer-log",
+      "title": "省馆复测资料交接笺",
+      "date": "2009-01-06",
+      "paragraphs": [
+        "门房交来的存根与省音像技术档案组回执相合，工牌 YS-10 的持有人陆闻笙已签领钟潭塔内测录副本。随箱便笺写着下一站桐荫街，拟检一件改修过的弦器。",
+        "登记员把便笺归在复测人名下。后续询问统一由省馆转接，本处留存的只有钟潭交接签收与原盘抄送时间。"
+      ],
+      "keywords": [
+        "复测",
+        "工牌",
+        "桐荫街"
+      ]
+    },
+    {
+      "site": "jiaoyin.zhongtan.lh",
+      "id": "restore-order",
+      "title": "钟楼声腔复原定案",
+      "date": "2009-01-10",
+      "paragraphs": [
+        "复核处将处置决定抄作「重砌九瓮」，先清出擅改时灌下的灰浆，再依测绘底表把九只旧瓮复位。第十处砖圈只收边，保留图记尺寸，验收栏写作「第十位留空」。",
+        "重修定磬由乐社另行择日签封。报时机仍按九记设置，母带原轨保留，供后续沿戏路复测时比对。"
+      ],
+      "keywords": [
+        "复原",
+        "定案",
+        "试响"
+      ],
+      "table": {
+        "columns": [
+          "处置决定",
+          "末位验收",
+          "日常报时"
+        ],
+        "rows": [
+          [
+            "重砌九瓮",
+            "第十位留空",
+            "九记"
+          ]
+        ]
+      }
+    },
+    {
+      "site": "jiaoyin.zhongtan.lh",
+      "id": "trial-note",
+      "title": "复原工程试响记录",
+      "date": "2009-01-12",
+      "paragraphs": [
+        "修缮组在两处原拾音点架好仪器，白日试响共九记，锤位触点逐一对上。第九记衰减后仍保持记录十秒，塔内底声只余门轴和巷口车轮声。",
+        "坑口由验收人照图量过一遍，末位空口已拍照随卷封存。省馆另收试响副本，与跨年盘分盒登记，便于沿青溪戏路复查。"
+      ],
+      "keywords": [
+        "试响",
+        "封签",
+        "报时"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "bell-strike",
+      "title": "跨年报时第十声",
+      "intro": [
+        "核对原盘盘签、声音及总录信道。"
+      ],
+      "leads": [
+        {
+          "url": "https://bobao.zhongtan.lh/newyear-tape",
+          "label": "跨年报时录音转录单"
+        },
+        {
+          "url": "https://zhongsheng.zhongtan.lh/street-listening",
+          "label": "街坊帖：钟声停了以后"
+        }
+      ],
+      "fields": [
+        {
+          "label": "原盘日期",
+          "accept": [
+            "2008-12-31"
+          ]
+        },
+        {
+          "label": "机务判记",
+          "accept": [
+            "无锤击回响"
+          ]
+        },
+        {
+          "label": "总录信道",
+          "accept": [
+            "SY-10"
+          ]
+        }
+      ],
+      "hints": [
+        "切至原始母带，盘签按开录时间登记。",
+        "比较第十声出现时的触点状态。"
+      ],
+      "receipt": [
+        "原盘的第十声没有对应落锤。塔内拾音比发射端回录先收到低响，转查地坑修缮。"
+      ]
+    },
+    {
+      "id": "resonator-removal",
+      "title": "地坑拆除工单",
+      "intro": [
+        "查明施工方追加了哪张工单及旧料去向。"
+      ],
+      "leads": [
+        {
+          "url": "https://gongshi.zhongtan.lh/tower-repair",
+          "label": "钟楼地坑修缮公示"
+        },
+        {
+          "url": "https://gongshi.zhongtan.lh/material-return",
+          "label": "旧料移交签收页"
+        }
+      ],
+      "fields": [
+        {
+          "label": "追加工单号",
+          "accept": [
+            "ZT-108"
+          ]
+        },
+        {
+          "label": "拆除对象",
+          "accept": [
+            "瓮体"
+          ]
+        },
+        {
+          "label": "旧瓮入库数（按正文填写）",
+          "accept": [
+            "九件"
+          ]
+        }
+      ],
+      "hints": [
+        "公示首段写有追加单号。",
+        "从移交签收页核对出门与入库的数量。"
+      ],
+      "receipt": [
+        "ZT-108 缺批准拆除的签字，九件旧瓮均有移交记录。请比对钟腹铭拓。"
+      ]
+    },
+    {
+      "id": "gazetteer-pitch",
+      "title": "钟腹九音铭文",
+      "intro": [
+        "按拓片逐字核验题头与九音铭文，再查乐社对第十音的称法。"
+      ],
+      "leads": [
+        {
+          "url": "https://zhizhi.zhongtan.lh/bell-rubbing",
+          "label": "钟腹九音铭拓"
+        },
+        {
+          "url": "https://zhizhi.zhongtan.lh/society-rule",
+          "label": "《青溪十番乐社成规》抄本"
+        }
+      ],
+      "fields": [
+        {
+          "label": "律首题头",
+          "accept": [
+            "黄钟大吕"
+          ]
+        },
+        {
+          "label": "题头下一行",
+          "accept": [
+            "九音为正"
+          ]
+        },
+        {
+          "label": "第十音的抄本原称",
+          "accept": [
+            "第十煞声"
+          ]
+        }
+      ],
+      "hints": [
+        "铭拓的头两行分别落在题头和正音栏。",
+        "成规的原句在白话解释之前。"
+      ],
+      "receipt": [
+        "钟腹铭文与乐社成规相合。调阅进场证，核实谁曾按此旧制复测。"
+      ]
+    },
+    {
+      "id": "tuner-badge",
+      "title": "进场复测人员登记",
+      "intro": [
+        "核实门房存根与复测交接笺中的人员身份。"
+      ],
+      "leads": [
+        {
+          "url": "https://zhongsheng.zhongtan.lh/pass-copy",
+          "label": "换岗册夹页里的进场证"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/transfer-log",
+          "label": "省馆复测资料交接笺"
+        }
+      ],
+      "fields": [
+        {
+          "label": "进场人员姓名",
+          "accept": [
+            "陆闻笙"
+          ]
+        },
+        {
+          "label": "工牌号码",
+          "accept": [
+            "YS-10"
+          ]
+        },
+        {
+          "label": "所属单位",
+          "accept": [
+            "省音像技术档案组"
+          ]
+        }
+      ],
+      "hints": [
+        "门房保存有进场证存根。",
+        "交接笺可复核同一工牌的签领记录。"
+      ],
+      "receipt": [
+        "复测人身份已核定。查修缮公示的网页源文，找随原盘退回的批文。"
+      ]
+    },
+    {
+      "id": "hidden-tape",
+      "title": "随母带退回的批文",
+      "intro": [
+        "找到批文副本，抄录背面旧图注记与带盒背签。"
+      ],
+      "leads": [
+        {
+          "url": "https://gongshi.zhongtan.lh/tower-repair",
+          "label": "钟楼地坑修缮公示"
+        },
+        {
+          "url": "https://gongshi.zhongtan.lh/pit-survey",
+          "label": "地坑测绘底表"
+        }
+      ],
+      "fields": [
+        {
+          "label": "旧图注记",
+          "accept": [
+            "九瓮留一"
+          ]
+        },
+        {
+          "label": "关联拆除工单",
+          "accept": [
+            "ZT-108"
+          ]
+        },
+        {
+          "label": "带盒背签",
+          "accept": [
+            "末位空口"
+          ]
+        }
+      ],
+      "hints": [
+        "打开修缮公示的网页源文，找审音人-癸的注释。",
+        "依注释给出的域名与关键词执行站内检索。"
+      ],
+      "receipt": [
+        "批文和测绘底表均有末位空口的记录。可据此核对重修方案。"
+      ]
+    },
+    {
+      "id": "bell-restore",
+      "title": "钟楼复原方案",
+      "intro": [
+        "核对复原定案中的处置短语、末位验收与日常报时记数。"
+      ],
+      "leads": [
+        {
+          "url": "https://jiaoyin.zhongtan.lh/restore-order",
+          "label": "钟楼声腔复原定案"
+        },
+        {
+          "url": "https://jiaoyin.zhongtan.lh/trial-note",
+          "label": "复原工程试响记录"
+        }
+      ],
+      "fields": [
+        {
+          "label": "处置决定",
+          "accept": [
+            "重砌九瓮"
+          ]
+        },
+        {
+          "label": "末位验收",
+          "accept": [
+            "第十位留空"
+          ]
+        },
+        {
+          "label": "日常报时",
+          "accept": [
+            "九记"
+          ]
+        }
+      ],
+      "hints": [
+        "定案页表中三栏与复核表对应。",
+        "试响记录保存了完工后的逐记核对结果。"
+      ],
+      "receipt": [
+        "复原后试响九记，末位空口验收封存。跨年母带原轨随卷归档。"
+      ]
+    }
+  ],
+  "conclusion": {
+    "id": "receipt",
+    "title": "第一幕 哑钟楼 · 结案回执",
+    "intro": [
+      "汇总原盘日期、责任工单与复原决定。"
+    ],
+    "leads": [
+      {
+        "url": "https://bobao.zhongtan.lh/newyear-tape",
+        "label": "跨年报时录音转录单"
+      },
+      {
+        "url": "https://gongshi.zhongtan.lh/tower-repair",
+        "label": "钟楼地坑修缮公示"
+      },
+      {
+        "url": "https://jiaoyin.zhongtan.lh/restore-order",
+        "label": "钟楼声腔复原定案"
+      }
+    ],
+    "fields": [
+      {
+        "label": "异常母带日期",
+        "accept": [
+          "2008-12-31"
+        ]
+      },
+      {
+        "label": "擅拆工单号",
+        "accept": [
+          "ZT-108"
+        ]
+      },
+      {
+        "label": "复原处置决定",
+        "accept": [
+          "重砌九瓮"
+        ]
+      }
+    ],
+    "hints": [
+      "日期以原始母带盘签为准。",
+      "复原处置按定案页原文填录。"
+    ],
+    "receipt": [
+      "钟潭卷归档。擅拆工单移交追责，原始母带与试响副本分盒封存。钟楼按旧图复位九瓮，第十位留空。",
+      "陆闻笙签领副本后将桐荫街列为下一处复测地。随卷留存的交接笺照原字移抄。",
+      "本卷工尺音签：GG。"
+    ],
+    "links": [
+      {
+        "url": "https://index.zhongtan.lh/",
+        "label": "返回旧网目录"
+      },
+      {
+        "url": "https://jiaoyin.zhongtan.lh/",
+        "label": "返回复核收件处"
+      }
+    ]
+  }
+}

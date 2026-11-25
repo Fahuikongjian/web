@@ -242,6 +242,12 @@ def build_sitemap_xml(
         ("/mystery/suojiang/act-3/", latest_date, "0.7"),
         ("/mystery/suojiang/act-4/", latest_date, "0.7"),
         ("/mystery/suojiang/act-5/", latest_date, "0.7"),
+        ("/mystery/shiyin/", latest_date, "0.8"),
+        ("/mystery/shiyin/act-1/", latest_date, "0.7"),
+        ("/mystery/shiyin/act-2/", latest_date, "0.7"),
+        ("/mystery/shiyin/act-3/", latest_date, "0.7"),
+        ("/mystery/shiyin/act-4/", latest_date, "0.7"),
+        ("/mystery/shiyin/act-5/", latest_date, "0.7"),
         ("/about/", latest_date, "0.7"),
     ]
     for route, lastmod, priority in static_routes:

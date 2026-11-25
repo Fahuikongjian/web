@@ -1,0 +1,759 @@
+{
+  "caseId": "CASE-SY-02",
+  "storageKey": "shiyin_save_v1_ch02",
+  "homeUrl": "https://index.tongyin.lh/",
+  "seriesKey": "shiyin",
+  "archiveBrand": "十音簿声律档案",
+  "snapshotButtonLabels": {
+    "enter": "切至原始母带",
+    "exit": "返回数字转录版"
+  },
+  "search": {
+    "domain": "search.shiyin.lh",
+    "siteName": "十音簿检索",
+    "tagline": "查找桐荫街旧网档案",
+    "hotQueries": [
+      "频谱",
+      "旧谱",
+      "琴码"
+    ],
+    "syntaxTips": [
+      "用 site:域名 关键词 查找指定站点的条目。"
+    ],
+    "entries": [],
+    "quickDomains": [
+      "index.tongyin.lh",
+      "qinfang.tongyin.lh",
+      "yueqi.tongyin.lh",
+      "shengxue.tongyin.lh",
+      "yueyou.tongyin.lh",
+      "fuhe.tongyin.lh"
+    ]
+  },
+  "sites": [
+    {
+      "domain": "index.tongyin.lh",
+      "title": "桐荫街旧网目录",
+      "heading": "第二幕 断弦坊",
+      "style": "directory",
+      "strap": "街区档案入口",
+      "intro": [
+        "第一步请到桐荫街声学遥测台打开《冬季并网频谱日志》，核对数字转录版和原始母带的尾段。"
+      ],
+      "nav": [
+        {
+          "url": "https://qinfang.tongyin.lh/",
+          "label": "桐荫琴坊"
+        },
+        {
+          "url": "https://yueqi.tongyin.lh/",
+          "label": "桐荫乐器文献馆"
+        },
+        {
+          "url": "https://shengxue.tongyin.lh/",
+          "label": "桐荫街声学遥测台"
+        },
+        {
+          "url": "https://yueyou.tongyin.lh/",
+          "label": "桐荫街乐友会"
+        },
+        {
+          "url": "https://fuhe.tongyin.lh/",
+          "label": "桐荫街校音复核处"
+        }
+      ],
+      "footer": "桐荫街旧网目录 · 冬季档案",
+      "links": [
+        {
+          "url": "https://shengxue.tongyin.lh/spectrum-log",
+          "label": "冬季并网频谱日志"
+        }
+      ]
+    },
+    {
+      "domain": "qinfang.tongyin.lh",
+      "title": "桐荫琴坊",
+      "heading": "桐荫琴坊",
+      "style": "office",
+      "strap": "修造与接件",
+      "intro": [
+        "这里存放琴体维修纪要、试音家具记录和来件登记。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.tongyin.lh/",
+          "label": "桐荫街旧网目录"
+        }
+      ],
+      "footer": "桐荫琴坊 · 冬季档案"
+    },
+    {
+      "domain": "yueqi.tongyin.lh",
+      "title": "桐荫乐器文献馆",
+      "heading": "桐荫乐器文献馆",
+      "style": "library",
+      "strap": "古谱与地方抄本",
+      "intro": [
+        "馆藏古谱保留原抄字样，编目员在各条下补写了供修造人员使用的白话考释。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.tongyin.lh/",
+          "label": "桐荫街旧网目录"
+        }
+      ],
+      "footer": "桐荫乐器文献馆 · 冬季档案"
+    },
+    {
+      "domain": "shengxue.tongyin.lh",
+      "title": "桐荫街声学遥测台",
+      "heading": "桐荫街声学遥测台",
+      "style": "hydro",
+      "strap": "冬季并网观测",
+      "intro": [
+        "本站归档试音频谱、母带读数与空房对照，供各作坊核查转录差异。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.tongyin.lh/",
+          "label": "桐荫街旧网目录"
+        }
+      ],
+      "footer": "桐荫街声学遥测台 · 冬季档案"
+    },
+    {
+      "domain": "yueyou.tongyin.lh",
+      "title": "桐荫街乐友会",
+      "heading": "桐荫街乐友会",
+      "style": "community",
+      "strap": "街坊听音记事",
+      "intro": [
+        "夜间听闻和排练记录由当事人自行补记，时间以各帖注明的钟表为准。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.tongyin.lh/",
+          "label": "桐荫街旧网目录"
+        }
+      ],
+      "footer": "桐荫街乐友会 · 冬季档案"
+    },
+    {
+      "domain": "fuhe.tongyin.lh",
+      "title": "桐荫街校音复核处",
+      "heading": "桐荫街校音复核处",
+      "style": "office",
+      "strap": "断弦坊卷宗",
+      "intro": [
+        "从母带读数开始，按卷内顺序提交现场记录，复核通过后领取本卷回执。"
+      ],
+      "nav": [
+        {
+          "url": "https://index.tongyin.lh/",
+          "label": "桐荫街旧网目录"
+        }
+      ],
+      "footer": "桐荫街校音复核处 · 冬季档案",
+      "kind": "review",
+      "links": [
+        {
+          "url": "https://fuhe.tongyin.lh/empty-string",
+          "label": "核对母带频谱"
+        },
+        {
+          "url": "https://fuhe.tongyin.lh/wood-swap",
+          "label": "核对琴底变更"
+        },
+        {
+          "url": "https://fuhe.tongyin.lh/scale-rule",
+          "label": "核对十番弦制"
+        },
+        {
+          "url": "https://fuhe.tongyin.lh/upstream-tag",
+          "label": "核对寄件琴码"
+        },
+        {
+          "url": "https://fuhe.tongyin.lh/secret-spec",
+          "label": "核对作坊底表"
+        },
+        {
+          "url": "https://fuhe.tongyin.lh/string-seal",
+          "label": "核对封弦工序"
+        },
+        {
+          "url": "https://fuhe.tongyin.lh/receipt",
+          "label": "断弦坊结案回执"
+        }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "site": "shengxue.tongyin.lh",
+      "id": "spectrum-log",
+      "title": "冬季并网频谱日志",
+      "date": "2008-12-31",
+      "paragraphs": [
+        "年末联测用的是琴坊送来的六根试音弦。录音员弹完第六根，把拨片搁在谱架边，照例等走带员报停。值班室收到的数字转录版在这里平直下来，与交接单所写的六次拨弦相合。",
+        "索引中的走带长度比转录文件多出一截。值班员把转录时使用的剪尾标记留在副本上，并将未剪的卷带归入母带柜。同班留存了空房底噪，复测时可配合这份日志比对。"
+      ],
+      "keywords": [
+        "频谱",
+        "母带",
+        "并网"
+      ],
+      "snapshot": {
+        "date": "2008-12-31",
+        "paragraphs": [
+          "SY-10原始母带在第六记拨弦落下后的带尾停机前仍有一枚窄峰。话筒一直开着，尾音起时，拾振片在第七弦位留下回应。走带员在纸带边上写下第七空弦，随后才按停机键。",
+          "回放相邻两圈，窄峰在同一个位置重现。琴坊随带交来的器身检修卡另有一张背板变更单，复核时请把两张记录并排看。"
+        ],
+        "notes": [
+          "定位栏原文：尾段。"
+        ],
+        "links": [
+          {
+            "url": "https://qinfang.tongyin.lh/backplate-change",
+            "label": "琴底维修变更单"
+          }
+        ]
+      }
+    },
+    {
+      "site": "shengxue.tongyin.lh",
+      "id": "room-baseline",
+      "title": "空房拾音对照",
+      "date": "2009-01-02",
+      "paragraphs": [
+        "琴体移出试音间后，值班员照原来的位置架好话筒，把门留在同一条缝上，仍旧录到窗外的水泵启停和楼上拖椅子的声音。两次经过的货车在墙脚拾振器上也各留了一道宽峰。",
+        "空房的几种响动散在较宽的频带里，重复播放时也各在不同的地方。旧卷所见的窄峰在这三次空房记录里均未出现，巡检员将底噪对照带与原卷分袋登记。"
+      ],
+      "keywords": [
+        "空房",
+        "拾振"
+      ]
+    },
+    {
+      "site": "shengxue.tongyin.lh",
+      "id": "transfer-note",
+      "title": "降噪交接记",
+      "date": "2009-01-03",
+      "paragraphs": [
+        "机房交接那天，转录桌上叠着三处来带的纸盒。操作员按通用办法在最后一次可辨演奏后落剪，把剩下的空走带划到环境噪声一栏，交班时只听了交付文件的开头和末句。",
+        "接手的人后来拿纸盒上的总时长去对文件，才发现那一栏收进了有规律的余响。这批数字件已发给联测各站，重取母带需要另开调卷单，原来的派发清单仍随交接簿留存。"
+      ],
+      "keywords": [
+        "转录",
+        "降噪"
+      ]
+    },
+    {
+      "site": "qinfang.tongyin.lh",
+      "id": "backplate-change",
+      "title": "琴底维修变更单",
+      "date": "2008-12-19",
+      "paragraphs": [
+        "原工序只写收合脱胶的边口。开底以后，掌工嫌旧板边缘起屑，私自拿库里一块阴沉木裁成新背板，又沿原来弧度削了一遍。等学徒把薄屑扫进簸箕，他才叫柜台补抄用料。",
+        "补录变更编号为TY-204，部位栏写琴底，换入栏写阴沉木。纸单夹在成琴送检卡背面，前台原先只照送检卡写了补胶。弦位为何留空，可对读文献馆的弦制抄页。"
+      ],
+      "keywords": [
+        "琴底",
+        "变更单",
+        "阴沉木"
+      ],
+      "links": [
+        {
+          "url": "https://yueqi.tongyin.lh/scale-copy",
+          "label": "旧谱弦制抄页"
+        }
+      ]
+    },
+    {
+      "site": "qinfang.tongyin.lh",
+      "id": "bridge-parcel",
+      "title": "外埠琴码收件登记",
+      "date": "2008-12-27",
+      "paragraphs": [
+        "下午歇刨时，有个纸包从省音像技术档案组转到坊里。包内是用棉纸分隔的两枚琴码，其中一枚磨得很薄，穿记号的细线绕在码脚上。收件人将原线保留，照着系签抄入登记簿。",
+        "琴码系签上的号码是YS-10，寄件登记的姓名是陆闻笙。附笺请琴坊在试音后留一份签样给乐友会，方便辨认夜里听见的余响与当日送检琴是否有关。"
+      ],
+      "keywords": [
+        "琴码",
+        "寄件"
+      ],
+      "links": [
+        {
+          "url": "https://yueyou.tongyin.lh/night-hum",
+          "label": "乐友会夜听记"
+        }
+      ]
+    },
+    {
+      "site": "qinfang.tongyin.lh",
+      "id": "bench-ledger",
+      "title": "木工作台交班簿",
+      "date": "2008-12-28",
+      "paragraphs": [
+        "收工时，师傅让学徒把机刨、手刨的木屑分开装袋，再用棉布擦净托住琴身的两只垫脚。下班后若有人进屋试琴，照惯例只准挪动靠门的凳子，案上的量具一概原位搁置。",
+        "次日接班发现边口新胶已经干透，搬琴时先把松放在槽里的线头压住，免得碰着漆面。器形和配重的记录夹在交班簿里，前台凭送检卡另行登记，没有把试制数据抄到橱窗上。"
+      ],
+      "keywords": [
+        "木工",
+        "交班"
+      ],
+      "snapshot": {
+        "date": "2008-12-28",
+        "paragraphs": [
+          "随作业照留下的录音里，师傅口述了垫脚位置和移琴次序。末尾有人把凳子从门边挪开，录音员在袋封上记下这一声，供下次辨认房间底噪。"
+        ],
+        "notes": [],
+        "links": []
+      }
+    },
+    {
+      "site": "qinfang.tongyin.lh",
+      "id": "material-inspection",
+      "title": "作坊质检底表",
+      "date": "2008-12-29",
+      "paragraphs": [
+        "复秤时先把换下来的琴底放到右盘，木工找到了内沿原有的墨书。底表把留样对应回琴架上的编号，原材栏写桐木原材，取样处写旧底板内沿，封样状态写留样封存。",
+        "同一张表的旁栏钤了TY-204，另订阴沉木领料联。质检员要求以旧板留样作复原依据，先核对纹理和重量，再交复核处定封弦工序。这张底表随留样袋归档。"
+      ],
+      "keywords": [
+        "阴沉木",
+        "质检底表"
+      ],
+      "listed": false,
+      "index": "site",
+      "links": [
+        {
+          "url": "https://fuhe.tongyin.lh/restoration",
+          "label": "复原与试音核定"
+        }
+      ]
+    },
+    {
+      "site": "yueqi.tongyin.lh",
+      "id": "scale-copy",
+      "title": "旧谱弦制抄页",
+      "date": "2008-11-18",
+      "paragraphs": [
+        "馆藏《梦溪笔谈·乐律》的地方节抄在宫声条下写道：‘凡宫音为主，弦长而声宏；商、角、徵、羽相次应和，隔八相生。’馆员把抄页上的弦制条名录为隔八相生，宫音另列在基准一栏。",
+        "用今天的话说，先定下作基准的音，再按一定的比例推出其余音高。换材以后如果只把六根弦逐根调准，仍需合奏一次，听相邻声部能否应和。馆中还存有一张随谱的十番定弦纸。"
+      ],
+      "keywords": [
+        "梦溪笔谈",
+        "弦制"
+      ],
+      "links": [
+        {
+          "url": "https://yueqi.tongyin.lh/workshop-rules",
+          "label": "十番丝竹定弦纸"
+        }
+      ]
+    },
+    {
+      "site": "yueqi.tongyin.lh",
+      "id": "workshop-rules",
+      "title": "十番丝竹定弦纸",
+      "date": "2008-11-20",
+      "paragraphs": [
+        "抄表背面誊有《青溪十番乐社成规》一句：‘九板正奏以安四邻，第十煞声入匣封签，非社祭定磬不得轻动。’编目人记下尾行里的入匣封签，旁边还有琴坊师傅用手指按过留下的松香印。",
+        "白话讲就是寻常排练和演出按日常常用九音正谱演奏，特意空出的那个声位仍得保留，只有规约指明的场合才开封启用。修琴的人若要试合旧尺寸，可以先查省档案组寄来的琴码和附笺。"
+      ],
+      "keywords": [
+        "十番丝竹",
+        "成规"
+      ],
+      "links": [
+        {
+          "url": "https://qinfang.tongyin.lh/bridge-parcel",
+          "label": "外埠琴码收件登记"
+        }
+      ]
+    },
+    {
+      "site": "yueqi.tongyin.lh",
+      "id": "silk-register",
+      "title": "丝弦旧样册",
+      "date": "2008-11-26",
+      "paragraphs": [
+        "柜里的丝弦旧样拿竹片卷着，薄的一股绑在靠外一页，翻动时要先扶住竹片。前任编目员照绞丝的股数画了小格，边上一笔写了当年取样的作坊，墨还比纸上的书签颜色稍深。",
+        "旧样册里夹有试用者补的纸条，说绷得齐整的成套丝弦是交货惯例，进到十番社里仍得照当场用谱重新分配弦位。馆员把这条和定弦纸一起供读，原来的系扣照旧收存。"
+      ],
+      "keywords": [
+        "丝弦",
+        "旧样"
+      ]
+    },
+    {
+      "site": "yueyou.tongyin.lh",
+      "id": "night-hum",
+      "title": "后窗夜听记",
+      "date": "2009-01-01",
+      "paragraphs": [
+        "昨晚我在后窗等水壶开，看见琴坊伙计提灯出来掩门。起初只听见门轴响，隔了一会儿才有一声细细的拖音。我把壶移开又听了一遍，那声比巷口风吹铁片的动静稳，一直拖到楼梯口。",
+        "今早去乐友会拿练习谱，管登记的许师傅把寄件附笺给我看过，说那夜送检的琴还在坊里。帖子留一份给复核员，听到的时刻照厨房挂钟记，原先那张纸我夹在练习谱下。"
+      ],
+      "keywords": [
+        "后窗",
+        "夜听"
+      ],
+      "source": "<!-- 审音人-癸：对完琴码系签，再到检索页输入 site:qinfang.tongyin.lh 阴沉木，查看作坊质检底表的原材栏。 -->"
+    },
+    {
+      "site": "yueyou.tongyin.lh",
+      "id": "rehearsal-roll",
+      "title": "腊月合练席次记",
+      "date": "2008-12-29",
+      "paragraphs": [
+        "排在窗边吹笛的凳子原来缺了一条脚，点名以前大家把它换到墙根去垫谱。等主奏试过起头两句，打板的才照席次把每个人的起落写在纸上，免得录音员错把翻谱声算进拍子。",
+        "几位老社员提醒，木架的空座要一起摆出来，好让临时替班的人照谱找到位置。合练散时，借来试音的琴由坊里伙计自己抱回，乐友会只留下席次单和临时改过的曲目页。"
+      ],
+      "keywords": [
+        "合练",
+        "席次"
+      ]
+    },
+    {
+      "site": "yueyou.tongyin.lh",
+      "id": "lane-clock",
+      "title": "街坊对钟回帖",
+      "date": "2009-01-02",
+      "paragraphs": [
+        "昨天来问时刻的几位可以先对一下钟。街口修伞铺的表自打停过电就慢些，我在邮筒旁等人时看过报时，家里厨房的表倒跟广播差得不多。后窗那篇若要抄，记得把钟的位置也写上。",
+        "楼下阿姨说那夜有人搬炉圈，回去想想是在报时以前。她同意把自家听见的响声记进排查单，特地补了一句器物落地只有一记，之后仍能听清对面的水壶开始冒气。"
+      ],
+      "keywords": [
+        "对钟",
+        "后窗"
+      ]
+    },
+    {
+      "site": "fuhe.tongyin.lh",
+      "id": "intake-note",
+      "title": "本卷收件簿",
+      "date": "2009-01-04",
+      "paragraphs": [
+        "复核桌收进转录盘、纸带抄条及乐友会的夜听记录，来件先按出处登记。纸带抄条有走带员留下的定位字，材料袋则交琴工验了口封以后再拆，收件员把袋面和底表一并复印。",
+        "本案案名登记为断弦坊，地段栏填写桐荫街，联测季栏填写冬季并网。前台按这三栏归卷，提交结案时请沿用此处的字样，工作人员再将回执夹入本卷封套。"
+      ],
+      "keywords": [
+        "收件",
+        "案名"
+      ]
+    },
+    {
+      "site": "fuhe.tongyin.lh",
+      "id": "restoration",
+      "title": "复原与试音核定",
+      "date": "2009-01-06",
+      "paragraphs": [
+        "琴工依留样复作背板，先把边口收拢，再上案试合。复听时照原谱的出声次序走完一轮，台下听记录的人在最后一响结束后又等了一段，待带尺走过旧卷窄峰所在的位置才报停。",
+        "核定单的封弦写法为留空不绷，实施位置填写第七弦位，复听结语填写余响止息。琴工把空槽照旧保留，盖上护弦布以后，复核员才将本琴从试音架移回坊里。"
+      ],
+      "keywords": [
+        "复原",
+        "封弦"
+      ]
+    },
+    {
+      "site": "fuhe.tongyin.lh",
+      "id": "return-inventory",
+      "title": "交还入柜清册",
+      "date": "2009-01-07",
+      "paragraphs": [
+        "校音台把恢复后的试音带放进新盒，盒脊沿用了坊里来的收件号，内页抄录当天的房间温度和走带长度。旧卷另存原柜，以便往后再比对同一段尾音，借阅时须在两份盒签上同时记名。",
+        "琴坊来人取回琴体时当面查看了背板边口，轻手把琴收进布囊，带回桐荫街。旧底板留样和领料联仍跟随本案封套，乐友会也收到一份可以交给当夜听音人的复听纪要。"
+      ],
+      "keywords": [
+        "交还",
+        "入柜"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "empty-string",
+      "title": "核对母带频谱",
+      "intro": [
+        "调出年末联测母带，抄下窄峰记录。"
+      ],
+      "leads": [
+        {
+          "url": "https://shengxue.tongyin.lh/spectrum-log",
+          "label": "冬季并网频谱日志"
+        }
+      ],
+      "fields": [
+        {
+          "label": "纸带边注",
+          "accept": [
+            "第七空弦"
+          ]
+        },
+        {
+          "label": "母带信道",
+          "accept": [
+            "SY-10"
+          ]
+        },
+        {
+          "label": "定位栏",
+          "accept": [
+            "尾段"
+          ]
+        }
+      ],
+      "hints": [
+        "日志另存原始母带，可用页上的按钮切换。"
+      ],
+      "receipt": [
+        "母带读数已核对。请按随带检修卡核查琴底变更。"
+      ]
+    },
+    {
+      "id": "wood-swap",
+      "title": "核对琴底变更",
+      "intro": [
+        "照补录变更单填写改动。"
+      ],
+      "leads": [
+        {
+          "url": "https://qinfang.tongyin.lh/backplate-change",
+          "label": "琴底维修变更单"
+        }
+      ],
+      "fields": [
+        {
+          "label": "变更编号",
+          "accept": [
+            "TY-204"
+          ]
+        },
+        {
+          "label": "部位",
+          "accept": [
+            "琴底"
+          ]
+        },
+        {
+          "label": "换入用料",
+          "accept": [
+            "阴沉木"
+          ]
+        }
+      ],
+      "hints": [
+        "看送检卡背面的补录。"
+      ],
+      "receipt": [
+        "琴底变更已登记。请到文献馆核对旧谱弦制。"
+      ]
+    },
+    {
+      "id": "scale-rule",
+      "title": "核对十番弦制",
+      "intro": [
+        "将旧谱的弦制条与乐社定弦纸合读。"
+      ],
+      "leads": [
+        {
+          "url": "https://yueqi.tongyin.lh/scale-copy",
+          "label": "旧谱弦制抄页"
+        },
+        {
+          "url": "https://yueqi.tongyin.lh/workshop-rules",
+          "label": "十番丝竹定弦纸"
+        }
+      ],
+      "fields": [
+        {
+          "label": "弦制条",
+          "accept": [
+            "隔八相生"
+          ]
+        },
+        {
+          "label": "基准音",
+          "accept": [
+            "宫音"
+          ]
+        },
+        {
+          "label": "第十声留存办法",
+          "accept": [
+            "入匣封签"
+          ]
+        }
+      ],
+      "hints": [
+        "基准音见节抄编目，留存办法见定弦纸背面。"
+      ],
+      "receipt": [
+        "旧谱条目已核对。请追查随试音件寄来的琴码。"
+      ]
+    },
+    {
+      "id": "upstream-tag",
+      "title": "核对寄件琴码",
+      "intro": [
+        "以收件登记所抄的系签和寄件资料为准。"
+      ],
+      "leads": [
+        {
+          "url": "https://qinfang.tongyin.lh/bridge-parcel",
+          "label": "外埠琴码收件登记"
+        }
+      ],
+      "fields": [
+        {
+          "label": "系签号码",
+          "accept": [
+            "YS-10"
+          ]
+        },
+        {
+          "label": "寄件人",
+          "accept": [
+            "陆闻笙"
+          ]
+        },
+        {
+          "label": "寄件单位",
+          "accept": [
+            "省音像技术档案组"
+          ]
+        }
+      ],
+      "hints": [
+        "系签系在磨薄的那枚琴码脚上。"
+      ],
+      "receipt": [
+        "寄件已核对。乐友会夜听记留有复核员的网页批注。"
+      ]
+    },
+    {
+      "id": "secret-spec",
+      "title": "核对作坊底表",
+      "intro": [
+        "从质检底表抄录旧板留样。"
+      ],
+      "leads": [
+        {
+          "url": "https://yueyou.tongyin.lh/night-hum",
+          "label": "后窗夜听记"
+        },
+        {
+          "url": "https://search.shiyin.lh/",
+          "label": "十音簿检索"
+        }
+      ],
+      "fields": [
+        {
+          "label": "原材栏",
+          "accept": [
+            "桐木原材"
+          ]
+        },
+        {
+          "label": "取样处",
+          "accept": [
+            "旧底板内沿"
+          ]
+        },
+        {
+          "label": "封样状态",
+          "accept": [
+            "留样封存"
+          ]
+        }
+      ],
+      "hints": [
+        "查看夜听记的网页源代码，按批注限定琴坊站内检索。"
+      ],
+      "receipt": [
+        "留样资料已核对。请查阅复原与试音核定单。"
+      ]
+    },
+    {
+      "id": "string-seal",
+      "title": "核对封弦工序",
+      "intro": [
+        "依核定单确认复作背板后的封弦处理。"
+      ],
+      "leads": [
+        {
+          "url": "https://fuhe.tongyin.lh/restoration",
+          "label": "复原与试音核定"
+        }
+      ],
+      "fields": [
+        {
+          "label": "封弦写法",
+          "accept": [
+            "留空不绷"
+          ]
+        },
+        {
+          "label": "实施位置",
+          "accept": [
+            "第七弦位"
+          ]
+        },
+        {
+          "label": "复听结语",
+          "accept": [
+            "余响止息"
+          ]
+        }
+      ],
+      "hints": [
+        "三栏均见核定单末段。"
+      ],
+      "receipt": [
+        "复原工序已核对。请按本卷收件簿登记结案。"
+      ]
+    }
+  ],
+  "conclusion": {
+    "id": "receipt",
+    "title": "断弦坊结案回执",
+    "intro": [
+      "沿用收件簿三栏字样，登记本卷结案。"
+    ],
+    "leads": [
+      {
+        "url": "https://fuhe.tongyin.lh/intake-note",
+        "label": "本卷收件簿"
+      }
+    ],
+    "fields": [
+      {
+        "label": "案名",
+        "accept": [
+          "断弦坊"
+        ]
+      },
+      {
+        "label": "地段",
+        "accept": [
+          "桐荫街"
+        ]
+      },
+      {
+        "label": "联测季",
+        "accept": [
+          "冬季并网"
+        ]
+      }
+    ],
+    "hints": [
+      "卷面字样见收件簿末段。"
+    ],
+    "receipt": [
+      "桐荫街断弦坊卷宗已归档。琴底依旧板留样复作，第七弦位按旧谱封存，联测母带与数字转录件各自入柜。",
+      "本卷工尺音签：SH。"
+    ]
+  }
+}
