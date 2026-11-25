@@ -529,7 +529,7 @@ def test_routes_zero_errors_and_responsive_viewports(
     browser: Browser, static_server: str, populated_dist: Path
 ) -> None:
     post_routes = _load_post_routes(populated_dist)
-    routes = ["/", "/articles/", "/projects/", "/gallery/", "/games/", "/mystery/", "/about/", *post_routes]
+    routes = ["/", "/articles/", "/projects/", "/gallery/", "/games/", "/mystery/", "/mystery/darun/", "/about/", *post_routes]
 
     for viewport_name, viewport in [
         ("desktop-1440x900", {"width": 1440, "height": 900}),

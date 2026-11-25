@@ -802,7 +802,8 @@ def render_site(
     # Render the series catalogue, case archives, and the unlisted reading room.
     mystery_site_root = effective_site_url(str(site["site_url"]), normalized_base_path)
     mystery_pages = (
-        ("mystery", "mystery_index.html", "大闰录 · 旧网拾遗", "丰宁与澄溪地方旧网的分卷存档。"),
+        ("mystery", "mystery_index.html", "民俗志异 · 解密总录", "中式民俗志异网页解密系列合集。"),
+        ("mystery/darun", "mystery_darun.html", "大闰录 · 旧网拾遗", "《大闰录》五幕地方旧网归档卷册。"),
         ("mystery/act-1", "mystery.html", "第一幕 · 纸傩代身", "丰宁旧剧场、非遗馆藏与槐安里拆迁公示存档。"),
         ("mystery/act-2", "mystery.html", "第二幕 · 门牌余号", "澄溪清河巷门牌、地籍与夜渡交接存档。"),
         ("mystery/act-3", "mystery.html", "第三幕 · 借姓簿", "栖梧镇迁居清册、宗谱与口述存档。"),

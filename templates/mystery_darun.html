@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{page_title}}</title>
+  <meta name="description" content="{{page_description}}">
+  <meta name="site-base-path" content="{{base_path}}">
+  <meta name="robots" content="{{robots_policy}}">
+  <link rel="canonical" href="{{canonical_url}}">
+  <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/mystery/css/mystery_darun.css">
+  <script src="/static/mystery/js/gallery_scroll.js" defer></script>
+</head>
+<body class="darun-body">
+  <div class="darun-stage" data-mystery-level="darun" data-reel-stage>
+    <!-- Pure-CSS & Inline-SVG 岁差闰历 Rotating Backdrop -->
+    <div class="darun-backdrop" aria-hidden="true">
+      <div class="darun-curtain-glow"></div>
+      <div class="darun-curtain-pleats"></div>
+      <svg class="darun-wheel" viewBox="0 0 600 600" fill="none">
+        <!-- Outer 60-Jiazi Ring + Misaligned 61st Vermilion Notch -->
+        <g class="wheel-ring-outer">
+          <circle cx="300" cy="300" r="286" stroke="#E8B95B" stroke-opacity="0.38" stroke-width="1"/>
+          <circle cx="300" cy="300" r="276" stroke="#B58433" stroke-opacity="0.46" stroke-width="0.9"/>
+          <circle cx="300" cy="300" r="268" stroke="#E8B95B" stroke-opacity="0.72" stroke-width="6" stroke-dasharray="2 26.065"/>
+          <circle cx="300" cy="300" r="244" stroke="#E8B95B" stroke-opacity="0.54" stroke-width="9" stroke-dasharray="2.5 125.258"/>
+          <circle cx="300" cy="300" r="232" stroke="#B58433" stroke-opacity="0.34" stroke-width="0.8"/>
+          <!-- Misaligned 61st Intercalary Notch offset between tick 60 and tick 1 -->
+          <g transform="rotate(3 300 300)">
+            <line x1="300" y1="14" x2="300" y2="74" stroke="#C92434" stroke-opacity="0.78" stroke-width="1.2" stroke-dasharray="3 3"/>
+            <line x1="300" y1="22" x2="300" y2="44" stroke="#C92434" stroke-width="3.5" stroke-linecap="square"/>
+            <circle cx="300" cy="14" r="3.2" fill="#C92434"/>
+            <path d="M291 54H309" stroke="#C92434" stroke-width="1.4" stroke-opacity="0.85"/>
+          </g>
+        </g>
+
+        <!-- Inner Eccentric Precession Orbit & 12-Branch Dial -->
+        <g class="wheel-ring-inner">
+          <ellipse cx="300" cy="300" rx="206" ry="188" transform="rotate(-12 300 300)" stroke="#C87A3A" stroke-opacity="0.76" stroke-width="1.25" stroke-dasharray="6 4"/>
+          <ellipse cx="300" cy="300" rx="194" ry="204" transform="rotate(14 300 300)" stroke="#E8B95B" stroke-opacity="0.32" stroke-width="0.85"/>
+          <circle cx="300" cy="300" r="156" stroke="#E8B95B" stroke-opacity="0.62" stroke-width="1.25"/>
+          <circle cx="300" cy="300" r="146" stroke="#E8B95B" stroke-opacity="0.48" stroke-width="5" stroke-dasharray="2 74.445"/>
+          <!-- Cardinal Order-Pillar Diamond Nodes (名 / 时 / 形 / 祀) -->
+          <polygon points="300,136 307,144 300,152 293,144" fill="#C92434" stroke="#E8B95B" stroke-width="1"/>
+          <polygon points="456,293 464,300 456,307 448,300" fill="#C92434" stroke="#E8B95B" stroke-width="1"/>
+          <polygon points="300,448 307,456 300,464 293,456" fill="#C92434" stroke="#E8B95B" stroke-width="1"/>
+          <polygon points="144,293 152,300 144,307 136,300" fill="#C92434" stroke="#E8B95B" stroke-width="1"/>
+        </g>
+
+        <!-- Static Center Octagonal Stage Seal -->
+        <g class="wheel-core-seal">
+          <polygon points="300,208 365,235 392,300 365,365 300,392 235,365 208,300 235,235" stroke="#E8B95B" stroke-opacity="0.52" stroke-width="1.2"/>
+          <polygon points="300,222 355,245 378,300 355,355 300,378 245,355 222,300 245,245" stroke="#C92434" stroke-opacity="0.48" stroke-width="0.9"/>
+          <circle cx="300" cy="300" r="64" stroke="#E8B95B" stroke-opacity="0.34" stroke-width="1" stroke-dasharray="2 4"/>
+          <line x1="300" y1="208" x2="300" y2="392" stroke="#E8B95B" stroke-opacity="0.22" stroke-width="0.8"/>
+          <line x1="208" y1="300" x2="392" y2="300" stroke="#E8B95B" stroke-opacity="0.22" stroke-width="0.8"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- Top Proscenium Bar -->
+    <header class="darun-topbar">
+      <nav class="darun-breadcrumbs" aria-label="归档导航">
+        <a class="stage-back-link" href="/"><span aria-hidden="true">←</span> 星环手记</a>
+        <span class="darun-crumb-sep" aria-hidden="true">◆</span>
+        <a class="stage-back-link" href="/mystery/">系列总录</a>
+        <span class="darun-crumb-slash" aria-hidden="true">/</span>
+        <h1 class="darun-topbar-title">大闰录</h1>
+        <span class="darun-topbar-sub">五幕分卷</span>
+      </nav>
+      <div class="darun-topbar-meta">
+        <span class="darun-archive-badge">ARCHIVE · LXJZ-61</span>
+      </div>
+    </header>
+
+    <!-- Horizontal Folio Track -->
+    <main class="darun-reel" data-horizontal-reel aria-label="《大闰录》五幕分卷画廊">
+      <!-- Act 1 -->
+      <article class="darun-card darun-card--act" data-reel-card>
+        <a class="darun-card-link" href="/mystery/act-1/">
+          <div class="darun-card-crown">
+            <span class="darun-card-vol">卷壹 · ACT 01</span>
+            <span class="darun-card-pillar">形替</span>
+          </div>
+          <div class="darun-card-body">
+            <div class="darun-card-emblem" aria-hidden="true">
+              <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                <circle cx="60" cy="60" r="50" stroke="#E8B95B" stroke-opacity="0.34" stroke-width="1"/>
+                <circle cx="60" cy="60" r="44" stroke="#B58433" stroke-opacity="0.38" stroke-width="0.8" stroke-dasharray="2 3"/>
+                <!-- Twin Talisman Ribbons -->
+                <path d="M35 88L31 106L39 102L42 108L44 88" stroke="#C87A3A" stroke-width="1.2" stroke-opacity="0.85"/>
+                <path d="M78 88L80 107L85 101L90 105L85 88" stroke="#C87A3A" stroke-width="1.2" stroke-opacity="0.85"/>
+                <!-- Left Solid Gold Foil Half-Mask -->
+                <path d="M58 24C43 24 31 35 28 49L23 44L25 58C26 73 38 89 56 93L58 84L56 68L58 53L56 38Z" fill="#E8B95B" fill-opacity="0.22" stroke="#E8B95B" stroke-width="1.6" stroke-linejoin="round"/>
+                <path d="M36 45C42 41 49 41 53 45" stroke="#E8B95B" stroke-width="2" stroke-linecap="round"/>
+                <path d="M37 54L51 52L48 59L38 58Z" fill="#150507" stroke="#F4E6C8" stroke-width="1.1"/>
+                <path d="M44 76C48 77 52 76 55 74" stroke="#E8B95B" stroke-width="1.4" stroke-linecap="round"/>
+                <!-- Right Offset Hollow Ivory Wireframe Half-Mask -->
+                <g transform="translate(4 -3)">
+                  <path d="M60 24C75 24 87 35 90 49L95 44L93 58C92 73 80 89 62 93" stroke="#F4E6C8" stroke-width="1.5" stroke-dasharray="4 2.5" stroke-linejoin="round"/>
+                  <path d="M65 45C71 41 78 41 84 45" stroke="#F4E6C8" stroke-width="1.5" stroke-linecap="round"/>
+                  <path d="M67 52L81 54L80 59L70 59Z" stroke="#F4E6C8" stroke-width="1.2"/>
+                  <circle cx="74" cy="56" r="1.8" fill="#C92434"/>
+                  <path d="M64 74C68 76 72 77 77 75" stroke="#F4E6C8" stroke-width="1.2" stroke-dasharray="2.5 2"/>
+                </g>
+                <!-- Jagged Crimson Paper-Tear Fissure -->
+                <path d="M60 17L57 31L63 44L56 58L64 72L58 87L61 103" stroke="#C92434" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p class="darun-card-locality">丰宁 · 太平社与槐安里</p>
+            <h2 class="darun-card-title">第一幕 纸傩代身</h2>
+            <div class="darun-card-rule" aria-hidden="true"><span></span></div>
+            <p class="darun-card-synopsis">旧剧场散班合影多出的一道身位、非遗馆独盒青笺与槐安里七号楼拆迁复核，共指纸傩替身旧案。</p>
+            <p class="darun-card-case">卷档 · CASE-LXJZ-61 · 独立可开卷</p>
+            <span class="darun-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Act 2 -->
+      <article class="darun-card darun-card--act" data-reel-card>
+        <a class="darun-card-link" href="/mystery/act-2/">
+          <div class="darun-card-crown">
+            <span class="darun-card-vol">卷贰 · ACT 02</span>
+            <span class="darun-card-pillar">宅镇</span>
+          </div>
+          <div class="darun-card-body">
+            <div class="darun-card-emblem" aria-hidden="true">
+              <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                <circle cx="60" cy="60" r="50" stroke="#E8B95B" stroke-opacity="0.34" stroke-width="1"/>
+                <!-- Octagonal Doorframe -->
+                <polygon points="42,20 78,20 96,38 96,80 78,94 42,94 24,80 24,38" stroke="#E8B95B" stroke-width="1.5" stroke-opacity="0.78"/>
+                <polygon points="45,25 75,25 91,41 91,77 75,89 45,89 29,77 29,41" stroke="#B58433" stroke-width="0.9" stroke-opacity="0.55"/>
+                <!-- Luban Carpenter Ruler Bar at Sill -->
+                <rect x="20" y="92" width="80" height="8" rx="1" fill="#150507" stroke="#C87A3A" stroke-width="1.3"/>
+                <path d="M28 92V97M36 92V95M44 92V97M52 92V95M60 92V98M68 92V95M76 92V97M84 92V95M92 92V97" stroke="#C87A3A" stroke-width="1.1"/>
+                <!-- Primary House Plate 17 -->
+                <rect x="33" y="38" width="42" height="30" rx="2" fill="#1F090D" stroke="#E8B95B" stroke-width="1.5"/>
+                <path d="M45 46V60M42 49L45 46" stroke="#E8B95B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M53 46H65L57 60" stroke="#E8B95B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <!-- Shifted Ghost Plate +乙 -->
+                <rect x="52" y="52" width="38" height="26" rx="2" fill="#C92434" fill-opacity="0.24" stroke="#C92434" stroke-width="1.5"/>
+                <path d="M61 61V69M57 65H65" stroke="#F4E6C8" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M70 60H80L72 68C70 70 72 72 77 72H82L83 69" stroke="#F4E6C8" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <p class="darun-card-locality">澄溪 · 清河巷门牌复核</p>
+            <h2 class="darun-card-title">第二幕 门牌余号</h2>
+            <div class="darun-card-rule" aria-hidden="true"><span></span></div>
+            <p class="darun-card-synopsis">清河巷换领门牌后多出的半个余号、地籍测绘占位底图与五港夜渡交接班表，逐层拼出隐匿宅院。</p>
+            <p class="darun-card-case">卷档 · CASE-QH-17Y · 独立可开卷</p>
+            <span class="darun-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Act 3 -->
+      <article class="darun-card darun-card--act" data-reel-card>
+        <a class="darun-card-link" href="/mystery/act-3/">
+          <div class="darun-card-crown">
+            <span class="darun-card-vol">卷叁 · ACT 03</span>
+            <span class="darun-card-pillar">名录</span>
+          </div>
+          <div class="darun-card-body">
+            <div class="darun-card-emblem" aria-hidden="true">
+              <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                <circle cx="60" cy="60" r="50" stroke="#E8B95B" stroke-opacity="0.34" stroke-width="1"/>
+                <!-- Thread-Bound Genealogy Ledger -->
+                <rect x="28" y="21" width="64" height="78" rx="1.5" fill="#1F090D" stroke="#E8B95B" stroke-width="1.5"/>
+                <rect x="33" y="26" width="46" height="68" stroke="#B58433" stroke-opacity="0.6" stroke-width="0.9"/>
+                <!-- Right-Edge Four-Hole Stab Binding -->
+                <line x1="82" y1="21" x2="82" y2="99" stroke="#E8B95B" stroke-width="1"/>
+                <circle cx="87" cy="32" r="1.7" fill="#E8B95B"/>
+                <circle cx="87" cy="50" r="1.7" fill="#E8B95B"/>
+                <circle cx="87" cy="70" r="1.7" fill="#E8B95B"/>
+                <circle cx="87" cy="88" r="1.7" fill="#E8B95B"/>
+                <path d="M87 32H92M87 50H92M87 70H92M87 88H92M87 32V88" stroke="#E8B95B" stroke-width="0.9"/>
+                <!-- Vertical Ink Columns -->
+                <line x1="70" y1="31" x2="70" y2="89" stroke="#C87A3A" stroke-opacity="0.55" stroke-width="0.9"/>
+                <line x1="56" y1="31" x2="56" y2="89" stroke="#C87A3A" stroke-opacity="0.55" stroke-width="0.9"/>
+                <line x1="42" y1="31" x2="42" y2="89" stroke="#C87A3A" stroke-opacity="0.55" stroke-width="0.9"/>
+                <path d="M74 36V44M74 49V57M74 62V70M46 36V44M46 49V57M46 62V70" stroke="#C87A3A" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- Misaligned Overwritten Vermilion Slip -->
+                <g transform="rotate(-4 60 60)">
+                  <rect x="52" y="34" width="16" height="50" fill="#C92434" fill-opacity="0.28" stroke="#C92434" stroke-width="1.4"/>
+                  <path d="M56 42H64M56 50H64M55 58L65 65M65 58L55 65" stroke="#F4E6C8" stroke-width="1.4" stroke-linecap="round"/>
+                  <rect x="55" y="70" width="10" height="10" stroke="#C92434" stroke-width="1.2" fill="#150507"/>
+                </g>
+              </svg>
+            </div>
+            <p class="darun-card-locality">栖梧 · 迁居清册与旧谱</p>
+            <h2 class="darun-card-title">第三幕 借姓簿</h2>
+            <div class="darun-card-rule" aria-hidden="true"><span></span></div>
+            <p class="darun-card-synopsis">洪水前后散失又重现的迁居清册、谱牒里被暂寄改写的一行旧姓，与南埠口述共同指向名录置换。</p>
+            <p class="darun-card-case">卷档 · CASE-QW-MK · 独立可开卷</p>
+            <span class="darun-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Act 4 -->
+      <article class="darun-card darun-card--act" data-reel-card>
+        <a class="darun-card-link" href="/mystery/act-4/">
+          <div class="darun-card-crown">
+            <span class="darun-card-vol">卷肆 · ACT 04</span>
+            <span class="darun-card-pillar">时错</span>
+          </div>
+          <div class="darun-card-body">
+            <div class="darun-card-emblem" aria-hidden="true">
+              <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                <circle cx="60" cy="60" r="50" stroke="#E8B95B" stroke-opacity="0.34" stroke-width="1"/>
+                <!-- 12-Branch Sundial Ring -->
+                <circle cx="60" cy="60" r="39" stroke="#E8B95B" stroke-width="1.4"/>
+                <circle cx="60" cy="60" r="33" stroke="#E8B95B" stroke-opacity="0.72" stroke-width="6" stroke-dasharray="1.8 15.479"/>
+                <circle cx="60" cy="60" r="24" stroke="#B58433" stroke-opacity="0.58" stroke-width="1"/>
+                <!-- Gnomon Shadow Blade -->
+                <polygon points="60,60 40,42 54,32" fill="#C87A3A" fill-opacity="0.36" stroke="#C87A3A" stroke-width="1.3" stroke-linejoin="round"/>
+                <line x1="60" y1="60" x2="36" y2="82" stroke="#E8B95B" stroke-width="1.6" stroke-linecap="round"/>
+                <circle cx="60" cy="60" r="3.2" fill="#E8B95B"/>
+                <!-- Eccentric 13th Intercalary Crescent Arc Breaking the Rim -->
+                <path d="M77 20C93 26 102 41 100 58" stroke="#C92434" stroke-width="2.4" stroke-linecap="round"/>
+                <path d="M84 15L88 26M99 31L107 28M95 50L106 53" stroke="#C92434" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M90 25L92.5 29L96.5 31.5L92.5 34L90 38L87.5 34L83.5 31.5L87.5 29Z" fill="#F4E6C8"/>
+              </svg>
+            </div>
+            <p class="darun-card-locality">鸣川 · 气象观测与旧历站</p>
+            <h2 class="darun-card-title">第四幕 失日台</h2>
+            <div class="darun-card-rule" aria-hidden="true"><span></span></div>
+            <p class="darun-card-synopsis">春汛旧气象台的断档纸带、零点停播的授时台呼号与错印闰页万年历，截留出不存在的一日。</p>
+            <p class="darun-card-case">卷档 · CASE-MC-T6 · 独立可开卷</p>
+            <span class="darun-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Act 5 -->
+      <article class="darun-card darun-card--act" data-reel-card>
+        <a class="darun-card-link" href="/mystery/act-5/">
+          <div class="darun-card-crown">
+            <span class="darun-card-vol">卷伍 · ACT 05</span>
+            <span class="darun-card-pillar">祀伪</span>
+          </div>
+          <div class="darun-card-body">
+            <div class="darun-card-emblem" aria-hidden="true">
+              <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+                <circle cx="60" cy="60" r="50" stroke="#E8B95B" stroke-opacity="0.34" stroke-width="1"/>
+                <!-- Empty Hollow Shrine Diamond -->
+                <polygon points="60,16 83,38 60,60 37,38" stroke="#F4E6C8" stroke-opacity="0.72" stroke-width="1.3" stroke-dasharray="3.5 2.5"/>
+                <polygon points="60,24 75,38 60,52 45,38" stroke="#B58433" stroke-opacity="0.45" stroke-width="0.9"/>
+                <!-- Three Incense Trails Curling Downward Back Into the Void -->
+                <path d="M52 70C46 58 49 46 54 39C57 35 52 30 48 34C44 38 48 47 50 56" stroke="#C87A3A" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M60 70C60 56 64 46 60 36C57 31 64 29 66 34C68 39 62 49 62 59" stroke="#C92434" stroke-width="1.6" stroke-linecap="round"/>
+                <path d="M68 70C74 58 71 46 66 39C63 35 68 30 72 34C76 38 72 47 70 56" stroke="#C87A3A" stroke-width="1.4" stroke-linecap="round"/>
+                <!-- Tripod Bronze Censer -->
+                <path d="M40 72H80L76 86C73 91 67 93 60 93C53 93 47 91 44 86Z" fill="#E8B95B" fill-opacity="0.16" stroke="#E8B95B" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M40 72C35 72 34 65 39 65C42 65 42 70 42 72M80 72C85 72 86 65 81 65C78 65 78 70 78 72" stroke="#E8B95B" stroke-width="1.4" stroke-linecap="round"/>
+                <line x1="43" y1="78" x2="77" y2="78" stroke="#B58433" stroke-width="1.1"/>
+                <path d="M47 91L44 101M60 93V102M73 91L76 101" stroke="#E8B95B" stroke-width="1.6" stroke-linecap="round"/>
+                <line x1="36" y1="102" x2="84" y2="102" stroke="#B58433" stroke-opacity="0.55" stroke-width="1"/>
+              </svg>
+            </div>
+            <p class="darun-card-locality">蒲岭 · 白鹭会庙务与修复记录</p>
+            <h2 class="darun-card-title">第五幕 空炉回香</h2>
+            <div class="darun-card-rule" aria-hidden="true"><span></span></div>
+            <p class="darun-card-synopsis">白鹭会屋修复验收单、被调包的代收香火台账与炉后三问录音，揭开神位已空却仍回香的伪祀。</p>
+            <p class="darun-card-case">卷档 · CASE-PL-WL · 独立可开卷</p>
+            <span class="darun-card-cta">查阅此幕 <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      </article>
+
+      <!-- Card 6: Sealed Continuation Card -->
+      <article class="darun-card darun-card--sealed" data-reel-card>
+        <div class="darun-card-crown">
+          <span class="darun-card-vol">后续卷</span>
+          <span class="darun-card-pillar">留缺</span>
+        </div>
+        <div class="darun-card-body darun-card-body--sealed">
+          <div class="darun-card-emblem darun-card-emblem--sealed" aria-hidden="true">
+            <svg viewBox="0 0 120 120" width="108" height="108" fill="none">
+              <circle cx="60" cy="60" r="50" stroke="#C92434" stroke-opacity="0.4" stroke-width="1" stroke-dasharray="3 3"/>
+              <!-- Sealed Archive Cabinet -->
+              <rect x="27" y="24" width="66" height="52" rx="1.5" fill="#150507" stroke="#B58433" stroke-width="1.5"/>
+              <path d="M33 30H41M33 30V38M87 30H79M87 30V38M33 70H41M33 70V62M87 70H79M87 70V62" stroke="#E8B95B" stroke-width="1.2"/>
+              <!-- Crossed Crimson Sealing Strips -->
+              <path d="M25 32L95 68L91 74L21 38Z" fill="#C92434" fill-opacity="0.34" stroke="#C92434" stroke-width="1.2"/>
+              <path d="M95 32L25 68L29 74L99 38Z" fill="#C92434" fill-opacity="0.34" stroke="#C92434" stroke-width="1.2"/>
+              <polygon points="60,40 70,50 60,60 50,50" fill="#180709" stroke="#F4E6C8" stroke-width="1.2"/>
+              <circle cx="60" cy="50" r="2.6" fill="#C92434"/>
+              <!-- Five Tear-Strip Stubs (五联撕口残印) -->
+              <g stroke-width="1.1">
+                <rect x="28" y="84" width="10" height="14" stroke="#C87A3A" stroke-dasharray="2 1.5"/>
+                <rect x="41" y="84" width="10" height="14" stroke="#C87A3A" stroke-dasharray="2 1.5"/>
+                <rect x="54" y="84" width="10" height="14" stroke="#F4E6C8" stroke-dasharray="2 1.5"/>
+                <rect x="67" y="84" width="10" height="14" stroke="#C87A3A" stroke-dasharray="2 1.5"/>
+                <rect x="80" y="86" width="10" height="14" transform="rotate(6 85 93)" stroke="#C92434" fill="#C92434" fill-opacity="0.22"/>
+              </g>
+            </svg>
+          </div>
+          <p class="darun-card-locality">目录留页</p>
+          <p class="darun-sealed-note">五幕卷宗均留有转存撕条。集齐五地回执后，可由此核入未公开副卷。</p>
+          <details id="continuation" class="darun-continuation">
+            <summary class="darun-continuation-summary">
+              <span class="darun-continuation-title">未完待续</span>
+              <span class="darun-continuation-action">查看</span>
+            </summary>
+            <p class="darun-continuation-copy">此页留待下一批旧网材料完成归档。有缺页回执的读者可<a href="/mystery/reading-room/">核对撕条</a>。</p>
+          </details>
+        </div>
+      </article>
+    </main>
+
+    <!-- Bottom Opera Stage HUD -->
+    <footer class="reel-hud">
+      <p class="darun-colophon">《大闰录》为虚构作品 · 卷内网址为站内模拟旧网</p>
+      <div class="reel-controls">
+        <span class="reel-counter" data-reel-counter aria-live="polite">01 / 06</span>
+        <div class="reel-progress-track" aria-hidden="true">
+          <span class="reel-progress-fill" data-reel-progress></span>
+        </div>
+        <div class="reel-buttons">
+          <button type="button" class="reel-nav-btn" data-reel-prev aria-label="上一幕">
+            <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
+              <path d="M12.5 4.5L7 10L12.5 15.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button type="button" class="reel-nav-btn" data-reel-next aria-label="下一幕">
+            <svg viewBox="0 0 20 20" width="18" height="18" fill="none" aria-hidden="true">
+              <path d="M7.5 4.5L13 10L7.5 15.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

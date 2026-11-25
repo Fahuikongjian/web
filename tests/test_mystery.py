@@ -151,6 +151,9 @@ def test_first_act_archived_pages_and_completion(browser, site_url):
     page = browser.new_page(viewport={"width": 1440, "height": 900})
     errors = _attach_error_collectors(page)
     page.goto(site_url + "/mystery/", wait_until="networkidle")
+    expect(page.get_by_text("敬请期待", exact=True)).to_be_visible()
+    page.get_by_role("link", name="大闰录", exact=False).click()
+    expect(page).to_have_url(site_url + "/mystery/darun/")
     expect(page.get_by_role("link", name="第一幕 纸傩代身", exact=False)).to_be_visible()
     expect(page.get_by_role("link", name="第二幕 门牌余号", exact=False)).to_be_visible()
     page.get_by_text("未完待续", exact=True).click()
@@ -226,6 +229,9 @@ def test_second_act_independent_mobile_subpath_completion(browser, subpath_url):
     page.get_by_role("link", name="查看分卷目录").click()
     expect(page).to_have_url(subpath_url + "/mystery/")
     _assert_no_horizontal_overflow(page, page.url, "390x844")
+    page.get_by_role("link", name="大闰录", exact=False).click()
+    expect(page).to_have_url(subpath_url + "/mystery/darun/")
+    _assert_no_horizontal_overflow(page, page.url, "390x844")
     page.get_by_role("link", name="第二幕 门牌余号", exact=False).click()
     expect(page.get_by_role("heading", name="澄溪清河巷旧站存档")).to_be_visible()
     page.get_by_role("link", name="清河街道公示栏", exact=True).click()
@@ -257,7 +263,7 @@ def test_second_act_independent_mobile_subpath_completion(browser, subpath_url):
     expect(page.locator(".archive-receipt")).to_contain_text("本卷转存撕条：QS")
     assert page.evaluate("localStorage.getItem('darun_save_v1_ch01')") is None
     page.get_by_role("link", name="分卷目录").click()
-    expect(page).to_have_url(subpath_url + "/mystery/")
+    expect(page).to_have_url(subpath_url + "/mystery/darun/")
     _assert_clean_page(errors, "second archive")
     page.close()
 
@@ -312,7 +318,9 @@ def test_hidden_reading_room_and_finale(browser, subpath_url):
     requests = []
     page.on("request", lambda request: requests.append(request.url))
     page.goto(subpath_url + "/mystery/", wait_until="networkidle")
-    expect(page.locator(".catalogue-list a[href*='/act-']")).to_have_count(5)
+    page.get_by_role("link", name="大闰录", exact=False).click()
+    expect(page).to_have_url(subpath_url + "/mystery/darun/")
+    expect(page.locator("[data-horizontal-reel] a[href*='/act-']")).to_have_count(5)
     page.get_by_text("未完待续", exact=True).click()
     page.get_by_role("link", name="核对撕条").click()
     expect(page.get_by_role("heading", name="目录缺页登记")).to_be_visible()
@@ -349,5 +357,131 @@ def test_hidden_reading_room_and_finale(browser, subpath_url):
     expect(page.locator(".archive-receipt")).to_contain_text("【全录完】")
     page.get_by_role("link", name="阅封柜后的纸封回执").click()
     expect(page.get_by_role("heading", name="封柜回执副联 · 留缺")).to_be_visible()
+    page.get_by_role("link", name="分卷目录").click()
+    expect(page).to_have_url(subpath_url + "/mystery/darun/")
     _assert_clean_page(errors, "series finale")
     page.close()
+
+
+def _assert_wheel_scrolls_reel_horizontally(page, route_label: str) -> None:
+    stage = page.locator("[data-reel-stage]")
+    reel = page.locator("[data-horizontal-reel]")
+    expect(stage).to_be_visible()
+    expect(reel).to_be_visible()
+
+    initial = page.evaluate(
+        """() => ({
+            scrollLeft: document.querySelector('[data-horizontal-reel]').scrollLeft,
+            scrollY: window.scrollY,
+            scrollWidth: document.querySelector('[data-horizontal-reel]').scrollWidth,
+            clientWidth: document.querySelector('[data-horizontal-reel]').clientWidth,
+        })"""
+    )
+    assert initial["scrollWidth"] > initial["clientWidth"] + 2, (
+        f"Expected horizontal overflow in reel on {route_label}, got {initial}"
+    )
+    assert initial["scrollLeft"] == 0
+    assert initial["scrollY"] == 0
+
+    box = stage.bounding_box()
+    assert box is not None
+    page.mouse.move(box["x"] + box["width"] * 0.5, box["y"] + box["height"] * 0.5)
+    page.mouse.wheel(0, 480)
+    page.wait_for_function(
+        "() => document.querySelector('[data-horizontal-reel]').scrollLeft > 0"
+    )
+    page.wait_for_timeout(320)
+
+    after = page.evaluate(
+        """() => ({
+            scrollLeft: document.querySelector('[data-horizontal-reel]').scrollLeft,
+            scrollY: window.scrollY,
+        })"""
+    )
+    assert after["scrollLeft"] > 0, f"Expected wheel to scroll reel horizontally on {route_label}"
+    assert after["scrollY"] == 0, f"Expected window.scrollY === 0 on {route_label}, got {after['scrollY']}"
+
+
+def test_two_level_gallery_wheel_themes_and_responsive_layout(browser, site_url):
+    desktop = browser.new_page(viewport={"width": 1440, "height": 900})
+    desktop_errors = _attach_error_collectors(desktop)
+    try:
+        desktop.goto(site_url + "/mystery/", wait_until="networkidle")
+        expect(desktop.locator('[data-mystery-level="hub"]')).to_have_count(1)
+        expect(desktop.get_by_text("敬请期待", exact=True)).to_be_visible()
+        _assert_no_horizontal_overflow(desktop, "/mystery/", "1440x900")
+        _assert_wheel_scrolls_reel_horizontally(desktop, "/mystery/")
+
+        hub_theme = desktop.evaluate(
+            """() => {
+                const body = getComputedStyle(document.body);
+                const card = getComputedStyle(document.querySelector('.hub-card--featured'));
+                return {
+                    level: document.querySelector('[data-mystery-level]').getAttribute('data-mystery-level'),
+                    bodyBg: body.backgroundColor,
+                    cardBgImage: card.backgroundImage,
+                    cardBorderColor: card.borderColor,
+                    cardRadius: card.borderRadius,
+                };
+            }"""
+        )
+
+        desktop.get_by_role("link", name="大闰录", exact=False).click()
+        expect(desktop).to_have_url(site_url + "/mystery/darun/")
+        expect(desktop.locator('[data-mystery-level="darun"]')).to_have_count(1)
+        for act_title in (
+            "第一幕 纸傩代身",
+            "第二幕 门牌余号",
+            "第三幕 借姓簿",
+            "第四幕 失日台",
+            "第五幕 空炉回香",
+        ):
+            expect(desktop.get_by_role("link", name=act_title, exact=False)).to_be_visible()
+        expect(desktop.get_by_text("未完待续", exact=True)).to_be_visible()
+        _assert_no_horizontal_overflow(desktop, "/mystery/darun/", "1440x900")
+        _assert_wheel_scrolls_reel_horizontally(desktop, "/mystery/darun/")
+
+        darun_theme = desktop.evaluate(
+            """() => {
+                const body = getComputedStyle(document.body);
+                const card = getComputedStyle(document.querySelector('.darun-card--act'));
+                return {
+                    level: document.querySelector('[data-mystery-level]').getAttribute('data-mystery-level'),
+                    bodyBg: body.backgroundColor,
+                    cardBgImage: card.backgroundImage,
+                    cardBorderColor: card.borderColor,
+                    cardRadius: card.borderRadius,
+                };
+            }"""
+        )
+
+        assert hub_theme["level"] != darun_theme["level"]
+        assert hub_theme["bodyBg"] != darun_theme["bodyBg"]
+        assert hub_theme["cardBgImage"] != darun_theme["cardBgImage"]
+        assert hub_theme["cardBorderColor"] != darun_theme["cardBorderColor"]
+        assert hub_theme["cardRadius"] != darun_theme["cardRadius"]
+
+        desktop.get_by_text("未完待续", exact=True).click()
+        desktop.get_by_role("link", name="核对撕条").click()
+        expect(desktop).to_have_url(site_url + "/mystery/reading-room/")
+        desktop.get_by_role("link", name="分卷目录").click()
+        expect(desktop).to_have_url(site_url + "/mystery/darun/")
+        _assert_clean_page(desktop_errors, "mystery two-level desktop")
+    finally:
+        desktop.close()
+
+    mobile = browser.new_page(viewport={"width": 390, "height": 844}, is_mobile=True, has_touch=True)
+    mobile_errors = _attach_error_collectors(mobile)
+    try:
+        mobile.goto(site_url + "/mystery/", wait_until="networkidle")
+        expect(mobile.get_by_text("敬请期待", exact=True)).to_be_visible()
+        _assert_no_horizontal_overflow(mobile, "/mystery/", "390x844")
+
+        mobile.get_by_role("link", name="大闰录", exact=False).click()
+        expect(mobile).to_have_url(site_url + "/mystery/darun/")
+        expect(mobile.locator("[data-horizontal-reel] a[href*='/act-']")).to_have_count(5)
+        expect(mobile.get_by_text("未完待续", exact=True)).to_be_visible()
+        _assert_no_horizontal_overflow(mobile, "/mystery/darun/", "390x844")
+        _assert_clean_page(mobile_errors, "mystery two-level mobile")
+    finally:
+        mobile.close()

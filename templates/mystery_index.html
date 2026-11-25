@@ -8,67 +8,274 @@
   <meta name="site-base-path" content="{{base_path}}">
   <link rel="canonical" href="{{canonical_url}}">
   <link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/static/mystery/css/archive.css">
+  <link rel="stylesheet" href="/static/css/tokens.css">
+  <link rel="stylesheet" href="/static/mystery/css/mystery_hub.css">
+  <script src="/static/mystery/js/gallery_scroll.js" defer></script>
 </head>
-<body class="archive-catalogue">
-  <header class="catalogue-strip"><a href="/">星环手记</a><span>地方旧站备份 / 目录</span></header>
-  <main class="catalogue-sheet">
-    <header class="catalogue-heading">
-      <div>
-        <p>旧网拾遗　地方网页存档</p>
-        <h1>大闰录</h1>
+<body class="mystery-hub" data-mystery-level="hub">
+  <div class="hub-backdrop" aria-hidden="true">
+    <svg class="hub-backdrop-svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" fill="none">
+      <circle cx="960" cy="450" r="390" stroke="#E6C27A" stroke-width="0.9" stroke-dasharray="3 11"/>
+      <circle cx="960" cy="450" r="318" stroke="#6BC4B3" stroke-width="0.85" stroke-dasharray="18 10 4 10"/>
+      <circle cx="960" cy="450" r="236" stroke="#E6C27A" stroke-width="0.7" stroke-opacity="0.7"/>
+      <ellipse cx="960" cy="450" rx="460" ry="188" transform="rotate(-18 960 450)" stroke="#6BC4B3" stroke-width="0.8" stroke-opacity="0.7"/>
+      <path d="M120 710 C220 650 320 740 430 676 C510 628 590 674 662 630" stroke="#E6C27A" stroke-width="1"/>
+      <path d="M180 742 C265 696 340 762 444 712" stroke="#6BC4B3" stroke-width="0.9"/>
+      <path d="M88 180 C180 120 280 205 380 150 C442 116 512 146 576 118" stroke="#6BC4B3" stroke-width="0.9"/>
+      <path d="M1040 164 C1120 124 1200 198 1300 146 C1352 120 1396 138 1426 124" stroke="#E6C27A" stroke-width="0.9"/>
+      <path d="M960 32V868M542 450H1378" stroke="#E6C27A" stroke-width="0.55" stroke-opacity="0.45"/>
+    </svg>
+  </div>
+
+  <div class="reel-stage" data-reel-stage>
+    <header class="hub-topbar">
+      <div class="hub-topbar-left">
+        <a class="hub-back-link" href="/">← 星环手记</a>
+        <span class="hub-topbar-sep" aria-hidden="true">◆</span>
+        <span class="hub-topbar-brand">
+          <span class="hub-topbar-zh">民俗志异总录</span>
+          <span class="hub-topbar-en">FOLKLORE ANTHOLOGY</span>
+        </span>
       </div>
-      <span class="catalogue-seal" aria-hidden="true">存<br>录</span>
+      <div class="hub-topbar-right">
+        <span class="hub-topbar-status">
+          <span class="hub-status-dot" aria-hidden="true"></span>
+          01 已开卷 / 03 筹备
+        </span>
+      </div>
     </header>
-    <p class="catalogue-note">本目录保留原站公告、个人日志与部分历史版本。各卷可分别查阅。</p>
-    <ol class="catalogue-list">
-      <li>
-        <a href="/mystery/act-1/">
-          <span class="catalogue-volume">第一幕</span>
-          <span><strong>纸傩代身</strong><small>丰宁 · 太平社与槐安里</small></span>
-          <span class="catalogue-action">查阅</span>
-        </a>
-      </li>
-      <li>
-        <a href="/mystery/act-2/">
-          <span class="catalogue-volume">第二幕</span>
-          <span><strong>门牌余号</strong><small>澄溪 · 清河巷门牌复核</small></span>
-          <span class="catalogue-action">查阅</span>
-        </a>
-      </li>
-      <li>
-        <a href="/mystery/act-3/">
-          <span class="catalogue-volume">第三幕</span>
-          <span><strong>借姓簿</strong><small>栖梧 · 迁居清册与旧谱</small></span>
-          <span class="catalogue-action">查阅</span>
-        </a>
-      </li>
-      <li>
-        <a href="/mystery/act-4/">
-          <span class="catalogue-volume">第四幕</span>
-          <span><strong>失日台</strong><small>鸣川 · 气象观测与旧历站</small></span>
-          <span class="catalogue-action">查阅</span>
-        </a>
-      </li>
-      <li>
-        <a href="/mystery/act-5/">
-          <span class="catalogue-volume">第五幕</span>
-          <span><strong>空炉回香</strong><small>蒲岭 · 白鹭会庙务与修复记录</small></span>
-          <span class="catalogue-action">查阅</span>
-        </a>
-      </li>
-      <li>
-        <details id="continuation">
-          <summary>
-            <span class="catalogue-volume">后续卷</span>
-            <span><strong>未完待续</strong><small>目录留页</small></span>
-            <span class="catalogue-action">查看</span>
-          </summary>
-          <p>此页留待下一批旧网材料完成归档。有缺页回执的读者可<a href="/mystery/reading-room/">核对撕条</a>。</p>
-        </details>
-      </li>
-    </ol>
-    <footer class="catalogue-footer">《大闰录》为虚构作品。卷内网址为站内模拟网页。</footer>
-  </main>
+
+    <main class="hub-main">
+      <section class="hub-reel" data-horizontal-reel aria-label="民俗志异系列卷宗画廊">
+        <!-- Card 1: Prologue -->
+        <article class="hub-card hub-card--prologue" data-reel-card>
+          <svg class="hub-corner hub-corner--tl" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.6" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--tr" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.6" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--br" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.6" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--bl" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.6" stroke-width="1.25"/></svg>
+
+          <div class="hub-prologue-crest" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="48" height="48" fill="none">
+              <circle cx="24" cy="24" r="21" stroke="#6BC4B3" stroke-opacity="0.38" stroke-width="1" stroke-dasharray="3 4"/>
+              <path d="M28.5 11.5A12.5 12.5 0 1 0 36.5 31.2A9.8 9.8 0 1 1 28.5 11.5Z" stroke="#E6C27A" stroke-width="1.4" fill="#E6C27A" fill-opacity="0.14"/>
+              <path d="M10 34C14.5 30.5 19.5 36.5 24 33C28.5 29.5 33.5 35.5 38 32" stroke="#B88A44" stroke-width="1.35" stroke-linecap="round"/>
+              <path d="M31 16L32.4 18.8L35.2 20.2L32.4 21.6L31 24.4L29.6 21.6L26.8 20.2L29.6 18.8Z" fill="#D63344"/>
+            </svg>
+          </div>
+
+          <p class="hub-kicker">总录序 · PROLOGUE</p>
+          <h1 class="hub-prologue-title">山海旧闻</h1>
+          <p class="hub-prologue-subtitle">民俗志异总录</p>
+
+          <svg class="hub-cloud-divider" viewBox="0 0 140 20" width="140" height="20" fill="none" aria-hidden="true">
+            <path d="M6 10H40C47 10 49 4 55 4C59 4 61 7 58 10C55 12.5 51 11 52 8.5" stroke="#B88A44" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M134 10H100C93 10 91 4 85 4C81 4 79 7 82 10C85 12.5 89 11 88 8.5" stroke="#B88A44" stroke-width="1.2" stroke-linecap="round"/>
+            <path d="M70 3L75.5 10L70 17L64.5 10Z" stroke="#6BC4B3" stroke-width="1.15" fill="#1B3B3A" fill-opacity="0.5"/>
+            <path d="M70 6.8L72.4 10L70 13.2L67.6 10Z" fill="#D63344"/>
+          </svg>
+
+          <div class="hub-prologue-body">
+            <p class="hub-prologue-copy">寻常旧网与地方纸页之间，偶有未归档的异闻残痕。或借<span class="hub-pillar-inline">名</span>以代籍，或盗<span class="hub-pillar-inline">时</span>而成闰，或拟<span class="hub-pillar-inline">形</span>于纸傩，或虚<span class="hub-pillar-inline">祀</span>而回香。</p>
+            <p class="hub-prologue-copy hub-prologue-copy--muted">本总录收录各卷交互志异档案。循旧址、核版本、验源码，可于故纸微光中窥见异序之端倪。</p>
+          </div>
+
+          <p class="hub-scroll-cue">
+            <span class="hub-cue-line" aria-hidden="true"></span>
+            <span>滚轮横览卷宗 →</span>
+          </p>
+        </article>
+
+        <!-- Card 2: Featured Series 01 — 大闰录 -->
+        <article class="hub-card hub-card--featured" data-reel-card>
+          <svg class="hub-corner hub-corner--tl" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.72" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--tr" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.72" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--br" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.72" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--bl" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.72" stroke-width="1.25"/></svg>
+
+          <div class="hub-featured-grid">
+            <div class="hub-emblem-sanctuary" aria-hidden="true">
+              <svg class="hub-nuo-emblem" viewBox="0 0 220 260" width="220" height="260" fill="none">
+                <defs>
+                  <radialGradient id="hub-eclipse-corona" cx="50%" cy="45%" r="48%">
+                    <stop offset="0%" stop-color="#D63344" stop-opacity="0.44"/>
+                    <stop offset="48%" stop-color="#1B3B3A" stop-opacity="0.34"/>
+                    <stop offset="100%" stop-color="#09080D" stop-opacity="0"/>
+                  </radialGradient>
+                </defs>
+
+                <!-- Corona behind lunar eclipse & Paper-Nuo mask -->
+                <circle cx="110" cy="116" r="88" fill="url(#hub-eclipse-corona)"/>
+
+                <!-- Concentric 60-tick lunar eclipse rings + misaligned 61st arc -->
+                <circle cx="110" cy="116" r="88" stroke="#E6C27A" stroke-opacity="0.55" stroke-width="2.6" stroke-dasharray="2 7.215"/>
+                <circle cx="110" cy="116" r="81" stroke="#E6C27A" stroke-opacity="0.22" stroke-width="0.9"/>
+                <circle cx="110" cy="116" r="72" stroke="#1B3B3A" stroke-width="2"/>
+                <circle cx="110" cy="116" r="72" stroke="#6BC4B3" stroke-opacity="0.46" stroke-width="1.1" stroke-dasharray="16 8 4 8"/>
+
+                <!-- Misaligned 61st intercalary arc & diamond notch -->
+                <path d="M148 28A96 96 0 0 1 205 124" stroke="#D63344" stroke-width="2" stroke-linecap="round"/>
+                <path d="M201 70L205.5 74.5L201 79L196.5 74.5Z" fill="#D63344"/>
+
+                <!-- Flanking cloud-scroll ribbons -->
+                <path d="M52 104C34 96 26 114 40 124C30 132 36 146 54 140" stroke="#B88A44" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M44 114C37 115 36 122 43 125" stroke="#6BC4B3" stroke-opacity="0.7" stroke-width="1.1" stroke-linecap="round"/>
+                <path d="M168 104C186 96 194 114 180 124C190 132 184 146 166 140" stroke="#B88A44" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M176 114C183 115 184 122 177 125" stroke="#6BC4B3" stroke-opacity="0.7" stroke-width="1.1" stroke-linecap="round"/>
+
+                <!-- Stylized Paper-Nuo Mask (split left/right along x=110) -->
+                <path d="M110 56 L84 62 L63 82 L58 110 L66 142 L84 166 L110 176 Z" fill="#130D14" stroke="#E6C27A" stroke-width="1.5" stroke-linejoin="round"/>
+                <path d="M110 58 L137 64 L158 84 L163 112 L155 144 L137 168 L110 178 Z" fill="#130D14" stroke="#FBF5EE" stroke-opacity="0.88" stroke-width="1.4" stroke-linejoin="round"/>
+
+                <!-- Mask forehead filigree & brow ridges -->
+                <path d="M88 73C96 68 103 70 107 75" stroke="#E6C27A" stroke-opacity="0.65" stroke-width="1.15" stroke-linecap="round"/>
+                <path d="M133 75C125 70 118 72 114 77" stroke="#E6C27A" stroke-opacity="0.65" stroke-width="1.15" stroke-linecap="round"/>
+                <path d="M74 96Q88 86 102 96" stroke="#E6C27A" stroke-width="1.4" stroke-linecap="round"/>
+                <path d="M118 98Q133 88 147 98" stroke="#FBF5EE" stroke-opacity="0.85" stroke-width="1.4" stroke-linecap="round"/>
+
+                <!-- Asymmetric eyes: left celadon, right cinnabar -->
+                <path d="M77 109Q89 101 100 110Q89 117 77 109Z" fill="#1B3B3A" stroke="#6BC4B3" stroke-width="1.35"/>
+                <circle cx="88.5" cy="109.5" r="2.6" fill="#6BC4B3"/>
+                <path d="M121 112L144 107L139 116L122 116Z" fill="#320E14" stroke="#D63344" stroke-width="1.35" stroke-linejoin="round"/>
+                <circle cx="132" cy="112" r="2.2" fill="#FBF5EE"/>
+
+                <!-- Mask cheek lines & ritual mouth crease -->
+                <path d="M72 126C77 134 86 138 96 138" stroke="#B88A44" stroke-opacity="0.7" stroke-width="1.1" stroke-linecap="round"/>
+                <path d="M148 128C143 136 134 140 124 140" stroke="#B88A44" stroke-opacity="0.7" stroke-width="1.1" stroke-linecap="round"/>
+                <path d="M94 149Q110 156 126 150" stroke="#E6C27A" stroke-width="1.35" stroke-linecap="round"/>
+
+                <!-- Vertical paper-tear fissure along x=110 in #D63344 -->
+                <path d="M110 53L106 72L114 89L107 107L115 125L107 143L113 161L110 181" stroke="#D63344" stroke-opacity="0.28" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M110 53L106 72L114 89L107 107L115 125L107 143L113 161L110 181" stroke="#D63344" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+
+                <!-- Hanging paper talisman tails -->
+                <path d="M97 175V222L101 232L93 232Z" stroke="#B88A44" stroke-opacity="0.72" stroke-width="1.1"/>
+                <path d="M110 182V238" stroke="#E6C27A" stroke-opacity="0.82" stroke-width="1.25" stroke-dasharray="6 4"/>
+                <path d="M110 238L114 244L110 250L106 244Z" fill="#D63344"/>
+                <path d="M123 177V224L127 234L119 234Z" stroke="#6BC4B3" stroke-opacity="0.6" stroke-width="1.1"/>
+              </svg>
+            </div>
+
+            <div class="hub-featured-dossier">
+              <div class="hub-featured-meta-row">
+                <span class="hub-series-badge">
+                  <span class="hub-badge-dot" aria-hidden="true"></span>
+                  SERIES 01 · 已开卷
+                </span>
+                <span class="hub-seal-stamp" aria-hidden="true">闰</span>
+              </div>
+
+              <header class="hub-featured-heading">
+                <h2 class="hub-series-title">大闰录</h2>
+                <p class="hub-series-roman">THE INTERCALARY CHRONICLE</p>
+              </header>
+
+              <ul class="hub-tag-list" aria-label="卷宗题材标签">
+                <li class="hub-tag">中式民俗恐怖</li>
+                <li class="hub-tag">五幕网页搜证</li>
+                <li class="hub-tag">名 · 时 · 形 · 祀</li>
+              </ul>
+
+              <p class="hub-series-synopsis">岁差成渊，第十三月寄生于旧网之中。自丰宁纸傩至蒲岭空炉，五地异闻互为印证。</p>
+
+              <div class="hub-featured-actions">
+                <p class="hub-series-specs">五幕完备 · 每幕约 120m+</p>
+                <a class="hub-cta-gilded" href="/mystery/darun/">
+                  <span>启卷入局 · 进入大闰录</span>
+                  <span class="hub-cta-arrow" aria-hidden="true">→</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Card 3: Veiled Series 02 -->
+        <article class="hub-card hub-card--veiled" data-reel-card aria-disabled="true">
+          <svg class="hub-corner hub-corner--tl" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#6BC4B3" stroke-opacity="0.42" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--tr" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#6BC4B3" stroke-opacity="0.42" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--br" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#6BC4B3" stroke-opacity="0.42" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--bl" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#6BC4B3" stroke-opacity="0.42" stroke-width="1.25"/></svg>
+
+          <div class="hub-featured-meta-row">
+            <span class="hub-series-badge hub-series-badge--veiled">SERIES 02 · 勘校中</span>
+            <span class="hub-seal-stamp hub-seal-stamp--veiled" aria-hidden="true">封</span>
+          </div>
+
+          <div class="hub-veiled-emblem" aria-hidden="true">
+            <svg viewBox="0 0 96 96" width="84" height="84" fill="none">
+              <polygon points="48,6 78,18 90,48 78,78 48,90 18,78 6,48 18,18" stroke="#6BC4B3" stroke-opacity="0.42" stroke-width="1.2" stroke-dasharray="5 3"/>
+              <circle cx="48" cy="48" r="28" stroke="#B88A44" stroke-opacity="0.52" stroke-width="1.15"/>
+              <path d="M24 44C31 38 38 49 45 43C51 38 58 49 65 44C68 42 71 43 73 45" stroke="#6BC4B3" stroke-opacity="0.65" stroke-width="1.35" stroke-linecap="round"/>
+              <path d="M26 54C33 49 40 58 48 53C55 49 62 57 70 53" stroke="#E6C27A" stroke-opacity="0.45" stroke-width="1.2" stroke-linecap="round"/>
+              <path d="M48 30L56 48L48 66L40 48Z" stroke="#6BC4B3" stroke-opacity="0.68" stroke-width="1.2" fill="#1B3B3A" fill-opacity="0.35"/>
+              <circle cx="48" cy="48" r="3" fill="#B88A44"/>
+            </svg>
+          </div>
+
+          <h2 class="hub-veiled-title">山海残楮<span class="hub-veiled-state">（未开封）</span></h2>
+          <p class="hub-veiled-roman">UNSEALED FOLIO · ARCHIVE PENDING</p>
+
+          <div class="hub-redacted-block">
+            <p class="hub-redacted-line">[ 待校地方志异 · 暂未解密 ]</p>
+            <div class="hub-redacted-bars" aria-hidden="true">
+              <span class="hub-redacted-bar hub-redacted-bar--long"></span>
+              <span class="hub-redacted-bar hub-redacted-bar--mid"></span>
+              <span class="hub-redacted-bar hub-redacted-bar--short"></span>
+            </div>
+            <p class="hub-veiled-note">古水系旧图与无名方志残片尚在比对中，完成卷宗核校后开封。</p>
+          </div>
+        </article>
+
+        <!-- Card 4: Closing Card — 敬请期待 -->
+        <article class="hub-card hub-card--coming-soon" data-reel-card>
+          <svg class="hub-corner hub-corner--tl" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.52" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--tr" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.52" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--br" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.52" stroke-width="1.25"/></svg>
+          <svg class="hub-corner hub-corner--bl" viewBox="0 0 24 24" width="20" height="20" fill="none" aria-hidden="true"><path d="M2 22V2H22M7 17V7H17M12 13V11H14" stroke="#E6C27A" stroke-opacity="0.52" stroke-width="1.25"/></svg>
+
+          <div class="hub-closing-emblem" aria-hidden="true">
+            <svg viewBox="0 0 88 88" width="88" height="88" fill="none">
+              <rect x="20" y="20" width="48" height="48" transform="rotate(45 44 44)" stroke="#E6C27A" stroke-opacity="0.55" stroke-width="1.2"/>
+              <rect x="27" y="27" width="34" height="34" transform="rotate(45 44 44)" stroke="#6BC4B3" stroke-opacity="0.45" stroke-width="1"/>
+              <path d="M20 44H32V32H56V44H68M44 20V32M44 56V68M32 44V56H56V44" stroke="#B88A44" stroke-opacity="0.72" stroke-width="1.15"/>
+              <path d="M44 37.5L50.5 44L44 50.5L37.5 44Z" stroke="#E6C27A" stroke-width="1.2" fill="#130D14"/>
+              <path d="M44 41L47 44L44 47L41 44Z" fill="#D63344"/>
+            </svg>
+          </div>
+
+          <p class="hub-closing-kicker">ANTHOLOGY CONTINUES</p>
+
+          <svg class="hub-cloud-divider hub-cloud-divider--compact" viewBox="0 0 140 20" width="120" height="18" fill="none" aria-hidden="true">
+            <path d="M10 10H42C48 10 50 5 55 5C59 5 60 8 58 10" stroke="#B88A44" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M130 10H98C92 10 90 5 85 5C81 5 80 8 82 10" stroke="#B88A44" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M70 4L74.5 10L70 16L65.5 10Z" stroke="#6BC4B3" stroke-width="1.1"/>
+          </svg>
+
+          <h2 class="hub-closing-title">敬请期待</h2>
+          <p class="hub-closing-copy">后续民俗长卷与地方异闻档案正在暗访整理中。</p>
+          <p class="hub-closing-colophon">星环手记 · 民俗志异辑录</p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="reel-hud">
+      <p class="reel-hud-hint">滚轮或方向键横览 · 点击启卷</p>
+      <div class="reel-progress-track" aria-hidden="true">
+        <span class="reel-progress-fill" data-reel-progress></span>
+      </div>
+      <div class="reel-hud-controls">
+        <span class="reel-counter" data-reel-counter aria-live="polite">01 / 04</span>
+        <button type="button" class="reel-nav-btn" data-reel-prev aria-label="向左切换上一卷">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M10.5 3.5L5.5 8l5 4.5"/>
+          </svg>
+        </button>
+        <button type="button" class="reel-nav-btn" data-reel-next aria-label="向右切换下一卷">
+          <svg viewBox="0 0 16 16" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5.5 3.5L10.5 8l-5 4.5"/>
+          </svg>
+        </button>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>

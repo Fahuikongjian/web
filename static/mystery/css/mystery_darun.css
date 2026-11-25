@@ -1,0 +1,963 @@
+/* ==========================================================================
+   大闰录 · 五幕分卷画廊 (Level 2 — 朱金戏台 × 岁差闰历)
+   Pure offline CSS (zero external URLs, zero CDN fonts).
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: clip;
+  background-color: #180709;
+  color: #F4E6C8;
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.darun-stage[data-mystery-level="darun"] {
+  --darun-bg-deep: #180709;
+  --darun-bg-curtain: #2B0A10;
+  --darun-bg-card: #1F090D;
+  --darun-bg-niche: #150507;
+  --darun-ivory: #F4E6C8;
+  --darun-ivory-muted: #D4BFA0;
+  --darun-ivory-dim: #9C8369;
+  --darun-gold: #E8B95B;
+  --darun-gold-deep: #B58433;
+  --darun-hairline: rgba(232, 185, 91, 0.28);
+  --darun-hairline-strong: rgba(232, 185, 91, 0.58);
+  --darun-red: #C92434;
+  --darun-red-soft: rgba(201, 36, 52, 0.18);
+  --darun-amber: #C87A3A;
+
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100dvh;
+  min-height: 540px;
+  display: grid;
+  grid-template-rows: 64px minmax(0, 1fr) 64px;
+  overflow: hidden;
+  background: var(--darun-bg-deep);
+  color: var(--darun-ivory);
+  isolation: isolate;
+}
+
+/* --------------------------------------------------------------------------
+   Pure-CSS Lacquer Curtain Backdrop & Rotating 61st-Cycle 岁差历盘
+   -------------------------------------------------------------------------- */
+.darun-backdrop {
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.darun-curtain-glow {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      circle at 50% 50%,
+      rgba(201, 36, 52, 0.19) 0%,
+      rgba(43, 10, 16, 0.92) 48%,
+      #180709 82%
+    ),
+    radial-gradient(
+      ellipse 64% 38% at 50% 0%,
+      rgba(232, 185, 91, 0.08) 0%,
+      transparent 72%
+    );
+}
+
+.darun-curtain-pleats {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(232, 185, 91, 0.022) 0 1px,
+      transparent 1px 56px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(201, 36, 52, 0.03) 0 18px,
+      transparent 18px 72px
+    ),
+    linear-gradient(
+      180deg,
+      rgba(16, 4, 6, 0.7) 0%,
+      transparent 18%,
+      transparent 80%,
+      rgba(12, 3, 5, 0.85) 100%
+    );
+}
+
+.darun-wheel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(86vmin, 740px);
+  height: min(86vmin, 740px);
+  transform: translate(-50%, -50%);
+  opacity: 0.25;
+}
+
+.wheel-ring-outer {
+  transform-origin: 300px 300px;
+  animation: darun-spin-cw 140s linear infinite;
+}
+
+.wheel-ring-inner {
+  transform-origin: 300px 300px;
+  animation: darun-spin-ccw 96s linear infinite;
+}
+
+@keyframes darun-spin-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes darun-spin-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Top Proscenium Navigation Bar
+   -------------------------------------------------------------------------- */
+.darun-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 36px;
+  min-width: 0;
+  border-bottom: 1px solid var(--darun-hairline);
+  background: linear-gradient(
+    180deg,
+    rgba(24, 7, 9, 0.94) 0%,
+    rgba(31, 9, 13, 0.82) 100%
+  );
+  box-shadow: 0 1px 0 rgba(201, 36, 52, 0.35);
+}
+
+.darun-breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+.stage-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 4px 10px;
+  border-radius: 2px;
+  border: 1px solid rgba(232, 185, 91, 0.26);
+  background: rgba(232, 185, 91, 0.05);
+  color: var(--darun-ivory-muted);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.stage-back-link:hover {
+  color: var(--darun-ivory);
+  border-color: var(--darun-gold);
+  background: rgba(232, 185, 91, 0.14);
+}
+
+.stage-back-link:focus-visible {
+  outline: 2px solid var(--darun-gold);
+  outline-offset: 2px;
+}
+
+.darun-crumb-sep {
+  color: var(--darun-red);
+  font-size: 0.65rem;
+  line-height: 1;
+}
+
+.darun-crumb-slash {
+  color: var(--darun-gold-deep);
+  font-size: 0.9rem;
+}
+
+.darun-topbar-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--darun-gold);
+  white-space: nowrap;
+}
+
+.darun-topbar-sub {
+  font-family: var(--font-serif);
+  font-size: 0.84rem;
+  letter-spacing: 0.12em;
+  color: var(--darun-ivory-muted);
+  white-space: nowrap;
+}
+
+.darun-topbar-meta {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.darun-archive-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid rgba(232, 185, 91, 0.36);
+  border-radius: 2px;
+  background: rgba(21, 5, 7, 0.72);
+  color: var(--darun-gold);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Horizontal Folio Track (2108px on 1440x900 Desktop)
+   -------------------------------------------------------------------------- */
+.darun-reel[data-horizontal-reel] {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding-left: 44px;
+  padding-right: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+
+.darun-reel[data-horizontal-reel]::-webkit-scrollbar {
+  display: none;
+}
+
+.darun-reel[data-horizontal-reel]::after {
+  content: "";
+  flex: 0 0 20px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Opera-Folio Stepped Card Geometry (朱金牌位折页)
+   -------------------------------------------------------------------------- */
+.darun-card {
+  position: relative;
+  flex: 0 0 320px;
+  width: 320px;
+  height: min(512px, calc(100dvh - 192px));
+  min-height: 426px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 2px;
+  border: 1px solid rgba(232, 185, 91, 0.44);
+  background: linear-gradient(
+    180deg,
+    #28090F 0%,
+    var(--darun-bg-card) 38%,
+    #170508 100%
+  );
+  box-shadow:
+    inset 0 0 0 6px var(--darun-bg-deep),
+    inset 0 0 0 7px rgba(232, 185, 91, 0.24),
+    0 22px 46px -14px rgba(0, 0, 0, 0.78);
+  transition:
+    transform var(--transition-base),
+    border-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
+
+/* Stepped corner gold foil notches */
+.darun-card::before,
+.darun-card::after {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.darun-card::before {
+  top: 3px;
+  left: 3px;
+  border-top: 2px solid var(--darun-gold);
+  border-left: 2px solid var(--darun-gold);
+}
+
+.darun-card::after {
+  bottom: 3px;
+  right: 3px;
+  border-bottom: 2px solid var(--darun-gold);
+  border-right: 2px solid var(--darun-gold);
+}
+
+.darun-card.is-active {
+  border-color: rgba(232, 185, 91, 0.76);
+  box-shadow:
+    inset 0 0 0 6px var(--darun-bg-deep),
+    inset 0 0 0 7px rgba(232, 185, 91, 0.44),
+    0 26px 56px -12px rgba(0, 0, 0, 0.88),
+    0 0 36px -10px rgba(201, 36, 52, 0.34);
+}
+
+@media (hover: hover) {
+  .darun-card--act:hover {
+    transform: translateY(-4px);
+    border-color: var(--darun-gold);
+  }
+}
+
+.darun-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.darun-card-link:focus-visible {
+  outline: 2px solid var(--darun-gold);
+  outline-offset: 4px;
+}
+
+/* Proscenium Gold-Foil Crown Bar */
+.darun-card-crown {
+  flex: 0 0 44px;
+  height: 44px;
+  margin: 7px 7px 0;
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(232, 185, 91, 0.14) 0%,
+    rgba(232, 185, 91, 0.03) 100%
+  );
+  border-bottom: 1px solid rgba(232, 185, 91, 0.38);
+  box-shadow: 0 2px 0 rgba(201, 36, 52, 0.46);
+}
+
+.darun-card-vol {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--darun-gold);
+}
+
+.darun-card-pillar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 9px;
+  border: 1px solid var(--darun-red);
+  border-radius: 1px;
+  background: var(--darun-red-soft);
+  color: var(--darun-ivory);
+  font-family: var(--font-serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  box-shadow: inset 0 0 0 1px rgba(232, 185, 91, 0.18);
+}
+
+.darun-card-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0 7px 7px;
+  padding: 20px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Recessed Circular Lacquer Medallion Niche */
+.darun-card-emblem {
+  flex: 0 0 auto;
+  width: clamp(102px, 16dvh, 142px);
+  height: clamp(102px, 16dvh, 142px);
+  margin-bottom: 16px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(232, 185, 91, 0.34);
+  background:
+    radial-gradient(
+      circle at 50% 42%,
+      rgba(201, 36, 52, 0.16) 0%,
+      var(--darun-bg-niche) 72%
+    );
+  box-shadow:
+    inset 0 6px 18px rgba(0, 0, 0, 0.85),
+    inset 0 0 0 4px rgba(232, 185, 91, 0.08),
+    0 1px 0 rgba(232, 185, 91, 0.18);
+  transition: transform var(--transition-base), border-color var(--transition-base);
+}
+
+.darun-card-emblem svg {
+  width: 82%;
+  height: 82%;
+  display: block;
+}
+
+@media (hover: hover) {
+  .darun-card--act:hover .darun-card-emblem {
+    transform: scale(1.035);
+    border-color: rgba(232, 185, 91, 0.65);
+  }
+}
+
+.darun-card-locality {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--darun-gold);
+}
+
+.darun-card-title {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.28rem, 1.8vw, 1.52rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.05em;
+  color: var(--darun-ivory);
+}
+
+.darun-card-rule {
+  position: relative;
+  width: 112px;
+  height: 10px;
+  margin: 10px auto 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.darun-card-rule::before {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(232, 185, 91, 0.6) 50%,
+    transparent 100%
+  );
+}
+
+.darun-card-rule span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: var(--darun-red);
+  border: 1px solid var(--darun-gold);
+}
+
+.darun-card-synopsis {
+  margin: 0 0 auto;
+  font-size: 0.855rem;
+  line-height: 1.66;
+  color: var(--darun-ivory-muted);
+  text-align: left;
+}
+
+.darun-card-case {
+  width: 100%;
+  margin: 14px 0 0;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(232, 185, 91, 0.22);
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--darun-ivory-dim);
+  text-align: left;
+}
+
+/* Gilded Bevel CTA */
+.darun-card-cta {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 2px;
+  border: 1px solid rgba(232, 185, 91, 0.56);
+  background-color: rgba(232, 185, 91, 0.12);
+  color: var(--darun-gold);
+  font-family: var(--font-serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .darun-card--act:hover .darun-card-cta {
+    border-color: var(--darun-gold);
+    background-color: #E8B95B;
+    color: #180709;
+    box-shadow: 0 0 22px rgba(201, 36, 52, 0.36);
+  }
+}
+
+.darun-card-link:focus-visible .darun-card-cta,
+.darun-card-link:active .darun-card-cta {
+  border-color: var(--darun-gold);
+  background-color: #E8B95B;
+  color: #180709;
+  box-shadow: 0 0 22px rgba(201, 36, 52, 0.36);
+}
+
+/* --------------------------------------------------------------------------
+   Card 6: Sealed Continuation Card (未完待续)
+   -------------------------------------------------------------------------- */
+.darun-card--sealed {
+  flex: 0 0 300px;
+  width: 300px;
+  border-color: rgba(201, 36, 52, 0.56);
+  background: linear-gradient(
+    180deg,
+    #23080D 0%,
+    #1A060A 52%,
+    #140407 100%
+  );
+  box-shadow:
+    inset 0 0 0 6px var(--darun-bg-deep),
+    inset 0 0 0 7px rgba(201, 36, 52, 0.34),
+    0 22px 46px -14px rgba(0, 0, 0, 0.8);
+}
+
+.darun-card--sealed::before {
+  border-color: var(--darun-red);
+}
+
+.darun-card--sealed::after {
+  border-color: var(--darun-red);
+}
+
+.darun-card--sealed .darun-card-crown {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(201, 36, 52, 0.14) 0 8px,
+    rgba(232, 185, 91, 0.04) 8px 16px
+  );
+  border-bottom-color: rgba(201, 36, 52, 0.45);
+}
+
+.darun-card-emblem--sealed {
+  border-style: dashed;
+  border-color: rgba(201, 36, 52, 0.48);
+  margin-bottom: 12px;
+}
+
+.darun-card-body--sealed {
+  justify-content: flex-start;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.darun-sealed-note {
+  margin: 0 0 12px;
+  font-size: 0.81rem;
+  line-height: 1.56;
+  color: var(--darun-ivory-dim);
+  text-align: left;
+}
+
+.darun-continuation {
+  width: 100%;
+  margin-top: auto;
+  min-height: 118px;
+  text-align: left;
+}
+
+.darun-continuation-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid rgba(232, 185, 91, 0.46);
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    rgba(201, 36, 52, 0.2) 0%,
+    rgba(21, 5, 7, 0.88) 100%
+  );
+  color: var(--darun-ivory);
+  cursor: pointer;
+  list-style: none;
+  transition:
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.darun-continuation-summary::-webkit-details-marker {
+  display: none;
+}
+
+.darun-continuation-summary:hover {
+  border-color: var(--darun-gold);
+}
+
+.darun-continuation-summary:focus-visible {
+  outline: 2px solid var(--darun-gold);
+  outline-offset: 2px;
+}
+
+.darun-continuation-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--darun-ivory);
+}
+
+.darun-continuation-action {
+  padding: 2px 8px;
+  border: 1px solid rgba(232, 185, 91, 0.45);
+  border-radius: 1px;
+  color: var(--darun-gold);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.darun-continuation[open] .darun-continuation-action {
+  border-color: var(--darun-red);
+  background: var(--darun-red-soft);
+  color: var(--darun-ivory);
+}
+
+.darun-continuation-copy {
+  margin: 10px 0 0;
+  padding: 11px 12px;
+  border: 1px dashed rgba(201, 36, 52, 0.56);
+  border-radius: 2px;
+  background: rgba(21, 5, 7, 0.88);
+  font-size: 0.82rem;
+  line-height: 1.62;
+  color: var(--darun-ivory-muted);
+}
+
+.darun-continuation-copy a {
+  color: var(--darun-gold);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.darun-continuation-copy a:hover {
+  color: var(--darun-ivory);
+}
+
+.darun-continuation-copy a:focus-visible {
+  outline: 2px solid var(--darun-gold);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Bottom Stage HUD
+   -------------------------------------------------------------------------- */
+.reel-hud {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 36px;
+  min-width: 0;
+  border-top: 1px solid var(--darun-hairline);
+  background: linear-gradient(
+    0deg,
+    rgba(24, 7, 9, 0.95) 0%,
+    rgba(31, 9, 13, 0.82) 100%
+  );
+}
+
+.darun-colophon {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--darun-ivory-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reel-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.reel-counter {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--darun-gold);
+  min-width: 58px;
+}
+
+.reel-progress-track {
+  position: relative;
+  width: clamp(96px, 16vw, 220px);
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(232, 185, 91, 0.16);
+  overflow: hidden;
+}
+
+.reel-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--darun-red) 0%, var(--darun-gold) 100%);
+  transform-origin: left center;
+  transform: scaleX(0.1667);
+  will-change: transform;
+}
+
+.reel-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reel-nav-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(232, 185, 91, 0.42);
+  border-radius: 2px;
+  background: rgba(21, 5, 7, 0.82);
+  color: var(--darun-gold);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.reel-nav-btn:hover:not(:disabled):not(.disabled) {
+  border-color: var(--darun-gold);
+  background: rgba(232, 185, 91, 0.16);
+  color: var(--darun-ivory);
+}
+
+.reel-nav-btn:focus-visible {
+  outline: 2px solid var(--darun-gold);
+  outline-offset: 2px;
+}
+
+.reel-nav-btn:disabled,
+.reel-nav-btn.disabled {
+  opacity: 0.34;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Narrow Viewport Horizontal Reel (<= 959px)
+   -------------------------------------------------------------------------- */
+@media (max-width: 959px) {
+  .darun-stage[data-mystery-level="darun"] {
+    height: auto;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: visible;
+    overflow-x: clip;
+  }
+
+  .darun-wheel {
+    width: min(84vw, 340px);
+    height: min(84vw, 340px);
+    opacity: 0.2;
+  }
+
+  .darun-topbar {
+    min-height: 52px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  .darun-breadcrumbs {
+    flex: 1 1 auto;
+    gap: 6px 8px;
+  }
+
+  .stage-back-link {
+    min-height: 34px;
+    padding: 4px 8px;
+    font-size: 0.78rem;
+  }
+
+  .darun-topbar-title {
+    font-size: 1.04rem;
+    letter-spacing: 0.1em;
+  }
+
+  .darun-topbar-sub {
+    display: none;
+  }
+
+  .darun-archive-badge {
+    font-size: 0.66rem;
+    padding: 3px 8px;
+  }
+
+  .darun-reel[data-horizontal-reel] {
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0 18px 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .darun-reel[data-horizontal-reel]::after {
+    flex: 0 0 4px;
+  }
+
+  .darun-card,
+  .darun-card--sealed {
+    flex: 0 0 min(320px, calc(100vw - 44px));
+    width: min(320px, calc(100vw - 44px));
+    height: auto;
+    min-height: 468px;
+  }
+
+  .darun-card-body {
+    padding: 16px 16px 16px;
+  }
+
+  .darun-card-emblem {
+    width: 106px;
+    height: 106px;
+    margin-bottom: 12px;
+  }
+
+  .darun-continuation {
+    min-height: 0;
+  }
+
+  .reel-hud {
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    padding: 10px 16px 14px;
+  }
+
+  .reel-controls {
+    order: 1;
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .reel-progress-track {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .reel-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .darun-colophon {
+    order: 2;
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    white-space: normal;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .wheel-ring-outer,
+  .wheel-ring-inner {
+    animation: none;
+  }
+
+  .darun-card,
+  .darun-card-emblem,
+  .darun-card-cta,
+  .stage-back-link,
+  .reel-nav-btn {
+    transition: none;
+  }
+}

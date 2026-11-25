@@ -1,0 +1,1143 @@
+/* ==========================================================================
+   《民俗志异总录》Level 1 Series Hub (/mystery/)
+   Aesthetic: 暗夜翠雾 × 宫廷朱砂 × 鎏金雕栏
+   Zero CSS external url references; zero external CDN assets.
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+.mystery-hub[data-mystery-level="hub"] {
+  color-scheme: dark;
+  --hub-bg-deep: #09080D;
+  --hub-bg-mid: #0F0C13;
+  --hub-bg-card: #130D14;
+  --hub-bg-elevated: #1A131C;
+
+  --hub-mist-deep: #1B3B3A;
+  --hub-mist-glow: #6BC4B3;
+
+  --hub-cinnabar: #D63344;
+  --hub-cinnabar-soft: rgba(214, 51, 68, 0.18);
+
+  --hub-gold: #E6C27A;
+  --hub-gold-antique: #B88A44;
+  --hub-hairline: rgba(230, 194, 122, 0.24);
+  --hub-hairline-strong: rgba(230, 194, 122, 0.52);
+
+  --hub-ink: #FBF5EE;
+  --hub-ink-muted: #D6CCC2;
+  --hub-ink-dim: #9C918A;
+
+  min-height: 100dvh;
+  background: var(--hub-bg-deep);
+  color: var(--hub-ink);
+  font-family: var(--font-sans, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", sans-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+:where(.mystery-hub) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mystery-hub button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+}
+
+.mystery-hub :focus-visible {
+  outline: 2px solid var(--hub-gold);
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Pure-CSS Lacquer & Celadon Mist Backdrop + Inline-SVG Astrolabe
+   ========================================================================== */
+.hub-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: clip;
+  pointer-events: none;
+  background-color: var(--hub-bg-deep);
+  background-image:
+    radial-gradient(ellipse 56% 46% at 14% 24%, rgba(27, 59, 58, 0.52), rgba(107, 196, 179, 0.08) 46%, transparent 74%),
+    radial-gradient(ellipse 48% 44% at 84% 76%, rgba(214, 51, 68, 0.16), transparent 68%),
+    radial-gradient(ellipse 40% 34% at 52% 48%, rgba(230, 194, 122, 0.05), transparent 72%),
+    repeating-linear-gradient(90deg, rgba(230, 194, 122, 0.018) 0 1px, transparent 1px 48px),
+    repeating-linear-gradient(0deg, rgba(107, 196, 179, 0.014) 0 1px, transparent 1px 48px),
+    linear-gradient(135deg, #09080D 0%, #0F0C13 54%, #130D14 100%);
+}
+
+.hub-backdrop-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.11;
+}
+
+/* ==========================================================================
+   Stage Shell (100dvh Desktop + Horizontal Mobile Stage)
+   ========================================================================== */
+.reel-stage[data-reel-stage] {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 100%;
+  height: 100dvh;
+  display: grid;
+  grid-template-rows: 64px minmax(0, 1fr) 64px;
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   Top Bar
+   ========================================================================== */
+.hub-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 20px;
+  padding: 0 clamp(16px, 4.4vw, 64px);
+  border-bottom: 1px solid rgba(230, 194, 122, 0.14);
+  background: linear-gradient(180deg, rgba(9, 8, 13, 0.86) 0%, rgba(9, 8, 13, 0.42) 100%);
+  backdrop-filter: blur(8px);
+  min-width: 0;
+}
+
+.hub-topbar-left,
+.hub-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.hub-back-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 4px 12px 4px 10px;
+  border: 1px solid var(--hub-hairline);
+  border-radius: 999px;
+  background: rgba(19, 13, 20, 0.72);
+  color: var(--hub-gold);
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: border-color var(--transition-fast, 150ms ease), background-color var(--transition-fast, 150ms ease), color var(--transition-fast, 150ms ease);
+}
+
+.hub-back-link:hover {
+  border-color: var(--hub-hairline-strong);
+  background: rgba(27, 59, 58, 0.34);
+  color: var(--hub-ink);
+}
+
+.hub-topbar-sep {
+  color: var(--hub-gold-antique);
+  font-size: 0.65rem;
+  opacity: 0.75;
+  flex: 0 0 auto;
+}
+
+.hub-topbar-brand {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 10px;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+.hub-topbar-zh {
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.96rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--hub-ink);
+}
+
+.hub-topbar-en {
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  color: var(--hub-ink-dim);
+}
+
+.hub-topbar-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px;
+  border: 1px solid rgba(107, 196, 179, 0.24);
+  border-radius: 999px;
+  background: rgba(27, 59, 58, 0.28);
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--hub-ink-muted);
+  white-space: nowrap;
+}
+
+.hub-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hub-mist-glow);
+  box-shadow: 0 0 8px rgba(107, 196, 179, 0.8);
+}
+
+/* ==========================================================================
+   Horizontal Reel Track
+   ========================================================================== */
+.hub-main {
+  min-width: 0;
+  min-height: 0;
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.hub-reel[data-horizontal-reel] {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 36px;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding: 0 0 0 64px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+
+.hub-reel[data-horizontal-reel] a,
+.hub-reel[data-horizontal-reel] button {
+  cursor: pointer;
+}
+
+.hub-reel[data-horizontal-reel]::-webkit-scrollbar {
+  display: none;
+}
+
+/* Trailing spacer guarantees symmetric 64px right gutter and ~2076px desktop track */
+.hub-reel[data-horizontal-reel]::after {
+  content: "";
+  flex: 0 0 28px;
+  height: 1px;
+}
+
+/* ==========================================================================
+   Shared Folio Card Geometry & Key-fret Corner Brackets
+   ========================================================================== */
+.hub-card {
+  position: relative;
+  flex: 0 0 auto;
+  height: min(610px, calc(100dvh - 172px));
+  min-height: min(460px, calc(100dvh - 156px));
+  border-radius: 6px;
+  padding: clamp(22px, 3vh, 34px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 86% 14%, rgba(107, 196, 179, 0.08), transparent 46%),
+    linear-gradient(162deg, rgba(26, 19, 28, 0.94) 0%, rgba(19, 13, 20, 0.98) 62%, rgba(13, 10, 15, 0.99) 100%);
+  border: 1px solid var(--hub-hairline);
+  box-shadow:
+    inset 0 0 0 7px rgba(19, 13, 20, 0.92),
+    inset 0 0 0 8px rgba(107, 196, 179, 0.13),
+    0 24px 52px -14px rgba(0, 0, 0, 0.78);
+  transition:
+    border-color var(--transition-base, 220ms ease),
+    box-shadow var(--transition-base, 220ms ease),
+    transform var(--transition-base, 220ms ease);
+}
+
+.hub-card.is-active {
+  border-color: var(--hub-hairline-strong);
+  box-shadow:
+    inset 0 0 0 7px rgba(19, 13, 20, 0.92),
+    inset 0 0 0 8px rgba(107, 196, 179, 0.22),
+    0 28px 60px -14px rgba(0, 0, 0, 0.85),
+    0 0 32px -10px rgba(107, 196, 179, 0.14);
+}
+
+.hub-corner {
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.76;
+  transition: opacity var(--transition-base, 220ms ease);
+}
+
+.hub-card.is-active .hub-corner {
+  opacity: 1;
+}
+
+.hub-corner--tl { top: 12px; left: 12px; }
+.hub-corner--tr { top: 12px; right: 12px; transform: rotate(90deg); }
+.hub-corner--br { bottom: 12px; right: 12px; transform: rotate(180deg); }
+.hub-corner--bl { bottom: 12px; left: 12px; transform: rotate(270deg); }
+
+/* ==========================================================================
+   Card 1: Prologue (420px)
+   ========================================================================== */
+.hub-card--prologue {
+  width: 420px;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(10px, 1.5vh, 14px);
+  padding-inline: clamp(26px, 3vw, 38px);
+}
+
+.hub-prologue-crest {
+  margin-bottom: 2px;
+}
+
+.hub-kicker {
+  margin: 0;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  color: var(--hub-mist-glow);
+}
+
+.hub-prologue-title {
+  margin: 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: clamp(2rem, 2.8vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: 0.14em;
+  color: var(--hub-ink);
+}
+
+.hub-prologue-subtitle {
+  margin: -4px 0 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 1.02rem;
+  letter-spacing: 0.26em;
+  color: var(--hub-gold);
+}
+
+.hub-cloud-divider {
+  display: block;
+  flex: 0 0 auto;
+  margin-block: 4px 2px;
+}
+
+.hub-prologue-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hub-prologue-copy {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.78;
+  color: var(--hub-ink-muted);
+}
+
+.hub-prologue-copy--muted {
+  font-size: 0.86rem;
+  color: var(--hub-ink-dim);
+}
+
+.hub-pillar-inline {
+  color: var(--hub-gold);
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-weight: 600;
+  padding-inline: 1px;
+}
+
+.hub-scroll-cue {
+  margin: auto 0 0;
+  padding-top: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  color: var(--hub-gold);
+}
+
+.hub-cue-line {
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--hub-gold));
+}
+
+/* ==========================================================================
+   Card 2: Featured Series 01 — 大闰录 (640px)
+   ========================================================================== */
+.hub-card--featured {
+  width: 640px;
+  background:
+    radial-gradient(ellipse 68% 58% at 24% 48%, rgba(214, 51, 68, 0.11), transparent 64%),
+    radial-gradient(ellipse 60% 54% at 88% 16%, rgba(27, 59, 58, 0.42), transparent 66%),
+    linear-gradient(155deg, #1A131C 0%, #130D14 58%, #0E0A10 100%);
+  border-color: rgba(230, 194, 122, 0.36);
+}
+
+.hub-card--featured.is-active {
+  border-color: var(--hub-hairline-strong);
+  box-shadow:
+    inset 0 0 0 7px rgba(19, 13, 20, 0.92),
+    inset 0 0 0 8px rgba(107, 196, 179, 0.22),
+    0 28px 64px -14px rgba(0, 0, 0, 0.88),
+    0 0 36px -12px rgba(214, 51, 68, 0.22);
+}
+
+.hub-featured-grid {
+  display: grid;
+  grid-template-columns: 42% minmax(0, 1fr);
+  gap: 26px;
+  height: 100%;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.hub-emblem-sanctuary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 14px;
+  border-radius: 4px;
+  border: 1px solid rgba(230, 194, 122, 0.22);
+  background:
+    linear-gradient(180deg, rgba(230, 194, 122, 0.04) 0%, transparent 18%, transparent 82%, rgba(230, 194, 122, 0.04) 100%),
+    radial-gradient(circle at 50% 48%, rgba(27, 59, 58, 0.44) 0%, rgba(19, 13, 20, 0.86) 66%, rgba(9, 8, 13, 0.96) 100%);
+  box-shadow: inset 0 0 28px rgba(9, 8, 13, 0.82);
+  overflow: hidden;
+}
+
+.hub-emblem-sanctuary::before,
+.hub-emblem-sanctuary::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 1px;
+  height: 44px;
+  transform: translateX(-50%);
+  background: linear-gradient(180deg, rgba(230, 194, 122, 0.42), transparent);
+  pointer-events: none;
+}
+
+.hub-emblem-sanctuary::before {
+  top: 14px;
+}
+
+.hub-emblem-sanctuary::after {
+  bottom: 14px;
+  background: linear-gradient(0deg, rgba(230, 194, 122, 0.42), transparent);
+}
+
+.hub-nuo-emblem {
+  width: 100%;
+  max-width: 222px;
+  height: auto;
+  max-height: 100%;
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.hub-featured-dossier {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: clamp(12px, 1.8vh, 18px);
+  min-width: 0;
+  min-height: 0;
+  padding-block: 6px 4px;
+}
+
+.hub-featured-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.hub-series-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(107, 196, 179, 0.34);
+  background: rgba(27, 59, 58, 0.36);
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  color: var(--hub-mist-glow);
+  white-space: nowrap;
+}
+
+.hub-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hub-cinnabar);
+  box-shadow: 0 0 8px rgba(214, 51, 68, 0.85);
+}
+
+.hub-seal-stamp {
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 3px;
+  border: 1.5px solid var(--hub-cinnabar);
+  background: var(--hub-cinnabar-soft);
+  box-shadow: inset 0 0 0 2px rgba(214, 51, 68, 0.28);
+  color: #FF8C97;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.94rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.hub-featured-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hub-series-title {
+  margin: 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: clamp(2.25rem, 3vw, 2.9rem);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: 0.14em;
+  color: var(--hub-ink);
+}
+
+.hub-series-roman {
+  margin: 0;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--hub-gold);
+}
+
+.hub-tag-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.hub-tag {
+  padding: 4px 10px;
+  border-radius: 3px;
+  border: 1px solid rgba(230, 194, 122, 0.24);
+  background: rgba(230, 194, 122, 0.06);
+  color: var(--hub-ink-muted);
+  font-size: 0.76rem;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.hub-series-synopsis {
+  margin: 0;
+  font-size: 0.94rem;
+  line-height: 1.76;
+  color: var(--hub-ink-muted);
+}
+
+.hub-featured-actions {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(230, 194, 122, 0.18);
+}
+
+.hub-series-specs {
+  margin: 0;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  color: var(--hub-ink-dim);
+}
+
+.mystery-hub .hub-cta-gilded {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 18px;
+  border-radius: 4px;
+  border: 1px solid rgba(251, 245, 238, 0.36);
+  background: linear-gradient(135deg, #E6C27A 0%, #B88A44 100%);
+  color: #09080D;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  box-shadow: 0 10px 24px -10px rgba(230, 194, 122, 0.45);
+  transition:
+    transform var(--transition-fast, 150ms ease),
+    box-shadow var(--transition-base, 220ms ease),
+    filter var(--transition-fast, 150ms ease);
+}
+
+.hub-cta-gilded:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow:
+    0 14px 28px -10px rgba(230, 194, 122, 0.45),
+    0 0 22px -2px rgba(214, 51, 68, 0.48);
+}
+
+.hub-cta-gilded:active {
+  transform: translateY(0);
+}
+
+.hub-cta-arrow {
+  font-family: var(--font-mono, Consolas, monospace);
+  transition: transform var(--transition-fast, 150ms ease);
+}
+
+.hub-cta-gilded:hover .hub-cta-arrow {
+  transform: translateX(3px);
+}
+
+/* ==========================================================================
+   Card 3: Veiled Series 02 — 山海残楮 (400px)
+   ========================================================================== */
+.hub-card--veiled {
+  width: 400px;
+  justify-content: space-between;
+  gap: 14px;
+  border-style: dashed;
+  border-color: rgba(107, 196, 179, 0.30);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 35%, rgba(27, 59, 58, 0.30), transparent 72%),
+    linear-gradient(165deg, rgba(27, 59, 58, 0.24) 0%, rgba(19, 13, 20, 0.96) 58%, rgba(11, 10, 15, 0.98) 100%);
+  box-shadow:
+    inset 0 0 0 7px rgba(15, 18, 21, 0.85),
+    inset 0 0 0 8px rgba(107, 196, 179, 0.14),
+    0 20px 44px -14px rgba(0, 0, 0, 0.72);
+}
+
+.hub-series-badge--veiled {
+  border-color: rgba(107, 196, 179, 0.24);
+  background: rgba(27, 59, 58, 0.22);
+  color: var(--hub-ink-muted);
+}
+
+.hub-seal-stamp--veiled {
+  border-color: rgba(107, 196, 179, 0.38);
+  background: rgba(27, 59, 58, 0.28);
+  box-shadow: inset 0 0 0 2px rgba(107, 196, 179, 0.16);
+  color: var(--hub-mist-glow);
+}
+
+.hub-veiled-emblem {
+  flex: 1 1 auto;
+  min-height: 112px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  border-radius: 4px;
+  border: 1px dashed rgba(107, 196, 179, 0.22);
+  background: radial-gradient(circle at 50% 50%, rgba(27, 59, 58, 0.3), rgba(9, 8, 13, 0.58));
+}
+
+.hub-veiled-title {
+  margin: 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: clamp(1.5rem, 2vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  color: var(--hub-ink-muted);
+}
+
+.hub-veiled-state {
+  font-size: 0.86em;
+  color: var(--hub-mist-glow);
+  font-weight: 400;
+}
+
+.hub-veiled-roman {
+  margin: -8px 0 0;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--hub-ink-dim);
+}
+
+.hub-redacted-block {
+  margin-top: auto;
+  padding: 14px;
+  border: 1px solid rgba(107, 196, 179, 0.18);
+  border-radius: 4px;
+  background: rgba(9, 8, 13, 0.46);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hub-redacted-line {
+  margin: 0;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  color: var(--hub-mist-glow);
+}
+
+.hub-redacted-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hub-redacted-bar {
+  display: block;
+  height: 8px;
+  border-radius: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(107, 196, 179, 0.18) 0 12px,
+    rgba(27, 59, 58, 0.34) 12px 16px
+  );
+}
+
+.hub-redacted-bar--long { width: 92%; }
+.hub-redacted-bar--mid { width: 74%; }
+.hub-redacted-bar--short { width: 52%; }
+
+.hub-veiled-note {
+  margin: 2px 0 0;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: var(--hub-ink-dim);
+}
+
+/* ==========================================================================
+   Card 4: Closing Card — 敬请期待 (380px)
+   ========================================================================== */
+.hub-card--coming-soon {
+  width: 380px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 14px;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(230, 194, 122, 0.09), transparent 58%),
+    linear-gradient(170deg, rgba(22, 16, 25, 0.92) 0%, rgba(13, 10, 16, 0.98) 100%);
+}
+
+.hub-closing-emblem {
+  margin-bottom: 4px;
+}
+
+.hub-closing-kicker {
+  margin: 0;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--hub-ink-dim);
+}
+
+.hub-cloud-divider--compact {
+  margin-block: 0;
+}
+
+.hub-closing-title {
+  margin: 2px 0 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  padding-left: 0.24em;
+  color: var(--hub-gold);
+}
+
+.hub-closing-copy {
+  margin: 0;
+  max-width: 24ch;
+  font-size: 0.9rem;
+  line-height: 1.75;
+  color: var(--hub-ink-muted);
+}
+
+.hub-closing-colophon {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid rgba(230, 194, 122, 0.16);
+  width: 72%;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  color: var(--hub-ink-dim);
+}
+
+/* ==========================================================================
+   Bottom HUD Controls
+   ========================================================================== */
+.reel-hud {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 16px;
+  padding: 0 clamp(16px, 4.4vw, 64px);
+  border-top: 1px solid rgba(230, 194, 122, 0.12);
+  background: linear-gradient(0deg, rgba(9, 8, 13, 0.9) 0%, rgba(9, 8, 13, 0.46) 100%);
+  backdrop-filter: blur(8px);
+  min-width: 0;
+}
+
+.reel-hud-hint {
+  margin: 0;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  color: var(--hub-ink-dim);
+  white-space: nowrap;
+}
+
+.reel-progress-track {
+  width: min(260px, 32vw);
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(230, 194, 122, 0.16);
+  overflow: hidden;
+  position: relative;
+}
+
+.reel-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--hub-mist-glow), var(--hub-gold));
+  transform-origin: left center;
+  transform: scaleX(0.25);
+  will-change: transform;
+}
+
+.reel-hud-controls {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.reel-counter {
+  margin-right: 4px;
+  font-family: var(--font-mono, Consolas, monospace);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+  letter-spacing: 0.1em;
+  color: var(--hub-gold);
+  white-space: nowrap;
+}
+
+.reel-nav-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--hub-hairline);
+  background: rgba(19, 13, 20, 0.86);
+  color: var(--hub-ink);
+  transition:
+    border-color var(--transition-fast, 150ms ease),
+    background-color var(--transition-fast, 150ms ease),
+    color var(--transition-fast, 150ms ease),
+    opacity var(--transition-fast, 150ms ease);
+}
+
+.reel-nav-btn:hover:not(:disabled) {
+  border-color: var(--hub-gold);
+  background: rgba(27, 59, 58, 0.42);
+  color: var(--hub-gold);
+}
+
+.reel-nav-btn:disabled {
+  opacity: 0.34;
+  cursor: default;
+}
+
+/* ==========================================================================
+   Short Desktop Height Guard (<= 740px height, >= 960px width)
+   ========================================================================== */
+@media (min-width: 960px) and (max-height: 760px) {
+  .hub-card {
+    padding: 18px 24px;
+  }
+
+  .hub-featured-grid {
+    gap: 20px;
+  }
+
+  .hub-series-title {
+    font-size: clamp(1.95rem, 2.7vw, 2.5rem);
+  }
+
+  .hub-series-synopsis {
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+}
+
+/* ==========================================================================
+   Mobile Horizontal Reel (<= 959px, e.g. 390x844)
+   ========================================================================== */
+@media (max-width: 959px) {
+  .reel-stage[data-reel-stage] {
+    height: 100dvh;
+    min-height: 540px;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+  }
+
+  .hub-topbar {
+    min-height: 50px;
+    padding: 8px 14px;
+    flex-wrap: wrap;
+    gap: 6px 8px;
+  }
+
+  .hub-topbar-left {
+    gap: 8px;
+  }
+
+  .hub-back-link {
+    min-height: 32px;
+    padding: 3px 9px;
+    font-size: 0.78rem;
+  }
+
+  .hub-topbar-zh {
+    font-size: 0.86rem;
+    letter-spacing: 0.06em;
+  }
+
+  .hub-topbar-status {
+    padding: 4px 8px;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+  }
+
+  .hub-reel[data-horizontal-reel] {
+    flex-direction: row;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 0 10px 22px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hub-reel[data-horizontal-reel]::after {
+    content: "";
+    flex: 0 0 8px;
+    height: 1px;
+  }
+
+  .hub-card {
+    flex: 0 0 min(332px, calc(100vw - 44px));
+    width: min(332px, calc(100vw - 44px));
+    height: min(568px, calc(100dvh - 144px));
+    min-height: min(468px, calc(100dvh - 144px));
+    max-height: calc(100dvh - 134px);
+    padding: 18px 18px 20px;
+    overflow-y: auto;
+  }
+
+  .hub-corner {
+    width: 16px;
+    height: 16px;
+  }
+
+  .hub-corner--tl { top: 10px; left: 10px; }
+  .hub-corner--tr { top: 10px; right: 10px; }
+  .hub-corner--br { bottom: 10px; right: 10px; }
+  .hub-corner--bl { bottom: 10px; left: 10px; }
+
+  .hub-card--prologue {
+    padding-inline: 22px;
+    gap: 10px;
+  }
+
+  .hub-prologue-title {
+    font-size: 1.9rem;
+  }
+
+  .hub-prologue-copy {
+    font-size: 0.88rem;
+    line-height: 1.68;
+  }
+
+  .hub-prologue-copy--muted {
+    font-size: 0.82rem;
+  }
+
+  /* Featured Card collapses cleanly to single column on mobile */
+  .hub-featured-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: 12px;
+    height: auto;
+    min-height: 100%;
+  }
+
+  .hub-emblem-sanctuary {
+    height: 158px;
+    padding: 8px;
+  }
+
+  .hub-emblem-sanctuary::before,
+  .hub-emblem-sanctuary::after {
+    display: none;
+  }
+
+  .hub-nuo-emblem {
+    width: auto;
+    height: 138px;
+    max-width: 100%;
+  }
+
+  .hub-featured-dossier {
+    gap: 8px;
+    padding-block: 0;
+  }
+
+  .hub-series-title {
+    font-size: 1.85rem;
+  }
+
+  .hub-series-roman {
+    font-size: 0.66rem;
+    letter-spacing: 0.16em;
+  }
+
+  .hub-tag {
+    padding: 3px 8px;
+    font-size: 0.72rem;
+  }
+
+  .hub-series-synopsis {
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+
+  .hub-featured-actions {
+    gap: 8px;
+    padding-top: 8px;
+  }
+
+  .hub-cta-gilded {
+    min-height: 44px;
+    padding: 9px 14px;
+    font-size: 0.9rem;
+  }
+
+  .hub-veiled-emblem {
+    flex: 0 0 auto;
+    min-height: 0;
+    padding: 10px;
+  }
+
+  .hub-veiled-emblem svg {
+    width: 68px;
+    height: 68px;
+  }
+
+  .hub-veiled-title {
+    font-size: 1.45rem;
+  }
+
+  .hub-closing-emblem svg {
+    width: 72px;
+    height: 72px;
+  }
+
+  .hub-closing-title {
+    font-size: 1.85rem;
+  }
+
+  .reel-hud {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 56px;
+    padding: 6px 16px 12px;
+  }
+
+  .reel-hud-hint {
+    display: none;
+  }
+
+  .reel-progress-track {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 64px;
+  }
+
+  .reel-hud-controls {
+    gap: 8px;
+    flex: 0 0 auto;
+  }
+
+  .reel-counter {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 560px) {
+  .hub-topbar-en,
+  .hub-topbar-sep {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hub-card,
+  .hub-back-link,
+  .hub-cta-gilded,
+  .hub-cta-arrow,
+  .hub-corner,
+  .reel-nav-btn {
+    transition: none;
+  }
+}
