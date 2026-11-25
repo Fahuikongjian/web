@@ -38,6 +38,7 @@
   }
 
   function connect(data) {
+    if (data.chapter.seriesKey) root.dataset.series = data.chapter.seriesKey;
     const engine = api.create(data, {
       navigate,
       toggleSnapshot: function (force) {
@@ -88,10 +89,11 @@
       route = next;
       page = rendered;
       address.value = route.rawUrl;
-      document.title = page.pageTitle + " · 旧网拾遗";
+      document.title = page.pageTitle + " · " + (data.chapter.archiveBrand || "旧网拾遗");
+      const labels = data.chapter.snapshotButtonLabels || {};
       snapshotButton.hidden = !page.snapshotMeta?.supported;
       snapshotButton.setAttribute("aria-pressed", String(snapshot));
-      snapshotButton.textContent = snapshot ? "返回现行版" : "历史版本";
+      snapshotButton.textContent = snapshot ? (labels.exit || "返回现行版") : (labels.enter || "历史版本");
       if (!keepScroll || snapshot) {
         showStatus(snapshot && page.snapshotMeta?.supported
           ? (page.snapshotMeta.bannerText || "存档日期 " + page.snapshotMeta.snapshotDate)

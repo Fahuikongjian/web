@@ -241,7 +241,7 @@ body {
   display: none;
 }
 
-/* Trailing spacer guarantees symmetric 64px right gutter and ~2076px desktop track */
+/* Trailing spacer guarantees symmetric 64px right gutter and 2752px desktop track */
 .hub-reel[data-horizontal-reel]::after {
   content: "";
   flex: 0 0 28px;
@@ -457,7 +457,8 @@ body {
   background: linear-gradient(0deg, rgba(230, 194, 122, 0.42), transparent);
 }
 
-.hub-nuo-emblem {
+.hub-nuo-emblem,
+.hub-suojiang-emblem {
   width: 100%;
   max-width: 222px;
   height: auto;
@@ -637,7 +638,110 @@ body {
 }
 
 /* ==========================================================================
-   Card 3: Veiled Series 02 — 山海残楮 (400px)
+   Card 3: Featured Series 02 — 锁江志 (640px)
+   Celadon-Bronze-Silver Contrast vs. Series 01 Crimson-Gold
+   ========================================================================== */
+.hub-card--suojiang {
+  background:
+    radial-gradient(ellipse 68% 58% at 24% 48%, rgba(77, 166, 155, 0.16), transparent 64%),
+    radial-gradient(ellipse 60% 54% at 88% 16%, rgba(46, 111, 104, 0.44), transparent 66%),
+    linear-gradient(155deg, #0D2028 0%, #08151B 58%, #061015 100%);
+  border-color: rgba(77, 166, 155, 0.42);
+  box-shadow:
+    inset 0 0 0 7px rgba(6, 16, 21, 0.92),
+    inset 0 0 0 8px rgba(77, 166, 155, 0.18),
+    0 24px 52px -14px rgba(0, 0, 0, 0.78);
+}
+
+.hub-card--suojiang.is-active {
+  border-color: rgba(220, 233, 237, 0.62);
+  box-shadow:
+    inset 0 0 0 7px rgba(6, 16, 21, 0.92),
+    inset 0 0 0 8px rgba(77, 166, 155, 0.28),
+    0 28px 64px -14px rgba(0, 0, 0, 0.88),
+    0 0 36px -12px rgba(77, 166, 155, 0.28);
+}
+
+.hub-card--suojiang .hub-emblem-sanctuary {
+  border-color: rgba(156, 184, 194, 0.26);
+  background:
+    linear-gradient(180deg, rgba(156, 184, 194, 0.05) 0%, transparent 18%, transparent 82%, rgba(156, 184, 194, 0.05) 100%),
+    radial-gradient(circle at 50% 48%, rgba(46, 111, 104, 0.42) 0%, rgba(8, 21, 27, 0.88) 66%, rgba(6, 16, 21, 0.96) 100%);
+  box-shadow: inset 0 0 28px rgba(6, 16, 21, 0.84);
+}
+
+.hub-card--suojiang .hub-emblem-sanctuary::before {
+  background: linear-gradient(180deg, rgba(77, 166, 155, 0.48), transparent);
+}
+
+.hub-card--suojiang .hub-emblem-sanctuary::after {
+  background: linear-gradient(0deg, rgba(77, 166, 155, 0.48), transparent);
+}
+
+.hub-card--suojiang .hub-series-badge {
+  border-color: rgba(77, 166, 155, 0.44);
+  background: rgba(10, 29, 36, 0.68);
+  color: #DCE9ED;
+}
+
+.hub-card--suojiang .hub-badge-dot {
+  background: #4DA69B;
+  box-shadow: 0 0 8px rgba(77, 166, 155, 0.85);
+}
+
+.hub-seal-stamp--suojiang {
+  border: 1.5px solid #4DA69B;
+  background: rgba(46, 111, 104, 0.28);
+  box-shadow: inset 0 0 0 2px rgba(220, 233, 237, 0.28);
+  color: #DCE9ED;
+}
+
+.hub-card--suojiang .hub-series-title {
+  color: #DCE9ED;
+}
+
+.hub-card--suojiang .hub-series-roman {
+  color: #4DA69B;
+}
+
+.hub-card--suojiang .hub-tag {
+  border-color: rgba(77, 166, 155, 0.34);
+  background: rgba(46, 111, 104, 0.18);
+  color: #DCE9ED;
+}
+
+.hub-card--suojiang .hub-series-synopsis {
+  color: #9CB8C2;
+}
+
+.hub-card--suojiang .hub-featured-actions {
+  border-top-color: rgba(77, 166, 155, 0.22);
+}
+
+.hub-card--suojiang .hub-series-specs {
+  color: #7D9CA7;
+}
+
+.mystery-hub .hub-cta-gilded--suojiang {
+  border: 1px solid rgba(220, 233, 237, 0.56);
+  background: linear-gradient(135deg, #DCE9ED 0%, #86CBC2 48%, #4DA69B 100%);
+  color: #061015;
+  box-shadow: 0 10px 24px -10px rgba(77, 166, 155, 0.42);
+}
+
+.mystery-hub .hub-cta-gilded--suojiang:hover {
+  box-shadow:
+    0 14px 28px -10px rgba(77, 166, 155, 0.52),
+    0 0 22px -2px rgba(220, 233, 237, 0.34);
+}
+
+.mystery-hub .hub-cta-gilded--suojiang:focus-visible {
+  outline: 2px solid #DCE9ED;
+  outline-offset: 3px;
+}
+
+/* ==========================================================================
+   Card 4: Veiled Series 03 — 十音簿 (400px)
    ========================================================================== */
 .hub-card--veiled {
   width: 400px;
@@ -751,7 +855,7 @@ body {
 }
 
 /* ==========================================================================
-   Card 4: Closing Card — 敬请期待 (380px)
+   Card 5: Closing Card — 敬请期待 (380px)
    ========================================================================== */
 .hub-card--coming-soon {
   width: 380px;
@@ -849,7 +953,7 @@ body {
   border-radius: inherit;
   background: linear-gradient(90deg, var(--hub-mist-glow), var(--hub-gold));
   transform-origin: left center;
-  transform: scaleX(0.25);
+  transform: scaleX(0.2);
   will-change: transform;
 }
 
@@ -1030,7 +1134,8 @@ body {
     display: none;
   }
 
-  .hub-nuo-emblem {
+  .hub-nuo-emblem,
+  .hub-suojiang-emblem {
     width: auto;
     height: 138px;
     max-width: 100%;

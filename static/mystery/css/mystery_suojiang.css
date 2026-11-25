@@ -1,0 +1,1044 @@
+/* ==========================================================================
+   锁江志 · 五幕流域画廊 (Level 2 — 石青玄渊 × 铜绿铁兽 × 银月江涛)
+   Pure offline CSS (zero external URLs, zero CDN fonts).
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  overflow-x: clip;
+  background-color: #061015;
+  color: #DCE9ED;
+  font-family: var(--font-sans, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei UI", sans-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+.suojiang-stage[data-mystery-level="suojiang"] {
+  --sj-bg-abyss: #061015;
+  --sj-bg-channel: #0A1D24;
+  --sj-bg-stele: #0D222A;
+  --sj-bg-niche: #050D12;
+
+  --sj-bronze: #4DA69B;
+  --sj-bronze-deep: #2E6F68;
+  --sj-bronze-soft: rgba(77, 166, 155, 0.16);
+  --sj-hairline: rgba(77, 166, 155, 0.30);
+  --sj-hairline-strong: rgba(156, 184, 194, 0.58);
+
+  --sj-silver: #DCE9ED;
+  --sj-silver-muted: #9CB8C2;
+  --sj-silver-dim: #7D9CA7;
+
+  --sj-brass: #C9A461;
+  --sj-brass-soft: rgba(201, 164, 97, 0.14);
+
+  --sj-rust: #B8433E;
+  --sj-rust-soft: rgba(184, 67, 62, 0.20);
+
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100dvh;
+  min-height: 540px;
+  display: grid;
+  grid-template-rows: 64px minmax(0, 1fr) 64px;
+  overflow: hidden;
+  background: var(--sj-bg-abyss);
+  color: var(--sj-silver);
+  isolation: isolate;
+}
+
+/* --------------------------------------------------------------------------
+   Pure-CSS River Depth & Rotating Inline-SVG 古水文罗盘 × 江涛水纹
+   -------------------------------------------------------------------------- */
+.suojiang-backdrop {
+  position: fixed;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.suojiang-river-depth {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      ellipse 68% 52% at 50% 48%,
+      rgba(46, 111, 104, 0.24) 0%,
+      rgba(10, 29, 36, 0.90) 52%,
+      #061015 86%
+    ),
+    radial-gradient(
+      ellipse 70% 26% at 50% 0%,
+      rgba(220, 233, 237, 0.08) 0%,
+      transparent 72%
+    );
+}
+
+.suojiang-water-lines {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(156, 184, 194, 0.024) 0 1px,
+      transparent 1px 40px
+    ),
+    repeating-linear-gradient(
+      -16deg,
+      rgba(77, 166, 155, 0.018) 0 2px,
+      transparent 2px 64px
+    );
+}
+
+.suojiang-compass {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(88vmin, 760px);
+  height: min(88vmin, 760px);
+  transform: translate(-50%, -50%);
+  opacity: 0.24;
+}
+
+.sj-compass-outer {
+  transform-origin: 320px 320px;
+  animation: sj-drift-cw 160s linear infinite;
+}
+
+.sj-compass-wave {
+  transform-origin: 320px 320px;
+  animation: sj-drift-ccw 110s linear infinite;
+}
+
+@keyframes sj-drift-cw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes sj-drift-ccw {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Top River-Stele Navigation Bar
+   -------------------------------------------------------------------------- */
+.suojiang-topbar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0 36px;
+  min-width: 0;
+  border-bottom: 1px solid var(--sj-hairline);
+  background: linear-gradient(
+    180deg,
+    rgba(6, 16, 21, 0.94) 0%,
+    rgba(10, 29, 36, 0.82) 100%
+  );
+  box-shadow: 0 1px 0 rgba(77, 166, 155, 0.24);
+}
+
+.sj-breadcrumbs {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  min-width: 0;
+}
+
+.sj-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 36px;
+  padding: 4px 10px;
+  border-radius: 0;
+  border: 1px solid rgba(77, 166, 155, 0.34);
+  background: rgba(46, 111, 104, 0.14);
+  color: var(--sj-silver-muted);
+  font-size: 0.84rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    color var(--transition-fast, 150ms ease),
+    border-color var(--transition-fast, 150ms ease),
+    background-color var(--transition-fast, 150ms ease);
+}
+
+.sj-back-link:hover {
+  color: var(--sj-silver);
+  border-color: var(--sj-silver-muted);
+  background: rgba(77, 166, 155, 0.22);
+}
+
+.sj-back-link:focus-visible {
+  outline: 2px solid var(--sj-silver);
+  outline-offset: 2px;
+}
+
+.sj-crumb-sep {
+  color: var(--sj-bronze);
+  font-size: 0.72rem;
+  line-height: 1;
+}
+
+.sj-crumb-slash {
+  color: var(--sj-silver-dim);
+  font-size: 0.9rem;
+}
+
+.sj-topbar-title {
+  margin: 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 1.18rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  color: var(--sj-silver);
+  white-space: nowrap;
+}
+
+.sj-topbar-sub {
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.84rem;
+  letter-spacing: 0.12em;
+  color: var(--sj-silver-muted);
+  white-space: nowrap;
+}
+
+.sj-topbar-meta {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.sj-archive-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border: 1px solid rgba(77, 166, 155, 0.46);
+  border-radius: 0;
+  background: var(--sj-bg-niche);
+  color: var(--sj-brass);
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Horizontal Folio Track (2132px on 1440x900 Desktop)
+   -------------------------------------------------------------------------- */
+.suojiang-reel[data-horizontal-reel] {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 24px;
+  width: 100%;
+  min-width: 0;
+  height: 100%;
+  padding-left: 44px;
+  padding-right: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+
+.suojiang-reel[data-horizontal-reel]::-webkit-scrollbar {
+  display: none;
+}
+
+.suojiang-reel[data-horizontal-reel]::after {
+  content: "";
+  flex: 0 0 20px;
+  height: 1px;
+  pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Beveled River-Stele Folio Card Geometry (八方抹角石碑折页)
+   -------------------------------------------------------------------------- */
+.sj-card {
+  position: relative;
+  flex: 0 0 324px;
+  width: 324px;
+  height: min(520px, calc(100dvh - 188px));
+  min-height: 432px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  border: 0 solid rgba(77, 166, 155, 0.42);
+  filter: drop-shadow(0 20px 34px rgba(0, 0, 0, 0.72));
+  transition:
+    transform var(--transition-base, 220ms ease),
+    filter var(--transition-base, 220ms ease);
+}
+
+.sj-card.is-active {
+  filter:
+    drop-shadow(0 24px 44px rgba(0, 0, 0, 0.85))
+    drop-shadow(0 0 18px rgba(77, 166, 155, 0.24));
+}
+
+@media (hover: hover) {
+  .sj-card--act:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.sj-card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sj-card-link:focus-visible {
+  outline: 2px solid var(--sj-silver);
+  outline-offset: 4px;
+}
+
+/* Outer 1px Beveled Gradient Frame */
+.sj-stele-surface {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    155deg,
+    rgba(220, 233, 237, 0.44),
+    rgba(77, 166, 155, 0.34) 52%,
+    rgba(201, 164, 97, 0.34)
+  );
+  clip-path: polygon(
+    16px 0,
+    calc(100% - 16px) 0,
+    100% 16px,
+    100% calc(100% - 16px),
+    calc(100% - 16px) 100%,
+    16px 100%,
+    0 calc(100% - 16px),
+    0 16px
+  );
+  transition: background var(--transition-base, 220ms ease);
+}
+
+.sj-card.is-active .sj-stele-surface {
+  background: linear-gradient(
+    155deg,
+    rgba(220, 233, 237, 0.78),
+    rgba(77, 166, 155, 0.62) 52%,
+    rgba(201, 164, 97, 0.56)
+  );
+}
+
+/* Inner Chamfered Stele Face + 4 Brass Corner Pins */
+.sj-stele-inner {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sj-bg-channel);
+  background-image:
+    radial-gradient(circle, #C9A461 0 1.6px, transparent 2px),
+    radial-gradient(circle, #C9A461 0 1.6px, transparent 2px),
+    radial-gradient(circle, #C9A461 0 1.6px, transparent 2px),
+    radial-gradient(circle, #C9A461 0 1.6px, transparent 2px),
+    linear-gradient(180deg, #0E262F 0%, #0A1D24 44%, #061217 100%);
+  background-size: 6px 6px, 6px 6px, 6px 6px, 6px 6px, 100% 100%;
+  background-position:
+    14px 10px,
+    calc(100% - 14px) 10px,
+    14px calc(100% - 10px),
+    calc(100% - 14px) calc(100% - 10px),
+    0 0;
+  background-repeat: no-repeat;
+  clip-path: polygon(
+    15px 0,
+    calc(100% - 15px) 0,
+    100% 15px,
+    100% calc(100% - 15px),
+    calc(100% - 15px) 100%,
+    15px 100%,
+    0 calc(100% - 15px),
+    0 15px
+  );
+}
+
+/* Left Water-Gauge Spine */
+.sj-stele-inner::before {
+  content: "";
+  position: absolute;
+  top: 58px;
+  bottom: 20px;
+  left: 7px;
+  width: 6px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(201, 164, 97, 0.45) 0 1px,
+    transparent 1px 12px
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Engraved Stele Header */
+.sj-stele-head {
+  flex: 0 0 46px;
+  height: 46px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: linear-gradient(
+    180deg,
+    rgba(77, 166, 155, 0.14) 0%,
+    rgba(6, 16, 21, 0.25) 100%
+  );
+  border-bottom: 1px solid rgba(77, 166, 155, 0.32);
+  box-shadow: 0 2px 0 rgba(5, 13, 18, 0.65);
+}
+
+.sj-card-vol {
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--sj-silver-muted);
+}
+
+.sj-card-pillar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 10px;
+  border: 1px solid var(--sj-bronze);
+  background: rgba(46, 111, 104, 0.28);
+  color: var(--sj-silver);
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  box-shadow:
+    inset 0 1px 0 rgba(201, 164, 97, 0.45),
+    inset 0 -1px 0 rgba(201, 164, 97, 0.45);
+}
+
+.sj-card-body {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 18px 22px 18px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+/* Octagonal Emblem Well */
+.sj-card-emblem {
+  flex: 0 0 auto;
+  width: 120px;
+  height: 120px;
+  padding: 1.5px;
+  margin-bottom: 14px;
+  background: linear-gradient(
+    145deg,
+    rgba(201, 164, 97, 0.68),
+    rgba(77, 166, 155, 0.48) 55%,
+    rgba(220, 233, 237, 0.45)
+  );
+  clip-path: polygon(
+    28% 0,
+    72% 0,
+    100% 28%,
+    100% 72%,
+    72% 100%,
+    28% 100%,
+    0 72%,
+    0 28%
+  );
+  transition: transform var(--transition-base, 220ms ease), filter var(--transition-base, 220ms ease);
+}
+
+.sj-emblem-well {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    circle at 50% 45%,
+    rgba(46, 111, 104, 0.24) 0%,
+    var(--sj-bg-niche) 72%
+  );
+  clip-path: polygon(
+    28% 0,
+    72% 0,
+    100% 28%,
+    100% 72%,
+    72% 100%,
+    28% 100%,
+    0 72%,
+    0 28%
+  );
+}
+
+.sj-emblem-well svg {
+  width: 82%;
+  height: 82%;
+  display: block;
+}
+
+@media (hover: hover) {
+  .sj-card--act:hover .sj-card-emblem {
+    transform: scale(1.035);
+    filter: brightness(1.08);
+  }
+}
+
+.sj-card-locality {
+  margin: 0 0 6px;
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  color: var(--sj-bronze);
+}
+
+.sj-card-title {
+  margin: 0;
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: clamp(1.28rem, 1.8vw, 1.52rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: 0.06em;
+  color: var(--sj-silver);
+}
+
+.sj-card-rule {
+  position: relative;
+  width: 112px;
+  height: 10px;
+  margin: 10px auto 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sj-card-rule::before {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(77, 166, 155, 0.7) 50%,
+    transparent 100%
+  );
+}
+
+.sj-card-rule span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  transform: rotate(45deg);
+  background: var(--sj-silver);
+  border: 1px solid var(--sj-bronze);
+}
+
+.sj-card-synopsis {
+  margin: 0 0 auto;
+  font-size: 0.855rem;
+  line-height: 1.66;
+  color: var(--sj-silver-muted);
+  text-align: left;
+}
+
+.sj-card-case {
+  width: 100%;
+  margin: 12px 0 0;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(77, 166, 155, 0.28);
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--sj-silver-dim);
+  text-align: left;
+}
+
+/* Celadon-Silver River-Stele CTA */
+.sj-card-cta {
+  margin-top: 10px;
+  width: 100%;
+  min-height: 42px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border-radius: 0;
+  border: 1px solid rgba(77, 166, 155, 0.56);
+  background: rgba(46, 111, 104, 0.22);
+  color: var(--sj-silver);
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  transition:
+    background var(--transition-fast, 150ms ease),
+    color var(--transition-fast, 150ms ease),
+    border-color var(--transition-fast, 150ms ease),
+    box-shadow var(--transition-fast, 150ms ease);
+}
+
+@media (hover: hover) {
+  .sj-card--act:hover .sj-card-cta {
+    border-color: var(--sj-silver);
+    background: linear-gradient(135deg, #4DA69B 0%, #DCE9ED 100%);
+    color: #061015;
+    box-shadow: 0 0 22px rgba(77, 166, 155, 0.36);
+  }
+}
+
+.sj-card-link:focus-visible .sj-card-cta,
+.sj-card-link:active .sj-card-cta {
+  border-color: var(--sj-silver);
+  background: linear-gradient(135deg, #4DA69B 0%, #DCE9ED 100%);
+  color: #061015;
+  box-shadow: 0 0 22px rgba(77, 166, 155, 0.36);
+}
+
+/* --------------------------------------------------------------------------
+   Card 6: Sealed Continuation Card (后续卷 · 封闸)
+   -------------------------------------------------------------------------- */
+.sj-card--sealed {
+  flex: 0 0 304px;
+  width: 304px;
+  border-color: rgba(184, 67, 62, 0.56);
+}
+
+.sj-card--sealed .sj-stele-surface {
+  background: linear-gradient(
+    155deg,
+    rgba(184, 67, 62, 0.65),
+    rgba(77, 166, 155, 0.45) 55%,
+    rgba(184, 67, 62, 0.55)
+  );
+}
+
+.sj-card--sealed.is-active .sj-stele-surface {
+  background: linear-gradient(
+    155deg,
+    rgba(184, 67, 62, 0.88),
+    rgba(77, 166, 155, 0.65) 55%,
+    rgba(220, 233, 237, 0.52)
+  );
+}
+
+.sj-card--sealed .sj-stele-head {
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(184, 67, 62, 0.16) 0 8px,
+    rgba(77, 166, 155, 0.06) 8px 16px
+  );
+  border-bottom-color: rgba(184, 67, 62, 0.45);
+}
+
+.sj-card--sealed .sj-card-pillar {
+  border-color: var(--sj-rust);
+  background: var(--sj-rust-soft);
+}
+
+.sj-card-emblem--sealed {
+  margin-bottom: 12px;
+  background: linear-gradient(
+    145deg,
+    rgba(184, 67, 62, 0.66),
+    rgba(77, 166, 155, 0.44)
+  );
+}
+
+.sj-card-body--sealed {
+  justify-content: flex-start;
+  overflow-y: auto;
+  scrollbar-width: thin;
+}
+
+.sj-sealed-note {
+  margin: 0 0 12px;
+  font-size: 0.82rem;
+  line-height: 1.58;
+  color: var(--sj-silver-muted);
+  text-align: left;
+}
+
+.sj-continuation {
+  width: 100%;
+  margin-top: auto;
+  min-height: 118px;
+  text-align: left;
+}
+
+.sj-continuation-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid rgba(77, 166, 155, 0.5);
+  border-radius: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(184, 67, 62, 0.22) 0%,
+    rgba(5, 13, 18, 0.9) 100%
+  );
+  color: var(--sj-silver);
+  cursor: pointer;
+  list-style: none;
+  transition:
+    border-color var(--transition-fast, 150ms ease),
+    background-color var(--transition-fast, 150ms ease);
+}
+
+.sj-continuation-summary::-webkit-details-marker {
+  display: none;
+}
+
+.sj-continuation-summary:hover {
+  border-color: var(--sj-silver);
+}
+
+.sj-continuation-summary:focus-visible {
+  outline: 2px solid var(--sj-silver);
+  outline-offset: 2px;
+}
+
+.sj-continuation-title {
+  font-family: var(--font-serif, "Songti SC", Georgia, serif);
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--sj-silver);
+}
+
+.sj-continuation-action {
+  padding: 2px 8px;
+  border: 1px solid rgba(201, 164, 97, 0.52);
+  color: var(--sj-brass);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+}
+
+.sj-continuation[open] .sj-continuation-action {
+  border-color: var(--sj-rust);
+  background: var(--sj-rust-soft);
+  color: var(--sj-silver);
+}
+
+.sj-continuation-copy {
+  margin: 10px 0 0;
+  padding: 11px 12px;
+  border: 1px dashed rgba(184, 67, 62, 0.62);
+  background: rgba(5, 13, 18, 0.9);
+  font-size: 0.82rem;
+  line-height: 1.62;
+  color: var(--sj-silver-muted);
+}
+
+.sj-continuation-copy a {
+  color: var(--sj-bronze);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.sj-continuation-copy a:hover {
+  color: var(--sj-silver);
+}
+
+.sj-continuation-copy a:focus-visible {
+  outline: 2px solid var(--sj-silver);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Bottom Stage HUD
+   -------------------------------------------------------------------------- */
+.reel-hud {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 0 36px;
+  min-width: 0;
+  border-top: 1px solid var(--sj-hairline);
+  background: linear-gradient(
+    0deg,
+    rgba(6, 16, 21, 0.95) 0%,
+    rgba(10, 29, 36, 0.82) 100%
+  );
+}
+
+.sj-colophon {
+  margin: 0;
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  color: var(--sj-silver-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reel-controls {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.reel-counter {
+  font-family: var(--font-mono, Consolas, monospace);
+  font-size: 0.82rem;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.08em;
+  color: var(--sj-silver);
+  min-width: 58px;
+}
+
+.reel-progress-track {
+  position: relative;
+  width: clamp(96px, 16vw, 220px);
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(77, 166, 155, 0.22);
+  overflow: hidden;
+}
+
+.reel-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, #2E6F68 0%, #4DA69B 55%, #DCE9ED 100%);
+  transform-origin: left center;
+  transform: scaleX(0.1667);
+  will-change: transform;
+}
+
+.reel-buttons {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.reel-nav-btn {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid rgba(77, 166, 155, 0.46);
+  border-radius: 0;
+  background: rgba(5, 13, 18, 0.84);
+  color: var(--sj-silver);
+  cursor: pointer;
+  transition:
+    background-color var(--transition-fast, 150ms ease),
+    border-color var(--transition-fast, 150ms ease),
+    color var(--transition-fast, 150ms ease),
+    opacity var(--transition-fast, 150ms ease);
+}
+
+.reel-nav-btn:hover:not(:disabled):not(.disabled) {
+  border-color: var(--sj-silver);
+  background: rgba(77, 166, 155, 0.22);
+  color: var(--sj-silver);
+}
+
+.reel-nav-btn:focus-visible {
+  outline: 2px solid var(--sj-silver);
+  outline-offset: 2px;
+}
+
+.reel-nav-btn:disabled,
+.reel-nav-btn.disabled {
+  opacity: 0.34;
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------------------
+   Mobile & Narrow Viewport Horizontal Reel (<= 959px, e.g. 390x844)
+   -------------------------------------------------------------------------- */
+@media (max-width: 959px) {
+  .suojiang-stage[data-mystery-level="suojiang"] {
+    height: auto;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: visible;
+    overflow-x: clip;
+  }
+
+  .suojiang-compass {
+    width: min(84vw, 340px);
+    height: min(84vw, 340px);
+    opacity: 0.2;
+  }
+
+  .suojiang-topbar {
+    min-height: 52px;
+    padding: 10px 16px;
+    flex-wrap: wrap;
+    gap: 8px 12px;
+  }
+
+  .sj-breadcrumbs {
+    flex: 1 1 auto;
+    gap: 6px 8px;
+  }
+
+  .sj-back-link {
+    min-height: 34px;
+    padding: 4px 8px;
+    font-size: 0.78rem;
+  }
+
+  .sj-topbar-title {
+    font-size: 1.04rem;
+    letter-spacing: 0.1em;
+  }
+
+  .sj-topbar-sub {
+    display: none;
+  }
+
+  .sj-archive-badge {
+    font-size: 0.66rem;
+    padding: 3px 8px;
+  }
+
+  .suojiang-reel[data-horizontal-reel] {
+    flex: 1 1 auto;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0 18px 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .suojiang-reel[data-horizontal-reel]::after {
+    flex: 0 0 4px;
+  }
+
+  .sj-card,
+  .sj-card--sealed {
+    flex: 0 0 min(320px, calc(100vw - 44px));
+    width: min(320px, calc(100vw - 44px));
+    height: auto;
+    min-height: 468px;
+  }
+
+  .sj-card-body {
+    padding: 16px 16px 16px 20px;
+  }
+
+  .sj-card-emblem {
+    width: 102px;
+    height: 102px;
+    margin-bottom: 12px;
+  }
+
+  .sj-continuation {
+    min-height: 0;
+  }
+
+  .reel-hud {
+    flex-wrap: wrap;
+    gap: 10px 12px;
+    padding: 10px 16px 14px;
+  }
+
+  .reel-controls {
+    order: 1;
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .reel-progress-track {
+    flex: 1 1 auto;
+    width: auto;
+  }
+
+  .reel-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .sj-colophon {
+    order: 2;
+    width: 100%;
+    text-align: center;
+    font-size: 0.7rem;
+    white-space: normal;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .sj-compass-outer,
+  .sj-compass-wave {
+    animation: none;
+  }
+
+  .sj-card,
+  .sj-stele-surface,
+  .sj-card-emblem,
+  .sj-card-cta,
+  .sj-back-link,
+  .sj-continuation-summary,
+  .reel-nav-btn {
+    transition: none;
+  }
+}

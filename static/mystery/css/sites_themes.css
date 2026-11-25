@@ -9,24 +9,25 @@
 .mystery-clue-trigger {
   position: relative;
   display: inline;
-  padding: 1px 5px;
-  border-radius: 4px;
-  background: rgba(245, 158, 11, 0.16);
-  border-bottom: 2px dashed #d97706;
+  padding: 0 2px;
+  border-radius: 0;
+  background: transparent;
+  border-bottom: 1px dotted #8a7c6c;
   color: inherit;
-  font-weight: 600;
+  font-weight: inherit;
   cursor: pointer;
-  transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
+  transition: background-color 150ms ease, border-color 150ms ease;
 }
 
 .mystery-clue-trigger:hover {
-  background: rgba(245, 158, 11, 0.28);
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.22);
+  background: rgba(138, 124, 108, 0.1);
+  border-bottom-color: #4f463d;
+  box-shadow: none;
 }
 
 .mystery-clue-trigger.is-collected {
-  background: rgba(16, 185, 129, 0.15);
-  border-bottom: 2px solid #059669;
+  background: rgba(74, 107, 93, 0.08);
+  border-bottom: 1px solid #5c7a6b;
   box-shadow: none;
 }
 
@@ -36,18 +37,21 @@
   gap: 3px;
   margin-left: 5px;
   padding: 1px 6px;
-  border-radius: 999px;
-  background: #d97706;
-  color: #fff;
+  border-radius: 0;
+  background: #ede8df;
+  border: 1px solid #b8ae9e;
+  color: #4a4238;
   font-family: var(--font-sans, sans-serif);
   font-size: 10.5px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.4;
   vertical-align: middle;
 }
 
 .mystery-clue-trigger.is-collected .mystery-clue-badge {
-  background: #059669;
+  background: #e5ede8;
+  border-color: #8ba897;
+  color: #2f4a3c;
 }
 
 .mystery-gate-card {
@@ -121,11 +125,11 @@
   margin: 14px 0;
   padding: 10px 13px;
   border-radius: 0;
-  background: #fffbe6;
-  border: 1px solid #d4a64a;
-  border-left: 4px solid #cc6600;
+  background: #f5f7fa;
+  border: 1px solid #b8c7d9;
+  border-left: 3px solid #5a7494;
   box-shadow: inset 1px 1px 0 #ffffff;
-  color: #5c3a06;
+  color: #2b3e54;
   font-size: 13px;
   line-height: 1.65;
 }
@@ -395,10 +399,10 @@
   margin-bottom: 18px;
   padding: 12px 14px;
   border-radius: 0;
-  background: #fffbe6;
-  border: 1px solid #d4a64a;
-  border-left: 4px solid #cc6600;
-  color: #3b2a08;
+  background: #f5f7fa;
+  border: 1px solid #b8c7d9;
+  border-left: 3px solid #5a7494;
+  color: #24364a;
   font-size: 13px;
   line-height: 1.65;
 }
@@ -452,21 +456,21 @@
 }
 
 .site-search-highlight {
-  background: #ffff00;
-  color: #991b1b;
+  background: #fef3c7;
+  color: #111111;
   padding: 0 2px;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .site-search-snapshot-badge {
   padding: 1px 6px;
   border-radius: 0;
-  background: #fffbe6;
-  border: 1px solid #d4a64a;
-  color: #854d0e;
+  background: #f1f5f9;
+  border: 1px solid #b5c5d8;
+  color: #334155;
   font-family: "SimSun", "Tahoma", sans-serif;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .site-search-locked-badge {
@@ -1078,9 +1082,9 @@
 }
 
 .site-inst-notice-badge.is-urgent {
-  border-color: #d68585;
-  background: #fdecec;
-  color: #991b1b;
+  border-color: #9bb0c8;
+  background: #eef3f9;
+  color: #1e3a5f;
 }
 
 .site-inst-staff-grid {
@@ -1580,19 +1584,20 @@
   align-items: center;
   gap: 8px;
   padding: 8px 14px;
-  background: #fffbe8;
-  border-top: 1px solid #d4b96a;
+  background: #f5f8fc;
+  border-top: 1px solid #b5c7dc;
   border-bottom: 1px solid #8ca8c7;
   font-size: 12.5px;
-  color: #684605;
+  color: #243b55;
   line-height: 1.55;
 }
 
 .site-forum-sticky-badge {
   padding: 1px 6px;
   border-radius: 0;
-  background: #c2410c;
-  color: #ffffff;
+  background: #e6eef8;
+  border: 1px solid #8ca8c7;
+  color: #1f3c63;
   font-size: 11px;
   font-weight: 700;
   flex-shrink: 0;
@@ -1653,23 +1658,26 @@
   padding: 1px 5px;
   border-radius: 0;
   font-size: 10.5px;
-  font-weight: 700;
+  font-weight: 400;
   flex-shrink: 0;
 }
 
 .site-forum-badge-top {
-  background: #1d4ed8;
-  color: #fff;
+  background: #e8f0fa;
+  border: 1px solid #9ab3cf;
+  color: #1e3f6e;
 }
 
 .site-forum-badge-hot {
-  background: #cc0000;
-  color: #fff;
+  background: #f1f5f9;
+  border: 1px solid #b5c5d8;
+  color: #334155;
 }
 
 .site-forum-badge-del {
-  background: #475569;
-  color: #fff;
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  color: #475569;
 }
 
 .site-forum-thread-meta {
@@ -1848,14 +1856,14 @@
   font-style: italic;
 }
 
-/* Wayback Restored Post Highlight Block */
+/* Wayback Restored Post Block */
 .mystery-restored-post {
   padding: 12px 14px;
   border-radius: 0;
-  background: #fffbe6;
-  border: 1px dashed #cc6600;
-  border-left: 4px solid #c2410c;
-  color: #431407;
+  background: #f7f9fc;
+  border: 1px solid #9eb5cf;
+  border-left: 3px solid #5a7494;
+  color: #1b2430;
 }
 
 .mystery-restored-badge {
@@ -1865,10 +1873,11 @@
   margin-bottom: 8px;
   padding: 2px 8px;
   border-radius: 0;
-  background: #c2410c;
-  color: #ffffff;
+  background: #e6eef8;
+  border: 1px solid #9eb5cf;
+  color: #334155;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .site-forum-pm-box {
@@ -1924,10 +1933,11 @@
 }
 
 .site-almanac-date.is-intercalary {
-  background: linear-gradient(90deg, rgba(153, 27, 27, 0.08), rgba(153, 27, 27, 0.16), rgba(153, 27, 27, 0.08));
+  background: rgba(107, 91, 67, 0.06);
   border-style: dashed;
-  color: #991b1b;
-  text-shadow: 0 0 8px rgba(185, 28, 28, 0.18);
+  border-color: #7d6844;
+  color: #3b2d22;
+  text-shadow: none;
 }
 
 .site-almanac-grid {
@@ -2922,18 +2932,12 @@
 .site-prop-warn-strip {
   padding: 9px 13px;
   border-radius: 0;
-  background: repeating-linear-gradient(
-    -45deg,
-    #fff5d6,
-    #fff5d6 10px,
-    #fde7a9 10px,
-    #fde7a9 20px
-  );
-  border: 1px solid #c97a00;
-  border-left: 5px solid #b45309;
-  color: #5e2c04;
+  background: #f6f1e4;
+  border: 1px solid #c3b69d;
+  border-left: 3px solid #7d6f57;
+  color: #3f382e;
   font-size: 12.5px;
-  font-weight: 700;
+  font-weight: 400;
   line-height: 1.6;
 }
 
@@ -2975,12 +2979,12 @@
   opacity: 0.78;
 }
 
-/* Ghost Floor 13 / Room 404B Anomaly Marker */
+/* Ghost Floor 13 / Room 404B Archival Marker */
 .site-prop-anomaly {
-  background: #fef2f2;
-  border: 1px dashed #b91c1c;
-  border-left: 4px solid #b91c1c;
-  color: #7f1d1d;
+  background: #faf6ed;
+  border: 1px solid #cfc4ae;
+  border-left: 3px solid #8a7c66;
+  color: #292524;
   padding: 10px 14px;
   border-radius: 0;
   font-size: 13px;
@@ -2994,18 +2998,19 @@ tr.site-prop-anomaly {
 }
 
 tr.site-prop-anomaly td {
-  background: #fef2f2 !important;
-  border-color: #d98282;
-  color: #7f1d1d;
+  background: #ffffff !important;
+  border-color: #cfc4ae;
+  color: #1c1917;
+  font-weight: 400;
 }
 
-/* Missing Surveyor Profile Card */
+/* Surveyor Profile Card */
 .site-prop-surveyor-card {
   padding: 14px 16px;
   border-radius: 0;
-  background: #fcf7eb;
-  border: 2px solid #b91c1c;
-  box-shadow: inset 0 0 0 2px #fcf7eb, inset 0 0 0 3px #e5b8b8;
+  background: #faf6ed;
+  border: 1px solid #9f947e;
+  box-shadow: inset 0 0 0 2px #fdfbf4, inset 0 0 0 3px #d2c7b1;
 }
 
 .site-prop-surveyor-head {
@@ -3026,10 +3031,11 @@ tr.site-prop-anomaly td {
 .site-prop-surveyor-badge {
   padding: 2px 8px;
   border-radius: 0;
-  background: #991b1b;
-  color: #ffffff;
+  background: #efe7d5;
+  border: 1px solid #b5a78e;
+  color: #3f382e;
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .site-prop-surveyor-meta {

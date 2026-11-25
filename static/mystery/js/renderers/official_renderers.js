@@ -316,14 +316,21 @@
     var data = siteData || {};
     var ctx = context || {};
     var q = getQueryParam(route, "q").trim();
+    var searchBase = data.domain ? ("https://" + data.domain) : SEARCH_BASE;
+    var isQiandu = !data.domain || data.domain === "search.qiandu.lh";
     var siteName = data.siteName || "千度旧网检索";
     var hotQueries = Array.isArray(data.hotQueries) ? data.hotQueries : [];
     var syntaxTips = Array.isArray(data.syntaxTips) ? data.syntaxTips : [];
-    var quickOps = data.quickDomains || ["blog.shanye.lh", "feiyi.fengning.gov.lh"];
+    var quickOps = Array.isArray(data.quickDomains)
+      ? data.quickDomains
+      : (isQiandu ? ["blog.shanye.lh", "feiyi.fengning.gov.lh"] : []);
 
+    var logoTextHtml = siteName === "千度旧网检索"
+      ? '千度<span class="site-search-logo-accent">旧网检索</span>'
+      : escapeHtml(siteName);
     var logoHtml =
-      '<a class="site-search-logo" href="' + SEARCH_BASE + '/" data-mystery-link="' + SEARCH_BASE + '/" style="text-decoration:none;">' +
-        '千度<span class="site-search-logo-accent">旧网检索</span>' +
+      '<a class="site-search-logo" href="' + escapeHtml(searchBase + "/") + '" data-mystery-link="' + escapeHtml(searchBase + "/") + '" style="text-decoration:none;">' +
+        logoTextHtml +
       "</a>";
 
     var formHtml =
@@ -333,7 +340,9 @@
       "</form>";
 
     var html = "";
-    var sourceComment = "<!-- QIANDU_ARCHIVE_SEARCH | supports site:<domain> & intercalary snapshot cache -->";
+    var sourceComment = isQiandu
+      ? "<!-- QIANDU_ARCHIVE_SEARCH | supports site:<domain> & intercalary snapshot cache -->"
+      : "<!-- ARCHIVE_SEARCH | supports site:<domain> -->";
 
     if (!q) {
       html =
@@ -390,13 +399,14 @@
       if (targetEntry) {
         eggHtml =
           '<aside class="site-search-easter-egg">' +
-            '<div style="font-weight:700;margin-bottom:4px;">⚠ ' + escapeHtml(matchedEgg.bannerTitle || "检测到岁差索引裂隙缓存") + "</div>" +
+            '<div style="margin-bottom:4px;">' + escapeHtml(matchedEgg.bannerTitle || "关联历史索引副本") + "</div>" +
             renderParagraphs(matchedEgg.bannerNote, "margin:0 0 8px;") +
             '<div>' + renderLink(targetEntry.url, "查阅缓存") + "</div>" +
           "</aside>";
       }
 
-      var tabsHtml = SEARCH_TABS.map(function (tab, idx) {
+      var searchTabs = isQiandu ? SEARCH_TABS : [{ key: "all", label: "全部网页" }];
+      var tabsHtml = searchTabs.map(function (tab, idx) {
         return (
           '<button type="button" class="site-search-tab' + (idx === 0 ? " is-active" : "") + '"' +
           ' data-search-tab="' + escapeHtml(tab.key) + '"' +
@@ -454,7 +464,9 @@
           "</div>" +
         "</main>";
 
-      sourceComment = "<!-- QIANDU_SEARCH_RESULTS | site_filter=" + (parsed.siteDomain || "none") + " | cache_hits=" + (matchedEgg ? "1" : "0") + " -->";
+      sourceComment = isQiandu
+        ? "<!-- QIANDU_SEARCH_RESULTS | site_filter=" + (parsed.siteDomain || "none") + " | cache_hits=" + (matchedEgg ? "1" : "0") + " -->"
+        : "<!-- ARCHIVE_SEARCH_RESULTS | site_filter=" + (parsed.siteDomain || "none") + " -->";
     }
 
     return {
@@ -474,9 +486,9 @@
             return;
           }
           if (!term) {
-            ctx.navigate(SEARCH_BASE + "/");
+            ctx.navigate(searchBase + "/");
           } else {
-            ctx.navigate(SEARCH_BASE + "/search?q=" + encodeURIComponent(term));
+            ctx.navigate(searchBase + "/search?q=" + encodeURIComponent(term));
           }
         };
 
@@ -536,7 +548,7 @@
       var isThirteenth = isInternalScan && i === 12;
       var coat = isThirteenth ? "#382a24" : ["#6d5e4e", "#58514a", "#7c6b56"][i % 3];
       var frameStyle = isThirteenth
-        ? "display:inline-flex;flex-direction:column;align-items:center;padding:3px 4px;border:2px dashed #b91c1c;background:rgba(185,28,28,0.14);border-radius:3px;box-shadow:0 0 10px rgba(185,28,28,0.35);"
+        ? "display:inline-flex;flex-direction:column;align-items:center;padding:3px 4px;border:1px solid #8a7c6c;background:rgba(120,104,88,0.08);"
         : "display:inline-flex;flex-direction:column;align-items:center;padding:3px 2px;";
       var svg =
         '<svg viewBox="0 0 40 56" width="38" height="52" aria-hidden="true">' +
@@ -551,7 +563,7 @@
             : '<path stroke="#43352c" stroke-width="1.1" fill="none" d="M16.5 27h7"/>') +
         "</svg>";
       var label = isThirteenth
-        ? '<span style="display:inline-block;margin-top:2px;padding:1px 4px;background:#991b1b;color:#fff;font-size:10px;font-weight:700;line-height:1.3;white-space:nowrap;">第13人·周延生</span>'
+        ? '<span style="display:inline-block;margin-top:2px;padding:1px 4px;background:#e6decb;border:1px solid #a89982;color:#3d3228;font-size:10px;font-weight:400;line-height:1.3;white-space:nowrap;">第13人·周延生</span>'
         : '<span style="font-size:10px;color:#5c4d40;font-family:var(--font-mono, monospace);">#' + (i + 1) + "</span>";
       figures.push('<span class="site-inst-photo-figure' + (isThirteenth ? " is-anomaly" : "") + '" style="' + frameStyle + '">' + svg + label + "</span>");
     }
@@ -559,20 +571,20 @@
     var row1 = '<div style="display:flex;justify-content:center;align-items:flex-end;flex-wrap:wrap;gap:6px;margin-bottom:6px;">' + figures.slice(0, 6).join("") + "</div>";
     var row2 = '<div style="display:flex;justify-content:center;align-items:flex-end;flex-wrap:wrap;gap:6px;">' + figures.slice(6).join("") + "</div>";
     var code = archive.archiveCode || archive.code || "FN-FY-1994-13";
-    var badgeText = isInternalScan ? "未裁切底片高清扫件（实见 13 人 · 右缘异常）" : "公开裁边缩略件（原册登记 12 人）";
+    var badgeText = isInternalScan ? "未裁切底片高清扫件（实见 13 人 · 右缘附记）" : "公开裁边缩略件（原册登记 12 人）";
 
     return (
       '<figure class="site-inst-photo-frame" style="margin:14px 0;">' +
         '<div class="site-inst-photo-canvas">' +
           '<div style="font-family:var(--font-mono, monospace);font-size:11px;color:#5c4d40;margin-bottom:10px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;">' +
             "<span>底片编号：" + escapeHtml(code) + " · 丰宁太平社</span>" +
-            '<span style="font-weight:700;color:' + (isInternalScan ? "#991b1b" : "#5c4d40") + ';">' + escapeHtml(badgeText) + "</span>" +
+            '<span style="font-weight:400;color:#4a3f35;">' + escapeHtml(badgeText) + "</span>" +
           "</div>" +
           '<div class="site-inst-photo-figures" style="display:block;">' + row1 + row2 + "</div>" +
         "</div>" +
         '<figcaption class="site-inst-photo-caption" style="margin-top:10px;">' + escapeHtml(code) + " · " + escapeHtml(archive.caption || "") + "</figcaption>" +
         (isInternalScan && archive.annotation
-          ? '<p class="site-inst-photo-note" style="margin:6px 0 0;color:#991b1b;font-weight:700;">' + escapeHtml(archive.annotation) + "</p>"
+          ? '<p class="site-inst-photo-note" style="margin:6px 0 0;color:#4a3f35;font-weight:400;">' + escapeHtml(archive.annotation) + "</p>"
           : "") +
       "</figure>"
     );
@@ -655,12 +667,12 @@
       if (cached && isGateUnlocked(ctx, "gate-search-darun")) {
         var cacheHtml =
           '<div class="mystery-snapshot-callout">' +
-            "<strong>⚠ 旧索引缓存（原始时间戳：" + escapeHtml(cached.cachedAt || "2019-02-30 00:61") + "）</strong><br>" +
+            "旧站索引留存件（原始时间戳：" + escapeHtml(cached.cachedAt || "2019-02-30 00:61") + "）<br>" +
             escapeHtml(cached.deletedNote || "") +
           "</div>" +
           '<section class="site-inst-section">' +
             '<div class="site-inst-doc-redhead">丰宁非遗中心 · 旧站迁移副本</div>' +
-            '<h2 class="site-inst-section-title"><span>' + escapeHtml(cached.title) + '</span><span class="site-inst-notice-badge is-urgent">已撤回</span></h2>' +
+            '<h2 class="site-inst-section-title"><span>' + escapeHtml(cached.title) + '</span><span class="site-inst-notice-badge">已撤回</span></h2>' +
             '<div style="line-height:1.9;font-size:14.5px;color:#1e293b;">' +
               renderParagraphs(cached.paragraphs, "margin:0 0 13px;") +
             "</div>" +
@@ -693,13 +705,13 @@
             '<section class="site-inst-section">' +
               '<div style="margin-bottom:10px;">' + renderLink(INST_BASE + "/notices", "← 返回通知公示目录", "", "font-size:12.5px;color:#1e40af;text-decoration:none;") + "</div>" +
               '<div class="site-inst-doc-redhead">丰宁县非物质文化遗产保护中心文件</div>' +
-              '<h2 class="site-inst-section-title"><span>' + escapeHtml(notice.title) + '</span><span class="site-inst-notice-badge' + (notice.isUrgent ? " is-urgent" : "") + '">' + escapeHtml(notice.department || "办公室") + "</span></h2>" +
+              '<h2 class="site-inst-section-title"><span>' + escapeHtml(notice.title) + '</span><span class="site-inst-notice-badge">' + escapeHtml(notice.department || "办公室") + "</span></h2>" +
               '<div style="font-family:var(--font-mono, monospace);font-size:12px;color:#64748b;margin-bottom:14px;">发文日期：' + escapeHtml(notice.date) + " · 承办科室：" + escapeHtml(notice.department || "") + "</div>" +
               '<div style="line-height:1.85;font-size:14px;">' + renderParagraphs(notice.paragraphs || notice.content, "margin:0 0 12px;") + "</div>" +
               noticeTableHtml +
               '<div style="margin-top:16px;padding-top:12px;border-top:1px solid #e2e8f0;display:flex;gap:14px;flex-wrap:wrap;font-size:12.5px;">' +
                 renderLink(INST_BASE + "/staff", "查阅中心人员名录与工号示例 →", "", "color:#1e40af;") +
-                renderLink(INST_BASE + "/internal", "前往内部馆藏档案终端 →", "", "color:#991b1b;") +
+                renderLink(INST_BASE + "/internal", "前往内部馆藏档案终端 →", "", "color:#1e40af;") +
               "</div>" +
             "</section>";
 
@@ -730,10 +742,10 @@
                     "<tr>" +
                       '<td style="white-space:nowrap;font-family:var(--font-mono, monospace);">' + escapeHtml(item.date) + "</td>" +
                       "<td>" +
-                        renderLink(url, item.title, "", "color:#0f2036;font-weight:700;text-decoration:none;") +
+                        renderLink(url, item.title, "", "color:#0f2036;text-decoration:none;") +
                         '<div style="font-size:12px;color:#64748b;margin-top:3px;">' + escapeHtml(item.summary || "") + "</div>" +
                       "</td>" +
-                      '<td style="white-space:nowrap;"><span class="site-inst-notice-badge' + (item.isUrgent ? " is-urgent" : "") + '">' + escapeHtml(item.department || "") + "</span></td>" +
+                      '<td style="white-space:nowrap;"><span class="site-inst-notice-badge">' + escapeHtml(item.department || "") + "</span></td>" +
                     "</tr>"
                   );
                 }).join("") +
@@ -760,8 +772,8 @@
         '<section class="site-inst-section">' +
           '<div class="site-inst-doc-redhead">中心人员名录与工号编制规范</div>' +
           '<div class="mystery-snapshot-callout" style="margin-top:0;">' +
-            "<strong>统一工号编制说明：</strong>" + escapeHtml(staffDir.idRuleNote || "FY-入职年份(4位)-系统三位序号") +
-            '<div style="margin-top:6px;">' + renderLink(INST_BASE + "/notices/2018-archive-recruit", "查阅《2018 年度非遗数字化归档专员录用及工号编制公示》 →", "", "color:#92400e;font-weight:700;") + "</div>" +
+            "统一工号编制说明：" + escapeHtml(staffDir.idRuleNote || "FY-入职年份(4位)-系统三位序号") +
+            '<div style="margin-top:6px;">' + renderLink(INST_BASE + "/notices/2018-archive-recruit", "查阅《2018 年度非遗数字化归档专员录用及工号编制公示》 →", "", "color:#1e40af;") + "</div>" +
           "</div>" +
           '<div class="site-inst-staff-grid" style="margin-bottom:18px;">' +
             members.map(function (m) {
@@ -813,7 +825,7 @@
             '<div style="line-height:1.85;font-size:14px;color:#334155;">' + renderParagraphs(item.description, "margin:0 0 10px;") + "</div>" +
             (item.code === "FN-FY-1994-13"
               ? '<div style="margin-top:10px;font-size:12.5px;color:#64748b;">未裁切底片高清原件已移入特级封存库，' +
-                  renderLink(INST_BASE + "/internal", "持有效馆员工号可登录内部馆藏系统调阅 →", "", "color:#991b1b;font-weight:700;") +
+                  renderLink(INST_BASE + "/internal", "持有效馆员工号可登录内部馆藏系统调阅 →", "", "color:#1e40af;") +
                 "</div>"
               : "") +
           "</section>"
@@ -840,7 +852,7 @@
         var loginHtml =
           '<section class="site-inst-section">' +
             '<div class="site-inst-doc-redhead">丰宁非遗特级馆藏内部档案终端 · 身份核验</div>' +
-            '<h2 class="site-inst-section-title"><span>' + escapeHtml(gate.systemTitle || "丰宁非遗特级馆藏内部档案终端") + '</span><span class="site-inst-notice-badge is-urgent">限馆内授权访问</span></h2>' +
+            '<h2 class="site-inst-section-title"><span>' + escapeHtml(gate.systemTitle || "丰宁非遗特级馆藏内部档案终端") + '</span><span class="site-inst-notice-badge">限馆内授权访问</span></h2>' +
             '<p style="font-size:13.5px;color:#475569;margin:0 0 16px;line-height:1.7;">' + escapeHtml(gate.loginHint || "请输入本中心职工工号（FY-YYYY-NNN）与个人馆藏口令。") + "</p>" +
             '<div class="site-inst-login-panel">' +
               '<form class="mystery-gate-form" data-inst-login="true">' +
@@ -853,7 +865,7 @@
                   '<input id="feiyi-emp-pwd" class="mystery-gate-input" name="password" type="password" placeholder="请输入个人馆藏口令" autocomplete="current-password" style="width:100%;height:36px;padding:0 10px;border:1px solid #94a3b8;border-radius:4px;background:#fff;color:#0f172a;">' +
                 "</div>" +
                 '<div class="mystery-gate-error" data-login-error="true" role="alert" style="display:none;color:#b91c1c;background:#fee2e2;border:1px solid #fca5a5;padding:8px 10px;border-radius:4px;font-size:12.5px;margin-bottom:12px;"></div>' +
-                '<button class="mystery-gate-submit" type="submit" style="height:36px;padding:0 18px;border:none;border-radius:4px;background:#991b1b;color:#fff;font-size:13px;font-weight:700;cursor:pointer;">核验工号并进入特级库房</button>' +
+                '<button class="mystery-gate-submit" type="submit" style="height:36px;padding:0 18px;border:none;border-radius:4px;background:#1e3a5f;color:#fff;font-size:13px;cursor:pointer;">核验工号并进入特级库房</button>' +
               "</form>" +
             "</div>" +
             '<div style="margin-top:16px;font-size:12.5px;color:#64748b;display:flex;gap:14px;flex-wrap:wrap;">' +
@@ -1083,8 +1095,8 @@
                 return (
                   "<tr>" +
                     '<td style="white-space:nowrap;font-family:var(--font-mono, monospace);">' + escapeHtml(n.date) + "</td>" +
-                    "<td>" + renderLink(url, n.title, "", "color:#0f2036;font-weight:700;text-decoration:none;") + "</td>" +
-                    '<td style="white-space:nowrap;"><span class="site-inst-notice-badge' + (n.isUrgent ? " is-urgent" : "") + '">' + escapeHtml(n.department || "") + "</span></td>" +
+                    "<td>" + renderLink(url, n.title, "", "color:#0f2036;text-decoration:none;") + "</td>" +
+                    '<td style="white-space:nowrap;"><span class="site-inst-notice-badge">' + escapeHtml(n.department || "") + "</span></td>" +
                   "</tr>"
                 );
               }).join("") +
@@ -1169,8 +1181,8 @@
                     "<tr>" +
                       '<td style="white-space:nowrap;font-family:var(--font-mono, monospace);">' + escapeHtml(n.docCode || "") + "</td>" +
                       "<td>" +
-                        renderLink(url, n.title, "", "color:#991b1b;font-weight:700;text-decoration:none;") +
-                        (n.hasSnapshotDiff ? ' <span class="site-prop-surveyor-badge" style="margin-left:6px;">含 2024-10-15 时光机原版</span>' : "") +
+                        renderLink(url, n.title, "", "color:#1e40af;text-decoration:none;") +
+                        (n.hasSnapshotDiff ? ' <span class="site-prop-surveyor-badge" style="margin-left:6px;background:#efe7d5;color:#57534e;border:1px solid #cfc4ae;font-weight:400;">含 2024-10-15 时光机原版</span>' : "") +
                       "</td>" +
                       '<td style="white-space:nowrap;font-family:var(--font-mono, monospace);">' + escapeHtml(n.publishedDate || "") + "</td>" +
                     "</tr>"
@@ -1210,23 +1222,23 @@
           content =
             docBar +
             '<div class="mystery-snapshot-callout" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin:0;">' +
-              "<div><strong>⏱ 已还原 2024-10-15 原始公示快照 · </strong>" + escapeHtml(snap.timestamp || "") + "</div>" +
-              '<button type="button" data-prop-wayback-exit="true" style="padding:5px 12px;border-radius:3px;border:1px solid #92400e;background:transparent;color:#78350f;font-size:12px;font-weight:700;cursor:pointer;">切回 10-16 覆写版</button>' +
+              "<div>已还原 2024-10-15 原始公示存档 · " + escapeHtml(snap.timestamp || "") + "</div>" +
+              '<button type="button" data-prop-wayback-exit="true" style="padding:5px 12px;border-radius:3px;border:1px solid #94a3b8;background:transparent;color:#334155;font-size:12px;cursor:pointer;">切回 10-16 覆写版</button>' +
             "</div>" +
-            '<h2 style="margin:0;font-size:20px;color:#7f1d1d;">' + escapeHtml(snap.headline || "") + "</h2>" +
+            '<h2 style="margin:0;font-size:20px;color:#1c1917;">' + escapeHtml(snap.headline || "") + "</h2>" +
             '<section class="site-prop-anomaly">' +
-              '<div style="font-weight:800;font-size:14.5px;margin-bottom:6px;">⚠ 图外幽灵夹层异常登记：' + escapeHtml(anomaly.roomCode || "404B") + " 室</div>" +
-              '<div style="font-family:var(--font-mono, monospace);font-size:12px;margin-bottom:6px;">位置：' + escapeHtml(anomaly.location || "") + "</div>" +
+              '<div style="font-size:14px;margin-bottom:6px;color:#292524;">附记夹层登记：' + escapeHtml(anomaly.roomCode || "404B") + " 室</div>" +
+              '<div style="font-family:var(--font-mono, monospace);font-size:12px;margin-bottom:6px;color:#57534e;">位置：' + escapeHtml(anomaly.location || "") + "</div>" +
               renderParagraphs(anomaly.details, "margin:0;") +
             "</section>" +
             '<section class="site-prop-surveyor-card">' +
               '<div class="site-prop-surveyor-head">' +
-                '<span class="site-prop-surveyor-name">失联测绘员协查卡：' + escapeHtml(surveyor.name || "周延生") + "</span>" +
-                '<span class="site-prop-surveyor-badge">证件日期异常 · 跨界同脸</span>' +
+                '<span class="site-prop-surveyor-name">外派测绘员登记：' + escapeHtml(surveyor.name || "周延生") + "</span>" +
+                '<span class="site-prop-surveyor-badge">待核原件</span>' +
               "</div>" +
               '<div class="site-prop-surveyor-meta">' +
                 "职务：" + escapeHtml(surveyor.role || "") +
-                " ｜ 身份证签发日：<strong style=\"color:#991b1b;\">" + escapeHtml(surveyor.idIssueDate || "1994-02-30") + "</strong>" +
+                " ｜ 身份证签发日：" + escapeHtml(surveyor.idIssueDate || "1994-02-30") +
               "</div>" +
               '<div class="site-prop-surveyor-note">' +
                 renderParagraphs([surveyor.features, surveyor.lastSeen], "margin:0 0 8px;") +
@@ -1307,7 +1319,7 @@
           "</div>" +
           '<div class="site-prop-surveyor-note">' + renderParagraphs(data.surveyorMissingNote, "margin:0;") + "</div>" +
         "</div>" +
-        '<div>' + renderLink(DEMOLITION_URL, "前往查看 7 号楼拆迁复核公示（建议开启时光机对比） →", "", "color:#991b1b;font-weight:700;") + "</div>";
+        '<div>' + renderLink(DEMOLITION_URL, "前往查看 7 号楼拆迁复核公示 →", "", "color:#1e40af;") + "</div>";
     } else if (section === "floorplan") {
       title = "7 号楼标准楼层与门牌对照表";
       var fp = data.floorplanData || {};
@@ -1330,8 +1342,8 @@
           if (showGap) {
             rowsHtml +=
               '<tr class="site-prop-anomaly">' +
-                '<td style="font-family:var(--font-mono, monospace);font-weight:800;color:#991b1b;">4F / 5F 夹层</td>' +
-                '<td><strong>' + escapeHtml(gap.roomCode) + " 室（图外幽灵夹层 · " + escapeHtml(gap.areaSquareMeters) + "㎡）</strong></td>" +
+                '<td style="font-family:var(--font-mono, monospace);">4F / 5F 夹层</td>' +
+                "<td>" + escapeHtml(gap.roomCode) + " 室（夹层补测 · " + escapeHtml(gap.areaSquareMeters) + "㎡）</td>" +
                 "<td>" + escapeHtml(gap.note) + "</td>" +
               "</tr>";
           } else {
@@ -1352,10 +1364,10 @@
             "<tbody>" + rowsHtml + "</tbody>" +
           "</table>" +
         "</div>" +
-        '<div>' + renderLink(DEMOLITION_URL, "返回 7 号楼拆迁复核公示 →", "", "color:#991b1b;font-weight:700;") + "</div>";
+        '<div>' + renderLink(DEMOLITION_URL, "返回 7 号楼拆迁复核公示 →", "", "color:#1e40af;") + "</div>";
     } else {
       title = "页面未找到";
-      content = renderParagraphs("未检索到该物业公示页。") + renderLink(PROP_BASE + "/", "返回槐安里物业首页", "", "color:#991b1b;font-weight:700;");
+      content = renderParagraphs("未检索到该物业公示页。") + renderLink(PROP_BASE + "/", "返回槐安里物业首页", "", "color:#1e40af;");
     }
 
     var pageHtml =

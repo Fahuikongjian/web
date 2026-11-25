@@ -802,22 +802,30 @@ def render_site(
     # Render the series catalogue, case archives, and the unlisted reading room.
     mystery_site_root = effective_site_url(str(site["site_url"]), normalized_base_path)
     mystery_pages = (
-        ("mystery", "mystery_index.html", "民俗志异 · 解密总录", "中式民俗志异网页解密系列合集。"),
-        ("mystery/darun", "mystery_darun.html", "大闰录 · 旧网拾遗", "《大闰录》五幕地方旧网归档卷册。"),
-        ("mystery/act-1", "mystery.html", "第一幕 · 纸傩代身", "丰宁旧剧场、非遗馆藏与槐安里拆迁公示存档。"),
-        ("mystery/act-2", "mystery.html", "第二幕 · 门牌余号", "澄溪清河巷门牌、地籍与夜渡交接存档。"),
-        ("mystery/act-3", "mystery.html", "第三幕 · 借姓簿", "栖梧镇迁居清册、宗谱与口述存档。"),
-        ("mystery/act-4", "mystery.html", "第四幕 · 失日台", "鸣川气象观测、授时广播与旧万年历存档。"),
-        ("mystery/act-5", "mystery.html", "第五幕 · 空炉回香", "蒲岭白鹭会修复验收、庙务和地方影像存档。"),
-        ("mystery/reading-room", "mystery.html", "旧网拾遗 · 缺页登记", "地方站归档目录补件。"),
+        ("mystery", "mystery_index.html", "民俗志异 · 解密总录", "中式民俗志异网页解密系列合集。", "", "/mystery/"),
+        ("mystery/darun", "mystery_darun.html", "大闰录 · 旧网拾遗", "《大闰录》五幕地方旧网归档卷册。", "", "/mystery/darun/"),
+        ("mystery/act-1", "mystery.html", "第一幕 · 纸傩代身", "丰宁旧剧场、非遗馆藏与槐安里拆迁公示存档。", "/static/mystery/data/act-1.json", "/mystery/darun/"),
+        ("mystery/act-2", "mystery.html", "第二幕 · 门牌余号", "澄溪清河巷门牌、地籍与夜渡交接存档。", "/static/mystery/data/act-2.json", "/mystery/darun/"),
+        ("mystery/act-3", "mystery.html", "第三幕 · 借姓簿", "栖梧镇迁居清册、宗谱与口述存档。", "/static/mystery/data/act-3.json", "/mystery/darun/"),
+        ("mystery/act-4", "mystery.html", "第四幕 · 失日台", "鸣川气象观测、授时广播与旧万年历存档。", "/static/mystery/data/act-4.json", "/mystery/darun/"),
+        ("mystery/act-5", "mystery.html", "第五幕 · 空炉回香", "蒲岭白鹭会修复验收、庙务和地方影像存档。", "/static/mystery/data/act-5.json", "/mystery/darun/"),
+        ("mystery/reading-room", "mystery.html", "旧网拾遗 · 缺页登记", "地方站归档目录补件。", "/static/mystery/data/reading-room.json", "/mystery/darun/"),
+        ("mystery/suojiang", "mystery_suojiang.html", "锁江志 · 水文档案", "《锁江志》沧江流域五幕治水志异网页档案。", "", "/mystery/suojiang/"),
+        ("mystery/suojiang/act-1", "mystery.html", "第一幕 · 石鱼露背", "夔滩水文遥测站、电站泄洪与石鱼题刻存档。", "/static/mystery/data/suojiang-act-1.json", "/mystery/suojiang/"),
+        ("mystery/suojiang/act-2", "mystery.html", "第二幕 · 断剑桥墩", "龙门渡大桥水文监测、航道通告与铁剑碑录存档。", "/static/mystery/data/suojiang-act-2.json", "/mystery/suojiang/"),
+        ("mystery/suojiang/act-3", "mystery.html", "第三幕 · 借船过闸", "淮阴船闸航务调度、遥测日志与漕运旧档存档。", "/static/mystery/data/suojiang-act-3.json", "/mystery/suojiang/"),
+        ("mystery/suojiang/act-4", "mystery.html", "第四幕 · 暗渠行灯", "临安坊排水泵站、古城暗渠舆图与井巷口述存档。", "/static/mystery/data/suojiang-act-4.json", "/mystery/suojiang/"),
+        ("mystery/suojiang/act-5", "mystery.html", "第五幕 · 锁江铁牛", "崇沙洲海事航道、潮汐观测与镇海铁牛史料存档。", "/static/mystery/data/suojiang-act-5.json", "/mystery/suojiang/"),
+        ("mystery/suojiang/reading-room", "mystery.html", "锁江旧网 · 水签合验", "锁江流域五幕回执水签核验窗口。", "/static/mystery/data/suojiang-reading-room.json", "/mystery/suojiang/"),
     )
-    for route, template, title, description in mystery_pages:
+    for route, template, title, description, archive_config, series_catalogue_url in mystery_pages:
         mystery_html = engine.render(template, {
             "base_path": normalized_base_path,
             "page_title": f"{title} · {site['site_title']}",
             "page_description": description,
             "canonical_url": f"{mystery_site_root}/{route}/",
-            "archive_config": f"/static/mystery/data/{route.rsplit('/', 1)[-1]}.json",
+            "archive_config": archive_config,
+            "series_catalogue_url": series_catalogue_url,
             "robots_policy": "noindex" if route.endswith("/reading-room") else "index, follow",
         })
         _write_html(

@@ -34,7 +34,7 @@
   "portal": {
     "title": "旧网拾遗 · 丰宁地方网页归档导航",
     "subtitle": "丰宁旧戏、社区公示及个人网页的分站备份",
-    "notice": "槐安里七号楼复核补件已开放。县里请居民优先核对初版公示与值班簿，仍有原始材料的请移交收件处。",
+    "notice": "槐安里七号楼拆迁复核补件已开放，十月十六日凌晨物业公示出现改动，外派测绘员随之失联，且楼址正是三十年前太平社末场散戏的老剧场旧址。请先从「丰宁地方资料站」旧档查起，「山野拾影」的《太平社老戏台》手记可供对照。",
     "noticeLink": "https://fuhe.fengning.lh/",
     "directoryCards": [
       {
@@ -77,21 +77,21 @@
         "domain": "ziliaoguan.fengning.lh",
         "url": "https://ziliaoguan.fengning.lh/",
         "category": "文化资料",
-        "description": "原剧场、县文化站、底片移交清册与纸料登记。"
+        "description": "收录老剧场演出档案、县文化站的戏班底片移交清册与纸料出库登记。"
       },
       {
         "title": "丰宁工程公示备查",
         "domain": "gongshi.fengning.lh",
         "url": "https://gongshi.fengning.lh/",
         "category": "工程资料",
-        "description": "旧城改造批件、值班接收单和网上公示校样。"
+        "description": "收录旧城改造批件、值班接收单及网上公示校样。"
       },
       {
         "title": "丰宁旧城复核收件处",
         "domain": "fuhe.fengning.lh",
         "url": "https://fuhe.fengning.lh/",
         "category": "办事入口",
-        "description": "七号楼复核受理。可按材料类别分次提交。"
+        "description": "槐安里七号楼拆迁异议复核受理处，可按材料类别分项核对提交。"
       }
     ],
     "icpFooter": {

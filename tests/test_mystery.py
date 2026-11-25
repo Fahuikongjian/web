@@ -408,6 +408,11 @@ def test_two_level_gallery_wheel_themes_and_responsive_layout(browser, site_url)
     try:
         desktop.goto(site_url + "/mystery/", wait_until="networkidle")
         expect(desktop.locator('[data-mystery-level="hub"]')).to_have_count(1)
+        expect(desktop.locator(".hub-topbar-status")).to_contain_text("02 已开卷 / 02 筹备")
+        expect(desktop.locator("[data-reel-card]")).to_have_count(5)
+        expect(desktop.get_by_role("link", name="大闰录", exact=False)).to_be_visible()
+        expect(desktop.get_by_role("link", name="锁江志", exact=False)).to_be_visible()
+        expect(desktop.get_by_text("十音簿", exact=False)).to_be_visible()
         expect(desktop.get_by_text("敬请期待", exact=True)).to_be_visible()
         _assert_no_horizontal_overflow(desktop, "/mystery/", "1440x900")
         _assert_wheel_scrolls_reel_horizontally(desktop, "/mystery/")
@@ -474,6 +479,10 @@ def test_two_level_gallery_wheel_themes_and_responsive_layout(browser, site_url)
     mobile_errors = _attach_error_collectors(mobile)
     try:
         mobile.goto(site_url + "/mystery/", wait_until="networkidle")
+        expect(mobile.locator("[data-reel-card]")).to_have_count(5)
+        expect(mobile.get_by_role("link", name="大闰录", exact=False)).to_be_visible()
+        expect(mobile.get_by_role("link", name="锁江志", exact=False)).to_be_visible()
+        expect(mobile.get_by_text("十音簿", exact=False)).to_be_visible()
         expect(mobile.get_by_text("敬请期待", exact=True)).to_be_visible()
         _assert_no_horizontal_overflow(mobile, "/mystery/", "390x844")
 
@@ -485,3 +494,74 @@ def test_two_level_gallery_wheel_themes_and_responsive_layout(browser, site_url)
         _assert_clean_page(mobile_errors, "mystery two-level mobile")
     finally:
         mobile.close()
+
+
+def _assert_darun_reader_layout(page, selector, viewport):
+    reader = page.locator("[data-viewport]")
+    expect(reader.locator(selector).first).to_be_visible()
+    visible_text = reader.inner_text()
+    assert not any(icon in visible_text for icon in ("⚠", "⏱")), page.url
+    _assert_no_horizontal_overflow(page, page.url, viewport)
+    assert page.evaluate("document.documentElement.scrollWidth <= window.innerWidth"), (
+        f"Horizontal overflow on {page.url} ({viewport})"
+    )
+
+
+def test_darun_real_site_layouts_and_anti_highlight(browser, site_url):
+    routes = {
+        "/mystery/act-1/": (
+            ("https://gongshi.fengning.lh/7f-revision", ".arch-layout--sidebar-left .arch-doc--redhead"),
+            ("https://ziliaoguan.fengning.lh/wh-94", ".arch-layout--library .arch-biblio-card"),
+            ("https://fuhe.fengning.lh/", ".arch-doc--hall .arch-hall-steps"),
+            (SEARCH, ".site-theme-search"),
+            (FEIYI, ".site-theme-institution"),
+            (FORUM, ".site-theme-forum"),
+            ("https://wy.huaianli.lh/", ".site-theme-property"),
+            (BLOG + "post/temple-smoke", ".site-theme-blog"),
+        ),
+        "/mystery/act-2/": (
+            ("https://oldweb.chengxi.lh/", ".arch-dir-grid"),
+            ("https://qinghe-tongxun.lh/", ".arch-doc--bbs .archive-table"),
+            ("https://dukou.chengxi.lh/runs", ".arch-layout--sidebar-right .arch-unit-box"),
+        ),
+    }
+    chapter = _data("act-2")
+    review_url = _review_base(chapter)
+    work, next_work = chapter["checks"][:2]
+
+    for width, height in ((1440, 900), (390, 844)):
+        viewport = f"{width}x{height}"
+        page = browser.new_page(
+            viewport={"width": width, "height": height},
+            is_mobile=width < 768,
+            has_touch=width < 768,
+        )
+        errors = _attach_error_collectors(page)
+        try:
+            for path, sites in routes.items():
+                page.goto(site_url + path, wait_until="networkidle")
+                page.evaluate("(key) => localStorage.removeItem(key)", chapter["storageKey"])
+                for target, selector in sites:
+                    _navigate(page, target)
+                    _assert_darun_reader_layout(page, selector, viewport)
+                    if target == BLOG + "post/temple-smoke":
+                        ink = page.locator(".mystery-hidden-ink")
+                        expect(ink).to_be_visible()
+                        expect(ink).to_have_css("color", "rgb(255, 252, 246)")
+                        expect(ink).to_have_css("background-color", "rgb(255, 252, 246)")
+
+            _navigate(page, review_url + work["id"])
+            _submit(page, work)
+            doc = page.locator(".archive-document")
+            expect(doc.locator(".archive-receipt")).to_be_visible()
+            progression = doc.locator(f'a[data-mystery-link="{review_url}{next_work["id"]}"]')
+            expect(progression).to_be_visible()
+            expect(doc.get_by_role("link", name="返回收件目录", exact=True)).to_have_attribute(
+                "data-mystery-link", review_url
+            )
+            _assert_darun_reader_layout(page, ".archive-receipt", viewport)
+            progression.click()
+            expect(page.get_by_role("heading", name=next_work["title"], exact=True)).to_be_visible()
+            _assert_clean_page(errors, f"darun layout & anti-highlight {viewport}")
+        finally:
+            page.close()

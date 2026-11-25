@@ -1,0 +1,79 @@
+{
+  "caseId": "CASE-SJ-00",
+  "storageKey": "suojiang_save_v1_finale",
+  "homeUrl": "https://shuiqian.suojiang.lh/",
+  "dossierUrl": "/static/mystery/data/suojiang-finale-dossier.json",
+  "seriesKey": "suojiang",
+  "archiveBrand": "锁江水文档案",
+  "snapshotButtonLabels": {
+    "enter": "切至极枯水位",
+    "exit": "返回现行水位"
+  },
+  "records": [],
+  "sites": [
+    {
+      "domain": "shuiqian.suojiang.lh",
+      "title": "锁江旧网 · 水签合验",
+      "heading": "五卷水文回执签号合验",
+      "style": "directory",
+      "strap": "沧江流域五幕回执　水签合榫",
+      "intro": [
+        "自上游夔滩至入海口崇沙洲，五卷水文复核回执末尾各印一枚水文回执签号。请按流域由上至下依次录入合验。"
+      ],
+      "nav": [],
+      "kind": "entry",
+      "footer": "锁江水文档案协同组　青铜水签合验窗口"
+    }
+  ],
+  "entry": {
+    "id": "collate-water",
+    "title": "五卷水文回执签号合验",
+    "intro": [
+      "共收沧江五幕分卷结案回执。请按第一幕至第五幕先后顺序，抄录每卷结案回执末行签发的水文回执签号，勿取卷内夹带的上游转件旁注。"
+    ],
+    "fields": [
+      {
+        "label": "第一幕 · 石鱼露背（夔滩）",
+        "accept": [
+          "SY"
+        ]
+      },
+      {
+        "label": "第二幕 · 断剑桥墩（龙门渡）",
+        "accept": [
+          "DJ"
+        ]
+      },
+      {
+        "label": "第三幕 · 借船过闸（淮阴闸）",
+        "accept": [
+          "GZ"
+        ]
+      },
+      {
+        "label": "第四幕 · 暗渠行灯（临安坊）",
+        "accept": [
+          "HD"
+        ]
+      },
+      {
+        "label": "第五幕 · 锁江铁牛（崇沙洲）",
+        "accept": [
+          "TN"
+        ]
+      }
+    ],
+    "hints": [
+      "每枚签号均位于对应分幕结案回执的最后一句（“本卷水文回执签号：XX。”）。"
+    ],
+    "receipt": [
+      "五枚水文回执签号沿铜槽依次嵌合，青铜水签匣底夹层随即开启，露出一卷未列于地方旧网目录的总录密档，封签只印「SJ-61 · 龙门水府」。"
+    ],
+    "links": [
+      {
+        "url": "https://shuifu.suojiang.lh/",
+        "label": "锁江总录 · 龙门水府密档"
+      }
+    ]
+  }
+}

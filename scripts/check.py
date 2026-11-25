@@ -50,6 +50,13 @@ REQUIRED_FILES = (
     "mystery/act-4/index.html",
     "mystery/act-5/index.html",
     "mystery/reading-room/index.html",
+    "mystery/suojiang/index.html",
+    "mystery/suojiang/act-1/index.html",
+    "mystery/suojiang/act-2/index.html",
+    "mystery/suojiang/act-3/index.html",
+    "mystery/suojiang/act-4/index.html",
+    "mystery/suojiang/act-5/index.html",
+    "mystery/suojiang/reading-room/index.html",
     "about/index.html",
     "404.html",
     "api/posts.json",
@@ -86,6 +93,7 @@ REQUIRED_MYSTERY_ASSETS = (
     "static/mystery/css/archive.css",
     "static/mystery/css/mystery_hub.css",
     "static/mystery/css/mystery_darun.css",
+    "static/mystery/css/mystery_suojiang.css",
     "static/mystery/js/state_store.js",
     "static/mystery/js/search_engine.js",
     "static/mystery/js/renderers/official_renderers.js",
@@ -102,6 +110,13 @@ REQUIRED_MYSTERY_ASSETS = (
     "static/mystery/data/act-5.json",
     "static/mystery/data/reading-room.json",
     "static/mystery/data/finale-dossier.json",
+    "static/mystery/data/suojiang-act-1.json",
+    "static/mystery/data/suojiang-act-2.json",
+    "static/mystery/data/suojiang-act-3.json",
+    "static/mystery/data/suojiang-act-4.json",
+    "static/mystery/data/suojiang-act-5.json",
+    "static/mystery/data/suojiang-reading-room.json",
+    "static/mystery/data/suojiang-finale-dossier.json",
     "static/mystery/data/site_search.json",
     "static/mystery/data/site_institution.json",
     "static/mystery/data/site_property.json",
@@ -581,7 +596,13 @@ def check_xml_files(dist_dir: Path, base_path: str = "", *, posts_count: int) ->
                     errors.append("dist/sitemap.xml missing '/gallery/' entry.")
                 if not any(loc.endswith("/games/") for loc in locs):
                     errors.append("dist/sitemap.xml missing '/games/' entry.")
-                mystery_routes = ("/mystery/", "/mystery/darun/", *(f"/mystery/act-{volume}/" for volume in range(1, 6)))
+                mystery_routes = (
+                    "/mystery/",
+                    "/mystery/darun/",
+                    *(f"/mystery/act-{volume}/" for volume in range(1, 6)),
+                    "/mystery/suojiang/",
+                    *(f"/mystery/suojiang/act-{volume}/" for volume in range(1, 6)),
+                )
                 for route in mystery_routes:
                     if not any(loc.endswith(route) for loc in locs):
                         errors.append(f"dist/sitemap.xml missing '{route}' entry.")

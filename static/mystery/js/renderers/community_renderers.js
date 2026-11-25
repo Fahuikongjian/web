@@ -420,7 +420,7 @@
 
         var unlistedNoticeHtml = currentPost.isUnlisted
           ? '<div class="mystery-snapshot-callout" style="margin-top:0;">' +
-            "<strong>【未公开草稿 · 爬虫缓存页面】</strong>本篇野庙底稿未列于主页公开目录，经千度旧网定向检索发现。" +
+            "本篇未列于主页公开目录，经地方旧网缓存索引收录。" +
             "</div>"
           : "";
 
@@ -441,7 +441,7 @@
         if (lockedNow) {
           bodySectionHtml =
             '<div class="site-blog-lock-box">' +
-            '<div style="font-weight:700;margin-bottom:6px;">此日志设有访问口令</div>' +
+            '<div style="margin-bottom:6px;">此日志设有访问口令</div>' +
             '<p style="margin:0 0 12px;font-size:13.5px;line-height:1.7;">' +
             escapeHtml(currentPost.passwordHint || "请输入访问口令解锁阅读。") +
             "</p>" +
@@ -601,7 +601,7 @@
               var isLockedCard =
                 Boolean(post.isLocked) && !isGateUnlocked(context, post.gateId);
               var excerpt = isLockedCard
-                ? "【此日志已设密码保护】" +
+                ? "此日志设有访问口令：" +
                   (post.passwordHint || "需输入正确口令后方可阅读正文。")
                 : Array.isArray(post.paragraphs) && post.paragraphs[0]
                   ? post.paragraphs[0]
@@ -640,7 +640,7 @@
                 escapeHtml(postUrl) +
                 '" data-mystery-link="' +
                 escapeHtml(postUrl) +
-                '" style="font-family:var(--font-sans,sans-serif);font-size:13px;font-weight:700;color:#c0564b;text-decoration:none;">' +
+                '" style="font-family:var(--font-sans,sans-serif);font-size:13px;color:#8c3f34;text-decoration:none;">' +
                 (isLockedCard ? "输入口令解锁阅读 →" : "阅读全文 →") +
                 "</a>" +
                 "</div>" +
@@ -969,18 +969,18 @@
           if (isTimeMachine) {
             snapshotCalloutHtml =
               '<div class="mystery-snapshot-callout" style="margin:12px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">' +
-              "<span><strong>⏱ 网页时光机岁差快照（" +
+              "<span>历史镜像存档（" +
               escapeHtml(data.snapshotDate || "2019-02-30") +
-              "）：</strong>显示当时保留的帖子，楼层时间按原样抄录。</span>" +
-              '<button type="button" class="site-forum-back-link" data-forum-wayback="off">退出时光机视图</button>' +
+              "）：显示当时保留的帖子，楼层时间按原样抄录。</span>" +
+              '<button type="button" class="site-forum-back-link" data-forum-wayback="off">收起历史镜像</button>' +
               "</div>";
           } else {
             snapshotCalloutHtml =
               '<div class="mystery-snapshot-callout" style="margin:12px 14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;">' +
-              "<span><strong>岁差快照提示：</strong>本帖 2F、5F、8F 已遭屏蔽，但岁差镜像留存了 <strong>" +
+              "<span>版面注记：本帖部分早期回复已不可见，可通过 " +
               escapeHtml(data.snapshotDate || "2019-02-30") +
-              "</strong> 完整原貌。</span>" +
-              '<button type="button" class="site-forum-board-tab is-active" data-forum-wayback="true">开启「网页时光机」还原屏蔽楼层</button>' +
+              " 历史镜像查阅原貌。</span>" +
+              '<button type="button" class="site-forum-back-link" data-forum-wayback="true">查阅历史镜像</button>' +
               "</div>";
           }
         }
@@ -995,9 +995,9 @@
               if (isTimeMachine) {
                 contentHtml =
                   '<div class="mystery-restored-post">' +
-                  '<div class="mystery-restored-badge">⏱ ' +
+                  '<div class="mystery-restored-badge">' +
                   escapeHtml(data.snapshotDate || "2019-02-30") +
-                  " 网页备份</div>" +
+                  " 存档抄本</div>" +
                   '<div style="margin-bottom:10px;">' +
                   renderMultiline(post.restoredContent || "") +
                   "</div>" +
@@ -1128,7 +1128,7 @@
               badges += '<span class="site-forum-badge-hot">热议</span>';
             }
             if (t.hasSnapshotRestore) {
-              badges += '<span class="site-forum-badge-del">部分屏蔽 · 含快照</span>';
+              badges += '<span class="site-forum-badge-del">有存档</span>';
             }
             return (
               '<a class="site-forum-thread-row' +
